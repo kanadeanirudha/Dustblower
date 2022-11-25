@@ -453,14 +453,6 @@
     <Compile Include="SearchRequestDTO\UserMaster\UserModuleMasterSearchRequest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="EntityDTO\CCRM\vssver.scc" />
-    <None Include="EntityDTO\ExcelUpload\vssver.scc" />
-    <None Include="EntityDTO\Sales\vssver.scc" />
-    <None Include="SearchRequestDTO\Admin\vssver.scc" />
-    <None Include="SearchRequestDTO\CCRM\vssver.scc" />
-    <None Include="SearchRequestDTO\Sales\vssver.scc" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Infrastructure\AERP.Base.DTO\AERP.Base.DTO.csproj">
       <Project>{cfcf47cc-de41-4f48-805c-9420b3716d1e}</Project>
       <Name>AERP.Base.DTO</Name>

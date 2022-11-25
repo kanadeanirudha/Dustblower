@@ -471,15 +471,6 @@
       <Name>AERP.DTO</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Implementation\CCRM\vssver.scc" />
-    <None Include="Implementation\ExcelUpload\vssver.scc" />
-    <None Include="Implementation\Sales\vssver.scc" />
-    <None Include="Interface\CCRM\vssver.scc" />
-    <None Include="Interface\Dashboard\vssver.scc" />
-    <None Include="Interface\ExcelUpload\vssver.scc" />
-    <None Include="Interface\Sales\vssver.scc" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
