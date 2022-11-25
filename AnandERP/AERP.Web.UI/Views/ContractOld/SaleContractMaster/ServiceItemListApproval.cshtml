@@ -1,0 +1,23 @@
+﻿@model AERP.ViewModel.SaleContractMasterViewModel
+
+<div class="col-sm-12">
+    <table id="tblAddServiceItem" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Service Item Name</th>
+                <th>Service Item Rate</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model.SaleContractMasterListForServiceItem)
+            {
+                <tr>
+                    <td>@item.SaleContractServiceItemName</td>
+                    <td>@item.SaleContractServiceItemRate</td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

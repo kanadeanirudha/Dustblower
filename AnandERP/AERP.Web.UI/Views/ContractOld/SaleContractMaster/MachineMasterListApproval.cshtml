@@ -1,0 +1,25 @@
+﻿@model AERP.ViewModel.SaleContractMasterViewModel
+
+<div class="col-sm-12">
+    <table id="tblAssignMachineMaster" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Machine Name</th>
+                <th>Serial Number</th>
+                <th>Machine Rate</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model.SaleContractMasterListForMachineMaster)
+            {
+                <tr>
+                    <td>@item.SaleContractMachineMasterName</td>
+                    <td>@item.SaleContractMachineMasterSerialNumber</td>
+                    <td>@item.SaleContractMachineMasterRate</td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

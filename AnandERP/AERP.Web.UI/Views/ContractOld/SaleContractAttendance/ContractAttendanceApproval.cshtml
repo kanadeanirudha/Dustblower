@@ -1,0 +1,180 @@
+﻿@model AERP.ViewModel.SaleContractAttendanceViewModel
+<style type="text/css">
+    .mfp-content {
+        width: 90% !important;
+    }
+
+    #SalaryRules th, #SelectedRules th {
+        font-size: 12px;
+    }
+</style>
+<script src="@Url.Content("~/Scripts/AERP_Scripts/TaskNotification/CAPendingRequest.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/Theme/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css")" rel="stylesheet" type="text/css" />
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Approve Contract Attendance</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormCreateSaleContractManPowerItemRules">
+
+                @Html.HiddenFor(m => m.TaskCode)
+                @Html.HiddenFor(m => m.TaskNotificationDetailsID)
+                @Html.HiddenFor(m => m.TaskNotificationMasterID)
+                @Html.HiddenFor(m => m.GeneralTaskReportingDetailsID)
+                @Html.HiddenFor(m => m.PersonID)
+                @Html.HiddenFor(m => m.StageSequenceNumber)
+                @Html.HiddenFor(m => m.IsLastRecord)
+                @Html.HiddenFor(m => m.ID)
+
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="select form-group fg-line">
+                            @Html.LabelFor(model => model.ContractNumber, new { })
+                            @Html.TextBoxFor(model => model.ContractNumber, new { @class = "form-control input-sm " })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.SaleContractBillingSpanName, new { })
+                            @Html.TextBoxFor(model => model.SaleContractBillingSpanName, new { @class = "form-control input-sm " })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <table id="tblAttendanceData" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Sr. No.</th>
+                                <th>Employee Name</th>
+                                <th>Total Salary Days</th>
+                                <th>Total Billing Days</th>
+                                <th>Total Off Salary Days</th>
+                                <th>Total Off Billing Days</th>
+                                <th>Attendance</th>
+                                <th>Over Time</th>
+                            </tr>
+                        </thead>
+                        @if (Model.SaleContractAttendanceList.Count > 0)
+                        {
+                            decimal TotalDaysSum = 0; decimal TotalBillingDaysSum = 0; decimal TotalAttendanceSum = 0; decimal OvertimeHoursSum = 0; decimal WeeklyOffDaysSum = 0; decimal WeeklyOffBillingDaysSum = 0; int Count = 1;
+                            <tbody>
+
+                                @foreach (var item in Model.SaleContractAttendanceList)
+                                {
+                                    TotalDaysSum = TotalDaysSum + item.TotalDays;
+                                    TotalBillingDaysSum = TotalBillingDaysSum + item.TotalBillingDays;
+                                    TotalAttendanceSum = TotalAttendanceSum + item.TotalAttendance;
+                                    OvertimeHoursSum = OvertimeHoursSum + item.OvertimeHours;
+                                    WeeklyOffDaysSum = WeeklyOffDaysSum + item.TotalWeeklyOffDays;
+                                    WeeklyOffBillingDaysSum = WeeklyOffBillingDaysSum + item.TotalWeeklyOffBillingDays;
+                                    <tr>
+                                        <td>@Count</td>
+                                        <td>
+                                            <input type="hidden" value="@item.ID">
+                                            <input type="hidden" value="@item.SaleContractManPowerItemID">
+                                            <input type="hidden" value="@item.SaleContractEmployeeMasterID">
+                                            <span class="SaleContractEmployeeMasterName">@item.SaleContractEmployeeMasterName</span>
+                                        </td>
+                                        <td>
+                                            <span class="IsOverTimeDaysFix hidden">@(item.IsOverTimeDaysFix == true ? 1 : 0)</span>
+                                            <span class="OriTotalOverTimeSalaryDays hidden">@item.TotalOverTimeSalaryDays</span>
+                                            <input type="hidden" class="TotalOverTimeSalaryDays" value="@item.TotalOverTimeSalaryDays" />
+                                            <span class="IsSalaryDaysCountFix hidden">@(item.IsSalaryDaysCountFix == true ? 1 : 0)</span>
+                                            <span class="OriTotalDays hidden">@item.TotalDays</span>
+                                            <input type="text" class="form-control input-sm TotalDays" value="@item.TotalDays" disabled>
+                                        </td>
+                                        <td>
+                                            <span class="IsOverTimeBillingDaysFix hidden">@(item.IsOverTimeBillingDaysFix == true ? 1 : 0)</span>
+                                            <span class="OriTotalOverTimeBillingDays hidden">@item.TotalOverTimeBillingDays</span>
+                                            <input type="hidden" class="TotalOverTimeBillingDays" value="@item.TotalOverTimeBillingDays" />
+                                            <span class="IsBillingDaysFixed hidden">@(item.IsBillingDaysFixed == true ? 1 : 0)</span>
+                                            <span class="OriTotalBillingDays hidden">@item.TotalBillingDays</span>
+                                            <input type="text" class="form-control input-sm TotalBillingDays" value="@item.TotalBillingDays" disabled>
+                                        </td>
+                                        <td>
+                                            <input type="hidden" class="IsSalaryDaysOnWeeklyOff" value="@(item.IsSalaryDaysOnWeeklyOff == true ? '1' : '0')" />
+                                            <input type="hidden" class="IsBillingDaysOnWeeklyOff" value="@(item.IsBillingDaysOnWeeklyOff == true ? '1' : '0')" />
+                                            <input type="hidden" class="IsOTDaysOnTotalOff" value="@(item.IsOTDaysOnTotalOff == true ? '1' : '0')" />
+                                            <input type="hidden" class="IsOTBillingDaysOnTotalOff" value="@(item.IsOTBillingDaysOnTotalOff == true ? '1' : '0')" />
+                                            @if (item.IsSalaryDaysOnWeeklyOff == true || item.IsOTDaysOnTotalOff == true)
+                                            {
+                                                <input type="text" class="form-control input-sm TotalWeeklyOffDays" value="@item.TotalWeeklyOffDays">
+                                            }
+                                            else
+                                            {
+                                                <input type="text" class="form-control input-sm TotalWeeklyOffDays" value="@item.TotalWeeklyOffDays" disabled>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.IsBillingDaysOnWeeklyOff == true || item.IsOTBillingDaysOnTotalOff == true)
+                                            {
+                                                <input type="text" class="form-control input-sm TotalWeeklyOffBillingDays" value="@item.TotalWeeklyOffBillingDays">
+                                            }
+                                            else
+                                            {
+                                                <input type="text" class="form-control input-sm TotalWeeklyOffBillingDays" value="@item.TotalWeeklyOffBillingDays" disabled>
+                                            }
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control input-sm TotalAttendance" value="@item.TotalAttendance">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control input-sm OvertimeHours" value="@item.OvertimeHours">
+                                            <input type="hidden" class="form-control input-sm" value="@item.SaleContractManPowerAssignID">
+                                        </td>
+                                    </tr>
+                                    Count++;
+                                }
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th>Total</th>
+                                    <th><span>@TotalDaysSum</span></th>
+                                    <th><span>@TotalBillingDaysSum</span></th>
+                                    <th><span id="TotalWeeklyOffDaysSum">@WeeklyOffDaysSum</span></th>
+                                    <th><span id="TotalWeeklyOffBillingDaysSum">@WeeklyOffBillingDaysSum</span></th>
+                                    <th><span id="TotalAttendanceSum">@TotalAttendanceSum</span></th>
+                                    <th><span id="OvertimeHoursSum">@OvertimeHoursSum</span></th>
+                                </tr>
+                            </tfoot>
+                        }
+                    </table>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group fg-line">
+                        <select id="SelectedStatus" class="form-control input-sm" style="width:120px">
+                            <option value="2">Approved</option>
+                            <option value="3">Reject</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="widget-bottom">
+                    <div style="padding-right: 10px; padding-top: 5px; padding-bottom: 0px; text-align: right;">
+                        <button type="button" id="CreateApprovedContractAttendance" class="btn btn-primary">@Resources.ButtonAction_Submit</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        CAPendingRequest.Initialize();
+    })
+
+</script>
+

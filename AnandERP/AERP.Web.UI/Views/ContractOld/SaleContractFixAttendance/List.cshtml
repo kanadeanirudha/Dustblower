@@ -1,0 +1,43 @@
+﻿@model AERP.ViewModel.SaleContractFixAttendanceViewModel
+<input id="ApprovedStatus" value="@Model.SaleContractFixAttendanceList[0].ApprovedStatus" style="display:none" />
+<table id="myDataTable" class="table table-striped table-vmiddle table-responsive fixAttendanceTable">
+    <thead>
+        <tr>
+            <th>Fix Item Name</th>
+            <th>Total Days</th>
+            <th>Total Billing Days</th>
+            <th>Total Attendance</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SaleContractFixAttendanceList)
+        {
+            <tr>
+                <td>@item.SaleContractFixItemName</td>
+                <td>@item.SaleContractFixItemQuantity</td>
+                <td>@item.SaleContractFixBillingDays</td>
+                <td>@item.SaleContractFixItemAttendance</td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var ApprovedStatus = $("#ApprovedStatus").val();
+        var result = "";
+
+        if (ApprovedStatus == 2 || ApprovedStatus == 0) {
+            result = " <a href=\"javascript:void(0);\" data-toggle=\"tooltip\" class=\"btn btn-success waves-effect\" title=\"Approved\"><span class=\"zmdi zmdi-check-all waves-effect\"></span></a>";
+        } else if (ApprovedStatus == 1) {
+            result = '<span class="btn btn-xs btn-primary">In Approval</span>';
+            $("#AddNewButton").hide();
+        } else {
+            result = " <a href=\"javascript:void(0);\" data-toggle=\"tooltip\" class=\"btn btn-danger waves-effect\" title=\"Rejected\"><span class=\"zmdi zmdi-layers-off waves-effect\"></span></a>";
+        }
+
+        $(".fixAttendanceTable thead tr th:last-child").html(result);
+    });
+</script>

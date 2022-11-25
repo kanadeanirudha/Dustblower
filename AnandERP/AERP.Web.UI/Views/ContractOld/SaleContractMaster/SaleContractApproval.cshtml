@@ -1,0 +1,550 @@
+﻿@model AERP.ViewModel.SaleContractMasterViewModel
+<style type="text/css">
+    .mfp-content {
+        width: 90% !important;
+    }
+
+    #SalaryRules th, #SelectedRules th {
+        font-size: 12px;
+    }
+</style>
+<script src="@Url.Content("~/Scripts/AERP_Scripts/TaskNotification/SCPendingRequest.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/Theme/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css")" rel="stylesheet" type="text/css" />
+
+<div id="custom-content">
+    <div class="block-header">
+        <h2>&nbsp;<i class="zmdi zmdi-view-toc"></i>&nbsp;Approve Sale Contract</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+
+            <div id="displayErrorMessage" role="alert" hidden class="alert">
+                <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                <p id="messageContent"></p>
+            </div>
+            <form id="FormCreateSaleContractManPowerItemRules">
+
+                @Html.HiddenFor(m => m.TaskCode)
+                @Html.HiddenFor(m => m.TaskNotificationDetailsID)
+                @Html.HiddenFor(m => m.TaskNotificationMasterID)
+                @Html.HiddenFor(m => m.GeneralTaskReportingDetailsID)
+                @Html.HiddenFor(m => m.PersonID)
+                @Html.HiddenFor(m => m.StageSequenceNumber)
+                @Html.HiddenFor(m => m.IsLastRecord)
+                @Html.HiddenFor(m => m.ID)
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.ContractNumber, new { })
+                            @Html.TextBoxFor(model => model.ContractNumber, new { @class = "form-control input-sm " })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.CentreCode, new { })
+                            @Html.DropDownListFor(m => m.CentreCode, Model.ListGetAdminRoleApplicableCentreItems, "------Select Centre-------", new { @class = "form-control" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CentreCode)
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.Narration, new { })
+                            @Html.TextBoxFor(model => model.Narration, new { @class = "form-control input-sm " })
+
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Narration)
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group fg-line">
+                            @Html.HiddenFor(m => m.EmployeeMasterID)
+                            @Html.LabelFor(model => model.EmployeeMasterName, new { })
+                            @Html.TextBoxFor(model => model.EmployeeMasterName, new { @class = "form-control input-sm" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.EmployeeMasterName)
+                    </div>
+                    <div class="col-sm-4" style="display:none;">
+                        <div class="form-group fg-line">
+                            <div class="checkbox">
+                                <label>
+                                    @if (Model.IsConfidential == true)
+                                    {
+                                        <input type="checkbox" value="" id="IsConfidential" checked>
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" value="" id="IsConfidential">
+                                    }
+                                    <i class="input-helper"></i>
+                                    @Html.LabelFor(model => model.IsConfidential, new { style = "" })
+                                </label>
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.IsConfidential)
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.PurchaseOrderNumber, new { })
+                            @Html.TextBoxFor(model => model.PurchaseOrderNumber, new { @class = "form-control input-sm" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PurchaseOrderNumber)
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.PurchaseOrderDate, new { })
+                            @Html.TextBoxFor(model => model.PurchaseOrderDate, new { @class = "form-control input-sm " })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PurchaseOrderDate)
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group fg-line">
+                            <div class="checkbox">
+                                <label>
+                                    @if (Model.IsDisplayPurchaseDetails == true)
+                                    {
+                                        <input type="checkbox" value="" id="IsDisplayPurchaseDetails" checked>
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" value="" id="IsDisplayPurchaseDetails">
+                                    }
+                                    <i class="input-helper"></i>
+                                    @Html.LabelFor(model => model.IsDisplayPurchaseDetails, new { style = "" })
+                                </label>
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.IsDisplayPurchaseDetails)
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <div class="form-group fg-line">
+                            @Html.HiddenFor(m => m.CustomerMasterID)
+                            @Html.HiddenFor(m => m.CustomerType)
+                            @Html.LabelFor(model => model.CustomerMasterName, new { })
+                            @Html.TextBoxFor(model => model.CustomerMasterName, new { @class = "form-control input-sm " })
+
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CustomerMasterName)
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group fg-line">
+                            @Html.HiddenFor(m => m.CustomerBranchMasterID)
+                            @Html.LabelFor(model => model.CustomerBranchMasterName, new { })
+                            @Html.TextBoxFor(model => model.CustomerBranchMasterName, new { @class = "form-control input-sm typeahead" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CustomerBranchMasterName)
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group fg-line">
+                            @Html.HiddenFor(m => m.CustomerContactPersonID)
+                            @Html.LabelFor(model => model.CustomerContactPersonName, new { })
+                            @Html.TextBoxFor(model => model.CustomerContactPersonName, new { @class = "form-control input-sm typeahead" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CustomerContactPersonName)
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.ContractStartDate, new { })
+                            @Html.TextBoxFor(model => model.ContractStartDate, new { maxlength = "50", @class = "form-control input-sm" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ContractStartDate)
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.ContractEndDate, new { })
+                            @Html.TextBoxFor(model => model.ContractEndDate, new { @class = "form-control input-sm" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ContractEndDate)
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group fg-line">
+                            @Html.LabelFor(model => model.BillingType, new { })
+                            @Html.DropDownListFor(model => model.BillingType, (SelectList)ViewBag.BillingTypeList, new { @class = "form-control", style = "", })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.BillingType)
+                    </div>
+                </div>
+                @if (Model.BillingType == 2)
+                {
+                    <div class="col-sm-12" id="divBillingFixedAmount">
+                        <div class="col-sm-3">
+                            <div class="form-group fg-line">
+                                @Html.LabelFor(model => model.FixedBillingType, new { })
+                                @Html.DropDownListFor(model => model.FixedBillingType, (SelectList)ViewBag.FixedBillingTypeList, new { @class = "form-control", style = "", })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.FixedBillingType)
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group fg-line">
+                                @Html.HiddenFor(m => m.FixedBillingForManPowerItemID)
+                                @Html.LabelFor(model => model.FixedBillingForManPowerItemName, new { })
+                                @Html.TextBoxFor(model => model.FixedBillingForManPowerItemName, new { @class = "form-control input-sm" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.FixedBillingForManPowerItemName)
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group fg-line">
+                                @Html.LabelFor(model => model.BillingFixedAmount, new { })
+                                @Html.TextBoxFor(model => model.BillingFixedAmount, new { @class = "form-control input-sm" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.BillingFixedAmount)
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group fg-line">
+                                @Html.LabelFor(model => model.ShortExtraPostingRateAccTo, new { })
+                                @Html.DropDownListFor(model => model.ShortExtraPostingRateAccTo, (SelectList)ViewBag.ShortExtraPostingRateAccToList, new { @class = "form-control", style = "", })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.ShortExtraPostingRateAccTo)
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group fg-line">
+                                <div class="checkbox">
+                                    <label>
+                                        @if (Model.IsIncludeAllPostingForShortExtraRate == true)
+                                        {
+                                            <input type="checkbox" value="" id="IsIncludeAllPostingForShortExtraRate" checked>
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" value="" id="IsIncludeAllPostingForShortExtraRate">
+                                        }
+                                        <i class="input-helper"></i>
+                                        @Html.LabelFor(model => model.IsIncludeAllPostingForShortExtraRate, new { style = "" })
+                                    </label>
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.IsIncludeAllPostingForShortExtraRate)
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-sm-12" id="divBillingFixedAmount" style="display:none;">
+                        <div class="col-sm-3">
+                            <div class="form-group fg-line">
+                                @Html.LabelFor(model => model.FixedBillingType, new { })
+                                @Html.DropDownListFor(model => model.FixedBillingType, (SelectList)ViewBag.FixedBillingTypeList, new { @class = "form-control", style = "", })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.FixedBillingType)
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group fg-line">
+                                @Html.HiddenFor(m => m.FixedBillingForManPowerItemID)
+                                @Html.LabelFor(model => model.FixedBillingForManPowerItemName, new { })
+                                @Html.TextBoxFor(model => model.FixedBillingForManPowerItemName, new { @class = "form-control input-sm" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.FixedBillingForManPowerItemName)
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group fg-line">
+                                @Html.LabelFor(model => model.BillingFixedAmount, new { })
+                                @Html.TextBoxFor(model => model.BillingFixedAmount, new { @class = "form-control input-sm" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.BillingFixedAmount)
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group fg-line">
+                                @Html.LabelFor(model => model.ShortExtraPostingRateAccTo, new { })
+                                @Html.DropDownListFor(model => model.ShortExtraPostingRateAccTo, (SelectList)ViewBag.ShortExtraPostingRateAccToList, new { @class = "form-control", style = "", })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.ShortExtraPostingRateAccTo)
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group fg-line">
+                                <div class="checkbox">
+                                    <label>
+                                        @if (Model.IsIncludeAllPostingForShortExtraRate == true)
+                                        {
+                                            <input type="checkbox" value="" id="IsIncludeAllPostingForShortExtraRate" checked>
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" value="" id="IsIncludeAllPostingForShortExtraRate">
+                                        }
+                                        <i class="input-helper"></i>
+                                        @Html.LabelFor(model => model.IsIncludeAllPostingForShortExtraRate, new { style = "" })
+                                    </label>
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.IsIncludeAllPostingForShortExtraRate)
+                        </div>
+                    </div>
+                }
+
+                <div class="col-sm-12">
+                    <div class="panel-group" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-collapse">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" id="HideShowTermDetails" data-parent="#accordion" href="#accordionTermDetails" aria-expanded="false" aria-controls="accordionTermDetails">
+                                        Term Details
+                                    </a>
+                                </h4>
+                            </div>
+
+                            <div id="accordionTermDetails" class="collapse out" role="tabpanel" aria-labelledby="headingThree">
+                                <div class="panel-body" id="SaleContractTermDetails">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-collapse">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" id="HideShowAddManPowerItem" data-parent="#accordion" href="#accordionAddManPowerItem" aria-expanded="false" aria-controls="accordionAddManPowerItem">
+                                        Man Power Item
+                                    </a>
+                                </h4>
+                            </div>
+
+                            <div id="accordionAddManPowerItem" class="collapse out" role="tabpanel" aria-labelledby="headingThree">
+                                <div class="panel-body" id="SaleContractAddManPowerItem">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-collapse">
+                            <div class="panel-heading" role="tab" id="headingFour">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" id="HideShowAddContractMaterial" data-parent="#accordion" href="#accordionAddContractMaterial" aria-expanded="false" aria-controls="accordionAddContractMaterial">
+                                        Contract Material
+                                    </a>
+                                </h4>
+                            </div>
+
+                            <div id="accordionAddContractMaterial" class="collapse out" role="tabpanel" aria-labelledby="headingFour">
+                                <div class="panel-body" id="SaleContractAddContractMaterial">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-collapse">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" id="HideShowAssignMachineMaster" data-parent="#accordion" href="#accordionAssignMachineMaster" aria-expanded="false" aria-controls="accordionAssignMachineMaster">
+                                        Contract Machines
+                                    </a>
+                                </h4>
+                            </div>
+
+                            <div id="accordionAssignMachineMaster" class="collapse out" role="tabpanel" aria-labelledby="headingFour">
+                                <div class="panel-body" id="SaleContractAssignMachineMaster">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-collapse">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" id="HideShowAddJobWorkItem" data-parent="#accordion" href="#accordionAddJobWorkItem" aria-expanded="false" aria-controls="accordionAddJobWorkItem">
+                                        Job Work Item
+                                    </a>
+                                </h4>
+                            </div>
+
+                            <div id="accordionAddJobWorkItem" class="collapse out" role="tabpanel" aria-labelledby="headingFour">
+                                <div class="panel-body" id="SaleContractAddJobWorkItem">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-collapse" style="display:none;">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" id="HideShowAddFixItem" data-parent="#accordion" href="#accordionAddFixItem" aria-expanded="false" aria-controls="accordionAddFixItem">
+                                        Fix Item
+                                    </a>
+                                </h4>
+                            </div>
+
+                            <div id="accordionAddFixItem" class="collapse out" role="tabpanel" aria-labelledby="headingFour">
+                                <div class="panel-body" id="SaleContractAddFixItem">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-collapse">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" id="HideShowAddServiceItem" data-parent="#accordion" href="#accordionAddServiceItem" aria-expanded="false" aria-controls="accordionAddServiceItem">
+                                        Service Item
+                                    </a>
+                                </h4>
+                            </div>
+
+                            <div id="accordionAddServiceItem" class="collapse out" role="tabpanel" aria-labelledby="headingFour">
+                                <div class="panel-body" id="SaleContractAddServiceItem">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group fg-line">
+                        <select id="SelectedStatus" class="form-control input-sm" style="width:120px">
+                            <option value="2">Approved</option>
+                            <option value="3">Reject</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="widget-bottom">
+                    <div style="padding-right: 10px; padding-top: 5px; padding-bottom: 0px; text-align: right;">
+                        <button type="button" id="CreateApprovedSaleContractMaster" class="btn btn-primary">@Resources.ButtonAction_Submit</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        SCPendingRequest.Initialize();
+
+        $("#HideShowTermDetails").click(function () {
+            $('#SaleContractTermDetails').show();
+            var SaleContractMasterID = $('input[name=ID]').val();
+            $.ajax(
+             {
+                 cache: false,
+                 type: "GET",
+                 data: { SaleContractMasterID: SaleContractMasterID },
+                 dataType: "html",
+                 url: '/SaleContractMaster/TermDetailsDataApproval',
+                 success: function (data) {
+                     //Rebind Grid Data
+                     $('#SaleContractTermDetails').html(data);
+                 }
+             });
+        });
+
+        $("#HideShowAddManPowerItem").click(function () {
+            $('#SaleContractAddManPowerItem').show();
+            var SaleContractMasterID = $('input[name=ID]').val();
+            $.ajax(
+             {
+                 cache: false,
+                 type: "GET",
+                 data: { SaleContractMasterID: SaleContractMasterID },
+                 dataType: "html",
+                 url: '/SaleContractMaster/ManPowerItemListApproval',
+                 success: function (data) {
+                     //Rebind Grid Data
+                     $('#SaleContractAddManPowerItem').html(data);
+                 }
+             });
+        });
+
+        $("#HideShowAddContractMaterial").click(function () {
+            $('#SaleContractAddContractMaterial').show();
+            var SaleContractMasterID = $('input[name=ID]').val();
+            $.ajax(
+             {
+                 cache: false,
+                 type: "GET",
+                 data: { SaleContractMasterID: SaleContractMasterID },
+                 dataType: "html",
+                 url: '/SaleContractMaster/ContractMaterialListApproval',
+                 success: function (data) {
+                     //Rebind Grid Data
+                     $('#SaleContractAddContractMaterial').html(data);
+                 }
+             });
+        });
+
+        $("#HideShowAssignMachineMaster").click(function () {
+            $('#SaleContractAssignMachineMaster').show();
+            var SaleContractMasterID = $('input[name=ID]').val();
+            $.ajax(
+             {
+                 cache: false,
+                 type: "GET",
+                 data: { SaleContractMasterID: SaleContractMasterID },
+                 dataType: "html",
+                 url: '/SaleContractMaster/MachineMasterListApproval',
+                 success: function (data) {
+                     //Rebind Grid Data
+                     $('#SaleContractAssignMachineMaster').html(data);
+                 }
+             });
+        });
+
+        $("#HideShowAddJobWorkItem").click(function () {
+            $('#SaleContractAddJobWorkItem').show();
+            var SaleContractMasterID = $('input[name=ID]').val();
+            $.ajax(
+             {
+                 cache: false,
+                 type: "GET",
+                 data: { SaleContractMasterID: SaleContractMasterID },
+                 dataType: "html",
+                 url: '/SaleContractMaster/JobWorkItemListApproval',
+                 success: function (data) {
+                     //Rebind Grid Data
+                     $('#SaleContractAddJobWorkItem').html(data);
+                 }
+             });
+        });
+
+        $("#HideShowAddFixItem").click(function () {
+            $('#SaleContractAddFixItem').show();
+            var SaleContractMasterID = $('input[name=ID]').val();
+            $.ajax(
+             {
+                 cache: false,
+                 type: "GET",
+                 data: { SaleContractMasterID: SaleContractMasterID },
+                 dataType: "html",
+                 url: '/SaleContractMaster/FixItemListApproval',
+                 success: function (data) {
+                     //Rebind Grid Data
+                     $('#SaleContractAddFixItem').html(data);
+                 }
+             });
+        });
+
+        $("#HideShowAddServiceItem").click(function () {
+            $('#SaleContractAddServiceItem').show();
+            var SaleContractMasterID = $('input[name=ID]').val();
+            $.ajax(
+             {
+                 cache: false,
+                 type: "GET",
+                 data: { SaleContractMasterID: SaleContractMasterID },
+                 dataType: "html",
+                 url: '/SaleContractMaster/ServiceItemListApproval',
+                 success: function (data) {
+                     //Rebind Grid Data
+                     $('#SaleContractAddServiceItem').html(data);
+                 }
+             });
+        });
+
+        $("#HideShowTermDetails").click();
+        $("#HideShowAddManPowerItem").click();
+        $("#HideShowAddContractMaterial").click();
+        $("#HideShowAssignMachineMaster").click();
+        $("#HideShowAddJobWorkItem").click();
+        $("#HideShowAddFixItem").click();
+        $("#HideShowAddServiceItem").click();
+    })
+
+</script>
+

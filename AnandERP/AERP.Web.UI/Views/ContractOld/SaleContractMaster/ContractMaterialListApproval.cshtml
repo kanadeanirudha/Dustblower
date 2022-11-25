@@ -1,0 +1,27 @@
+﻿@model AERP.ViewModel.SaleContractMasterViewModel
+
+<div class="col-sm-12">
+    <table id="tblAddContractMaterial" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Item Description</th>
+                <th>UOM Code</th>
+                <th>Quantity</th>
+                <th>Rate</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model.SaleContractMasterListForContractMaterial)
+            {
+                <tr>
+                    <td>@item.ItemDescription</td>
+                    <td>@item.UOMCode</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Rate</td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

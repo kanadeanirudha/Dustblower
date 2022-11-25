@@ -1,0 +1,26 @@
+﻿@model AERP.ViewModel.SaleContractMasterViewModel
+
+
+<div class="col-sm-12">
+    <table id="tblAddFixItem" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Fix Item Name</th>
+                @*<th>Fix Item Quantity</th>
+                <th>Fix Item Rate</th>*@
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model.SaleContractMasterListForFixItem)
+            {
+                <tr>
+                    <td>@item.SaleContractFixItemName</td>
+                    @*<td>@item.SaleContractFixItemQuantity</td>
+                    <td>@item.SaleContractFixItemRate</td>*@
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

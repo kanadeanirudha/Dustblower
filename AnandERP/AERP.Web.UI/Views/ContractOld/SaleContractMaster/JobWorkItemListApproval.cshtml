@@ -1,0 +1,23 @@
+﻿@model AERP.ViewModel.SaleContractMasterViewModel
+
+<div class="col-sm-12">
+    <table id="tblAddJobWorkItem" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Job Work Item Name</th>
+                <th>Job Work Item Rate</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model.SaleContractMasterListForJobWorkItem)
+            {
+                <tr>
+                    <td>@item.SaleContractJobWorkItemName</td>
+                    <td>@item.SaleContractJobWorkItemRate</td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,384 @@
+﻿@model AERP.ViewModel.SaleContractMasterViewModel
+<link href="@Url.Content("~/Content/Theme/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css")" rel="stylesheet" type="text/css" />
+<div class="col-sm-12">
+    @*<div class="col-sm-4">
+            <div class="form-group fg-line">
+                @Html.LabelFor(model => model.BillingCycleInDays, new { })
+                @Html.TextBoxFor(model => model.BillingCycleInDays, new { @class = "form-control input-sm" })
+            </div>
+            @Html.ValidationMessageFor(model => model.BillingCycleInDays)
+        </div>*@
+
+    <div class="col-sm-4">
+        <div class="form-group fg-line">
+            @Html.LabelFor(model => model.MaterialSupplyDay, new { })
+            @Html.TextBoxFor(model => model.MaterialSupplyDay, new { @class = "form-control input-sm" })
+        </div>
+        @Html.ValidationMessageFor(model => model.MaterialSupplyDay)
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group fg-line">
+            @Html.LabelFor(model => model.RenewCallBeforeDays, new { })
+            @Html.TextBoxFor(model => model.RenewCallBeforeDays, new { @class = "form-control input-sm" })
+        </div>
+        @Html.ValidationMessageFor(model => model.RenewCallBeforeDays)
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group fg-line">
+            @Html.LabelFor(model => model.MaterialSupplyFixAmount, new { })
+            @Html.TextBoxFor(model => model.MaterialSupplyFixAmount, new { @class = "form-control input-sm" })
+        </div>
+        @Html.ValidationMessageFor(model => model.MaterialSupplyFixAmount)
+    </div>
+</div>
+<div class="col-sm-12">
+    <div class="col-sm-3">
+        <div class="form-group fg-line">
+            @Html.LabelFor(model => model.SalaryEffectiveFromDate, new { })
+            @Html.TextBoxFor(model => model.SalaryEffectiveFromDate, new { @class = "form-control input-sm" })
+        </div>
+        @Html.ValidationMessageFor(model => model.SalaryEffectiveFromDate)
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group fg-line">
+            @Html.LabelFor(model => model.SalaryEffectiveUptoDate, new { })
+            @Html.TextBoxFor(model => model.SalaryEffectiveUptoDate, new { @class = "form-control input-sm" })
+        </div>
+        @Html.ValidationMessageFor(model => model.SalaryEffectiveUptoDate)
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group fg-line">
+            @Html.LabelFor(model => model.AdditionalAllowancePaidBy, new { })
+            @Html.DropDownListFor(model => model.AdditionalAllowancePaidBy, (SelectList)ViewBag.AdditionalAllowancePaidByList, new { @class = "form-control input-sm" })
+        </div>
+        @Html.ValidationMessageFor(model => model.AdditionalAllowancePaidBy)
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group  fg-line">
+            <div class="checkbox">
+                <label>
+                    @if (Model.IsInclusiveServiceCharges == true)
+                    {
+                        <input type="checkbox" value="" id="IsInclusiveServiceCharges" checked>
+                    }
+                    else
+                    {
+                        <input type="checkbox" value="" id="IsInclusiveServiceCharges">
+                    }
+                    <i class="input-helper"></i>
+                    @Html.LabelFor(model => model.IsInclusiveServiceCharges, new { style = "" })
+                </label>
+            </div>
+        </div>
+        @Html.ValidationMessageFor(model => model.IsInclusiveServiceCharges)
+    </div>
+   
+</div>
+<div class="col-sm-12">
+    <div class="col-sm-3">
+        <div class="form-group  fg-line">
+            <div class="checkbox">
+                <label>
+                    @if (Model.IsServiceChargesAppliedToAddAmount == true)
+                    {
+                        <input type="checkbox" value="" id="IsServiceChargesAppliedToAddAmount" checked>
+                    }
+                    else
+                    {
+                        <input type="checkbox" value="" id="IsServiceChargesAppliedToAddAmount">
+                    }
+                    <i class="input-helper"></i>
+                    @Html.LabelFor(model => model.IsServiceChargesAppliedToAddAmount, new { style = "" })
+                </label>
+            </div>
+        </div>
+        @Html.ValidationMessageFor(model => model.IsServiceChargesAppliedToAddAmount)
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group fg-line">
+            <div class="checkbox">
+                <label>
+                    @if (Model.IsServiceChargesAppliedToServiceItem == true)
+                    {
+                        <input type="checkbox" value="" id="IsServiceChargesAppliedToServiceItem" checked>
+                    }
+                    else
+                    {
+                        <input type="checkbox" value="" id="IsServiceChargesAppliedToServiceItem">
+                    }
+                    <i class="input-helper"></i>
+                    @Html.LabelFor(model => model.IsServiceChargesAppliedToServiceItem, new { style = "" })
+                </label>
+            </div>
+        </div>
+        @Html.ValidationMessageFor(model => model.IsServiceChargesAppliedToServiceItem)
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group fg-line">
+            <div class="checkbox">
+                <label>
+                    @if (Model.IsServiceChargesAppliedToOverTime == true)
+                    {
+                        <input type="checkbox" value="" id="IsServiceChargesAppliedToOverTime" checked>
+                    }
+                    else
+                    {
+                        <input type="checkbox" value="" id="IsServiceChargesAppliedToOverTime">
+                    }
+                    <i class="input-helper"></i>
+                    @Html.LabelFor(model => model.IsServiceChargesAppliedToOverTime, new { style = "" })
+                </label>
+            </div>
+        </div>
+        @Html.ValidationMessageFor(model => model.IsServiceChargesAppliedToOverTime)
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group fg-line">
+            <div class="checkbox">
+                <label>
+                    @if (Model.IsRateFixedForRateContract == true)
+                    {
+                        <input type="checkbox" value="" id="IsRateFixedForRateContract" checked>
+                    }
+                    else
+                    {
+                        <input type="checkbox" value="" id="IsRateFixedForRateContract">
+                    }
+                    <i class="input-helper"></i>
+                    @Html.LabelFor(model => model.IsRateFixedForRateContract, new { style = "" })
+                </label>
+            </div>
+        </div>
+        @Html.ValidationMessageFor(model => model.IsRateFixedForRateContract)
+    </div>
+</div>
+<h4> Service Charges</h4>
+<div class="col-sm-12">
+    <div class="col-sm-4">
+        <div class="form-group fg-line">
+            @Html.LabelFor(model => model.ServiceChargesDependOn, new { })
+            @Html.DropDownListFor(model => model.ServiceChargesDependOn, (SelectList)ViewBag.ServiceChargesDependOnList, new { @class = "form-control input-sm" })
+        </div>
+        @Html.ValidationMessageFor(model => model.ServiceChargesDependOn)
+    </div>
+
+</div>
+@if (1 > 0)
+{
+    var displayPer = "";
+    var displayFix = "";
+    if (Model.ServiceChargesDependOn == 2)
+    {
+        displayPer = "display:none;";
+        displayFix = "";
+    }
+    else
+    {
+        displayPer = "";
+        displayFix = "display:none;";
+    }
+
+    <div class="col-sm-12" style="@displayPer" id="DataForServiceChargePercentage">
+        <div class="col-sm-4">
+            <div class="form-group fg-line">
+                @Html.LabelFor(model => model.ServiceChargesCalculateOn, new { })
+                <p id="e5_f">
+                    <select id="ServiceChargeCalculateOnSalaryHeads" class="form-group selectpicker" multiple name="selectCent">
+                        @*data-live-search="true"*@
+                        @foreach (var item in Model.SaleContractMasterListForServiceChargeForHead)
+                        {
+                            <option value="@item.ReferenceID~@item.AllowanceOrDeduction~@item.ServiceChargeOnSalaryHeadsID" @item.SelectedStatusFlag>@item.CalculateOnName</option>
+                        }
+                    </select>
+                </p>
+
+            </div>
+            @Html.ValidationMessageFor(model => model.ServiceChargesCalculateOn)
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group fg-line">
+                @Html.LabelFor(model => model.ServiceChargesPercentage, new { })
+                @Html.TextBoxFor(model => model.ServiceChargesPercentage, new { @class = "form-control input-sm" })
+            </div>
+            @Html.ValidationMessageFor(model => model.ServiceChargesPercentage)
+        </div>
+    </div>
+    <div class="col-sm-12" style="@displayFix" id="DataForServiceChargeFixAmount">
+        <div class="col-sm-4">
+            <div class="form-group fg-line">
+                @Html.HiddenFor(m => m.SaleContractManPowerItemID, new { id = "ServiceChargeManPowerItemID" })
+                @Html.LabelFor(model => model.SaleContractManPowerItemName, new { })
+                @Html.TextBoxFor(model => model.SaleContractManPowerItemName, new { @class = "form-control input-sm", id = "ServiceChargeManPowerItemName" })
+            </div>
+            @Html.ValidationMessageFor(model => model.SaleContractManPowerItemName)
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group fg-line">
+                @Html.LabelFor(model => model.ServiceChargesFixAmount, new { })
+                @Html.TextBoxFor(model => model.ServiceChargesFixAmount, new { @class = "form-control input-sm" })
+            </div>
+            @Html.ValidationMessageFor(model => model.ServiceChargesFixAmount)
+        </div>
+        <div class="col-sm-2" style="display:none;">
+            <div class="form-group fg-line">
+                @Html.LabelFor(model => model.ServiceChargesFromDate, new { })
+                @Html.TextBoxFor(model => model.ServiceChargesFromDate, new { @class = "form-control input-sm" })
+            </div>
+            @Html.ValidationMessageFor(model => model.ServiceChargesFromDate)
+        </div>
+        <div class="col-sm-2" style="display:none;">
+            <div class="form-group fg-line">
+                @Html.LabelFor(model => model.ServiceChargesUptoDate, new { })
+                @Html.TextBoxFor(model => model.ServiceChargesUptoDate, new { @class = "form-control input-sm" })
+            </div>
+            @Html.ValidationMessageFor(model => model.ServiceChargesUptoDate)
+        </div>
+        <div class="col-sm-2">
+            <button type="button" title="Add row" class="btn bgm-cyan btn-float waves-effect waves-circle waves-float" id="btnAddServiceCharge"><i class="zmdi zmdi-plus"></i></button>
+        </div>
+        <table id="tblServiceCharges" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Man Power Item</th>
+                    <th>Charge Amount</th>
+                    <th style="display:none;">From Date</th>
+                    <th style="display:none;">Upto Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.SaleContractMasterListForServiceCharge)
+                {
+                    <tr>
+                        <td>
+                            <input type='hidden' value='@item.SaleContractManPowerItemID' />@item.SaleContractManPowerItemName
+                        </td>
+                        <td><input type='hidden' value='@item.ServiceChargesFixAmount' />@item.ServiceChargesFixAmount</td>
+                        <td style="display:none;"><input type='hidden' value='@item.ServiceChargesFromDate' />@item.ServiceChargesFromDate</td>
+                        <td style="display:none;"><input type='hidden' value='@item.ServiceChargesUptoDate' />@item.ServiceChargesUptoDate</td>
+                        <td>
+                            @if (Model.TaskCode == "GeneralRenewContract")
+                            {
+                                <i class='zmdi zmdi-delete zmdi-hc-fw' style='cursor:pointer' title='Delete'></i>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+<h4>Over Time Details</h4>
+<div class="col-sm-12">
+    <div class="col-sm-4">
+        <div class="form-group fg-line">
+            @Html.LabelFor(model => model.OverTimeDependOn, new { })
+            @Html.DropDownListFor(model => model.OverTimeDependOn, (SelectList)ViewBag.OverTimeDependOnList, new { @class = "form-control input-sm" })
+        </div>
+        @Html.ValidationMessageFor(model => model.OverTimeDependOn)
+    </div>
+</div>
+@if (1 > 0)
+{
+    var displayPer = "";
+    var displayFix = "";
+    if (Model.OverTimeDependOn == 2)
+    {
+        displayPer = "";
+        displayFix = "display:none;";
+    }
+    else
+    {
+        displayPer = "display:none;";
+        displayFix = "";
+    }
+
+    <div class="col-sm-12" style="@displayFix" id="DataForOverTimeFixAmount">
+        <table id="tblOverTimeDetailsFix" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Man Power Item</th>
+                    <th>Fix Amount For Invoice</th>
+                    <th>Fix Amount For Salary</th>
+                    <th>Is Over Time Salary Days Fix</th>
+                    <th>Over Time Fixed Salary Days</th>
+                    <th>Is Over Time Salary Days On Off Days</th>
+                    <th>Is Over Time Billing Days Fix</th>
+                    <th>Over Time Fix Billing Days</th>
+                    <th>Is Over Time Billing Days On Off Days</th>
+                    <th>Over Time Display Format</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.SaleContractMasterListForOverTimeFix)
+                {
+                    <tr>
+                        <td>
+                            <input type='hidden' value='@item.SaleContractManPowerItemID' />@item.SaleContractManPowerItemName
+                        </td>
+                        <td><input type='hidden' value='@item.FixedAmountForInvoice' />@item.FixedAmountForInvoice</td>
+                        <td><input type='hidden' value='@item.FixedAmountForSalaryCompliance' />@item.FixedAmountForSalaryCompliance</td>
+                        <td><input type='hidden' value='@(item.IsOverTimeDaysFix == true ? "1" : "0")' />@(item.IsOverTimeDaysFix == true ? "Yes" : "No")</td>
+                        <td><input type='hidden' value='@item.OTFixedDays' />@item.OTFixedDays</td>
+                        <td><input type='hidden' value='@(item.IsOTDaysOnTotalOff== true ? "1" : "0")' />@(item.IsOTDaysOnTotalOff == true ? "Yes" : "No")</td>
+                        <td><input type='hidden' value='@(item.IsOverTimeBillingDaysFix == true ? "1" : "0")' />@(item.IsOverTimeBillingDaysFix == true ? "Yes" : "No")</td>
+                        <td><input type='hidden' value='@item.OTBillingFixedDays' />@item.OTBillingFixedDays</td>
+                        <td><input type='hidden' value='@(item.IsOTBillingDaysOnTotalOff == true ? "1" : "0")' />@(item.IsOTBillingDaysOnTotalOff == true ? "Yes" : "No")</td>
+                        <td><input type='hidden' value='@item.OverTimeDisplayFormat' />@(item.OverTimeDisplayFormat == 1 ? "Seperate" : "Include In Posting")</td>
+                        <td>
+                            @if (Model.TaskCode == "GeneralRenewContract")
+                            {
+                                <i class='zmdi zmdi-delete zmdi-hc-fw' style='cursor:pointer' title='Delete'></i>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-12" style="@displayPer" id="DataForOverTimeAllowance">
+        
+        <table id="tblOverTimeDetails" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Man Power Item</th>
+                    <th>Allowance Master</th>
+                    <th>Invoice / Salary Compliance</th>
+                    <th style="display:none;">From Date</th>
+                    <th style="display:none;">Upto Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.SaleContractMasterListForOverTime)
+                {
+                    <tr>
+                        <td>
+                            <input type='hidden' value='@item.SaleContractManPowerItemID' />@item.SaleContractManPowerItemName
+                        </td>
+                        <td>
+                            <input type='hidden' value='@item.SalaryAllowanceMasterID' />
+                            <input type='hidden' value='@item.BasicOrAllowance' />@item.SalaryAllowanceMasterName
+                        </td>
+                        <td><input type='hidden' value='@item.ForInvoiceOrSalaryCompliance' />@(item.ForInvoiceOrSalaryCompliance == 1 ? "Invoice" : "Salary")</td>
+                        <td style="display:none;"><input type='hidden' value='@item.OverTimeFromDate' />@item.OverTimeFromDate</td>
+                        <td style="display:none;"><input type='hidden' value='@item.OverTimeUptoDate' />@item.OverTimeUptoDate</td>
+                        <td>
+                            @if (Model.TaskCode == "GeneralRenewContract")
+                            {
+                                <i class='zmdi zmdi-delete zmdi-hc-fw' style='cursor:pointer' title='Delete'></i>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+<script src="@Url.Content("~/Content/Theme/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js")" type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+        $('.selectpicker').selectpicker();
+    });
+</script>

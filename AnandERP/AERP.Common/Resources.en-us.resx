@@ -1,0 +1,1755 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ddlHeaders_Academic" xml:space="preserve">
+    <value>Academic</value>
+  </data>
+  <data name="ddlHeaders_NonAcademic" xml:space="preserve">
+    <value>Non-Academic</value>
+  </data>
+  <data name="ddlHeaders_Sales" xml:space="preserve">
+    <value>Sales</value>
+  </data>
+  <data name="DisplayNames_AddOn" xml:space="preserve">
+    <value>Add-On</value>
+  </data>
+  <data name="DisplayNames_Regular" xml:space="preserve">
+    <value>Regular</value>
+  </data>
+  <data name="DisplayName_Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="DisplayName_PERMANANT" xml:space="preserve">
+    <value>Permanent</value>
+  </data>
+  <data name="DisplayName_Self" xml:space="preserve">
+    <value>Self</value>
+  </data>
+  <data name="DisplayName_TEMPORARY" xml:space="preserve">
+    <value>Temporary</value>
+  </data>
+  <data name="DropdownMessage_BoardOfDirectors" xml:space="preserve">
+    <value>Board Of Directors</value>
+  </data>
+  <data name="DropdownMessage_Employee" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="DropdownMessage_NonTeaching" xml:space="preserve">
+    <value>Non-Teaching</value>
+  </data>
+  <data name="DropdownMessage_RegionalOffice" xml:space="preserve">
+    <value>Regional Office</value>
+  </data>
+  <data name="DropdownMessage_StudyCentre" xml:space="preserve">
+    <value>Centre</value>
+  </data>
+  <data name="DropdownMessage_Teaching" xml:space="preserve">
+    <value>Teaching</value>
+  </data>
+  <data name="ErrorMessage_PleaseContactYourAdministrator" xml:space="preserve">
+    <value>Please Contact Your Administrator</value>
+  </data>
+  <data name="ErrorMessage_PleaseEnteryouremailaddressintheformats" xml:space="preserve">
+    <value>Please Enter your email address in the formats</value>
+  </data>
+  <data name="ErrorMessage_PleaseShareYourLocation" xml:space="preserve">
+    <value>Please Share Your Location</value>
+  </data>
+  <data name="ErrorMessage_SorrySystemDoesnotRecognizeEmail" xml:space="preserve">
+    <value>Sorry System Does not Recognize Email</value>
+  </data>
+  <data name="ErrorMessage_ThisaccountdoesnotexistEnteravalidemailaddressorpassword" xml:space="preserve">
+    <value>This account does not exist. Enter a valid email address or password</value>
+  </data>
+  <data name="ErrorMessage_YouDonotHavePermissiontoLoginfromoutSidetheCampusArea" xml:space="preserve">
+    <value>You do not have Permission to Login from outside the Campus Area</value>
+  </data>
+  <data name="InvalidArgumentsError" xml:space="preserve">
+    <value>Invalid Arguments</value>
+  </data>
+  <data name="Message_JobFiredSuccessfully" xml:space="preserve">
+    <value>Job Fired Successfully</value>
+  </data>
+  <data name="Message_RecordAlreadyExists" xml:space="preserve">
+    <value>Record Already Exists</value>
+  </data>
+  <data name="Message_RecordCreatedSuccessfully" xml:space="preserve">
+    <value>Record Created Successfully</value>
+  </data>
+  <data name="Message_RecordDeletedSuccessfully" xml:space="preserve">
+    <value>Record Deleted Successfully</value>
+  </data>
+  <data name="Message_RecordDependantEntry" xml:space="preserve">
+    <value>Record not deleted successfully, Because it is used in another form.</value>
+  </data>
+  <data name="Message_RecordInaciveDependantEntry" xml:space="preserve">
+    <value>Record not deactivated successfully, Because it is used in another form.</value>
+  </data>
+  <data name="Message_RecordInactiveSuccessfully" xml:space="preserve">
+    <value>Record Deactivated Successfully</value>
+  </data>
+  <data name="Message_RecordNotCreatedSuccessfully" xml:space="preserve">
+    <value>Record Not Created Successfully</value>
+  </data>
+  <data name="Message_RecordNotDeletedSuccessfully" xml:space="preserve">
+    <value>Record Not Deleted Successfully</value>
+  </data>
+  <data name="Message_RecordNotInactiveSuccessfully" xml:space="preserve">
+    <value>Record Not Deactivated Successfully</value>
+  </data>
+  <data name="Message_RecordNotUpdatedSuccessfully" xml:space="preserve">
+    <value>Record Not Updated Successfully</value>
+  </data>
+  <data name="Message_RecordUpdatedSuccessfully" xml:space="preserve">
+    <value>Record Updated Successfully</value>
+  </data>
+  <data name="Message_SyncProcessAborted" xml:space="preserve">
+    <value>Sync process aborted due to unexpected error</value>
+  </data>
+  <data name="Message_SyncProcessDoneSuccessfully" xml:space="preserve">
+    <value>Sync process completed successfully</value>
+  </data>
+  <data name="Message_UnexpectedErrorOccured" xml:space="preserve">
+    <value>Unexpected Error Occured</value>
+  </data>
+  <data name="Message_WorkFlowNotDefined" xml:space="preserve">
+    <value>Work Flow Not Defined</value>
+  </data>
+  <data name="Null_Object_Exception" xml:space="preserve">
+    <value>Object is not found</value>
+  </data>
+  <data name="ProjectEnvoirnment_AIS" xml:space="preserve">
+    <value>Anand India</value>
+  </data>
+  <data name="ProjectEnvoirnment_DBL" xml:space="preserve">
+    <value>Dust Blowers</value>
+  </data>
+  <data name="ButtonAction_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ButtonAction_Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="ButtonAction_Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="ButtonAction_Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="DisplayName_RecordTheTimeForAttendance" xml:space="preserve">
+    <value>Record the time for attendance</value>
+  </data>
+  <data name="DisplayName_RememberMe" xml:space="preserve">
+    <value>Remember me</value>
+  </data>
+  <data name="EmailID" xml:space="preserve">
+    <value>Email-ID</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+  <data name="ValidationMessage_EmailIDForAccountRequired" xml:space="preserve">
+    <value>Please enter the E-mail ID for your account</value>
+  </data>
+  <data name="DisplayName_Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="DisplayName_ViewProfile" xml:space="preserve">
+    <value>View Profile</value>
+  </data>
+  <data name="DisplayName_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="ValidationMessage_PasswordForAccountRequired" xml:space="preserve">
+    <value>Please enter the password for your account</value>
+  </data>
+  <data name="MainMenu_Dashboard" xml:space="preserve">
+    <value>Dashboard </value>
+  </data>
+  <data name="MainMenu_Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Module_ADM" xml:space="preserve">
+    <value>ADMIN</value>
+  </data>
+  <data name="Module_EMP" xml:space="preserve">
+    <value>EMPLOYEE</value>
+  </data>
+  <data name="Module_ORG" xml:space="preserve">
+    <value>ORGANISATION</value>
+  </data>
+  <data name="ParentMenu_Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="ParentMenu_Employee" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="ParentMenu_EmployeeMaster" xml:space="preserve">
+    <value>Employee Master</value>
+  </data>
+  <data name="ParentMenu_OrgAcademicStructure" xml:space="preserve">
+    <value>Organisation Structure</value>
+  </data>
+  <data name="ParentMenu_OrgCoursePlanning" xml:space="preserve">
+    <value>Course Planning</value>
+  </data>
+  <data name="ParentMenu_OrgGeneralParameter" xml:space="preserve">
+    <value>General Parameter</value>
+  </data>
+  <data name="ParentMenu_OrgSectionPlanning" xml:space="preserve">
+    <value>Section Planning</value>
+  </data>
+  <data name="ParentMenu_OrgStudyCentreMaster" xml:space="preserve">
+    <value>Organisation Details</value>
+  </data>
+  <data name="SubMenu_AdmAccessRights" xml:space="preserve">
+    <value>Admin Access Rights</value>
+  </data>
+  <data name="SubMenu_AdmAddPost" xml:space="preserve">
+    <value>Add Post</value>
+  </data>
+  <data name="SubMenu_AdmCreateRole" xml:space="preserve">
+    <value>Create Role</value>
+  </data>
+  <data name="SubMenu_AdmDashboardAllocation" xml:space="preserve">
+    <value>Dashboard Allocation To Role</value>
+  </data>
+  <data name="SubMenu_AdmRoleAllocation" xml:space="preserve">
+    <value>Role Allocation</value>
+  </data>
+  <data name="SubMenu_AdmSpecialRights" xml:space="preserve">
+    <value>Admin Special Rights</value>
+  </data>
+  <data name="SubMenu_EmpDesignationMaster" xml:space="preserve">
+    <value>Add Designation</value>
+  </data>
+  <data name="SubMenu_EmpInfo" xml:space="preserve">
+    <value>Employee Info</value>
+  </data>
+  <data name="SubMenu_EmpMasterTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="SubMenu_EmpWeekDays" xml:space="preserve">
+    <value>Week Days</value>
+  </data>
+  <data name="SubMenu_GeneralCity" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="SubMenu_GeneralCountry" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="SubMenu_GeneralEducationMaster" xml:space="preserve">
+    <value>Qualification Master</value>
+  </data>
+  <data name="SubMenu_GeneralEducationTypeMaster" xml:space="preserve">
+    <value>Qualification Type Master</value>
+  </data>
+  <data name="SubMenu_GeneralLocationMaster" xml:space="preserve">
+    <value>Location </value>
+  </data>
+  <data name="SubMenu_GeneralNationalityMaster" xml:space="preserve">
+    <value>Nationality</value>
+  </data>
+  <data name="SubMenu_GeneralRegion" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="SubMenu_GeneralUnits" xml:space="preserve">
+    <value>Create Units</value>
+  </data>
+  <data name="SubMenu_GeneralUnitType" xml:space="preserve">
+    <value>Unit Type</value>
+  </data>
+  <data name="SubMenu_OrgDepartment" xml:space="preserve">
+    <value>Add Department</value>
+  </data>
+  <data name="SubMenu_OrgDepartmentInCentre" xml:space="preserve">
+    <value>Add Department in Centre</value>
+  </data>
+  <data name="SubMenu_OrgSociety" xml:space="preserve">
+    <value>Organisation</value>
+  </data>
+  <data name="SubMenu_OrgStudyCentre" xml:space="preserve">
+    <value>Centre</value>
+  </data>
+  <data name="DisplayMessage_UnauthorizedAccess" xml:space="preserve">
+    <value>Unauthorized access!</value>
+  </data>
+  <data name="ddlHeaders_CityName" xml:space="preserve">
+    <value>-----Select City-----</value>
+  </data>
+  <data name="ddlHeaders_CountryName" xml:space="preserve">
+    <value>-----Select Country-----</value>
+  </data>
+  <data name="ddlHeaders_RegionName" xml:space="preserve">
+    <value>-----Select State------</value>
+  </data>
+  <data name="DisplayName_Actions" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="DisplayName_AddNew" xml:space="preserve">
+    <value>Add New</value>
+  </data>
+  <data name="DisplayName_MakeitDefault" xml:space="preserve">
+    <value>Make it default?</value>
+  </data>
+  <data name="GlobalProperties_10" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="GlobalProperties_100" xml:space="preserve">
+    <value>100</value>
+  </data>
+  <data name="GlobalProperties_1000" xml:space="preserve">
+    <value>1000</value>
+  </data>
+  <data name="GlobalProperties_25" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="GlobalProperties_50" xml:space="preserve">
+    <value>50</value>
+  </data>
+  <data name="GlobalProperties_500" xml:space="preserve">
+    <value>500</value>
+  </data>
+  <data name="GlobalProperties_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="TableHeaders_Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="ToolTip_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ToolTip_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="ToolTip_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ToolTip_Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="ToolTip_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ToolTip_View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="ddlHeaders_UnitName" xml:space="preserve">
+    <value>---Select Unit---</value>
+  </data>
+  <data name="GlobalProperties_Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="GlobalProperties_ShowRecords" xml:space="preserve">
+    <value>Show Records</value>
+  </data>
+  <data name="ddlHeaders_LocationName" xml:space="preserve">
+    <value>-----Select Location-----</value>
+  </data>
+  <data name="ddlHeaders_CentreName" xml:space="preserve">
+    <value>----Select Centre----</value>
+  </data>
+  <data name="ddlHeaders_Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="DisplayMessage_AreYouSureYouWanttoAllocate" xml:space="preserve">
+    <value>Are you sure that you want to allocate</value>
+  </data>
+  <data name="DisplayMessage_AreYouSureYouWanttoDeallocate" xml:space="preserve">
+    <value>Are you sure that you want to deallocate</value>
+  </data>
+  <data name="DisplayMessage_to" xml:space="preserve">
+    <value>to</value>
+  </data>
+  <data name="Display_CentreQue" xml:space="preserve">
+    <value>Centre ?</value>
+  </data>
+  <data name="GlobalProperties_ShowList" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="ButtonAction_ShowList" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="ddlHeaders_Department" xml:space="preserve">
+    <value>----Select Department----</value>
+  </data>
+  <data name="ddlHeaders_SelectDesignation" xml:space="preserve">
+    <value>---Select Designation---</value>
+  </data>
+  <data name="DisplayNames_SelectOtherCentre" xml:space="preserve">
+    <value>Select Other Centre</value>
+  </data>
+  <data name="DisplayName_CentreName" xml:space="preserve">
+    <value>Centre</value>
+  </data>
+  <data name="DisplayName_DepartmentName" xml:space="preserve">
+    <value>Department</value>
+  </data>
+  <data name="Headers_OnlyOneRoleCanBeCreatedForOnePost" xml:space="preserve">
+    <value>Only one role can be created for one post.</value>
+  </data>
+  <data name="Headers_SelectFollowingOtherRights" xml:space="preserve">
+    <value>Select following rights if user has other centre level position</value>
+  </data>
+  <data name="Headers_SelectFollowingSelfRights" xml:space="preserve">
+    <value>Select following rights if role has centre level position</value>
+  </data>
+  <data name="ddlHeaders_SelectMaritalStatus" xml:space="preserve">
+    <value>-- Select Marital Status --</value>
+  </data>
+  <data name="DisplayName_DIVORCED" xml:space="preserve">
+    <value>DIVORCED</value>
+  </data>
+  <data name="DisplayName_Female" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="DisplayName_Male" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="DisplayName_MARRIED" xml:space="preserve">
+    <value>MARRIED</value>
+  </data>
+  <data name="DisplayName_Requiredfield" xml:space="preserve">
+    <value>Required field</value>
+  </data>
+  <data name="DisplayName_UNMARRIED" xml:space="preserve">
+    <value>UNMARRIED</value>
+  </data>
+  <data name="DisplayMessage_AllocateAdditionalRole" xml:space="preserve">
+    <value>Allocate Additional Role</value>
+  </data>
+  <data name="DropdownMessage_ALL" xml:space="preserve">
+    <value>ALL</value>
+  </data>
+  <data name="DropdownMessage_AlternetEven" xml:space="preserve">
+    <value>AlternetEven</value>
+  </data>
+  <data name="DropdownMessage_AlternetOdd" xml:space="preserve">
+    <value>AlternetOdd</value>
+  </data>
+  <data name="DropdownMessage_Daywise" xml:space="preserve">
+    <value>Daywise</value>
+  </data>
+  <data name="DropdownMessage_NO" xml:space="preserve">
+    <value>N</value>
+  </data>
+  <data name="DropdownMessage_NotApplicable" xml:space="preserve">
+    <value>Not Applicable</value>
+  </data>
+  <data name="DropdownMessage_Shiftwise" xml:space="preserve">
+    <value>Shiftwise</value>
+  </data>
+  <data name="DropdownMessage_YES" xml:space="preserve">
+    <value>Y</value>
+  </data>
+  <data name="Module_ACC" xml:space="preserve">
+    <value>ACCOUNTS</value>
+  </data>
+  <data name="Module_REPORTS" xml:space="preserve">
+    <value>REPORTS</value>
+  </data>
+  <data name="ParentMenu_Accounts" xml:space="preserve">
+    <value>Accounts</value>
+  </data>
+  <data name="ParentMenu_AccountTransaction" xml:space="preserve">
+    <value>Account Transaction</value>
+  </data>
+  <data name="ParentMenu_FinalReports" xml:space="preserve">
+    <value>Account Final Reports</value>
+  </data>
+  <data name="ParentMenu_LedgerReports" xml:space="preserve">
+    <value>Account Ledger Reports</value>
+  </data>
+  <data name="ParentMenu_MasterReport" xml:space="preserve">
+    <value>Account Master Reports</value>
+  </data>
+  <data name="SubMenu_AccountBalancesheetMaster" xml:space="preserve">
+    <value>Create Balancesheet</value>
+  </data>
+  <data name="SubMenu_AccountBalancesheetReport" xml:space="preserve">
+    <value>Balancesheet</value>
+  </data>
+  <data name="SubMenu_AccountBalancesheetTypeMaster" xml:space="preserve">
+    <value>Create Balancesheet Type</value>
+  </data>
+  <data name="SubMenu_AccountBalancesheetTypeReport" xml:space="preserve">
+    <value>Account Balancesheet Type</value>
+  </data>
+  <data name="SubMenu_AccountCashBankDetailsReport" xml:space="preserve">
+    <value>Cash Bank Details</value>
+  </data>
+  <data name="SubMenu_AccountCategoryMaster" xml:space="preserve">
+    <value>Create Category</value>
+  </data>
+  <data name="SubMenu_AccountCategoryMasterReport" xml:space="preserve">
+    <value>Account Category</value>
+  </data>
+  <data name="SubMenu_AccountCentreOpeningBalance" xml:space="preserve">
+    <value>Add Opening Balance</value>
+  </data>
+  <data name="SubMenu_AccountCentreWiseBalanceSheetReport" xml:space="preserve">
+    <value>Centrewise Balancesheet</value>
+  </data>
+  <data name="SubMenu_AccountChequeBookDetails" xml:space="preserve">
+    <value>Cheque Book Cancellation</value>
+  </data>
+  <data name="SubMenu_AccountChequeBookMaster" xml:space="preserve">
+    <value>Create Cheque Book</value>
+  </data>
+  <data name="SubMenu_AccountDayBookReport" xml:space="preserve">
+    <value>Account Day Book</value>
+  </data>
+  <data name="SubMenu_AccountExclusiveToCentreReport" xml:space="preserve">
+    <value>Centre Accounts</value>
+  </data>
+  <data name="SubMenu_AccountGeneralLedgerReport" xml:space="preserve">
+    <value>General Ledger</value>
+  </data>
+  <data name="SubMenu_AccountGroupMaster" xml:space="preserve">
+    <value>Create Group</value>
+  </data>
+  <data name="SubMenu_AccountGroupMasterReport" xml:space="preserve">
+    <value>Account Group</value>
+  </data>
+  <data name="SubMenu_AccountHeadMaster" xml:space="preserve">
+    <value>Account Heads</value>
+  </data>
+  <data name="SubMenu_AccountHeadMasterReport" xml:space="preserve">
+    <value>Account Heads</value>
+  </data>
+  <data name="SubMenu_AccountIndividualBalanceReport" xml:space="preserve">
+    <value>Individual Balance</value>
+  </data>
+  <data name="SubMenu_AccountMaster" xml:space="preserve">
+    <value>Create Account</value>
+  </data>
+  <data name="SubMenu_AccountMasterReport" xml:space="preserve">
+    <value>Account Report</value>
+  </data>
+  <data name="SubMenu_AccountOtherLedgerReport" xml:space="preserve">
+    <value>Other Ledger</value>
+  </data>
+  <data name="SubMenu_AccountProfitAndLossReport" xml:space="preserve">
+    <value>Profit And Loss</value>
+  </data>
+  <data name="SubMenu_AccountSessionMasterReport" xml:space="preserve">
+    <value>Session Report</value>
+  </data>
+  <data name="SubMenu_AccountStudentPersonalLedgerReport" xml:space="preserve">
+    <value>Student Personal Ledger</value>
+  </data>
+  <data name="SubMenu_AccountTradingReport" xml:space="preserve">
+    <value>Trading Report</value>
+  </data>
+  <data name="SubMenu_AccountTransactionMaster" xml:space="preserve">
+    <value>Voucher</value>
+  </data>
+  <data name="SubMenu_AccountTrialBalanceReport" xml:space="preserve">
+    <value>Trial Balance</value>
+  </data>
+  <data name="SubMenu_AccountVoucherSettingMasterReport" xml:space="preserve">
+    <value>Voucher Setting</value>
+  </data>
+  <data name="SubMenu_EmpExperienceType" xml:space="preserve">
+    <value>Experience Type</value>
+  </data>
+  <data name="SubMenu_EmpGeneralJobStatus" xml:space="preserve">
+    <value>Job Status</value>
+  </data>
+  <data name="SubMenu_EmpGeneralRelationshipTypeMaster" xml:space="preserve">
+    <value>Relationship Type Master</value>
+  </data>
+  <data name="SubMenu_EmpJobProfile" xml:space="preserve">
+    <value>Job Profile Master</value>
+  </data>
+  <data name="SubMenu_EmpLevelMaster" xml:space="preserve">
+    <value>Level Master</value>
+  </data>
+  <data name="ButtonAction_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ButtonAction_SaveChanges" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="DisplayMenu_ChildrerenDetails" xml:space="preserve">
+    <value>Children Details</value>
+  </data>
+  <data name="DisplayMenu_Consultancy" xml:space="preserve">
+    <value>Consultancy</value>
+  </data>
+  <data name="DisplayMenu_CourseSubjectTaught" xml:space="preserve">
+    <value>Course Subject Taught</value>
+  </data>
+  <data name="DisplayMenu_Dependents" xml:space="preserve">
+    <value>Dependents</value>
+  </data>
+  <data name="DisplayMenu_ElectionNomineeBody" xml:space="preserve">
+    <value>Election Nominee Body</value>
+  </data>
+  <data name="DisplayMenu_EmployeeInformation" xml:space="preserve">
+    <value>Employee Information </value>
+  </data>
+  <data name="DisplayMenu_FinancialAssistance" xml:space="preserve">
+    <value>Financial/Assistance</value>
+  </data>
+  <data name="DisplayMenu_PaperPresentation" xml:space="preserve">
+    <value>Paper Presentation</value>
+  </data>
+  <data name="DisplayMenu_PatentReceivedDetails" xml:space="preserve">
+    <value>Patent Received Details</value>
+  </data>
+  <data name="DisplayMenu_Personal" xml:space="preserve">
+    <value>Personal</value>
+  </data>
+  <data name="DisplayMenu_PHDGuideDetails" xml:space="preserve">
+    <value>P.Hd Guide Details</value>
+  </data>
+  <data name="DisplayMenu_Prizes" xml:space="preserve">
+    <value>Prizes</value>
+  </data>
+  <data name="DisplayMenu_ProfessionalBodies" xml:space="preserve">
+    <value>Professional Bodies</value>
+  </data>
+  <data name="DisplayMenu_ProjectWork" xml:space="preserve">
+    <value>Project Work</value>
+  </data>
+  <data name="DisplayMenu_SpecializationResearchArea" xml:space="preserve">
+    <value>Specialization Research Area</value>
+  </data>
+  <data name="DisplayMenu_SpecialLectureDelivered" xml:space="preserve">
+    <value>Special Lecture Delivered</value>
+  </data>
+  <data name="ddlHeaders_AccountCategory" xml:space="preserve">
+    <value>---Select Account Category---</value>
+  </data>
+  <data name="ddlHeaders_AccountType" xml:space="preserve">
+    <value>Select Account Type</value>
+  </data>
+  <data name="ddlHeader_AccountHead" xml:space="preserve">
+    <value>---Select Account Head---</value>
+  </data>
+  <data name="DisplayChkstatus_Available" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="DisplayChkstatus_Cancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="Displaychkstatus_Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="DisplayName_Bank" xml:space="preserve">
+    <value>Bank</value>
+  </data>
+  <data name="DisplayName_Cash" xml:space="preserve">
+    <value>Cash</value>
+  </data>
+  <data name="DisplayName_CompoundInterest" xml:space="preserve">
+    <value>Compound Interest</value>
+  </data>
+  <data name="DisplayName_Deficit" xml:space="preserve">
+    <value>Deficit</value>
+  </data>
+  <data name="DisplayName_DeleteMessage" xml:space="preserve">
+    <value>Do you want to delete?</value>
+  </data>
+  <data name="DisplayName_E_Employee" xml:space="preserve">
+    <value>E-Employee</value>
+  </data>
+  <data name="DisplayName_HalfYearly" xml:space="preserve">
+    <value>Half Yearly</value>
+  </data>
+  <data name="DisplayName_Ledger" xml:space="preserve">
+    <value>Ledger</value>
+  </data>
+  <data name="DisplayName_Merchandise" xml:space="preserve">
+    <value>Merchandise</value>
+  </data>
+  <data name="DisplayName_Monthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="DisplayName_Quaterly" xml:space="preserve">
+    <value>Quaterly</value>
+  </data>
+  <data name="DisplayName_Select" xml:space="preserve">
+    <value>----Select----</value>
+  </data>
+  <data name="DisplayName_SimpleInterest" xml:space="preserve">
+    <value>Simple Interest</value>
+  </data>
+  <data name="DisplayName_Surplus" xml:space="preserve">
+    <value>Surplus</value>
+  </data>
+  <data name="DisplayName_S_Student" xml:space="preserve">
+    <value>S-Student</value>
+  </data>
+  <data name="DisplayName_U_Suppliers" xml:space="preserve">
+    <value>U-Suppliers</value>
+  </data>
+  <data name="DisplayName_Yearly" xml:space="preserve">
+    <value>Yearly</value>
+  </data>
+  <data name="DropdownMessage_ControlHeadType" xml:space="preserve">
+    <value>Control Head Type</value>
+  </data>
+  <data name="DropdownMessage_NonControlHeadType" xml:space="preserve">
+    <value>Non Control Head Type</value>
+  </data>
+  <data name="RadioButton_Credit" xml:space="preserve">
+    <value>Credit</value>
+  </data>
+  <data name="RadioButton_Debit" xml:space="preserve">
+    <value>Debit</value>
+  </data>
+  <data name="SubMenu_OrgStudentCentrePrintingFormate" xml:space="preserve">
+    <value>Centre Printing Format</value>
+  </data>
+  <data name="Module_INVENTORY" xml:space="preserve">
+    <value>INVENTORY</value>
+  </data>
+  <data name="Module_PURCHASE" xml:space="preserve">
+    <value>PURCHASE</value>
+  </data>
+  <data name="ParentMenu_CategoryDetails" xml:space="preserve">
+    <value>Category Details</value>
+  </data>
+  <data name="ParentMenu_ExcelUpload" xml:space="preserve">
+    <value>Excel Upload</value>
+  </data>
+  <data name="ParentMenu_InventoryTransaction" xml:space="preserve">
+    <value>Master</value>
+  </data>
+  <data name="ParentMenu_InventoryTransactionDetails" xml:space="preserve">
+    <value>Transaction</value>
+  </data>
+  <data name="ParentMenu_Purchase" xml:space="preserve">
+    <value>Purchase</value>
+  </data>
+  <data name="ParentMenu_PurchaseExcelUpload" xml:space="preserve">
+    <value>Excel Upload</value>
+  </data>
+  <data name="ParentMenu_UnitDetails" xml:space="preserve">
+    <value>Unit Details</value>
+  </data>
+  <data name="SubMenu_BOMAndRecipeDetails" xml:space="preserve">
+    <value>BOM And Recipe Details</value>
+  </data>
+  <data name="SubMenu_GeneralAllocateSaleProcessUnit" xml:space="preserve">
+    <value>Allocate Sale Process Unit</value>
+  </data>
+  <data name="SubMenu_GeneralItemCategoryMaster" xml:space="preserve">
+    <value>Item Base Merchandise Category</value>
+  </data>
+  <data name="SubMenu_GeneralItemCategoryMasterExcelUpload" xml:space="preserve">
+    <value>General Item Category Master</value>
+  </data>
+  <data name="SubMenu_GeneralItemMarchandiseBaseCategory" xml:space="preserve">
+    <value>Item Merchandise Base Category</value>
+  </data>
+  <data name="SubMenu_GeneralItemMarchandiseGroup" xml:space="preserve">
+    <value>Item Merchandise Group</value>
+  </data>
+  <data name="SubMenu_GeneralItemMarchandiseSubCategory" xml:space="preserve">
+    <value>Item Merchandise SubCategory</value>
+  </data>
+  <data name="SubMenu_GeneralItemMaster" xml:space="preserve">
+    <value>Item Details</value>
+  </data>
+  <data name="SubMenu_GeneralItemMasterExcelUpload" xml:space="preserve">
+    <value>General Item Master</value>
+  </data>
+  <data name="SubMenu_GeneralItemMerchantiseCategory" xml:space="preserve">
+    <value>Item Merchandise Category</value>
+  </data>
+  <data name="SubMenu_GeneralItemMerchantiseDepartment" xml:space="preserve">
+    <value>Item Merchandise Department</value>
+  </data>
+  <data name="SubMenu_GeneralMovementType" xml:space="preserve">
+    <value>Movement Type</value>
+  </data>
+  <data name="SubMenu_GeneralOperatorRelatedRole" xml:space="preserve">
+    <value>Operator Related Role</value>
+  </data>
+  <data name="SubMenu_GeneralPackageType" xml:space="preserve">
+    <value>Package Type</value>
+  </data>
+  <data name="SubMenu_GeneralPackingTypeInfo" xml:space="preserve">
+    <value>Packing Type Info</value>
+  </data>
+  <data name="SubMenu_GeneralPriceGroup" xml:space="preserve">
+    <value>Price Group</value>
+  </data>
+  <data name="SubMenu_GeneralPriceListAndListLine" xml:space="preserve">
+    <value>Price List And List Line</value>
+  </data>
+  <data name="SubMenu_GeneralPurchaseGroupMaster" xml:space="preserve">
+    <value>Purchase Group</value>
+  </data>
+  <data name="SubMenu_GeneralTemperatureMaster" xml:space="preserve">
+    <value>Temperature Master</value>
+  </data>
+  <data name="SubMenu_GeneralTransactionMaster" xml:space="preserve">
+    <value>Transaction Details</value>
+  </data>
+  <data name="SubMenu_GeneralUnits1" xml:space="preserve">
+    <value>Create Units</value>
+  </data>
+  <data name="SubMenu_GeneralUnitsStorageLocation" xml:space="preserve">
+    <value>Units Storage Location</value>
+  </data>
+  <data name="SubMenu_GeneralUnitType1" xml:space="preserve">
+    <value>Unit Type</value>
+  </data>
+  <data name="SubMenu_InventoryAttributeMaster" xml:space="preserve">
+    <value>Attribute Master</value>
+  </data>
+  <data name="SubMenu_InventoryBrandMaster" xml:space="preserve">
+    <value>Brand Master</value>
+  </data>
+  <data name="SubMenu_InventoryCounterMaster" xml:space="preserve">
+    <value>Add Counters</value>
+  </data>
+  <data name="SubMenu_InventoryDimensionUnitMaster" xml:space="preserve">
+    <value>Dimension Unit Details</value>
+  </data>
+  <data name="SubMenu_InventoryExcelUpload" xml:space="preserve">
+    <value>Inventory Excel Upload</value>
+  </data>
+  <data name="SubMenu_InventoryLablePrintingFormat" xml:space="preserve">
+    <value>Lable Printing Format</value>
+  </data>
+  <data name="SubMenu_InventoryLocationMaster" xml:space="preserve">
+    <value>Location Details</value>
+  </data>
+  <data name="SubMenu_InventoryProductionMasterAndTransaction" xml:space="preserve">
+    <value>Production</value>
+  </data>
+  <data name="SubMenu_InventoryRecipeMenuCategory" xml:space="preserve">
+    <value>Recipe Menu Category</value>
+  </data>
+  <data name="SubMenu_InventoryStockAdjustment" xml:space="preserve">
+    <value>Stock Adjustment</value>
+  </data>
+  <data name="SubMenu_InventoryUoMGroupAndDetails" xml:space="preserve">
+    <value>UoM Group And Details</value>
+  </data>
+  <data name="SubMenu_InventoryUoMMaster" xml:space="preserve">
+    <value>UoM Master</value>
+  </data>
+  <data name="SubMenu_InventoryVariationMaster" xml:space="preserve">
+    <value>Variation Details</value>
+  </data>
+  <data name="SubMenu_ItemMasterMerchandiseCategoryExcelUpload" xml:space="preserve">
+    <value>Item Master Map Category</value>
+  </data>
+  <data name="SubMenu_ItemMasterPriceExcelUpload" xml:space="preserve">
+    <value>Item Master Price Report </value>
+  </data>
+  <data name="SubMenu_ItemMasterStoreDataExcelUpload" xml:space="preserve">
+    <value>Item Master Store Data </value>
+  </data>
+  <data name="SubMenu_OrderingAndDeliveryDay" xml:space="preserve">
+    <value>Ordering  Day Code</value>
+  </data>
+  <data name="SubMenu_PurchaseGRNMaster" xml:space="preserve">
+    <value>Goods Receipt Note(GRN)</value>
+  </data>
+  <data name="SubMenu_PurchaseInvoice" xml:space="preserve">
+    <value>Purchase Invoice</value>
+  </data>
+  <data name="SubMenu_PurchaseOrder" xml:space="preserve">
+    <value>Purchase Order</value>
+  </data>
+  <data name="SubMenu_PurchaseRequirement" xml:space="preserve">
+    <value>Purchase Requirement</value>
+  </data>
+  <data name="SubMenu_PurchaseRequisition" xml:space="preserve">
+    <value>Purchase Requisition</value>
+  </data>
+  <data name="SubMenu_PurchaseReturn" xml:space="preserve">
+    <value>Purchase Return</value>
+  </data>
+  <data name="SubMenu_Replenishment" xml:space="preserve">
+    <value>Replenishment</value>
+  </data>
+  <data name="SubMenu_VendorMaster" xml:space="preserve">
+    <value>Vendor Details</value>
+  </data>
+  <data name="SubMenu_VendorMasterExcelUpload" xml:space="preserve">
+    <value>Vendor Master</value>
+  </data>
+  <data name="SubMenu_VendorMasterMerchandiseCategoryExcelUpload" xml:space="preserve">
+    <value>Vendor Master Map Category</value>
+  </data>
+  <data name="ButtonAction_AddRow" xml:space="preserve">
+    <value>Add Row</value>
+  </data>
+  <data name="SubMenu_GeneralTax" xml:space="preserve">
+    <value>Tax</value>
+  </data>
+  <data name="SubMenu_GeneralTaxGroup" xml:space="preserve">
+    <value>Tax Group</value>
+  </data>
+  <data name="ButtonAction_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ParentMenu_ContractMaster" xml:space="preserve">
+    <value>Master</value>
+  </data>
+  <data name="SubMenu_SaleContractEmployeeMaster" xml:space="preserve">
+    <value>Contract Employee Master</value>
+  </data>
+  <data name="SubMenu_SaleContractMachineMaster" xml:space="preserve">
+    <value>Machine Master</value>
+  </data>
+  <data name="Module_SALARY" xml:space="preserve">
+    <value>SALARY</value>
+  </data>
+  <data name="ParentMenu_SalaryMaster" xml:space="preserve">
+    <value>Salary Master</value>
+  </data>
+  <data name="SubMenu_SalaryAllowanceMaster" xml:space="preserve">
+    <value>Salary Allowance Master</value>
+  </data>
+  <data name="SubMenu_SalaryDeductionMaster" xml:space="preserve">
+    <value>Salary Deduction Master</value>
+  </data>
+  <data name="ParentMenu_ContractDetails" xml:space="preserve">
+    <value>Contract Details</value>
+  </data>
+  <data name="SubMenu_SaleContractManPowerItem" xml:space="preserve">
+    <value>Contract Posts</value>
+  </data>
+  <data name="SubMenu_SaleContractMaster" xml:space="preserve">
+    <value>Sale Contract</value>
+  </data>
+  <data name="Module_SALES" xml:space="preserve">
+    <value>SALES</value>
+  </data>
+  <data name="ParentMenu_Sales" xml:space="preserve">
+    <value>Sales</value>
+  </data>
+  <data name="SubMenu_CustomerMaster" xml:space="preserve">
+    <value>Create Customer</value>
+  </data>
+  <data name="SubMenu_EnquiryMasterAndDetails" xml:space="preserve">
+    <value>Create Enquiry</value>
+  </data>
+  <data name="SubMenu_SalesQuotationMasterAndDetails" xml:space="preserve">
+    <value>Create Quotation</value>
+  </data>
+  <data name="SubMenu_GeneralShipperMaster" xml:space="preserve">
+    <value>Create Shipper</value>
+  </data>
+  <data name="SubMenu_SalesOrderMasterAndDetails" xml:space="preserve">
+    <value>Create Sales Order</value>
+  </data>
+  <data name="SubMenu_SaleContractAttendance" xml:space="preserve">
+    <value>Employee Attendance</value>
+  </data>
+  <data name="DisplayName_C_Customers" xml:space="preserve">
+    <value>C-Customers</value>
+  </data>
+  <data name="SubMenu_SalesInvoiceMasterAndDetails" xml:space="preserve">
+    <value>Create Sales Invoice</value>
+  </data>
+  <data name="SubMenu_SalesOrderDeliveryMasterAndDetails" xml:space="preserve">
+    <value>Create Delivery Memo</value>
+  </data>
+  <data name="SubMenu_SaleContractBillingTransaction" xml:space="preserve">
+    <value>Contract Invoice</value>
+  </data>
+  <data name="SubMenu_SaleContractSalaryTransaction" xml:space="preserve">
+    <value>Contract Employee Salary</value>
+  </data>
+  <data name="SubMenu_SaleContractJobWorkData" xml:space="preserve">
+    <value>Job Work Data</value>
+  </data>
+  <data name="SubMenu_SaleContractJobWorkItem" xml:space="preserve">
+    <value>Job Work Item</value>
+  </data>
+  <data name="DisplayName_T_ContractEmployee" xml:space="preserve">
+    <value>T-ContractEmployee</value>
+  </data>
+  <data name="SubMenu_SupplierPayementMaster" xml:space="preserve">
+    <value>Supplier Payement</value>
+  </data>
+  <data name="SubMenu_SaleContractPayement" xml:space="preserve">
+    <value>Sale Contract Payement</value>
+  </data>
+  <data name="SubMenu_SaleContractReciept" xml:space="preserve">
+    <value>Sale Contract Reciept</value>
+  </data>
+  <data name="SubMenu_SalesCustomerReciept" xml:space="preserve">
+    <value>Sales Customer Reciept</value>
+  </data>
+  <data name="SubMenu_SaleContractFixAttendance" xml:space="preserve">
+    <value>Fix Billing Attendance</value>
+  </data>
+  <data name="SubMenu_SaleContractFixItem" xml:space="preserve">
+    <value>Fix Item</value>
+  </data>
+  <data name="SubMenu_AddCentreOpeningBalanceForInventory" xml:space="preserve">
+    <value>Add Centre Opening Balance For Inventory</value>
+  </data>
+  <data name="ParentMenu_InventoryReports" xml:space="preserve">
+    <value>Inventory Reports</value>
+  </data>
+  <data name="SubMenu_PurchaseCurrentStockReport" xml:space="preserve">
+    <value>Current Stock Report</value>
+  </data>
+  <data name="SubMenu_PurchaseItemMovementReport" xml:space="preserve">
+    <value>Item Movement Report</value>
+  </data>
+  <data name="SubMenu_ItemPrice" xml:space="preserve">
+    <value>Item Price Report</value>
+  </data>
+  <data name="ParentMenu_SaleContractSalaryReport" xml:space="preserve">
+    <value>Sale Contract Salary Report</value>
+  </data>
+  <data name="SubMenu_EmployeePFReportForm10" xml:space="preserve">
+    <value>PF Form 10 Monthly and Yearly</value>
+  </data>
+  <data name="SubMenu_EmployeePFReportFORM6A" xml:space="preserve">
+    <value>PF Form 6a</value>
+  </data>
+  <data name="SubMenu_SaleContractEmployeePFReport" xml:space="preserve">
+    <value>PF Form 3a</value>
+  </data>
+  <data name="ParentMenu_PurchaseReports" xml:space="preserve">
+    <value>Purchase Report</value>
+  </data>
+  <data name="SubMenu_EmployeeReportForm5Monthly" xml:space="preserve">
+    <value>PF Form 5 Monthly and Yearly</value>
+  </data>
+  <data name="SubMenu_GeneralItemMissingExceptionReport" xml:space="preserve">
+    <value>Item Missing Exception Report</value>
+  </data>
+  <data name="SubMenu_VendorMasterReport" xml:space="preserve">
+    <value>Vendor Master Exception Report</value>
+  </data>
+  <data name="SubMenu_EmployeeESICReportForm7" xml:space="preserve">
+    <value>ESIC Report Form 7</value>
+  </data>
+  <data name="SubMenu_ESICZoneMaster" xml:space="preserve">
+    <value>Add ESIC Zone</value>
+  </data>
+  <data name="SubMenu_PFChallanRemittance" xml:space="preserve">
+    <value>PF Challan Remittance</value>
+  </data>
+  <data name="DisplayName_Address1" xml:space="preserve">
+    <value>Address1 :</value>
+  </data>
+  <data name="DisplayName_Address2" xml:space="preserve">
+    <value>Address2 :</value>
+  </data>
+  <data name="DisplayName_AddressType" xml:space="preserve">
+    <value>Address Type</value>
+  </data>
+  <data name="DisplayName_CasteID" xml:space="preserve">
+    <value>Caste</value>
+  </data>
+  <data name="DisplayName_CategoryID" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="DisplayName_CategoryName" xml:space="preserve">
+    <value>Category Name</value>
+  </data>
+  <data name="DisplayName_CategoryType" xml:space="preserve">
+    <value>Category Type</value>
+  </data>
+  <data name="DisplayName_CityID" xml:space="preserve">
+    <value>City </value>
+  </data>
+  <data name="DisplayName_CityName" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="DisplayName_CountryID" xml:space="preserve">
+    <value>Country Name</value>
+  </data>
+  <data name="DisplayName_CurriculumActivity" xml:space="preserve">
+    <value>Curriculum Activity</value>
+  </data>
+  <data name="DisplayName_DateofBirth" xml:space="preserve">
+    <value>Date of Birth</value>
+  </data>
+  <data name="DisplayName_DependentName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="DisplayName_EmployeeDependentDesignation" xml:space="preserve">
+    <value>Employee Dependent Designation</value>
+  </data>
+  <data name="DisplayName_EmployeeDependentDesignation1" xml:space="preserve">
+    <value>Employee Dependent Designation</value>
+  </data>
+  <data name="DisplayName_EmployeeDependentQualification" xml:space="preserve">
+    <value>Employee Dependent Qualification</value>
+  </data>
+  <data name="DisplayName_GenderCode" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="DisplayName_GeneralRelationshipTypeMasterID" xml:space="preserve">
+    <value>Relationship</value>
+  </data>
+  <data name="DisplayName_GotAnyMedal" xml:space="preserve">
+    <value>Got Any Medal</value>
+  </data>
+  <data name="DisplayName_Hobbies" xml:space="preserve">
+    <value>Hobbies</value>
+  </data>
+  <data name="DisplayName_IsActive" xml:space="preserve">
+    <value>Is Active ?</value>
+  </data>
+  <data name="DisplayName_IsScholarshipReceived" xml:space="preserve">
+    <value>Is Scholarship Received</value>
+  </data>
+  <data name="DisplayName_LanguageKnown" xml:space="preserve">
+    <value>Language Known</value>
+  </data>
+  <data name="DisplayName_MedalDescription" xml:space="preserve">
+    <value>Medal Description</value>
+  </data>
+  <data name="DisplayName_MedalReceivedDate" xml:space="preserve">
+    <value>Medal Received Date</value>
+  </data>
+  <data name="DisplayName_MobileNumber" xml:space="preserve">
+    <value>Mobile Number :</value>
+  </data>
+  <data name="DisplayName_MotherTongueID" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="DisplayName_NameTitle" xml:space="preserve">
+    <value>Title Name</value>
+  </data>
+  <data name="DisplayName_NationalityID" xml:space="preserve">
+    <value>Nationality</value>
+  </data>
+  <data name="DisplayName_PhoneNumber" xml:space="preserve">
+    <value>Phone Number :</value>
+  </data>
+  <data name="DisplayName_PlaceOfBirth" xml:space="preserve">
+    <value>Place of Birth</value>
+  </data>
+  <data name="DisplayName_RegionID" xml:space="preserve">
+    <value>Region Name</value>
+  </data>
+  <data name="DisplayName_RegionName" xml:space="preserve">
+    <value>Region Name</value>
+  </data>
+  <data name="DisplayName_ReligionID" xml:space="preserve">
+    <value>Religion</value>
+  </data>
+  <data name="DisplayName_ScholarshipAmount" xml:space="preserve">
+    <value>Scholarship Amount</value>
+  </data>
+  <data name="DisplayName_ScholarshipDescription" xml:space="preserve">
+    <value>Scholarship Description</value>
+  </data>
+  <data name="DisplayName_ScholarshipStartDate" xml:space="preserve">
+    <value>Scholarship Start Date</value>
+  </data>
+  <data name="DisplayName_ScholarshipUptoDate" xml:space="preserve">
+    <value>Scholarship Upto Date</value>
+  </data>
+  <data name="DisplayName_WeddingAnniversaryDate" xml:space="preserve">
+    <value>Wedding Anniversary Date</value>
+  </data>
+  <data name="ValidationMessage_Address1Required" xml:space="preserve">
+    <value>Address should not be blank</value>
+  </data>
+  <data name="ValidationMessage_CasteIDRequired" xml:space="preserve">
+    <value>Caste must be selected</value>
+  </data>
+  <data name="ValidationMessage_CategoryIDRequired" xml:space="preserve">
+    <value>Category should not be blank.</value>
+  </data>
+  <data name="ValidationMessage_CityIDRequired" xml:space="preserve">
+    <value>City must be selected</value>
+  </data>
+  <data name="ValidationMessage_CountryIDRequired" xml:space="preserve">
+    <value>Country name must be selected</value>
+  </data>
+  <data name="ValidationMessage_CountryNameRequired" xml:space="preserve">
+    <value>Country name should not be blank</value>
+  </data>
+  <data name="ValidationMessage_DateofBirthRequired" xml:space="preserve">
+    <value>Date of birth should not be blank</value>
+  </data>
+  <data name="ValidationMessage_DependentNameRequired" xml:space="preserve">
+    <value>Name should not be blank</value>
+  </data>
+  <data name="ValidationMessage_EmployeeDependentDesignationRequired" xml:space="preserve">
+    <value>Employee dependent designation  should not be blank</value>
+  </data>
+  <data name="ValidationMessage_EmployeeDependentDesignationRequired1" xml:space="preserve">
+    <value>Employee dependent designation  should not be blank</value>
+  </data>
+  <data name="ValidationMessage_EmployeeDependentQualificationRequired" xml:space="preserve">
+    <value>Employee dependent qualification should not be blank</value>
+  </data>
+  <data name="ValidationMessage_MotherTongueIDRequired" xml:space="preserve">
+    <value>Language must be selected</value>
+  </data>
+  <data name="ValidationMessage_NameTitleRequired" xml:space="preserve">
+    <value>Name title must be selected</value>
+  </data>
+  <data name="ValidationMessage_NationalityIDRequired" xml:space="preserve">
+    <value>Nationality must be selected</value>
+  </data>
+  <data name="ValidationMessage_PlaceOfBirthRequired" xml:space="preserve">
+    <value>Place of birth should not be blank</value>
+  </data>
+  <data name="ValidationMessage_RegionIDRequired" xml:space="preserve">
+    <value>Region name must be selected</value>
+  </data>
+  <data name="ValidationMessage_ReligionIDRequired" xml:space="preserve">
+    <value>Religion must be selected</value>
+  </data>
+  <data name="SubMenu_SaleContractShiftEmployee" xml:space="preserve">
+    <value>Sale Contract Shift Employee</value>
+  </data>
+  <data name="SubMenu_ATTRITIONReport" xml:space="preserve">
+    <value>Attrition Report</value>
+  </data>
+  <data name="SubMenu_ContractPaymentPendingReport" xml:space="preserve">
+    <value>Contract Payment Pending Report</value>
+  </data>
+  <data name="SubMenu_EmployeeFormIIWagesSheetReport" xml:space="preserve">
+    <value>Employee Form II Wages Sheet Report</value>
+  </data>
+  <data name="SubMenu_EmployeeFormX" xml:space="preserve">
+    <value>Employee Form X</value>
+  </data>
+  <data name="SubMenu_EmployeePFReportForm9" xml:space="preserve">
+    <value>Employee PF Report Form 9</value>
+  </data>
+  <data name="SubMenu_ESICMonthlyUploadingFile" xml:space="preserve">
+    <value>ESIC Monthly Uploading File</value>
+  </data>
+  <data name="SubMenu_GSTReports" xml:space="preserve">
+    <value>GST Reports</value>
+  </data>
+  <data name="SubMenu_PaymentOfBonus" xml:space="preserve">
+    <value>Payment Of Bonus</value>
+  </data>
+  <data name="SubMenu_RegisterofAdavances" xml:space="preserve">
+    <value>Register Of Adavances</value>
+  </data>
+  <data name="SubMenu_RegisterofDeductionsforDamageorLoss" xml:space="preserve">
+    <value>Register Of Deductions For Damage or Loss</value>
+  </data>
+  <data name="SubMenu_RegisterofFines" xml:space="preserve">
+    <value>Register Of Fines</value>
+  </data>
+  <data name="SubMenu_RegisterofOvertime" xml:space="preserve">
+    <value>Register Of Over Time</value>
+  </data>
+  <data name="SubMenu_RegisterofWorkmenEmployedbyContractor" xml:space="preserve">
+    <value>Register Of Work Men Employed by Contractor</value>
+  </data>
+  <data name="SubMenu_SaleContractLifeSpanReport" xml:space="preserve">
+    <value>Sale Contract Life Span Report</value>
+  </data>
+  <data name="SubMenu_SaleContractWisePNLReport" xml:space="preserve">
+    <value>Sale Contract Wise PNL Report</value>
+  </data>
+  <data name="ProjectEnvoirnment_AASI" xml:space="preserve">
+    <value>Aasi Gas Services</value>
+  </data>
+  <data name="ProjectFooter_AASI" xml:space="preserve">
+    <value>@2018 Aasi Gas Services</value>
+  </data>
+  <data name="ProjectFooter_Anand" xml:space="preserve">
+    <value>@2018 Anand Group</value>
+  </data>
+  <data name="ProjectFooter_DBL" xml:space="preserve">
+    <value>@2018 Dust Blowers</value>
+  </data>
+  <data name="ParentMenu_CylinderTransaction" xml:space="preserve">
+    <value>Cylinder Transaction</value>
+  </data>
+  <data name="SubMenu_EmptyCylinderPurchase" xml:space="preserve">
+    <value>Empty Cylinder Purchase</value>
+  </data>
+  <data name="SubMenu_EmptyFromParty" xml:space="preserve">
+    <value>Empty From Party</value>
+  </data>
+  <data name="SubMenu_EmptyReturnFromCompany" xml:space="preserve">
+    <value>Empty Return From Company</value>
+  </data>
+  <data name="SubMenu_EmptyToCompany" xml:space="preserve">
+    <value>Empty To Company</value>
+  </data>
+  <data name="SubMenu_FilledFromParty" xml:space="preserve">
+    <value>Filled From Party</value>
+  </data>
+  <data name="SubMenu_FilledReturnToCompany" xml:space="preserve">
+    <value>Filled Return To Company</value>
+  </data>
+  <data name="SubMenu_PartyRentBill" xml:space="preserve">
+    <value>Party Rent Bill</value>
+  </data>
+  <data name="Module_CCRM" xml:space="preserve">
+    <value>CCRM</value>
+  </data>
+  <data name="ParentMenu_CCRM" xml:space="preserve">
+    <value>Other Details</value>
+  </data>
+  <data name="ParentMenu_SymCodeandCauseCode" xml:space="preserve">
+    <value>Sym Cause Action Code</value>
+  </data>
+  <data name="SubMenu_CCRMBankMaster" xml:space="preserve">
+    <value>Bank Master</value>
+  </data>
+  <data name="SubMenu_CCRMBrokenCallReasonMaster" xml:space="preserve">
+    <value>Broken Call Reason Master</value>
+  </data>
+  <data name="SubMenu_CCRMCauseMaster" xml:space="preserve">
+    <value>Cause Master</value>
+  </data>
+  <data name="SubMenu_CCRMCustomerSegement" xml:space="preserve">
+    <value>Customer Segement</value>
+  </data>
+  <data name="SubMenu_CCRMEngineersGroupMaster" xml:space="preserve">
+    <value>Engineers Group Master</value>
+  </data>
+  <data name="SubMenu_CCRMFeedbackMaster" xml:space="preserve">
+    <value>Feedback Master</value>
+  </data>
+  <data name="SubMenu_CCRMServiceCallTypes" xml:space="preserve">
+    <value>ServiceCall Types</value>
+  </data>
+  <data name="SubMenu_CCRMSymptomMaster" xml:space="preserve">
+    <value>Symptom Master</value>
+  </data>
+  <data name="DisplayName_LinkMenuCode" xml:space="preserve">
+    <value>Link Menu Code  :</value>
+  </data>
+  <data name="DisplayName_MenuCode" xml:space="preserve">
+    <value>Menu Code :</value>
+  </data>
+  <data name="DisplayName_TaskApprovalBasedTable" xml:space="preserve">
+    <value>Approval Base Table  :</value>
+  </data>
+  <data name="DisplayName_TaskApprovalKeyValue" xml:space="preserve">
+    <value>Base Table Key Values :</value>
+  </data>
+  <data name="DisplayName_TaskApprovalParamPrimaryKey" xml:space="preserve">
+    <value>Base Table Primary Key :</value>
+  </data>
+  <data name="DisplayName_TaskApprovalTableDisplayField" xml:space="preserve">
+    <value>Base Table Display Field :</value>
+  </data>
+  <data name="DisplayName_TaskCode" xml:space="preserve">
+    <value>Task Code  :</value>
+  </data>
+  <data name="DisplayName_TaskCodeList" xml:space="preserve">
+    <value>Task  :</value>
+  </data>
+  <data name="DisplayName_TaskDescription" xml:space="preserve">
+    <value>Task Description  :</value>
+  </data>
+  <data name="DisplayName_TaskModelApplicableTo" xml:space="preserve">
+    <value>Task Applicable To  :</value>
+  </data>
+  <data name="ValidationMessage_LinkMenuCodeRequired" xml:space="preserve">
+    <value>Link Menu Code must be selected</value>
+  </data>
+  <data name="ValidationMessage_MenuCode" xml:space="preserve">
+    <value>Menu code  should not be blank</value>
+  </data>
+  <data name="ValidationMessage_MenuCodeRequired" xml:space="preserve">
+    <value>Menu Code must be selected</value>
+  </data>
+  <data name="ValidationMessage_MenuIconName" xml:space="preserve">
+    <value>Menu icon name should not be blank</value>
+  </data>
+  <data name="ValidationMessage_MenuLink" xml:space="preserve">
+    <value>Menu link should not be blank</value>
+  </data>
+  <data name="ValidationMessage_MenuName" xml:space="preserve">
+    <value>Menu name should not be blank</value>
+  </data>
+  <data name="ValidationMessage_TaskApprovalBasedTableRequired" xml:space="preserve">
+    <value>Approval Base Table  must be selected</value>
+  </data>
+  <data name="ValidationMessage_TaskApprovalParamPrimaryKeyRequired" xml:space="preserve">
+    <value>Base Table Primary Key must be selected</value>
+  </data>
+  <data name="ValidationMessage_TaskApprovalTableDisplayFieldRequired" xml:space="preserve">
+    <value>Base Table Display Field must be selected</value>
+  </data>
+  <data name="ValidationMessage_TaskCodeListRequired" xml:space="preserve">
+    <value>Task must be selected</value>
+  </data>
+  <data name="ValidationMessage_TaskCodeRequired" xml:space="preserve">
+    <value>Task Code should not be blank</value>
+  </data>
+  <data name="ValidationMessage_TaskDescriptionRequired" xml:space="preserve">
+    <value>Task Description should not be blank</value>
+  </data>
+  <data name="SubMenu_SaleContractMachineTransaction" xml:space="preserve">
+    <value>Machine Transaction</value>
+  </data>
+  <data name="SubMenu_SaleContractArrearsCalculation" xml:space="preserve">
+    <value>Arrears Calculation</value>
+  </data>
+  <data name="SubMenu_ContractEmployeeReport" xml:space="preserve">
+    <value>Contract Employee Report</value>
+  </data>
+  <data name="SubMenu_SaleContractServiceItemAttendance" xml:space="preserve">
+    <value>Service Item Days</value>
+  </data>
+  <data name="SubMenu_CCRMActionMaster" xml:space="preserve">
+    <value>Action Master</value>
+  </data>
+  <data name="SubMenu_CCRMAreaPatchMaster" xml:space="preserve">
+    <value>Area Patch</value>
+  </data>
+  <data name="SubMenu_CCRMBillTypeMaster" xml:space="preserve">
+    <value>Bill Type</value>
+  </data>
+  <data name="SubMenu_CCRMContractTypesMaster" xml:space="preserve">
+    <value>Contract Types</value>
+  </data>
+  <data name="SubMenu_CCRMLocationTypeMaster" xml:space="preserve">
+    <value>Location Type</value>
+  </data>
+  <data name="SubMenu_CCRMMachineFamilyMaster" xml:space="preserve">
+    <value>Machine Family</value>
+  </data>
+  <data name="SubMenu_CCRMMachineMaster" xml:space="preserve">
+    <value>Machine Master </value>
+  </data>
+  <data name="ParentMenu_EmployeeSalaryTransaction" xml:space="preserve">
+    <value>Salary Transaction</value>
+  </data>
+  <data name="SubMenu_EmployeeSalaryRules" xml:space="preserve">
+    <value>Salary Rules</value>
+  </data>
+  <data name="SubMenu_EmployeeSalarySpan" xml:space="preserve">
+    <value>Salary Span</value>
+  </data>
+  <data name="SubMenu_EmployeeBulkAttendence" xml:space="preserve">
+    <value>Bulk Attendance</value>
+  </data>
+  <data name="SubMenu_ProcessEmployeeSalary" xml:space="preserve">
+    <value>Process Employee Salary</value>
+  </data>
+  <data name="SubMenu_InventoryPurchaseStockReport" xml:space="preserve">
+    <value>Purchase Stock Report</value>
+  </data>
+  <data name="SubMenu_ContractSalaryATMReport" xml:space="preserve">
+    <value>Salary ATM Report</value>
+  </data>
+  <data name="SubMenu_ContractEmployeeWorkDetailsReport" xml:space="preserve">
+    <value>Employee Work Details Report</value>
+  </data>
+  <data name="SubMenu_SalesRegisterReport" xml:space="preserve">
+    <value>Sales Register Report</value>
+  </data>
+  <data name="ProjectEnvoirnment_CCRM" xml:space="preserve">
+    <value>CCRM</value>
+  </data>
+  <data name="ProjectFooter_CCRM" xml:space="preserve">
+    <value>@2018 CCRM</value>
+  </data>
+  <data name="SubMenu_ItemRequirementReport" xml:space="preserve">
+    <value>Item Requirement Report</value>
+  </data>
+  <data name="SubMenu_SaleContractSalaryWageSheetReport" xml:space="preserve">
+    <value>Salary Wage Sheet (Lupin)</value>
+  </data>
+  <data name="SubMenu_GrossOperatingProfitReport" xml:space="preserve">
+    <value>Gross Operating Profit Report</value>
+  </data>
+  <data name="ParentMenu_CCRMCustomerCare" xml:space="preserve">
+    <value>Customer Care</value>
+  </data>
+  <data name="ParentMenu_CCRMMIFManagement" xml:space="preserve">
+    <value>MIF Management</value>
+  </data>
+  <data name="SubMenu_CCRMCalenderMaster" xml:space="preserve">
+    <value>Calender Master</value>
+  </data>
+  <data name="SubMenu_CCRMCallAllotmentMaster" xml:space="preserve">
+    <value>Call Allotment Master</value>
+  </data>
+  <data name="SubMenu_CCRMCallApprovalMaster" xml:space="preserve">
+    <value> Call Approval Master</value>
+  </data>
+  <data name="SubMenu_CCRMCallClosure" xml:space="preserve">
+    <value>Call Closure</value>
+  </data>
+  <data name="SubMenu_CCRMComplaintLoggingMaster" xml:space="preserve">
+    <value>Complaint Logging Master</value>
+  </data>
+  <data name="SubMenu_CCRMContractMaster" xml:space="preserve">
+    <value>Contract Master</value>
+  </data>
+  <data name="SubMenu_CCRMHolidayMaster" xml:space="preserve">
+    <value>Holiday Master</value>
+  </data>
+  <data name="SubMenu_CCRMMIFMasterAndDetails" xml:space="preserve">
+    <value> MIF Master And Details</value>
+  </data>
+  <data name="SubMenu_CCRMServiceReportMaster" xml:space="preserve">
+    <value>Service Report Master</value>
+  </data>
+  <data name="ProjectEnvoirnment_HT" xml:space="preserve">
+    <value>Hi Tech</value>
+  </data>
+  <data name="ProjectFooter_HT" xml:space="preserve">
+    <value>@2018 Hi Tech</value>
+  </data>
+  <data name="SubMenu_ContractSalaryBonusReport" xml:space="preserve">
+    <value>Salary Bonus Report</value>
+  </data>
+  <data name="SubMenu_ItemHistoryReport" xml:space="preserve">
+    <value>Item History Report</value>
+  </data>
+  <data name="SubMenu_SaleContractWiseComplianceReport" xml:space="preserve">
+    <value>Contract Wise Compliance Report</value>
+  </data>
+  <data name="SubMenu_SaleContractWiseEmployeeDataReport" xml:space="preserve">
+    <value>Contract Wise Employee Data Report</value>
+  </data>
+  <data name="SubMenu_MachineTransactionReport" xml:space="preserve">
+    <value>Machine Transaction Report</value>
+  </data>
+  <data name="SubMenu_ContractListTillDateReport" xml:space="preserve">
+    <value>Contract List Till Date Report</value>
+  </data>
+  <data name="SubMenu_ContractSalaryAndInvoiceStatusReport" xml:space="preserve">
+    <value>Contract Salary &amp; Invoice Status Report</value>
+  </data>
+  <data name="SubMenu_ContractWisePFESICChecklistReport" xml:space="preserve">
+    <value>Contract Wise PF ESIC Checklist Report</value>
+  </data>
+  <data name="SubMenu_SalesOrderMonthlyDeliveryReport" xml:space="preserve">
+    <value>Sale Material GOP Report</value>
+  </data>
+  <data name="ParentMenu_ESICReport" xml:space="preserve">
+    <value>ESIC Report</value>
+  </data>
+  <data name="ParentMenu_PFReports" xml:space="preserve">
+    <value>PF Reports</value>
+  </data>
+  <data name="SubMenu_ESICCheckList" xml:space="preserve">
+    <value>Check List (Contractwise)</value>
+  </data>
+  <data name="SubMenu_MonthlyUploadingFileESIC" xml:space="preserve">
+    <value>Monthly Uploading File (ESIC)</value>
+  </data>
+  <data name="SubMenu_PFCheckList" xml:space="preserve">
+    <value>Check List (Contract wise)</value>
+  </data>
+  <data name="SubMenu_RemittanceChallan" xml:space="preserve">
+    <value>Remittance Challan And Uploading</value>
+  </data>
+  <data name="SubMenu_Report7" xml:space="preserve">
+    <value>Report-Form 7</value>
+  </data>
+  <data name="SubMenu_ReportForm9" xml:space="preserve">
+    <value>Form 9 (Employee PF Monthly)</value>
+  </data>
+  <data name="SubMenu_SalaryInvoiceStatus" xml:space="preserve">
+    <value>Salary and Invoice Submitted Status</value>
+  </data>
+  <data name="SubMenu_SaleOrderMonthlyDeliveryReport" xml:space="preserve">
+    <value>Sale Material GOP Report</value>
+  </data>
+  <data name="SubMenu_ReportForm3A" xml:space="preserve">
+    <value>Form 3A</value>
+  </data>
+  <data name="SubMenu_ReportFORM6A" xml:space="preserve">
+    <value>Form 6A</value>
+  </data>
+  <data name="ParentMenu_SalaryCompliance" xml:space="preserve">
+    <value>Salary Compliance</value>
+  </data>
+  <data name="ParentMenu_SalaryComplianceRegister" xml:space="preserve">
+    <value>Salary Compliance Register</value>
+  </data>
+  <data name="SubMenu_AttrReport" xml:space="preserve">
+    <value>Attrition  Report</value>
+  </data>
+  <data name="SubMenu_BonusPayment" xml:space="preserve">
+    <value>Bonus Payment</value>
+  </data>
+  <data name="SubMenu_ContractLifeSpanReport" xml:space="preserve">
+    <value>Contract Life Span Report</value>
+  </data>
+  <data name="SubMenu_EmployeeContractReport" xml:space="preserve">
+    <value>Contract Employee  Report</value>
+  </data>
+  <data name="SubMenu_FormIIWagesSheetReport" xml:space="preserve">
+    <value>Employee Form  II  Wages Sheet Report</value>
+  </data>
+  <data name="SubMenu_FormX" xml:space="preserve">
+    <value>FormX</value>
+  </data>
+  <data name="SubMenu_PendingContractsReport" xml:space="preserve">
+    <value>Contract Outstanding Payment</value>
+  </data>
+  <data name="SubMenu_ReportForm10" xml:space="preserve">
+    <value>Form 10</value>
+  </data>
+  <data name="SubMenu_ReportForm5" xml:space="preserve">
+    <value>Form 5</value>
+  </data>
+  <data name="SubMenu_SalaryATMReport" xml:space="preserve">
+    <value>Salary ATM Report</value>
+  </data>
+  <data name="SubMenu_SalaryBonusReport" xml:space="preserve">
+    <value>Salary Bonus Report</value>
+  </data>
+  <data name="SubMenu_SalesRegisterDrillDownReport" xml:space="preserve">
+    <value>Sales Register Drill Down Report</value>
+  </data>
+  <data name="SubMenu_AllAccountDrillDownReport" xml:space="preserve">
+    <value>All Ledger</value>
+  </data>
+  <data name="SubMenu_PurchaseRegisterDrillDownReport" xml:space="preserve">
+    <value>Purchase Register</value>
+  </data>
+  <data name="SubMenu_InventoryStockRegisterMonthWiseReport" xml:space="preserve">
+    <value>Monthly Stock Report</value>
+  </data>
+  <data name="SubMenu_SalesInvoiceMasterCancelledReport" xml:space="preserve">
+    <value>Cancelled Sales Invoice</value>
+  </data>
+  <data name="Module_TOOLKIT" xml:space="preserve">
+    <value>TOOL KIT</value>
+  </data>
+  <data name="ParentMenu_TaskMaster" xml:space="preserve">
+    <value>General Task</value>
+  </data>
+  <data name="SubMenu_GeneralTaskModel" xml:space="preserve">
+    <value>Task Master</value>
+  </data>
+  <data name="SubMenu_GeneralTaskReportingDetails" xml:space="preserve">
+    <value>Task Reporting Details</value>
+  </data>
+</root>

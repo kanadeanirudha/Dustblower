@@ -1,0 +1,72 @@
+﻿@model AERP.ViewModel.SaleContractMasterViewModel
+
+<div class="col-sm-12">
+    <table id="tblManPowerItem" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Post Name</th>
+                <th>Required Number</th>
+                <th style="display:none;">Gender</th>
+                <th>Is Salary Days Fixed</th>
+                <th>Fixed Days</th>
+                <th>Is Salary Days On Off Days</th>
+                <th>Is Billing Days Fixed</th>
+                <th>Fixed Billing Days</th>
+                <th>Is Billing Days On Off Days</th>
+                <th>Total Salary</th>
+                <th>Total Amount</th>
+                <th>Fixed Rate</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.SaleContractMasterListForManPowerItem)
+            {
+                <tr>
+                    <td>@item.SaleContractManPowerItemName</td>
+                    <td>@item.SaleContractManPowerItemRequired</td>
+                    <td style="display:none;">@item.Gender</td>
+                    <td>@(item.IsSalaryDaysCountFix == true ? "Yes" : "No")</td>
+                    <td>@item.FixedDays</td>
+                    <td>@(item.IsSalaryDaysOnWeeklyOff == true ? "Yes" : "No")</td>
+                    <td>@(item.IsBillingDaysFixed == true ? "Yes" : "No")</td>
+                    <td>@item.FixedBillingDays</td>
+                    <td>@(item.IsBillingDaysOnWeeklyOff == true ? "Yes" : "No")</td>
+                    <td>@Math.Round(item.Rate)</td>
+                    <td>@Math.Round(item.Rate * item.SaleContractManPowerItemRequired)</td>
+                    <td>@item.FixedRate</td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="col-sm-12">
+    <h4>Contract Employee</h4>
+</div>
+<div class="col-sm-12">
+    <table id="tblAssignContractEmployee" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Post Name</th>
+                <th>Contract Employee</th>
+                <th>Sift</th>
+                <th>Additional Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.SaleContractMasterListForAssignedEmployee)
+            {
+                <tr>
+                    <td>@item.SaleContractManPowerItemName</td>
+                    <td>@item.SaleContractEmployeeMasterName</td>
+                    <td>@item.EmployeeShiftMasterName</td>
+                    <td>@item.SaleContractEmployeeAdditionalAmount</td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
