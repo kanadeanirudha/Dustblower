@@ -367,6 +367,11 @@ var SalesInvoiceMasterAndDetails = {
             SalesInvoiceMasterAndDetails.AjaxCallSalesInvoiceMasterAndDetails();
         });
 
+        $('#GenerateEInvoiceForSalesInvoice').on("click", function () {
+            SalesInvoiceMasterAndDetails.ID = $('input[name=ID]').val();
+            SalesInvoiceMasterAndDetails.InvoiceType = 1;
+            ajaxRequest.makeRequest("/SalesInvoiceMasterAndDetails/GenerateEInvoice", "POST", SalesInvoiceMasterAndDetails, SalesInvoiceMasterAndDetails.Success, "GenerateEInvoiceForSalesInvoice");
+        });
         InitAnimatedBorder();
 
         CloseAlert();

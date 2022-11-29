@@ -4,11 +4,8 @@ using AERP.Common;
 using AERP.DataProvider;
 using AERP.DTO;
 using AERP.ExceptionManager;
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace AERP.Business.BusinessAction
 {
     public class SalesInvoiceMasterAndDetailsBA : ISalesInvoiceMasterAndDetailsBA
@@ -519,7 +516,7 @@ namespace AERP.Business.BusinessAction
             IBaseEntityResponse<SalesInvoiceMasterAndDetails> entityResponse = new BaseEntityResponse<SalesInvoiceMasterAndDetails>();
             try
             {
-                
+
                 if (_SalesInvoiceMasterAndDetailsDataProvider != null)
                 {
                     entityResponse = _SalesInvoiceMasterAndDetailsDataProvider.InsertSalesInvoiceApproval(item);
@@ -554,7 +551,7 @@ namespace AERP.Business.BusinessAction
             IBaseEntityResponse<SalesInvoiceMasterAndDetails> entityResponse = new BaseEntityResponse<SalesInvoiceMasterAndDetails>();
             try
             {
-                
+
                 if (_SalesInvoiceMasterAndDetailsDataProvider != null)
                 {
                     entityResponse = _SalesInvoiceMasterAndDetailsDataProvider.InsertCancelSalesInvoiceApproval(item);
@@ -617,5 +614,29 @@ namespace AERP.Business.BusinessAction
             }
             return SalesInvoiceMasterAndDetailsCollection;
         }
+
+        public GSTInvoiceRequestModel GetRecordForSalesEInvoice(SalesInvoiceMasterAndDetailsSearchRequest searchRequest)
+        {
+            GSTInvoiceRequestModel gstInvoiceRequestModel = new GSTInvoiceRequestModel();
+            try
+            {
+                if (_SalesInvoiceMasterAndDetailsDataProvider != null)
+                    gstInvoiceRequestModel = _SalesInvoiceMasterAndDetailsDataProvider.GetRecordForSalesEInvoice(searchRequest);
+                else
+                {
+                    gstInvoiceRequestModel.ErrorMessage = Resources.Null_Object_Exception;
+                }
+            }
+            catch (Exception ex)
+            {
+                gstInvoiceRequestModel.ErrorMessage = ex.Message;
+                if (_logException != null)
+                {
+                    _logException.Error(ex.Message);
+                }
+            }
+            return gstInvoiceRequestModel;
+        }
+
     }
 }

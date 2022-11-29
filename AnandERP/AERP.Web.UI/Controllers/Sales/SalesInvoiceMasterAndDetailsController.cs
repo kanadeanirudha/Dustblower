@@ -1,26 +1,24 @@
 ﻿using AERP.Base.DTO;
-using AERP.DTO;
 using AERP.Business.BusinessAction;
+using AERP.DTO;
 using AERP.ExceptionManager;
 using AERP.ViewModel;
+using AERP.Web.UI.Helper;
+
+using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Web.Mvc;
-using AERP.Common;
-using AERP.DataProvider;
-using System.IO;
-using System.Web.Hosting;
 using System.Data;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+using System.Globalization;
 using System.IO;
-using iTextSharp.text.html.simpleparser;
+using System.Linq;
 //using iTextSharp.text.pdf.parser;
 using System.Web;
-using iTextSharp.text.html;
-using System.Globalization;
+using System.Web.Mvc;
 
 namespace AERP.Web.UI.Controllers
 {
@@ -222,6 +220,7 @@ namespace AERP.Web.UI.Controllers
             model.CustomerBranchMasterID = model.SalesinvoiceList[0].CustomerBranchMasterID;
             model.GeneralUnitsID = model.SalesinvoiceList[0].GeneralUnitsID;
             model.CustomerInvoiceNumber = model.SalesinvoiceList[0].CustomerInvoiceNumber;
+            model.CustomerGSTNumber = model.SalesinvoiceList[0].CustomerGSTNumber;
             model.SalesOrderMasterID = model.SalesinvoiceList[0].SalesOrderMasterID;
             model.BillAmount = model.SalesinvoiceList[0].TotalIInvoiceAmount;
             model.Amount = model.SalesinvoiceList[0].NetAmount;
@@ -616,7 +615,7 @@ namespace AERP.Web.UI.Controllers
                 throw;
             }
         }
-        public void DownloadPDF1(string SalesInvoicePDF, string CustomerInvoiceNumber, int CustomerMasterID, bool IsCanceled,string WaterMark)
+        public void DownloadPDF1(string SalesInvoicePDF, string CustomerInvoiceNumber, int CustomerMasterID, bool IsCanceled, string WaterMark)
         {
             //string HTMLContent = "Hello <b>World</b>";
 
@@ -628,7 +627,7 @@ namespace AERP.Web.UI.Controllers
             Response.End();
         }
         //Code For  Download PDF
-        public byte[] GetPDF(string pHTML, bool IsCanceled,string WaterMark)
+        public byte[] GetPDF(string pHTML, bool IsCanceled, string WaterMark)
         {
             byte[] bPDF = null;
 
@@ -923,6 +922,34 @@ namespace AERP.Web.UI.Controllers
             }
             return listSalesInvoiceDetails;
         }
+
+        [HttpPost]
+        public ActionResult GenerateEInvoice(SalesInvoiceMasterAndDetailsViewModel _model)
+        {
+            SalesInvoiceMasterAndDetailsViewModel model = new SalesInvoiceMasterAndDetailsViewModel();
+            try
+            {
+                GSTInvoiceRequestModel gstInvoiceRequestModel = new GSTInvoiceRequestModel();
+                if (_model.SalesInvoiceMasterAndDetailsDTO.InvoiceType == 1)
+                {
+                    gstInvoiceRequestModel = GetRecordForSalesEInvoice(_model.ID);
+                }
+                else
+                {
+                    model.SalesinvoiceList = GetRecordForServiceInvoicePDF(_model.ID);
+                }
+                if (string.IsNullOrEmpty(gstInvoiceRequestModel.ErrorMessage))
+                {
+                    GSTHelper.GenerateEInvoice(gstInvoiceRequestModel, null);
+                }
+                //model.SalesInvoiceMasterAndDetailsDTO.errorMessage = CheckError((gstInvoiceRequestModel.Entity != null) ? gstInvoiceRequestModel.Entity.ErrorCode : 20, ActionModeEnum.Insert);
+                return Json(gstInvoiceRequestModel.ErrorMessage, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         #endregion
 
 
@@ -1082,6 +1109,15 @@ namespace AERP.Web.UI.Controllers
             return listSalesInvoiceMasterAndDetails;
         }
 
+        [NonAction]
+        protected GSTInvoiceRequestModel GetRecordForSalesEInvoice(int id)
+        {
+            SalesInvoiceMasterAndDetailsSearchRequest searchRequest = new SalesInvoiceMasterAndDetailsSearchRequest();
+            searchRequest.ConnectionString = Convert.ToString(ConfigurationManager.ConnectionStrings["Main.ConnectionString"]);
+            searchRequest.ID = id;
+            GSTInvoiceRequestModel gstInvoiceRequestModel = _SalesInvoiceMasterAndDetailsBA.GetRecordForSalesEInvoice(searchRequest);
+            return gstInvoiceRequestModel;
+        }
         #endregion
 
         // AjaxHandler Method
@@ -1105,7 +1141,7 @@ namespace AERP.Web.UI.Controllers
                         }
                         else
                         {
-                            _searchBy = "A.SalesOrderNumber Like '%" + param.sSearch + "%' or A.SalesOrderNumber Like '%" + param.sSearch + "%' or A.CustomerInvoiceNumber Like '%" + param.sSearch + "%'or A.CustomerName Like '%" + param.sSearch + "%' ";      //this "if" block is added for search functionality
+                            _searchBy = "A.SalesOrderNumber Like '%" + param.sSearch + "%' or A.SalesOrderNumber Like '%" + param.sSearch + "%' or A.CustomerInvoiceNumber Like '%" + param.sSearch + "%'or A.CustomerName Like '%" + param.sSearch + "%' or A.DeliveryNumber Like '%" + param.sSearch + "%'";      //this "if" block is added for search functionality
 
                         }
                         break;
@@ -1117,7 +1153,7 @@ namespace AERP.Web.UI.Controllers
                         }
                         else
                         {
-                            _searchBy = "A.SalesOrderNumber Like '%" + param.sSearch + "%' or A.SalesOrderNumber Like '%" + param.sSearch + "%' or A.CustomerInvoiceNumber Like '%" + param.sSearch + "%'or A.CustomerName Like '%" + param.sSearch + "%'";         //this "if" block is added for search functionality
+                            _searchBy = "A.SalesOrderNumber Like '%" + param.sSearch + "%' or A.SalesOrderNumber Like '%" + param.sSearch + "%' or A.CustomerInvoiceNumber Like '%" + param.sSearch + "%'or A.CustomerName Like '%" + param.sSearch + "%' or A.DeliveryNumber Like '%" + param.sSearch + "%'";      //this "if" block is added for search functionality
                         }
                         break;
                     case 2:
@@ -1128,7 +1164,7 @@ namespace AERP.Web.UI.Controllers
                         }
                         else
                         {
-                            _searchBy = "A.SalesOrderNumber Like '%" + param.sSearch + "%' or A.SalesOrderNumber Like '%" + param.sSearch + "%' or A.CustomerInvoiceNumber Like '%" + param.sSearch + "%' or A.CustomerName Like '%" + param.sSearch + "%'";         //this "if" block is added for search functionality
+                            _searchBy = "A.SalesOrderNumber Like '%" + param.sSearch + "%' or A.SalesOrderNumber Like '%" + param.sSearch + "%' or A.CustomerInvoiceNumber Like '%" + param.sSearch + "%'or A.CustomerName Like '%" + param.sSearch + "%' or A.DeliveryNumber Like '%" + param.sSearch + "%'";      //this "if" block is added for search functionality
                         }
                         break;
 

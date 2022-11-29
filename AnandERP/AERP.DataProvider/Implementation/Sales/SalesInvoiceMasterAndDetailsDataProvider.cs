@@ -1,6 +1,7 @@
 ﻿using AERP.Base.DTO;
 using AERP.DTO;
 using AERP.ExceptionManager;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -64,7 +65,7 @@ namespace AERP.DataProvider
                     cmdToExecute.Parameters.Add(new SqlParameter("@sSortBy", SqlDbType.VarChar, 200, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, searchRequest.SortBy));
                     cmdToExecute.Parameters.Add(new SqlParameter("@iStartRow", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.StartRow));
                     cmdToExecute.Parameters.Add(new SqlParameter("@iEndRow", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.EndRow));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@nsSearchBy", SqlDbType.NVarChar, 200, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.SearchBy));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@nsSearchBy", SqlDbType.NVarChar, int.MaxValue, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.SearchBy));
                     cmdToExecute.Parameters.Add(new SqlParameter("@sSortDirection", SqlDbType.VarChar, 10, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.SortDirection));
                     // cmdToExecute.Parameters.Add(new SqlParameter("@tiPurchaseOrderType", SqlDbType.TinyInt, 0, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.PurchaseOrderType));
                     cmdToExecute.Parameters.Add(new SqlParameter("@iAdminRoleID", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.AdminRoleID));
@@ -390,19 +391,19 @@ namespace AERP.DataProvider
                                         DataRowVersion.Proposed, item.TotalIInvoiceAmount));
                     if (item.XMLstringForVouchar == null || item.XMLstringForVouchar == "")
                     {
-                        cmdToExecute.Parameters.Add(new SqlParameter("@xSaleInvoiceVoucherXML", SqlDbType.Xml, 0,ParameterDirection.Input, false, 0, 0, "",DataRowVersion.Proposed, DBNull.Value));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@xSaleInvoiceVoucherXML", SqlDbType.Xml, 0, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, DBNull.Value));
                     }
                     else
                     {
-                        cmdToExecute.Parameters.Add(new SqlParameter("@xSaleInvoiceVoucherXML", SqlDbType.Xml, 0,ParameterDirection.Input, false, 0, 0, "",DataRowVersion.Proposed, item.XMLstringForVouchar));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@xSaleInvoiceVoucherXML", SqlDbType.Xml, 0, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.XMLstringForVouchar));
                     }
                     if (item.XMLstring == null || item.XMLstring == "")
                     {
-                        cmdToExecute.Parameters.Add(new SqlParameter("@xSaleInvoiceXML", SqlDbType.Xml, 0,ParameterDirection.Input, false, 0, 0, "",DataRowVersion.Proposed, DBNull.Value));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@xSaleInvoiceXML", SqlDbType.Xml, 0, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, DBNull.Value));
                     }
                     else
                     {
-                        cmdToExecute.Parameters.Add(new SqlParameter("@xSaleInvoiceXML", SqlDbType.Xml, 0,ParameterDirection.Input, false, 0, 0, "",DataRowVersion.Proposed, item.XMLstring));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@xSaleInvoiceXML", SqlDbType.Xml, 0, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.XMLstring));
                     }
                     if (item.XMLstringForInvoice == null || item.XMLstringForInvoice == "")
                     {
@@ -914,7 +915,7 @@ namespace AERP.DataProvider
 
                         item.LocationName = sqlDataReader["LocationName"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["LocationName"]);
                         item.CustomerInvoiceNumber = sqlDataReader["CustomerInvoiceNumber"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["CustomerInvoiceNumber"]);
-
+                        item.CustomerGSTNumber = sqlDataReader["CustomerGSTNumber"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["CustomerGSTNumber"]);
 
                         item.BatchNumber = sqlDataReader["BatchNumber"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["BatchNumber"]);
                         item.ExpiryDate = sqlDataReader["ExpiryDate"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["ExpiryDate"]);
@@ -1068,7 +1069,7 @@ namespace AERP.DataProvider
                         item.IsTaxExempted = sqlDataReader["IsTaxExempted"] is DBNull ? false : Convert.ToBoolean(sqlDataReader["IsTaxExempted"]);
                         item.ReasonForExemption = sqlDataReader["ReasonForExemption"] is DBNull ? new byte() : Convert.ToByte(sqlDataReader["ReasonForExemption"]);
                         item.TaxExemptionRemark = sqlDataReader["TaxExemptionRemark"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["TaxExemptionRemark"]);
-                        item.IsCanceled= sqlDataReader["IsCanceled"] is DBNull ? false : Convert.ToBoolean(sqlDataReader["IsCanceled"]);
+                        item.IsCanceled = sqlDataReader["IsCanceled"] is DBNull ? false : Convert.ToBoolean(sqlDataReader["IsCanceled"]);
                         item.IsServiceItem = sqlDataReader["ServiceItemFlag"] is DBNull ? false : Convert.ToBoolean(sqlDataReader["ServiceItemFlag"]);
                         item.WaterMark = sqlDataReader["WaterMark"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["WaterMark"]);
                         baseEntityCollection.CollectionResponse.Add(item);
@@ -1211,7 +1212,7 @@ namespace AERP.DataProvider
                         item.TaxExemptionRemark = sqlDataReader["TaxExemptionRemark"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["TaxExemptionRemark"]);
                         item.IsCanceled = sqlDataReader["IsCanceled"] is DBNull ? false : Convert.ToBoolean(sqlDataReader["IsCanceled"]);
 
-                        item.WaterMark = sqlDataReader["WaterMark"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["WaterMark"]); 
+                        item.WaterMark = sqlDataReader["WaterMark"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["WaterMark"]);
 
                         baseEntityCollection.CollectionResponse.Add(item);
                     }
@@ -2068,7 +2069,7 @@ namespace AERP.DataProvider
                         item.ExpiryDate = sqlDataReader["ExpiryDate"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["ExpiryDate"]);
                         item.StorageLocationID = sqlDataReader["IssueFromLocationID"] == DBNull.Value ? 0 : Convert.ToInt32(sqlDataReader["IssueFromLocationID"]);
                         item.GeneralUnitsID = sqlDataReader["GeneralUnitsID"] == DBNull.Value ? 0 : Convert.ToInt32(sqlDataReader["GeneralUnitsID"]);
-                        
+
                         item.DMNumber = sqlDataReader["DMNumber"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["DMNumber"]);
                         item.TaxRateList = sqlDataReader["TaxRateList"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["TaxRateList"]);
                         item.TaxList = sqlDataReader["TaxList"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["TaxList"]);
@@ -2115,6 +2116,187 @@ namespace AERP.DataProvider
             }
             return baseEntityCollection;
         }
+
+        public GSTInvoiceRequestModel GetRecordForSalesEInvoice(SalesInvoiceMasterAndDetailsSearchRequest searchRequest)
+        {
+            GSTInvoiceRequestModel gstInvoiceRequestModel = new GSTInvoiceRequestModel();
+            SqlCommand cmdToExecute = new SqlCommand();
+            SqlDataReader sqlDataReader = null;
+            try
+            {
+                if (string.IsNullOrEmpty(searchRequest.ConnectionString))
+                {
+                    gstInvoiceRequestModel.ErrorMessage = "Connection string is empty.";
+                }
+                else
+                {
+                    // Use base class' connection object
+                    _mainConnection.ConnectionString = searchRequest.ConnectionString;
+                    cmdToExecute.Connection = _mainConnection;
+                    cmdToExecute.CommandText = "dbo.USP_GetRecordForSalesEInvoiceMaster";
+                    cmdToExecute.CommandType = CommandType.StoredProcedure;
+                    cmdToExecute.Parameters.Add(new SqlParameter("@iSalesInvoiceMasterID", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.ID));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
+                    if (_mainConnectionIsCreatedLocal)
+                    {
+                        // Open connection.
+                        _mainConnection.Open();
+                    }
+                    else
+                    {
+                        if (_mainConnectionProvider.IsTransactionPending)
+                        {
+                            cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+                        }
+                    }
+                    sqlDataReader = cmdToExecute.ExecuteReader();
+                    //double totalInvoiceAmount = 0, totalInvoiceTax = 0, totalInvoiceDiscount = 0;
+                    if (sqlDataReader.HasRows)
+                    {
+                        List<ItemList> itemList = new List<ItemList>();
+                        int SlNo = 0, assTotalValue = 0;
+                        double cgstTotal = 0, sgstTotal = 0, totalInvoiceAmount = 0, totalTaxAmount = 0, totalDiscountAmount=0;
+                        bool IsOtherState = false;
+                        while (sqlDataReader.Read())
+                        {
+                            SlNo = SlNo + 1;
+                            if (SlNo == 1)
+                            {
+                                totalInvoiceAmount = Convert.ToDouble(sqlDataReader["TotalIInvoiceAmount"]);
+                                IsOtherState = Convert.ToBoolean(sqlDataReader["IsOtherState"]);
+                                totalTaxAmount = Convert.ToDouble(sqlDataReader["TotalTaxAmount"]);
+                                gstInvoiceRequestModel.TranDtls = new TranDtls();
+                                gstInvoiceRequestModel.DocDtls = new DocDtls()
+                                {
+                                    No = sqlDataReader["CustomerInvoiceNumber"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CustomerInvoiceNumber"]),
+                                    Dt = sqlDataReader["InvoiceDate"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["InvoiceDate"])
+                                };
+                                gstInvoiceRequestModel.SellerDtls = new SellerDtls()
+                                {
+                                    Gstin = sqlDataReader["SellerGSTINNumber"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["SellerGSTINNumber"]),
+                                    LglNm = sqlDataReader["CentreName"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CentreName"]),
+                                    TrdNm = sqlDataReader["CentreSpecialization"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CentreSpecialization"]),
+                                    Addr1 = sqlDataReader["CentreAddress1"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CentreAddress1"]),
+                                    Addr2 = sqlDataReader["CentreAddress2"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CentreAddress2"]),
+                                    Loc = sqlDataReader["CentreCity"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CentreCity"]),
+                                    Pin = sqlDataReader["CentrePincode"] is DBNull ? 0 : Convert.ToInt32(sqlDataReader["CentrePincode"]),
+                                    Stcd = sqlDataReader["CentreStateCode"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CentreStateCode"]),
+                                    //Ph = sqlDataReader["CellPhone"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CellPhone"]),
+                                    Em = sqlDataReader["SellerEmailID"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["SellerEmailID"]),
+                                };
+
+                                gstInvoiceRequestModel.BuyerDtls = new BuyerDtls()
+                                {
+                                    Gstin = sqlDataReader["CustomerGSTNumber"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CustomerGSTNumber"]),
+                                    LglNm = sqlDataReader["CompanyName"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CompanyName"]),
+                                    //TrdNm = sqlDataReader["TrdNm"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["TrdNm"]),
+                                    Pos = sqlDataReader["CustomerPOS"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CustomerPOS"]),
+                                    Addr1 = sqlDataReader["CustomerAddress1"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CustomerAddress1"]),
+                                    //Addr2 = sqlDataReader["CustomerAddress2"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CustomerAddress2"]),
+                                    Loc = sqlDataReader["CustomerCity"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CustomerCity"]),
+                                    Pin = sqlDataReader["CustomerPinCode"] is DBNull ? 0 : Convert.ToInt32(sqlDataReader["CustomerPinCode"]),
+                                    Stcd = sqlDataReader["CustomerStateCode"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CustomerStateCode"]),
+                                    //Ph = sqlDataReader["CustomerMobileNumber"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CustomerMobileNumber"]),
+                                    Em = sqlDataReader["CustomerEmail"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CustomerEmail"]),
+                                };
+
+
+                            }
+                            ItemList item = new ItemList();
+                            item.SlNo = Convert.ToString(SlNo);
+                            item.PrdDesc = sqlDataReader["ItemDescription"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["ItemDescription"]);
+                            item.IsServc = Convert.ToBoolean(sqlDataReader["IsServiceItem"]) ? "Y" : "N";
+                            item.HsnCd = sqlDataReader["HSNCode"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["HSNCode"]);
+                            item.Qty = sqlDataReader["InvoiceQuantity"] == DBNull.Value ? 0 : Convert.ToDouble(sqlDataReader["InvoiceQuantity"]);
+                            item.Unit = sqlDataReader["SaleUOMcode"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["SaleUOMcode"]);
+                            item.UnitPrice = sqlDataReader["UnitPrice"] == DBNull.Value ? 0 : Convert.ToDouble(sqlDataReader["UnitPrice"]);
+                            item.TotAmt = sqlDataReader["LineItemSubTotal"] == DBNull.Value ? 0 : Convert.ToDouble(sqlDataReader["LineItemSubTotal"]);
+                            double lineItemTaxAmount = sqlDataReader["LineItemTaxAmount"] is DBNull ? 0 : Convert.ToDouble(sqlDataReader["LineItemTaxAmount"]);
+                            double lineItemTotalAmount = sqlDataReader["LineItemTotalAmount"] is DBNull ? 0 : Convert.ToDouble(sqlDataReader["LineItemTotalAmount"]);
+                            if (lineItemTaxAmount == 0)
+                            {
+                                item.Discount = Convert.ToInt32(item.TotAmt);
+                                item.AssAmt = item.TotAmt - item.Discount;
+                                item.TotItemVal = 0;
+                                totalDiscountAmount += item.Discount;
+                            }
+                            else
+                            {
+                                item.AssAmt = Convert.ToInt32(item.TotAmt);
+                                item.TotItemVal = lineItemTotalAmount;
+                                if (Convert.ToBoolean(sqlDataReader["IsOtherState"]))
+                                {
+                                    string a = sqlDataReader["LineItemTaxRates"].ToString();
+                                    item.GstRt = Convert.ToDouble(sqlDataReader["LineItemTaxRates"].ToString().Split('~')[1]);
+                                    item.IgstAmt = lineItemTaxAmount;
+                                }
+                                else
+                                {
+                                    foreach (var lineItemTaxrate in Convert.ToString(sqlDataReader["LineItemTaxRates"])?.Split(','))
+                                    {
+                                        item.GstRt = item.GstRt == 0 ? Convert.ToDouble(lineItemTaxrate.Split('~')[2]) : item.GstRt;
+                                        double taxRate = 0;
+                                        if (string.Equals(lineItemTaxrate.Split('~')[0], "CGST", StringComparison.InvariantCultureIgnoreCase))
+                                        {
+                                            taxRate = Convert.ToDouble(lineItemTaxrate.Split('~')[1]);
+                                            item.CgstAmt = Convert.ToInt32(item.TotAmt * (taxRate / 100));
+                                            cgstTotal += item.CgstAmt;
+                                        }
+                                        else if (string.Equals(lineItemTaxrate.Split('~')[0], "SGST", StringComparison.InvariantCultureIgnoreCase))
+                                        {
+                                            taxRate = Convert.ToDouble(lineItemTaxrate.Split('~')[1]);
+                                            item.SgstAmt = Convert.ToInt32(item.TotAmt * (taxRate / 100));
+                                            sgstTotal += item.SgstAmt;
+                                        }
+
+                                    }
+                                }
+                            }
+                            assTotalValue += Convert.ToInt32(item.AssAmt);
+                            itemList.Add(item);
+                        }
+
+                        gstInvoiceRequestModel.ItemList = itemList;
+                        totalInvoiceAmount = totalInvoiceAmount - totalDiscountAmount;
+                        gstInvoiceRequestModel.ValDtls = new ValDtls()
+                        {
+                            AssVal = assTotalValue,
+                            IgstVal = IsOtherState ? totalTaxAmount : 0,
+                            CgstVal = IsOtherState ? Convert.ToInt32(cgstTotal) : 0,
+                            SgstVal = IsOtherState ? Convert.ToInt32(sgstTotal) : 0,
+                            Discount = 0,
+                            TotInvVal = Convert.ToInt32(Math.Round(totalInvoiceAmount)),
+                            TotInvValFc = totalInvoiceAmount,
+                            RndOffAmt = Math.Round(Math.Abs(Math.Round(totalInvoiceAmount) - totalInvoiceAmount), 2)
+                        };
+                    }
+                    if (cmdToExecute.Parameters["@iErrorCode"].Value != null)
+                    {
+                        _errorCode = (SqlInt32)cmdToExecute.Parameters["@iErrorCode"].Value;
+                    }
+                    if (_errorCode != (int)ErrorEnum.AllOk)
+                    {
+                        // Throw error.
+                        throw new Exception("Stored Procedure 'USP_GetRecordForSalesEInvoiceMaster' reported the ErrorCode: " + _errorCode);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                gstInvoiceRequestModel.ErrorMessage = ex.InnerException.Message;
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Close connection.
+                    _mainConnection.Close();
+                }
+                cmdToExecute.Dispose();
+            }
+            return gstInvoiceRequestModel;
+        }
+
         #endregion
     }
 }

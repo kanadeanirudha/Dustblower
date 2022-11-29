@@ -48,11 +48,11 @@
                             {
                                 if (Model.IsCanceled == false)
                                 {
-                                <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="Cancel Invoice" id="CancelSalesInvoiceRecord" type="button" />
+                                    <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="Cancel Invoice" id="CancelSalesInvoiceRecord" type="button" />
                                 }
                                 else
                                 {
-                                <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="Cancelled" id="" type="button" />
+                                    <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="Cancelled" id="" type="button" />
                                 }
                             }
                         }
@@ -177,8 +177,16 @@
                 {
                     Html.RenderAction("GetTaxSummaryForDisplay", "GeneralTaxGroupMaster", new { IsOtherState = Model.IsOtherState, FromMasterID = Model.ID, FromDetailTable = "SaleContractInvoiceDetails" });
                 }
-                <div class="form-group" style="margin-left:2%; display:none">
-                    <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="@Resources.ButtonAction_Submit" id="CreateSalesInvoiceMasterAndDetailsRecord" type="button" />
+
+                <div class="form-group" style="margin-left:2%;">
+                    @if (!string.IsNullOrEmpty(Model.CustomerGSTNumber))
+                    {
+                        <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="Generate E-Invoice" id="GenerateEInvoiceForSalesInvoice" type="button" />
+                    }
+                    else
+                    {
+                        <span>Customer GST Number is not available</span>
+                    }
                 </div>
 
             </form>

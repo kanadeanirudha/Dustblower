@@ -918,5 +918,18 @@ namespace AERP.ViewModel
                 SalesInvoiceMasterAndDetailsDTO.MonthYear = value;
             }
         }
+
+        [Display(Name = "Customer GST Number")]
+        public string CustomerGSTNumber
+        {
+            get
+            {
+                return (SalesInvoiceMasterAndDetailsDTO != null) ? SalesInvoiceMasterAndDetailsDTO.CustomerGSTNumber : string.Empty;
+            }
+            set
+            {
+                SalesInvoiceMasterAndDetailsDTO.CustomerGSTNumber = value;
+            }
+        }
     }
 }

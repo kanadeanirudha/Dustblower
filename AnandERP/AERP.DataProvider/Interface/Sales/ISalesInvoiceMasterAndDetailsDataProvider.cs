@@ -26,5 +26,6 @@ namespace AERP.DataProvider
         IBaseEntityResponse<SalesInvoiceMasterAndDetails> InsertSalesInvoiceApproval(SalesInvoiceMasterAndDetails item);
         IBaseEntityResponse<SalesInvoiceMasterAndDetails> InsertCancelSalesInvoiceApproval(SalesInvoiceMasterAndDetails item);
         IBaseEntityCollectionResponse<SalesInvoiceMasterAndDetails> GetSalesInvoiceForApproval(SalesInvoiceMasterAndDetailsSearchRequest searchRequest);
+        GSTInvoiceRequestModel GetRecordForSalesEInvoice(SalesInvoiceMasterAndDetailsSearchRequest searchRequest);
     }
 }
