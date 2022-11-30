@@ -19,6 +19,7 @@ namespace AERP.DTO
         public RefDtls RefDtls { get; set; }
         public List<AddlDocDtl> AddlDocDtls { get; set; }
         public ExpDtls ExpDtls { get; set; }
+        public string CentreCode { get; set; }
     }
 
     public class TranDtls

@@ -210,6 +210,7 @@
     <Compile Include="EntityDTO\Inventory\Report\VendorMasterReport.cs" />
     <Compile Include="EntityDTO\Inventory\VendorMaster.cs" />
     <Compile Include="EntityDTO\Organisation\OrganisationCentrewiseDepartment.cs" />
+    <Compile Include="EntityDTO\Organisation\OrganisationCentrewiseGSTCredential.cs" />
     <Compile Include="EntityDTO\Organisation\OrganisationDepartmentMaster.cs" />
     <Compile Include="EntityDTO\Organisation\OrganisationMaster.cs" />
     <Compile Include="EntityDTO\Organisation\OrganisationStudyCentreMaster .cs" />

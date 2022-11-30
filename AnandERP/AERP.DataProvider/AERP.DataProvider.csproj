@@ -211,6 +211,7 @@
     <Compile Include="Implementation\Inventory\Report\VendorMasterReportDataProvider.cs" />
     <Compile Include="Implementation\Inventory\VendorMasterDataProvider.cs" />
     <Compile Include="Implementation\Organisation\OrganisationCentrewiseDepartmentDataProvider.cs" />
+    <Compile Include="Implementation\Organisation\OrganisationCentrewiseGSTCredentialDataProvider.cs" />
     <Compile Include="Implementation\Organisation\OrganisationDepartmentMasterDataProvider.cs" />
     <Compile Include="Implementation\Organisation\OrganisationMasterDataProvider.cs" />
     <Compile Include="Implementation\Organisation\OrganisationStudyCentreMasterDataProvider.cs" />
@@ -413,6 +414,7 @@
     <Compile Include="Interface\Inventory\IVendorMasterDataProvider.cs" />
     <Compile Include="Interface\Inventory\Report\IInventoryReportDataProvider.cs" />
     <Compile Include="Interface\Inventory\Report\IVendorMasterReportDataProvider.cs" />
+    <Compile Include="Interface\Organisation\IOrganisationCentrewiseGSTCredentialDataProvider.cs" />
     <Compile Include="Interface\Organisation\IOrganisationCentrewiseDepartmentDataProvider.cs" />
     <Compile Include="Interface\Organisation\IOrganisationDepartmentMasterDataProvider.cs" />
     <Compile Include="Interface\Organisation\IOrganisationMasterDataProvider.cs" />

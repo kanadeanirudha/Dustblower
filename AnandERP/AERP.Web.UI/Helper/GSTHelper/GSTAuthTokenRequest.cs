@@ -1,6 +1,6 @@
 ﻿namespace AERP.Web.UI.Helper
 {
-    public class GSTAuthTokenRequest
+    public class GSTAuthTokenResponse
     {
         public int Status { get; set; }
         public Data Data { get; set; }
@@ -8,6 +8,7 @@
         public object InfoDtls { get; set; }
 
         public bool AuthTokenStatus { get; set; }
+        public string ErrorMessage { get; set; }
     }
     public class Data
     {

@@ -2155,7 +2155,7 @@ namespace AERP.DataProvider
                     {
                         List<ItemList> itemList = new List<ItemList>();
                         int SlNo = 0, assTotalValue = 0;
-                        double cgstTotal = 0, sgstTotal = 0, totalInvoiceAmount = 0, totalTaxAmount = 0, totalDiscountAmount=0;
+                        double cgstTotal = 0, sgstTotal = 0, totalInvoiceAmount = 0, totalTaxAmount = 0, totalDiscountAmount = 0;
                         bool IsOtherState = false;
                         while (sqlDataReader.Read())
                         {
@@ -2165,6 +2165,7 @@ namespace AERP.DataProvider
                                 totalInvoiceAmount = Convert.ToDouble(sqlDataReader["TotalIInvoiceAmount"]);
                                 IsOtherState = Convert.ToBoolean(sqlDataReader["IsOtherState"]);
                                 totalTaxAmount = Convert.ToDouble(sqlDataReader["TotalTaxAmount"]);
+                                gstInvoiceRequestModel.CentreCode = Convert.ToString(sqlDataReader["CentreCode"]);
                                 gstInvoiceRequestModel.TranDtls = new TranDtls();
                                 gstInvoiceRequestModel.DocDtls = new DocDtls()
                                 {
@@ -2262,8 +2263,8 @@ namespace AERP.DataProvider
                         {
                             AssVal = assTotalValue,
                             IgstVal = IsOtherState ? totalTaxAmount : 0,
-                            CgstVal = IsOtherState ? Convert.ToInt32(cgstTotal) : 0,
-                            SgstVal = IsOtherState ? Convert.ToInt32(sgstTotal) : 0,
+                            CgstVal = IsOtherState ? 0 : Convert.ToInt32(cgstTotal),
+                            SgstVal = IsOtherState ? 0 : Convert.ToInt32(sgstTotal),
                             Discount = 0,
                             TotInvVal = Convert.ToInt32(Math.Round(totalInvoiceAmount)),
                             TotInvValFc = totalInvoiceAmount,

@@ -597,7 +597,8 @@
       <DependentUpon>GSTReportsDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Helper\GSTHelper\GSTAuthTokenRequest.cs" />
-    <Compile Include="Helper\GSTHelper\GSTAuthTokenResponse.cs" />
+    <Compile Include="Helper\GSTHelper\GSTErrorResponse.cs" />
+    <Compile Include="Helper\GSTHelper\GSTInvoiceResponse.cs" />
     <Compile Include="Helper\GSTHelper\GSTHelper.cs" />
     <Compile Include="HtmlHelperExtensions\HtmlExtensions.cs" />
     <Compile Include="HtmlHelperExtensions\MenuExtensions.cs" />

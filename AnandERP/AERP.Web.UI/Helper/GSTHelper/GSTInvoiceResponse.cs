@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AERP.Web.UI.Helper
 {
-    public class GSTAuthTokenResponse
+    public class GSTInvoiceResponse
     {
         public string Status { get; set; }
         public string Data { get; set; }

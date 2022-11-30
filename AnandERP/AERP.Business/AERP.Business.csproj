@@ -206,6 +206,7 @@
     <Compile Include="BusinessActions\Implementation\Inventory\Report\InventoryReportBA.cs" />
     <Compile Include="BusinessActions\Implementation\Inventory\Report\VendorMasterReportBA.cs" />
     <Compile Include="BusinessActions\Implementation\Inventory\VendorMasterBA.cs" />
+    <Compile Include="BusinessActions\Implementation\Organisation\OrganisationCentrewiseGSTCredentialBA.cs" />
     <Compile Include="BusinessActions\Implementation\Organisation\OrganisationCentrewiseDepartmentBA.cs" />
     <Compile Include="BusinessActions\Implementation\Organisation\OrganisationDepartmentMasterBA.cs" />
     <Compile Include="BusinessActions\Implementation\Organisation\OrganisationMasterBA.cs" />
@@ -409,6 +410,7 @@
     <Compile Include="BusinessActions\Interface\Inventory\IVendorMasterBA.cs" />
     <Compile Include="BusinessActions\Interface\Inventory\Report\IInventoryReportBA.cs" />
     <Compile Include="BusinessActions\Interface\Inventory\Report\IVendorMasterReportBA.cs" />
+    <Compile Include="BusinessActions\Interface\Organisation\IOrganisationCentrewiseGSTCredentialBA.cs" />
     <Compile Include="BusinessActions\Interface\Organisation\IOrganisationCentrewiseDepartmentBA.cs" />
     <Compile Include="BusinessActions\Interface\Organisation\IOrganisationDepartmentMasterBA.cs" />
     <Compile Include="BusinessActions\Interface\Organisation\IOrganisationMasterBA.cs" />
@@ -551,6 +553,7 @@
     <Compile Include="BusinessRules\Implementation\Inventory\InventoryUoMMasterBR.cs" />
     <Compile Include="BusinessRules\Implementation\Inventory\OrderingAndDeliveryDayBR.cs" />
     <Compile Include="BusinessRules\Implementation\Inventory\VendorMasterBR.cs" />
+    <Compile Include="BusinessRules\Implementation\Organisation\OrganisationCentrewiseGSTCredentialBR.cs" />
     <Compile Include="BusinessRules\Implementation\Organisation\OrganisationCentrewiseDepartmentBR.cs" />
     <Compile Include="BusinessRules\Implementation\Organisation\OrganisationDepartmentMasterBR.cs" />
     <Compile Include="BusinessRules\Implementation\Organisation\OrganisationMasterBR.cs" />
@@ -689,6 +692,7 @@
     <Compile Include="BusinessRules\Interface\Inventory\IInventoryUoMMasterBR.cs" />
     <Compile Include="BusinessRules\Interface\Inventory\IOrderingAndDeliveryDayBR.cs" />
     <Compile Include="BusinessRules\Interface\Inventory\IVendorMasterBR.cs" />
+    <Compile Include="BusinessRules\Interface\Organisation\IOrganisationCentrewiseGSTCredentialBR.cs" />
     <Compile Include="BusinessRules\Interface\Organisation\IOrganisationCentrewiseDepartmentBR.cs" />
     <Compile Include="BusinessRules\Interface\Organisation\IOrganisationDepartmentMasterBR.cs" />
     <Compile Include="BusinessRules\Interface\Organisation\IOrganisationMasterBR.cs" />

@@ -29,7 +29,7 @@ namespace AERP.Web.UI.Controllers
         IGeneralUnitsBA _GeneralUnitsBA = null;
         IPurchaseRequisitionMasterBA _PurchaseRequisitionMasterBA = null;
         IGeneralTaxGroupMasterBA _GeneralTaxGroupMasterBA = null;
-
+        IOrganisationCentrewiseGSTCredentialBA _OrganisationCentrewiseGSTCredentialBA = null;
         private readonly ILogger _logException;
         ActionModeEnum actionModeEnum;
         string _actionMode = string.Empty;
@@ -50,8 +50,7 @@ namespace AERP.Web.UI.Controllers
             _GeneralUnitsBA = new GeneralUnitsBA();
             _GeneralTaxGroupMasterBA = new GeneralTaxGroupMasterBA();
             _PurchaseRequisitionMasterBA = new PurchaseRequisitionMasterBA();
-
-
+            _OrganisationCentrewiseGSTCredentialBA = new OrganisationCentrewiseGSTCredentialBA();
         }
 
         // Controller Methods
@@ -940,7 +939,43 @@ namespace AERP.Web.UI.Controllers
                 }
                 if (string.IsNullOrEmpty(gstInvoiceRequestModel.ErrorMessage))
                 {
-                    GSTHelper.GenerateEInvoice(gstInvoiceRequestModel, null);
+                    OrganisationCentrewiseGSTCredential GSTCredential = new OrganisationCentrewiseGSTCredential()
+                    {
+                        ConnectionString = _connectioString,
+                        CentreCode = gstInvoiceRequestModel.CentreCode,
+                        IsLiveMode = false
+                    };
+                    GSTCredential = _OrganisationCentrewiseGSTCredentialBA.GetOrganisationCentrewiseGSTCredentialByCentreCode(GSTCredential);
+
+                    if (string.IsNullOrEmpty(GSTCredential.ErrorMessage))
+                    {
+                        GSTAuthTokenResponse gstAuthTokenResponse = new GSTAuthTokenResponse();
+                        if (string.IsNullOrEmpty(GSTCredential.AuthToken))
+                        {
+                            gstAuthTokenResponse = GSTHelper.GenerateGSTAuthToken(GSTCredential);
+                            if (gstAuthTokenResponse.AuthTokenStatus)
+                            {
+                                GSTCredential.ConnectionString = _connectioString;
+                                GSTCredential.AuthToken = gstAuthTokenResponse.Data.AuthToken;
+                                GSTCredential.TokenExpiry = gstAuthTokenResponse.Data.TokenExpiry;
+                                _OrganisationCentrewiseGSTCredentialBA.UpdateOrganisationCentrewiseGSTCredential(GSTCredential);
+                            }
+                            else
+                            {
+                                gstInvoiceRequestModel.ErrorMessage = gstAuthTokenResponse.ErrorMessage;
+                            }
+                        }
+
+                        if (!string.IsNullOrEmpty(GSTCredential.AuthToken))
+                        {
+                            GSTHelper.GenerateEInvoice(gstInvoiceRequestModel, GSTCredential);
+                        }
+                    }
+                    else
+                    {
+                        gstInvoiceRequestModel.ErrorMessage = GSTCredential.ErrorMessage;
+                    }
+
                 }
                 //model.SalesInvoiceMasterAndDetailsDTO.errorMessage = CheckError((gstInvoiceRequestModel.Entity != null) ? gstInvoiceRequestModel.Entity.ErrorCode : 20, ActionModeEnum.Insert);
                 return Json(gstInvoiceRequestModel.ErrorMessage, JsonRequestBehavior.AllowGet);
