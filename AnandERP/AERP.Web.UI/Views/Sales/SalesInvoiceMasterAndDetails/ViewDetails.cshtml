@@ -15,47 +15,66 @@
             </div>
             <form id="FormCreateSalesInvoiceMasterAndDetails" role="form">
                 <div class="row">
-                    <div class="col-sm-5">
+                    <div class="col-sm-6">
                         @Html.HiddenFor(m => m.StorageLocationID)
                         @Html.HiddenFor(m => m.GeneralUnitsID)
                         @Html.HiddenFor(m => m.ID)
                         @Html.HiddenFor(m => m.CustomerBranchMasterID)
                         <div class="form-group fg-line">
                             @Html.LabelFor(model => model.CustomerInvoiceNumber, new { })
-                            @Html.TextBoxFor(model => model.CustomerInvoiceNumber, new { maxlength = "80", @class = "form-control input-sm typeahead" })
+                            @Html.TextBoxFor(model => model.CustomerInvoiceNumber, new { maxlength = "80", @class = "form-control input-sm typeahead", @disabled = "disabled" })
                         </div>
                     </div>
 
-                    <div class="col-sm-5">
+                    <div class="col-sm-6">
                         <div class="form-group fg-line">
                             @Html.HiddenFor(m => m.CustomerMasterID)
                             @Html.LabelFor(model => model.CustomerName, new { })
-                            @Html.TextBoxFor(model => model.CustomerName, new { maxlength = "100", @class = "form-control input-sm typeahead" })
+                            @Html.TextBoxFor(model => model.CustomerName, new { maxlength = "100", @class = "form-control input-sm typeahead", @disabled = "disabled" })
                         </div>
                     </div>
-                    <div class="col-sm-2">
-                        @if (Model.ApprovalStatus == 2)
-                        {
-                            if (Model.CancelApprovalStatus == 1)
+
+                    <div class="col-sm-12">
+                        <div class="form-group fg-line">
+                            <br />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div>
+                            @if (Model.ApprovalStatus == 2)
                             {
-                                <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="In Approval" id="" type="button" />
-                            }
-                            else if (Model.CancelApprovalStatus == 3)
-                            {
-                                <input class="btn btn-danger btn-sm m-t-10 waves-effect" value="Rejected" id="" type="button" />
-                            }
-                            else
-                            {
-                                if (Model.IsCanceled == false)
+                                if (Model.CancelApprovalStatus == 1)
                                 {
-                                    <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="Cancel Invoice" id="CancelSalesInvoiceRecord" type="button" />
+                                    <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="In Approval" id="" type="button" />
+                                }
+                                else if (Model.CancelApprovalStatus == 3)
+                                {
+                                    <input class="btn btn-danger btn-sm m-t-10 waves-effect" value="Rejected" id="" type="button" />
                                 }
                                 else
                                 {
-                                    <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="Cancelled" id="" type="button" />
+                                    if (Model.IsCanceled == false)
+                                    {
+                                        <input class="btn btn-primary btn-sm m-t-10 waves-effect" style="margin-right:5%" value="Cancel Invoice" id="CancelSalesInvoiceRecord" type="button" />
+
+                                        if (!string.IsNullOrEmpty(Model.CustomerGSTNumber))
+                                        {
+                                            <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="Generate E-Invoice" id="GenerateEInvoiceForSalesInvoice" type="button" />
+                                        }
+                                        else
+                                        {
+                                            <span>Customer GST Number is not available</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="Cancelled" id="" type="button" />
+                                    }
                                 }
                             }
-                        }
+                        </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group fg-line">
@@ -177,18 +196,6 @@
                 {
                     Html.RenderAction("GetTaxSummaryForDisplay", "GeneralTaxGroupMaster", new { IsOtherState = Model.IsOtherState, FromMasterID = Model.ID, FromDetailTable = "SaleContractInvoiceDetails" });
                 }
-
-                <div class="form-group" style="margin-left:2%;">
-                    @if (!string.IsNullOrEmpty(Model.CustomerGSTNumber))
-                    {
-                        <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="Generate E-Invoice" id="GenerateEInvoiceForSalesInvoice" type="button" />
-                    }
-                    else
-                    {
-                        <span>Customer GST Number is not available</span>
-                    }
-                </div>
-
             </form>
         </div>
     </div>

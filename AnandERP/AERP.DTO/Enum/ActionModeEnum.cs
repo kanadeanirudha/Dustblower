@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace AERP.DTO
 {
-
     public enum ActionModeEnum
     {
         Insert,
@@ -15,6 +14,7 @@ namespace AERP.DTO
         InActive,
         Sync,
         FiredJob,
+        EInvoice
     }
 }
 

@@ -7,10 +7,23 @@ namespace AERP.Web.UI.Helper
     {
         public string Status { get; set; }
         public string Data { get; set; }
-        public object ErrorDetails { get; set; }
+        public List<ErrorDetail> ErrorDetails { get; set; }
         public object InfoDtls { get; set; }
+        public string status_cd { get; set; }
+        public Error error { get; set; }
+        public string ErrorMessage { get; set; }
     }
 
+    public class Error
+    {
+        public string error_cd { get; set; }
+        public string message { get; set; }
+    }
+    public class ErrorDetail
+    {
+        public string ErrorCode { get; set; }
+        public string ErrorMessage { get; set; }
+    }
     public class DataResponse
     {
         public string AckNo { get; set; }

@@ -968,7 +968,11 @@ namespace AERP.Web.UI.Controllers
 
                         if (!string.IsNullOrEmpty(GSTCredential.AuthToken))
                         {
-                            GSTHelper.GenerateEInvoice(gstInvoiceRequestModel, GSTCredential);
+                            GSTInvoiceResponse gstInvoiceResponse = GSTHelper.GenerateEInvoice(gstInvoiceRequestModel, GSTCredential);
+                            if (!string.IsNullOrEmpty(gstInvoiceResponse.ErrorMessage))
+                            {
+                                gstInvoiceRequestModel.ErrorMessage = gstInvoiceResponse.ErrorMessage;
+                            }
                         }
                     }
                     else
@@ -977,7 +981,7 @@ namespace AERP.Web.UI.Controllers
                     }
 
                 }
-                //model.SalesInvoiceMasterAndDetailsDTO.errorMessage = CheckError((gstInvoiceRequestModel.Entity != null) ? gstInvoiceRequestModel.Entity.ErrorCode : 20, ActionModeEnum.Insert);
+                gstInvoiceRequestModel.ErrorMessage = CheckError(string.IsNullOrEmpty(gstInvoiceRequestModel.ErrorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, gstInvoiceRequestModel.ErrorMessage);
                 return Json(gstInvoiceRequestModel.ErrorMessage, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)

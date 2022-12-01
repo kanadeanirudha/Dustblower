@@ -596,8 +596,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GSTReportsDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Helper\GSTHelper\GSTAuthTokenErrorResponse.cs" />
     <Compile Include="Helper\GSTHelper\GSTAuthTokenRequest.cs" />
-    <Compile Include="Helper\GSTHelper\GSTErrorResponse.cs" />
     <Compile Include="Helper\GSTHelper\GSTInvoiceResponse.cs" />
     <Compile Include="Helper\GSTHelper\GSTHelper.cs" />
     <Compile Include="HtmlHelperExtensions\HtmlExtensions.cs" />

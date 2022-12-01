@@ -36,7 +36,7 @@ namespace AERP.Web.UI.Helper
             }
             else
             {
-                GSTErrorResponse gstErrorResponse = JsonConvert.DeserializeObject<GSTErrorResponse>(response.Content);
+                GSTAuthTokenErrorResponse gstErrorResponse = JsonConvert.DeserializeObject<GSTAuthTokenErrorResponse>(response.Content);
                 gstAuthTokenResponse.AuthTokenStatus = false;
                 gstAuthTokenResponse.ErrorMessage = gstErrorResponse?.ErrorDetails[0]?.ErrorMessage;
             }
@@ -46,9 +46,9 @@ namespace AERP.Web.UI.Helper
         #endregion
 
         #region E-Invoince
-        public static bool GenerateEInvoice(GSTInvoiceRequestModel gstInvoiceRequestModel, OrganisationCentrewiseGSTCredential GSTCredential)
+        public static GSTInvoiceResponse GenerateEInvoice(GSTInvoiceRequestModel gstInvoiceRequestModel, OrganisationCentrewiseGSTCredential GSTCredential)
         {
-            bool status = false;
+            GSTInvoiceResponse gstInvoiceResponse = new GSTInvoiceResponse();
             try
             {
                 gstInvoiceRequestModel.Version = GSTCredential.Version;
@@ -65,7 +65,7 @@ namespace AERP.Web.UI.Helper
                 request.AddBody(requestBody);     //Request Payload in object format
                 RestResponse response = client.Execute(request);
 
-                GSTInvoiceResponse gstInvoiceResponse = JsonConvert.DeserializeObject<GSTInvoiceResponse>(response.Content);
+                gstInvoiceResponse = JsonConvert.DeserializeObject<GSTInvoiceResponse>(response.Content);
                 if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK && gstInvoiceResponse.Status == "1")
                 {
                     string data = gstInvoiceResponse.Data.ToString();
@@ -79,15 +79,22 @@ namespace AERP.Web.UI.Helper
                 }
                 else
                 {
+                    if (!string.IsNullOrEmpty(gstInvoiceResponse?.error?.message))
+                    {
+                        gstInvoiceResponse.ErrorMessage = gstInvoiceResponse?.error?.message;
+                    }
+                    else 
+                    { 
+                    
+                    }
 
                 }
-
             }
             catch (Exception ex)
             {
 
             }
-            return status;
+            return gstInvoiceResponse;
         }
         #endregion
 

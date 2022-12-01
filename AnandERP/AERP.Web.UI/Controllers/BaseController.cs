@@ -201,10 +201,9 @@ namespace AERP.Web.UI.Controllers
             return base.BeginExecuteCore(callback, state);
         }
 
-        protected string CheckError(int errorCode, ActionModeEnum actionMode)
+        protected string CheckError(int errorCode, ActionModeEnum actionMode, string errorMessage = null)
         {
-
-            string errorMessage = string.Empty;
+            errorMessage = !string.IsNullOrEmpty(errorMessage) ? errorMessage : string.Empty;
             string colorCode = string.Empty;
             string mode = string.Empty;
             if (actionMode == ActionModeEnum.Insert)
@@ -311,17 +310,36 @@ namespace AERP.Web.UI.Controllers
                 switch (errorCode)
                 {
                     case (Int32)ErrorEnum.DuplicateEntry:
-                        errorMessage = Resources.Message_RecordInaciveDependantEntry;// "Record not deleted successfully, Because it is used in another form.";
+                        errorMessage = !string.IsNullOrEmpty(errorMessage) ? errorMessage : Resources.Message_RecordInaciveDependantEntry;// "Record not deleted successfully, Because it is used in another form.";
                         colorCode = "warning";
                         mode = string.Empty;
                         break;
                     case (Int32)ErrorEnum.AllOk:
-                        errorMessage = Resources.Message_RecordInactiveSuccessfully;// "Record inactive successfully";
+                        errorMessage = !string.IsNullOrEmpty(errorMessage) ? errorMessage : Resources.Message_RecordInactiveSuccessfully;// "Record inactive successfully";
                         colorCode = "success";
                         mode = "1";
                         break;
                     default:
-                        errorMessage = Resources.Message_RecordNotInactiveSuccessfully;// "Record not deleted successfully";
+                        errorMessage = !string.IsNullOrEmpty(errorMessage) ? errorMessage : Resources.Message_RecordNotInactiveSuccessfully;// "Record not deleted successfully";
+                        colorCode = "danger";
+                        mode = string.Empty;
+                        break;
+                }
+               
+            }
+            else if (actionMode == ActionModeEnum.EInvoice)
+            {
+                switch (errorCode)
+                {
+                    case (Int32)ErrorEnum.EInvoiceError:
+                        colorCode = "warning";
+                        mode = string.Empty;
+                        break;
+                    case (Int32)ErrorEnum.AllOk:
+                        colorCode = "success";
+                        mode = string.Empty; 
+                        break;
+                    default:
                         colorCode = "danger";
                         mode = string.Empty;
                         break;
@@ -1571,14 +1589,14 @@ namespace AERP.Web.UI.Controllers
         {
             return true;
         }
-        
+
 
         //For Push Notification
         protected object SendGCMNotification(string DeviceToken)
         {
             string postDataContentType = "application/json";
             string APIKey = "AAAAjvMWWfg:APA91bGWrUM8PtbO5wWe6AJoeGwQ6MqauMXtxEAKuuqYfAHE7dAxed_AAWFx5myZxOzn-csAsn0PFK_W-TmcNqSwUD5tKWQbVwY45H6t8mlTIlpzJmRSQUUm03Ozluoi2k2H7n-I0lxw";
-          
+
             string message = "New Complaint has been registered";
             string tickerText = "example test GCM";
             string contentTitle = "content title GCM";
@@ -1601,7 +1619,7 @@ namespace AERP.Web.UI.Controllers
             Request.Method = "POST";
             Request.KeepAlive = false;
             Request.ContentType = postDataContentType;
-            Request.Headers.Add(HttpRequestHeader.Authorization, String.Format("key={0}",APIKey));
+            Request.Headers.Add(HttpRequestHeader.Authorization, String.Format("key={0}", APIKey));
             Request.UseDefaultCredentials = true;
 
             Request.ContentLength = byteArray.Length;
@@ -1639,7 +1657,7 @@ namespace AERP.Web.UI.Controllers
             return "error";
         }
 
-        public Dictionary<string,Double> getLatLongFromAddress(string address)
+        public Dictionary<string, Double> getLatLongFromAddress(string address)
         {
             /* var locationService = new GoogleLocationService();
              Thread.Sleep(1000);
@@ -1656,7 +1674,7 @@ namespace AERP.Web.UI.Controllers
 
 
             string urlAddress = "http://maps.googleapis.com/maps/api/geocode/xml?address=" + HttpUtility.UrlEncode(address) + "&sensor=false";
-            string latitude = "",longitude = "";
+            string latitude = "", longitude = "";
             try
             {
                 XmlDocument objXmlDocument = new XmlDocument();
@@ -1676,7 +1694,7 @@ namespace AERP.Web.UI.Controllers
                      { "Longitude",Convert.ToDouble(longitude)}
                 };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 // Process an error action here if needed  
             }
@@ -1694,7 +1712,7 @@ namespace AERP.Web.UI.Controllers
             var DestinationLocation = new GeoCoordinate(latlongs["DestinationLatitude"], latlongs["DestinationLongitude"]);
             var CurrentLocation = new GeoCoordinate(latlongs["CurrentLatitude"], latlongs["CurrentLongitude"]);
 
-            return DestinationLocation.GetDistanceTo(CurrentLocation)/1000;
+            return DestinationLocation.GetDistanceTo(CurrentLocation) / 1000;
         }
     }
 }
