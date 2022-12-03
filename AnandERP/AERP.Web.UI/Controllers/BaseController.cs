@@ -336,9 +336,9 @@ namespace AERP.Web.UI.Controllers
                         mode = string.Empty;
                         break;
                     case (Int32)ErrorEnum.AllOk:
-                        colorCode = "warning";
-                        mode = string.Empty;
-                        errorMessage = !string.IsNullOrEmpty(errorMessage) ? errorMessage : Resources.Message_RecordCreatedSuccessfully;// "Record inactive successfully";
+                        errorMessage = Resources.Message_RecordCreatedSuccessfully;// "Record created successfully";
+                        colorCode = "success";
+                        mode = "0";
                         break;
                     default:
                         colorCode = "danger";

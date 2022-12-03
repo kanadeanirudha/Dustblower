@@ -931,5 +931,29 @@ namespace AERP.ViewModel
                 SalesInvoiceMasterAndDetailsDTO.CustomerGSTNumber = value;
             }
         }
+
+        public int GSTEInvoiceMasterId
+        {
+            get
+            {
+                return (SalesInvoiceMasterAndDetailsDTO != null) ? SalesInvoiceMasterAndDetailsDTO.GSTEInvoiceMasterId : 0;
+            }
+            set
+            {
+                SalesInvoiceMasterAndDetailsDTO.GSTEInvoiceMasterId = value;
+            }
+        }
+
+        public bool IsCancelledEInvoice
+        {
+            get
+            {
+                return (SalesInvoiceMasterAndDetailsDTO != null) ? SalesInvoiceMasterAndDetailsDTO.IsCancelledEInvoice : new bool();
+            }
+            set
+            {
+                SalesInvoiceMasterAndDetailsDTO.IsCancelledEInvoice = value;
+            }
+        }
     }
 }

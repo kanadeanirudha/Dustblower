@@ -226,6 +226,8 @@ namespace AERP.Web.UI.Controllers
             model.IsCanceled = model.SalesinvoiceList[0].IsCanceled;
             model.ApprovalStatus = model.SalesinvoiceList[0].ApprovalStatus;
             model.CancelApprovalStatus = model.SalesinvoiceList[0].CancelApprovalStatus;
+            model.GSTEInvoiceMasterId = model.SalesinvoiceList[0].GSTEInvoiceMasterId;
+            model.IsCancelledEInvoice = model.SalesinvoiceList[0].IsCancelledEInvoice;
             return PartialView("/Views/Sales/SalesInvoiceMasterAndDetails/ViewDetails.cshtml", model);
         }
 
@@ -436,11 +438,18 @@ namespace AERP.Web.UI.Controllers
                     model.TaxSummaryList = GetTaxSummaryForDisplay(model.IsOther, _model.ID, FromDetailTable);
                 }
 
+                string qrImage = !string.IsNullOrEmpty(model?.SalesinvoiceList[0]?.ImageQRCode) ? string.Format(System.Configuration.ConfigurationManager.AppSettings["GSTQRCodePath"], model?.SalesinvoiceList[0].CustomerInvoiceNumber) : "";
                 SalesInvoicePDF = SalesInvoicePDF + "<html><body><span style='text-align:right;font-size:8pt'><b>" + _model.NoOfCopies + "</b><br></body></html>";
-                SalesInvoicePDF = SalesInvoicePDF + "<table width='350'><tr><td style='text-align:left;'><img src='" + Path.Combine(Server.MapPath("~") + "Content\\UploadedFiles\\Inventory\\Logo\\" + model.SalesinvoiceList[0].LogoPath) + "' height='70' width='70'><br><br><span style='font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].PrintingLineBelowLogo + "</span></td>";
 
-                SalesInvoicePDF = SalesInvoicePDF + "<td width='300'><img src='D:/Anirudha/qr.png' height='150px' width='150px'></td>";
-
+                if (string.IsNullOrEmpty(qrImage))
+                {
+                    SalesInvoicePDF = SalesInvoicePDF + "<table width='650'><tr><td style='text-align:left;'><img src='" + Path.Combine(Server.MapPath("~") + "Content\\UploadedFiles\\Inventory\\Logo\\" + model.SalesinvoiceList[0].LogoPath) + "' height='70' width='70'><br><br><span style='font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].PrintingLineBelowLogo + "</span></td>";
+                }
+                else
+                {
+                    SalesInvoicePDF = SalesInvoicePDF + "<table width='350'><tr><td style='text-align:left;'><img src='" + Path.Combine(Server.MapPath("~") + "Content\\UploadedFiles\\Inventory\\Logo\\" + model.SalesinvoiceList[0].LogoPath) + "' height='70' width='70'><br><br><span style='font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].PrintingLineBelowLogo + "</span></td>";
+                    SalesInvoicePDF = SalesInvoicePDF + "<td width='300'><img src='" + qrImage + "' height='150px' width='150px'></td>";
+                }
                 SalesInvoicePDF = SalesInvoicePDF + " <td ><table width='300'  bgcolor='#fff;' color='black' style='font-size:7pt;padding-left:100px'><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:10pt;text-align:left;font-family:'Century Gothic'><b>" + model.SalesinvoiceList[0].CentreName + "</b></td></tr></hr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:9pt;text-align:left;'><b><u>" + model.SalesinvoiceList[0].CentreSpecialization + "</u></b></td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].CentreAddress1 + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].CentreAddress2 + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>Ph:" + model.SalesinvoiceList[0].PhoneNumberOffice + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>Cell :" + model.SalesinvoiceList[0].CellPhone + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>E-mail :" + model.SalesinvoiceList[0].EmailID + "</td><tr><td style = 'border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;' >Website :" + model.SalesinvoiceList[0].Website + " </td ></tr></tr>";
 
                 SalesInvoicePDF = SalesInvoicePDF + "</table></td></tr></table>";
@@ -597,10 +606,8 @@ namespace AERP.Web.UI.Controllers
                 DownloadPDF1(SalesInvoicePDF, model.CustomerInvoiceNumber, model.SalesinvoiceList[0].CustomerMasterID, model.SalesinvoiceList[0].IsCanceled, model.SalesinvoiceList[0].WaterMark);
                 MemoryStream workStream = new MemoryStream();
                 return new FileStreamResult(workStream, "application/pdf");
-
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }
@@ -937,7 +944,7 @@ namespace AERP.Web.UI.Controllers
                     {
                         ConnectionString = _connectioString,
                         CentreCode = gstInvoiceRequestModel.CentreCode,
-                        IsLiveMode = Convert.ToBoolean(ConfigurationManager.AppSettings["GSTQRCodePath"])
+                        IsLiveMode = Convert.ToBoolean(ConfigurationManager.AppSettings["IsGSTLiveMode"].ToString())
                     };
                     GSTCredential = _OrganisationCentrewiseGSTCredentialBA.GetOrganisationCentrewiseGSTCredentialByCentreCode(GSTCredential);
 
@@ -1000,8 +1007,8 @@ namespace AERP.Web.UI.Controllers
                     }
 
                 }
-             }
-            catch (Exception)
+            }
+            catch (Exception ex)
             {
                 errorMessage = "Opps! Some thing went wrong.";
             }
@@ -1234,7 +1241,7 @@ namespace AERP.Web.UI.Controllers
 
                 filteredCountryMaster = GetSalesInvoiceMasterAndDetails(out TotalRecords, AdminRoleID, MonthName, MonthYear);
                 var records = filteredCountryMaster.Skip(0).Take(param.iDisplayLength);
-                var result = from c in records select new[] { Convert.ToString(c.CustomerMasterID), Convert.ToString(c.SalesOrderNumber), Convert.ToString(c.CustomerName), Convert.ToString(c.SalesOrderMasterID), Convert.ToString(c.ID), Convert.ToString(c.SalesOrderDeliveryMasterID), Convert.ToString(c.DeliveryNumber), Convert.ToString(c.CustomerInvoiceNumber), Convert.ToString(c.SalesQuotationMasterID), Convert.ToString(c.CustomerBranchMasterID), Convert.ToString(c.GeneralUnitsID), Convert.ToString(c.Isinvoiced), Convert.ToString(c.ApprovalStatus), Convert.ToString(c.CancelApprovalStatus) };
+                var result = from c in records select new[] { Convert.ToString(c.CustomerMasterID), Convert.ToString(c.SalesOrderNumber), Convert.ToString(c.CustomerName), Convert.ToString(c.SalesOrderMasterID), Convert.ToString(c.ID), Convert.ToString(c.SalesOrderDeliveryMasterID), Convert.ToString(c.DeliveryNumber), Convert.ToString(c.CustomerInvoiceNumber), Convert.ToString(c.SalesQuotationMasterID), Convert.ToString(c.CustomerBranchMasterID), Convert.ToString(c.GeneralUnitsID), Convert.ToString(c.Isinvoiced), Convert.ToString(c.ApprovalStatus), Convert.ToString(c.CancelApprovalStatus), Convert.ToString(c.GSTEInvoiceMasterId), Convert.ToString(c.IsCancelledEInvoice) };
 
                 return Json(new { sEcho = param.sEcho, iTotalRecords = TotalRecords, iTotalDisplayRecords = TotalRecords, aaData = result }, JsonRequestBehavior.AllowGet);
             }

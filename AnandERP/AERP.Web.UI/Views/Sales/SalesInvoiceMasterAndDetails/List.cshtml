@@ -4,7 +4,7 @@
 
 <div class="card">
     @Html.HiddenFor(m => m.AdminRoleID)
-    
+
     <div class="bootgrid-header container-fluid" id="data-table-command-header">
         <div class="row">
             <div class="col-sm-12 actionBar">
@@ -204,8 +204,6 @@
                                         result1 = '@Html.ActionLink("Create1", "Create", new {SalesOrderMasterID = "SalesOrderMasterID1" }, new { @class = "mfpAjaxModal btn btn-default waves-effect" })';
                                         result1 = result1.replace('SalesOrderMasterID1', data[3]);
                                         result1 = result1.replace("Create1", '<span class=\"zmdi zmdi-plus-square\" title =\"@Resources.ToolTip_View\"></span>');
-
-                                        // result2 = " <a href=\"javascript:void(0);\" data-toggle=\"tooltip\" class=\"btn btn-default waves-effect\" onclick=\"fancyBoxPopUpAjax('Delete Enquiry','Are you sure? want to remove this " + data[0] + " enquiry ?','error','btn-danger','Yes!','/CRMSaleEnquiryMaster/Delete/" + data[3] + "','content','page-loader','CRMSaleEnquiryMaster')\"><span class=\"zmdi zmdi-delete\"></span></a>";;
                                         result = result1;
 
                                     }
@@ -221,6 +219,18 @@
                                             result2 = result2.replace('IDs1', data[4]);
                                             result2 = result2.replace('SaleOrderMstID1', data[3]);
                                             result2 = result2.replace("Edit1", '<span class="zmdi zmdi-download" title="Download PDF"></span>');
+
+                                            var result3 = "";
+                                            if (data[14] == 0) {
+                                                var result3 = '<a class="btn btn-info waves-effect" href="#" title="E-Invoice Not Generated"> <span class="zmdi zmdi-upload" ></span></a>';
+                                            }
+                                            else if (data[14] != 0 && data[15] == "True") {
+                                                var result3 = '<a class="btn btn-danger waves-effect" href="#" title="E-Invoice Cancelled"><span class="zmdi zmdi-upload" ></span></a>';
+                                            }
+                                            else{
+                                                var result3 = '<a class="btn btn-success waves-effect" href="#"  title="E-Invoice Generated"> <span class="zmdi zmdi-upload"></span></a>';
+                                            }
+
                                         } else if (data[12] == 1) {
                                             var result2 = "<p  style=''>" + '<span class="btn btn-xs btn-primary">In Approval </span>' + "</p>";
                                         } else if (data[13] == 1) {
@@ -230,7 +240,7 @@
                                         } else if (data[13] == 3) {
                                             var result2 = "";
                                         }
-                                        var result = result1 + "&nbsp;&nbsp; " + result2 + "</p>";
+                                        var result = result1 + "&nbsp;&nbsp; " + result2 + "&nbsp;&nbsp; " + result3 + "</p>";
                                     }
                                     return result;
                                 }

@@ -1,4 +1,5 @@
 ﻿using AERP.Base.DTO;
+
 using System;
 namespace AERP.DTO
 {
@@ -179,7 +180,7 @@ namespace AERP.DTO
         }
         public decimal DisplayRate
         {
-            get;set;
+            get; set;
         }
         public decimal TaxRate
         {
@@ -188,7 +189,7 @@ namespace AERP.DTO
         }
         public string TaxGroupName
         { get; set; }
-        public string  LocationName
+        public string LocationName
         { get; set; }
         public string BaseUOMCode
         {
@@ -207,7 +208,7 @@ namespace AERP.DTO
         }
         public bool IsOtherState
         {
-            get;set;
+            get; set;
         }
         public bool IsActive
         {
@@ -259,7 +260,7 @@ namespace AERP.DTO
         }
         public string errorMessage { get; set; }
         public string XMLstringForVouchar { get; set; }
-        public string XMLstring{ get; set; }
+        public string XMLstring { get; set; }
         public string XMLstringForInvoice { get; set; }
         public int GeneralUnitsID { get; set; }
 
@@ -381,5 +382,8 @@ namespace AERP.DTO
             get; set;
         }
         public string MonthYear { get; set; }
+        public int GSTEInvoiceMasterId { get; set; }
+        public bool IsCancelledEInvoice { get; set; }
+        public string ImageQRCode { get; set; }
     }
 }

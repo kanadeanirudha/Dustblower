@@ -118,6 +118,7 @@ GO
 CREATE TABLE [dbo].[GSTEInvoiceDetails](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[GSTEInvoiceMasterID] [int] NOT NULL,
+	[SalesInvoiceMasterID] [int] NOT NULL,
 	[GSTEInvoiceDetails] [varchar](max) NULL,
  CONSTRAINT [PK_GSTEInvoiceDetails] PRIMARY KEY CLUSTERED 
 (

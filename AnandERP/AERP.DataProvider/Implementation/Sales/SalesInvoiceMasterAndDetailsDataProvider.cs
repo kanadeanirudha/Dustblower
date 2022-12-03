@@ -104,7 +104,8 @@ namespace AERP.DataProvider
                         item.Isinvoiced = sqlDataReader["Isinvoiced"] is DBNull ? false : Convert.ToBoolean(sqlDataReader["Isinvoiced"]);
                         item.ApprovalStatus = sqlDataReader["ApprovalStatus"] == DBNull.Value ? new byte() : Convert.ToByte(sqlDataReader["ApprovalStatus"]);
                         item.CancelApprovalStatus = sqlDataReader["CancelApprovalStatus"] == DBNull.Value ? new byte() : Convert.ToByte(sqlDataReader["CancelApprovalStatus"]);
-
+                        item.GSTEInvoiceMasterId = sqlDataReader["GSTEInvoiceMasterId"] == DBNull.Value ? 0 : Convert.ToInt32(sqlDataReader["GSTEInvoiceMasterId"]);
+                        item.IsCancelledEInvoice = sqlDataReader["IsCancelledEInvoice"] == DBNull.Value ? false : Convert.ToBoolean(sqlDataReader["IsCancelledEInvoice"]);
                         baseEntityCollection.CollectionResponse.Add(item);
                         baseEntityCollection.TotalRecords = Convert.ToInt32(sqlDataReader["TotalRecords"]);
                     }
@@ -115,7 +116,7 @@ namespace AERP.DataProvider
                     if (_errorCode != (int)ErrorEnum.AllOk)
                     {
                         // Throw error.
-                        throw new Exception("Stored Procedure 'USP_PurchaseOrderMaster_SelectAll' reported the ErrorCode: " + _errorCode);
+                        throw new Exception("Stored Procedure 'USP_SalesInvoiceMasterAndDetailsMaster_SelectAll' reported the ErrorCode: " + _errorCode);
                     }
                 }
             }
@@ -929,7 +930,8 @@ namespace AERP.DataProvider
                         item.IsCanceled = sqlDataReader["IsCanceled"] == DBNull.Value ? false : Convert.ToBoolean(sqlDataReader["IsCanceled"]);
                         item.ApprovalStatus = sqlDataReader["ApprovalStatus"] == DBNull.Value ? new byte() : Convert.ToByte(sqlDataReader["ApprovalStatus"]);
                         item.CancelApprovalStatus = sqlDataReader["CancelApprovalStatus"] == DBNull.Value ? new byte() : Convert.ToByte(sqlDataReader["CancelApprovalStatus"]);
-
+                        item.GSTEInvoiceMasterId = sqlDataReader["GSTEInvoiceMasterId"] == DBNull.Value ? 0 : Convert.ToInt32(sqlDataReader["GSTEInvoiceMasterId"]);
+                        item.IsCancelledEInvoice = sqlDataReader["IsCancelledEInvoice"] == DBNull.Value ? false : Convert.ToBoolean(sqlDataReader["IsCancelledEInvoice"]);
                         TotalTaxAmount = TotalTaxAmount + item.TaxAmount;
                         item.TotalTaxAmount = TotalTaxAmount;
 
@@ -1072,6 +1074,7 @@ namespace AERP.DataProvider
                         item.IsCanceled = sqlDataReader["IsCanceled"] is DBNull ? false : Convert.ToBoolean(sqlDataReader["IsCanceled"]);
                         item.IsServiceItem = sqlDataReader["ServiceItemFlag"] is DBNull ? false : Convert.ToBoolean(sqlDataReader["ServiceItemFlag"]);
                         item.WaterMark = sqlDataReader["WaterMark"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["WaterMark"]);
+                        item.ImageQRCode = sqlDataReader["QrCodeImage"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["QrCodeImage"]);
                         baseEntityCollection.CollectionResponse.Add(item);
                     }
                     if (cmdToExecute.Parameters["@iErrorCode"].Value != null)
