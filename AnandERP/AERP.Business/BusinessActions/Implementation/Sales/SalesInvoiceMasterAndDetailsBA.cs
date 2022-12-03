@@ -638,5 +638,40 @@ namespace AERP.Business.BusinessAction
             return gstInvoiceRequestModel;
         }
 
+        public IBaseEntityResponse<GSTInvoiceResponseModel> InsertSalesEInvoiceResponse(GSTInvoiceResponseModel item)
+        {
+            IBaseEntityResponse<GSTInvoiceResponseModel> entityResponse = new BaseEntityResponse<GSTInvoiceResponseModel>();
+            try
+            {
+
+                if (_SalesInvoiceMasterAndDetailsDataProvider != null)
+                {
+                    entityResponse = _SalesInvoiceMasterAndDetailsDataProvider.InsertSalesEInvoiceResponse(item);
+                }
+                else
+                {
+                    entityResponse.Message.Add(new MessageDTO
+                    {
+                        ErrorMessage = Resources.Null_Object_Exception,
+                        MessageType = MessageTypeEnum.Error
+                    });
+                    entityResponse.Entity = null; ;
+                }
+            }
+            catch (Exception ex)
+            {
+                entityResponse.Message.Add(new MessageDTO
+                {
+                    ErrorMessage = ex.Message,
+                    MessageType = MessageTypeEnum.Error
+                });
+                entityResponse.Entity = null;
+                if (_logException != null)
+                {
+                    _logException.Error(ex.Message);
+                }
+            }
+            return entityResponse;
+        }
     }
 }

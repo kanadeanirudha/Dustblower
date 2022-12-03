@@ -12,6 +12,7 @@ namespace AERP.Web.UI.Helper
         public string status_cd { get; set; }
         public Error error { get; set; }
         public string ErrorMessage { get; set; }
+        public DataResponse DataResponse { get; set; }
     }
 
     public class Error
@@ -169,6 +170,4 @@ namespace AERP.Web.UI.Helper
         public int TotInvVal { get; set; }
         public double TotInvValFc { get; set; }
     }
-
-
 }

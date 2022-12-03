@@ -332,16 +332,18 @@ namespace AERP.Web.UI.Controllers
                 switch (errorCode)
                 {
                     case (Int32)ErrorEnum.EInvoiceError:
-                        colorCode = "warning";
+                        colorCode = "danger";
                         mode = string.Empty;
                         break;
                     case (Int32)ErrorEnum.AllOk:
-                        colorCode = "success";
-                        mode = string.Empty; 
+                        colorCode = "warning";
+                        mode = string.Empty;
+                        errorMessage = !string.IsNullOrEmpty(errorMessage) ? errorMessage : Resources.Message_RecordCreatedSuccessfully;// "Record inactive successfully";
                         break;
                     default:
                         colorCode = "danger";
                         mode = string.Empty;
+                        errorMessage = Resources.Message_RecordNotCreatedSuccessfully;// "Record not created successfully";
                         break;
                 }
             }

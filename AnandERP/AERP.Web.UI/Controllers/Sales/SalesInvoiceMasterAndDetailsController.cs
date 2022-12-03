@@ -287,11 +287,6 @@ namespace AERP.Web.UI.Controllers
                     model.SalesInvoiceMasterAndDetailsDTO.IsServiceItem = model.IsServiceItem;
                     model.SalesInvoiceMasterAndDetailsDTO.CreatedBy = Convert.ToInt32(Session["UserID"]);
                     IBaseEntityResponse<SalesInvoiceMasterAndDetails> response = _SalesInvoiceMasterAndDetailsBA.InsertSalesInvoiceMasterAndDetails(model.SalesInvoiceMasterAndDetailsDTO);
-                    //errorMessage = CheckError((response.Entity != null) ? response.Entity.ErrorCode : 20, ActionModeEnum.Insert);
-
-
-
-                    //return Json(errorMessage, JsonRequestBehavior.AllowGet);
                     model.SalesInvoiceMasterAndDetailsDTO.errorMessage = CheckError((response.Entity != null) ? response.Entity.ErrorCode : 20, ActionModeEnum.Insert);
                     return Json(model.SalesInvoiceMasterAndDetailsDTO.errorMessage, JsonRequestBehavior.AllowGet);
 
@@ -442,9 +437,11 @@ namespace AERP.Web.UI.Controllers
                 }
 
                 SalesInvoicePDF = SalesInvoicePDF + "<html><body><span style='text-align:right;font-size:8pt'><b>" + _model.NoOfCopies + "</b><br></body></html>";
-                SalesInvoicePDF = SalesInvoicePDF + "<table width='650'><tr><td style='text-align:left;'><img src='" + Path.Combine(Server.MapPath("~") + "Content\\UploadedFiles\\Inventory\\Logo\\" + model.SalesinvoiceList[0].LogoPath) + "' height='70' width='70'><br><br><span style='font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].PrintingLineBelowLogo + "<span></td>";
+                SalesInvoicePDF = SalesInvoicePDF + "<table width='350'><tr><td style='text-align:left;'><img src='" + Path.Combine(Server.MapPath("~") + "Content\\UploadedFiles\\Inventory\\Logo\\" + model.SalesinvoiceList[0].LogoPath) + "' height='70' width='70'><br><br><span style='font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].PrintingLineBelowLogo + "</span></td>";
 
-                SalesInvoicePDF = SalesInvoicePDF + " <td><table width='300' bgcolor='#fff;' color='black' style='font-size:7pt;'><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:10pt;text-align:left;font-family:'Century Gothic'><b>" + model.SalesinvoiceList[0].CentreName + "</b></td></tr></hr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:9pt;text-align:left;'><b><u>" + model.SalesinvoiceList[0].CentreSpecialization + "</u></b></td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].CentreAddress1 + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].CentreAddress2 + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>Ph:" + model.SalesinvoiceList[0].PhoneNumberOffice + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>Cell :" + model.SalesinvoiceList[0].CellPhone + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>E-mail :" + model.SalesinvoiceList[0].EmailID + "</td>< tr><td style = 'border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;' >Website :" + model.SalesinvoiceList[0].Website + " </td ></tr></tr>";
+                SalesInvoicePDF = SalesInvoicePDF + "<td width='300'><img src='D:/Anirudha/qr.png' height='150px' width='150px'></td>";
+
+                SalesInvoicePDF = SalesInvoicePDF + " <td ><table width='300'  bgcolor='#fff;' color='black' style='font-size:7pt;padding-left:100px'><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:10pt;text-align:left;font-family:'Century Gothic'><b>" + model.SalesinvoiceList[0].CentreName + "</b></td></tr></hr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:9pt;text-align:left;'><b><u>" + model.SalesinvoiceList[0].CentreSpecialization + "</u></b></td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].CentreAddress1 + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].CentreAddress2 + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>Ph:" + model.SalesinvoiceList[0].PhoneNumberOffice + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>Cell :" + model.SalesinvoiceList[0].CellPhone + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>E-mail :" + model.SalesinvoiceList[0].EmailID + "</td><tr><td style = 'border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;' >Website :" + model.SalesinvoiceList[0].Website + " </td ></tr></tr>";
 
                 SalesInvoicePDF = SalesInvoicePDF + "</table></td></tr></table>";
 
@@ -452,14 +449,8 @@ namespace AERP.Web.UI.Controllers
 
                 SalesInvoicePDF = SalesInvoicePDF + "<table border= '1' bgcolor='#fff;' color='black' style=' border-collapse:collapse;font-size:7pt;'><b>PurchaseOrder</b><tr><td colspan='2'  bgcolor='#F7F2F2' style='padding:0 5px 5px;font-size:10pt;text-align:center;'><b><u>TAX INVOICE</u><b></td></tr><tr><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '><b>GSTIN Number</b>: " + model.SalesinvoiceList[0].GSTINNumber + "</td><td  bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'><b>Transportation Mode <b>: </td></tr><tr><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '><b>PAN Number</b>: " + model.SalesinvoiceList[0].PanNumber + "</td><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '><b>Vehical Number </b>: </td></tr><tr><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'><b>CIN Number</b>: " + model.SalesinvoiceList[0].CINNumber + "</td><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '>Date and Time of Supply: " + CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(DateTimeOfSupply.Month) + " " + DateTimeOfSupply.Year + " </td></tr><tr><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;text-align:left; '><b>Tax is payable on Reverse Charge</b> :(No)</td><td  bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '><b>Place of Supply</b> :" + model.SalesinvoiceList[0].CustomerBranchAddress + " </td> </tr><tr><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;text-align:left; '><b>Invoice Number</b> :" + model.SalesinvoiceList[0].CustomerInvoiceNumber + "</td>";
 
-                //if (model.SalesinvoiceList[0].PurchaseOrderNumberClient == "" || model.SalesinvoiceList[0].PurchaseOrderNumberClient == null)
-                //{
                 SalesInvoicePDF = SalesInvoicePDF + "<td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '></td>";
-                //}
-                //else
-                //{
-                //    SalesInvoicePDF = SalesInvoicePDF + "<td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '><b>Purchase Order Number</b> :" + model.SalesinvoiceList[0].PurchaseOrderNumberClient + "</td>";
-                //}
+
 
                 SalesInvoicePDF = SalesInvoicePDF + "</tr><tr><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;text-align:left; '><b>Invoice Date</b> :" + model.SalesinvoiceList[0].TransactionDate + "</td>";
 
@@ -926,24 +917,27 @@ namespace AERP.Web.UI.Controllers
         public ActionResult GenerateEInvoice(SalesInvoiceMasterAndDetailsViewModel _model)
         {
             SalesInvoiceMasterAndDetailsViewModel model = new SalesInvoiceMasterAndDetailsViewModel();
+            string errorMessage = string.Empty;
             try
             {
                 GSTInvoiceRequestModel gstInvoiceRequestModel = new GSTInvoiceRequestModel();
                 if (_model.SalesInvoiceMasterAndDetailsDTO.InvoiceType == 1)
                 {
                     gstInvoiceRequestModel = GetRecordForSalesEInvoice(_model.ID);
+                    errorMessage = gstInvoiceRequestModel.ErrorMessage;
                 }
                 else
                 {
                     model.SalesinvoiceList = GetRecordForServiceInvoicePDF(_model.ID);
                 }
-                if (string.IsNullOrEmpty(gstInvoiceRequestModel.ErrorMessage))
+
+                if (string.IsNullOrEmpty(errorMessage))
                 {
                     OrganisationCentrewiseGSTCredential GSTCredential = new OrganisationCentrewiseGSTCredential()
                     {
                         ConnectionString = _connectioString,
                         CentreCode = gstInvoiceRequestModel.CentreCode,
-                        IsLiveMode = false
+                        IsLiveMode = Convert.ToBoolean(ConfigurationManager.AppSettings["GSTQRCodePath"])
                     };
                     GSTCredential = _OrganisationCentrewiseGSTCredentialBA.GetOrganisationCentrewiseGSTCredentialByCentreCode(GSTCredential);
 
@@ -958,36 +952,61 @@ namespace AERP.Web.UI.Controllers
                                 GSTCredential.ConnectionString = _connectioString;
                                 GSTCredential.AuthToken = gstAuthTokenResponse.Data.AuthToken;
                                 GSTCredential.TokenExpiry = gstAuthTokenResponse.Data.TokenExpiry;
-                                _OrganisationCentrewiseGSTCredentialBA.UpdateOrganisationCentrewiseGSTCredential(GSTCredential);
+                                IBaseEntityResponse<OrganisationCentrewiseGSTCredential> response = _OrganisationCentrewiseGSTCredentialBA.UpdateOrganisationCentrewiseGSTCredential(GSTCredential);
+                                if (response?.Message?.Count > 0)
+                                {
+                                    errorMessage = response.Message[0].ErrorMessage;
+                                }
                             }
                             else
                             {
-                                gstInvoiceRequestModel.ErrorMessage = gstAuthTokenResponse.ErrorMessage;
+                                errorMessage = gstAuthTokenResponse.ErrorMessage;
                             }
                         }
 
-                        if (!string.IsNullOrEmpty(GSTCredential.AuthToken))
+                        if (!string.IsNullOrEmpty(GSTCredential.AuthToken) && string.IsNullOrEmpty(errorMessage))
                         {
                             GSTInvoiceResponse gstInvoiceResponse = GSTHelper.GenerateEInvoice(gstInvoiceRequestModel, GSTCredential);
                             if (!string.IsNullOrEmpty(gstInvoiceResponse.ErrorMessage))
                             {
-                                gstInvoiceRequestModel.ErrorMessage = gstInvoiceResponse.ErrorMessage;
+                                errorMessage = gstInvoiceResponse.ErrorMessage;
+                            }
+                            else
+                            {
+                                //Save Invoice Data into database
+                                GSTInvoiceResponseModel GSTInvoiceResponseModel = new GSTInvoiceResponseModel()
+                                {
+                                    ConnectionString = _connectioString,
+                                    SalesInvoiceMasterID = _model.ID,
+                                    AcknowledgementNo = gstInvoiceResponse.DataResponse.AckNo,
+                                    AcknowledgementDate = gstInvoiceResponse.DataResponse.AckDt,
+                                    Irn = gstInvoiceResponse.DataResponse.Irn,
+                                    QrCodeImage = Convert.ToString(gstInvoiceResponse.DataResponse.QrCodeImage),
+                                    IsCancelledEInvoice = false,
+                                    GSTEInvoiceDetails = gstInvoiceResponse.Data
+                                };
+
+                                IBaseEntityResponse<GSTInvoiceResponseModel> response = _SalesInvoiceMasterAndDetailsBA.InsertSalesEInvoiceResponse(GSTInvoiceResponseModel);
+                                if (response?.Message?.Count > 0)
+                                {
+                                    errorMessage = response.Message[0].ErrorMessage;
+                                }
                             }
                         }
                     }
                     else
                     {
-                        gstInvoiceRequestModel.ErrorMessage = GSTCredential.ErrorMessage;
+                        errorMessage = GSTCredential.ErrorMessage;
                     }
 
                 }
-                gstInvoiceRequestModel.ErrorMessage = CheckError(string.IsNullOrEmpty(gstInvoiceRequestModel.ErrorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, gstInvoiceRequestModel.ErrorMessage);
-                return Json(gstInvoiceRequestModel.ErrorMessage, JsonRequestBehavior.AllowGet);
-            }
+             }
             catch (Exception)
             {
-                throw;
+                errorMessage = "Opps! Some thing went wrong.";
             }
+            errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage);
+            return Json(errorMessage, JsonRequestBehavior.AllowGet);
         }
         #endregion
 

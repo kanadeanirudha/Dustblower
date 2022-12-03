@@ -76,3 +76,52 @@ INSERT INTO [dbo].[OrganisationCentreWiseGSTCredential]
            ,getdate()
 		   )
 GO
+
+
+/****** Object:  Table [dbo].[GSTEInvoiceMaster]    Script Date: 12/1/2022 11:33:15 PM ******/
+DROP TABLE [dbo].[GSTEInvoiceMaster]
+GO
+
+/****** Object:  Table [dbo].[GSTEInvoiceMaster]    Script Date: 12/1/2022 11:33:15 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[GSTEInvoiceMaster](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[SalesInvoiceMasterID] [int] NOT NULL,
+	[AcknowledgementNo] [varchar](50) NOT NULL,
+	[AcknowledgementDate] [varchar](50) NOT NULL,
+	[Irn] [varchar](200) NOT NULL,
+	[QrCodeImage] [varchar](max) NULL,
+	[IsCancelledEInvoice] [bit] NOT NULL,
+	[CancelledEInvoiceDate] [varchar](200) NULL,
+	[CancelledEInvoiceReason] [varchar](200) NULL,
+	[CancelledEInvoiceDescription] [varchar](200) NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+GO
+
+/****** Object:  Table [dbo].[GSTEInvoiceDetails]    Script Date: 12/2/2022 9:17:51 AM ******/
+DROP TABLE [dbo].[GSTEInvoiceDetails]
+GO
+
+/****** Object:  Table [dbo].[GSTEInvoiceDetails]    Script Date: 12/2/2022 9:17:51 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[GSTEInvoiceDetails](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[GSTEInvoiceMasterID] [int] NOT NULL,
+	[GSTEInvoiceDetails] [varchar](max) NULL,
+ CONSTRAINT [PK_GSTEInvoiceDetails] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO

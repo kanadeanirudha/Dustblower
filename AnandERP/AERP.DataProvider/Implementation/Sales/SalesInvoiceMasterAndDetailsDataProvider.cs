@@ -2298,6 +2298,92 @@ namespace AERP.DataProvider
             return gstInvoiceRequestModel;
         }
 
+        public IBaseEntityResponse<GSTInvoiceResponseModel> InsertSalesEInvoiceResponse(GSTInvoiceResponseModel item)
+        {
+            IBaseEntityResponse<GSTInvoiceResponseModel> response = new BaseEntityResponse<GSTInvoiceResponseModel>();
+            SqlCommand cmdToExecute = new SqlCommand();
+
+            try
+            {
+
+                if (string.IsNullOrEmpty(item.ConnectionString))
+                {
+                    response.Message.Add(new MessageDTO()
+                    {
+                        ErrorMessage = "Connection string is empty.",
+                        MessageType = MessageTypeEnum.Error
+                    });
+                }
+                else
+                {
+                    _mainConnection.ConnectionString = item.ConnectionString;
+                    cmdToExecute.Connection = _mainConnection;
+                    cmdToExecute.CommandText = "dbo.USP_GSTEInvoiceResponse_Insert";
+                    cmdToExecute.CommandType = CommandType.StoredProcedure;
+                    cmdToExecute.CommandTimeout = 0;
+                    cmdToExecute.Parameters.Add(new SqlParameter("@iSalesInvoiceMasterID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.SalesInvoiceMasterID));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@sAcknowledgementNo", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.AcknowledgementNo));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@sAcknowledgementDate", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.AcknowledgementDate));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@sIrn", SqlDbType.VarChar, 200, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.Irn));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@sQrCodeImage", SqlDbType.VarChar, int.MaxValue, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.QrCodeImage));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@bIsCancelledEInvoice", SqlDbType.Bit, 0, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, Convert.ToByte(item.IsCancelledEInvoice)));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@sGSTEInvoiceDetails", SqlDbType.VarChar, int.MaxValue, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.GSTEInvoiceDetails));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
+
+                    if (_mainConnectionIsCreatedLocal)
+                    {
+                        // Open connection.
+                        _mainConnection.Open();
+                    }
+                    else
+                    {
+                        if (_mainConnectionProvider.IsTransactionPending)
+                        {
+                            cmdToExecute.Transaction = _mainConnectionProvider.CurrentTransaction;
+                        }
+                    }
+
+                    // Execute query.
+                    _rowsAffected = cmdToExecute.ExecuteNonQuery();
+                    _errorCode = (SqlInt32)cmdToExecute.Parameters["@iErrorCode"].Value;
+                    item.ErrorCode = (Int32)_errorCode;
+                    response.Entity = item;
+                    if (_errorCode != (int)ErrorEnum.AllOk && _errorCode != (int)ErrorEnum.DependantEntry)
+                    {
+                        // Throw error.
+                        throw new Exception("Stored Procedure 'USP_GSTEInvoiceResponse_Insert' reported the ErrorCode: " + _errorCode);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                response.Message.Add(new MessageDTO
+                {
+                    ErrorMessage = ex.Message,
+                    MessageType = MessageTypeEnum.Error
+                });
+                _logException.Error(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                response.Message.Add(new MessageDTO
+                {
+                    ErrorMessage = ex.Message,
+                    MessageType = MessageTypeEnum.Error
+                });
+                _logException.Error(ex.Message);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Close connection.
+                    _mainConnection.Close();
+                }
+                cmdToExecute.Dispose();
+            }
+            return response;
+        }
         #endregion
     }
 }

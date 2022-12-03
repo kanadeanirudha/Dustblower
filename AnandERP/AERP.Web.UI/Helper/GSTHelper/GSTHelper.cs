@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using RestSharp;
 
 using System;
+using System.ComponentModel;
+using System.Drawing;
 using System.Net;
 
 namespace AERP.Web.UI.Helper
@@ -69,25 +71,37 @@ namespace AERP.Web.UI.Helper
                 if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK && gstInvoiceResponse.Status == "1")
                 {
                     string data = gstInvoiceResponse.Data.ToString();
-                    //DataResponse dataResponse = JsonConvert.DeserializeObject<DataResponse>(respPlGenIRN.Data);
-                    ////code to save QR image
-                    //byte[] qrImg = Convert.FromBase64String(dataResponse.QrCodeImage.ToString());
-                    //TypeConverter tc = TypeDescriptor.GetConverter(typeof(Bitmap));
-                    //Bitmap bitmap1 = (Bitmap)tc.ConvertFrom(qrImg);
+                    gstInvoiceResponse.DataResponse = JsonConvert.DeserializeObject<DataResponse>(data);
 
-                    //bitmap1.Save(@"D:\Anirudha\qr.png");
+                    //code to save QR image
+                    byte[] qrImg = Convert.FromBase64String(gstInvoiceResponse.DataResponse.QrCodeImage.ToString());
+                    TypeConverter tc = TypeDescriptor.GetConverter(typeof(Bitmap));
+                    Bitmap bitmap1 = (Bitmap)tc.ConvertFrom(qrImg);
+                    bitmap1.Save(string.Format(System.Configuration.ConfigurationManager.AppSettings["GSTQRCodePath"], gstInvoiceRequestModel.DocDtls.No));
                 }
                 else
                 {
                     if (!string.IsNullOrEmpty(gstInvoiceResponse?.error?.message))
                     {
-                        gstInvoiceResponse.ErrorMessage = gstInvoiceResponse?.error?.message;
+                        gstInvoiceResponse.ErrorMessage = gstInvoiceResponse?.error?.error_cd + ":" + gstInvoiceResponse?.error?.message;
                     }
-                    else 
-                    { 
-                    
+                    else
+                    {
+                        if (gstInvoiceResponse?.ErrorDetails?.Count > 0)
+                        {
+                            foreach (var error in gstInvoiceResponse.ErrorDetails)
+                            {
+                                if (string.IsNullOrEmpty(gstInvoiceResponse.ErrorMessage))
+                                {
+                                    gstInvoiceResponse.ErrorMessage = $"Error Message:({error.ErrorCode}){error.ErrorMessage}";
+                                }
+                                else
+                                {
+                                    gstInvoiceResponse.ErrorMessage = $"{gstInvoiceResponse.ErrorMessage} and ({error.ErrorCode}){error.ErrorMessage}";
+                                }
+                            }
+                        }
                     }
-
                 }
             }
             catch (Exception ex)
