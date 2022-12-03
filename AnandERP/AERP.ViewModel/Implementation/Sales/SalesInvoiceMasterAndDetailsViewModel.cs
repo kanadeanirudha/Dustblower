@@ -919,6 +919,18 @@ namespace AERP.ViewModel
             }
         }
 
+        public string GSTINNumber
+        {
+            get
+            {
+                return (SalesInvoiceMasterAndDetailsDTO != null) ? SalesInvoiceMasterAndDetailsDTO.GSTINNumber : string.Empty;
+            }
+            set
+            {
+                SalesInvoiceMasterAndDetailsDTO.GSTINNumber = value;
+            }
+        }
+
         [Display(Name = "Customer GST Number")]
         public string CustomerGSTNumber
         {

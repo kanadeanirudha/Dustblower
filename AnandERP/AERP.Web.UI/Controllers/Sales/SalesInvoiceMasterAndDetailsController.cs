@@ -213,6 +213,7 @@ namespace AERP.Web.UI.Controllers
             }
             model.InvoiceType = 1;
             model.CustomerName = model.SalesinvoiceList[0].CustomerName;
+            model.GSTINNumber = model.SalesinvoiceList[0].GSTINNumber;
             model.CreatedBy = Convert.ToInt32(Session["UserID"]);
             model.StorageLocationID = model.SalesinvoiceList[0].StorageLocationID;
             model.CustomerMasterID = model.SalesinvoiceList[0].CustomerMasterID;
@@ -253,10 +254,12 @@ namespace AERP.Web.UI.Controllers
             }
             model.InvoiceType = 2;
             model.CustomerName = model.SalesinvoiceList[0].CustomerName;
+            model.GSTINNumber = model.SalesinvoiceList[0].GSTINNumber;
             model.CreatedBy = Convert.ToInt32(Session["UserID"]);
             model.StorageLocationID = model.SalesinvoiceList[0].StorageLocationID;
             model.CustomerMasterID = model.SalesinvoiceList[0].CustomerMasterID;
             model.CustomerBranchMasterID = model.SalesinvoiceList[0].CustomerBranchMasterID;
+            model.CustomerGSTNumber = model.SalesinvoiceList[0].CustomerGSTNumber;
             model.GeneralUnitsID = model.SalesinvoiceList[0].GeneralUnitsID;
             model.CustomerInvoiceNumber = model.SalesinvoiceList[0].CustomerInvoiceNumber;
             model.SalesOrderMasterID = model.SalesinvoiceList[0].SalesOrderMasterID;
@@ -265,6 +268,8 @@ namespace AERP.Web.UI.Controllers
             model.IsCanceled = model.SalesinvoiceList[0].IsCanceled;
             model.ApprovalStatus = model.SalesinvoiceList[0].ApprovalStatus;
             model.CancelApprovalStatus = model.SalesinvoiceList[0].CancelApprovalStatus;
+            model.GSTEInvoiceMasterId = model.SalesinvoiceList[0].GSTEInvoiceMasterId;
+            model.IsCancelledEInvoice = model.SalesinvoiceList[0].IsCancelledEInvoice;
             model.ID = SalesInvoiceMasterID;
             return PartialView("/Views/Sales/SalesInvoiceMasterAndDetails/ViewDetails.cshtml", model);
         }
@@ -928,15 +933,8 @@ namespace AERP.Web.UI.Controllers
             try
             {
                 GSTInvoiceRequestModel gstInvoiceRequestModel = new GSTInvoiceRequestModel();
-                if (_model.SalesInvoiceMasterAndDetailsDTO.InvoiceType == 1)
-                {
-                    gstInvoiceRequestModel = GetRecordForSalesEInvoice(_model.ID);
-                    errorMessage = gstInvoiceRequestModel.ErrorMessage;
-                }
-                else
-                {
-                    model.SalesinvoiceList = GetRecordForServiceInvoicePDF(_model.ID);
-                }
+                gstInvoiceRequestModel = GetRecordForSalesEInvoice(_model.ID);
+                errorMessage = gstInvoiceRequestModel.ErrorMessage;
 
                 if (string.IsNullOrEmpty(errorMessage))
                 {
@@ -1309,7 +1307,7 @@ namespace AERP.Web.UI.Controllers
 
                 filteredCountryMaster = GetServiceInvoiceMasterAndDetails(out TotalRecords, AdminRoleID, MonthName, MonthYear);
                 var records = filteredCountryMaster.Skip(0).Take(param.iDisplayLength);
-                var result = from c in records select new[] { Convert.ToString(c.CustomerMasterID), Convert.ToString(c.SalesOrderNumber), Convert.ToString(c.CustomerName), Convert.ToString(c.SalesOrderMasterID), Convert.ToString(c.ID), Convert.ToString(c.SalesOrderDeliveryMasterID), Convert.ToString(c.DeliveryNumber), Convert.ToString(c.CustomerInvoiceNumber), Convert.ToString(c.SalesQuotationMasterID), Convert.ToString(c.CustomerBranchMasterID), Convert.ToString(c.GeneralUnitsID), Convert.ToString(c.Isinvoiced), Convert.ToString(c.ApprovalStatus), Convert.ToString(c.CancelApprovalStatus) };
+                var result = from c in records select new[] { Convert.ToString(c.CustomerMasterID), Convert.ToString(c.SalesOrderNumber), Convert.ToString(c.CustomerName), Convert.ToString(c.SalesOrderMasterID), Convert.ToString(c.ID), Convert.ToString(c.SalesOrderDeliveryMasterID), Convert.ToString(c.DeliveryNumber), Convert.ToString(c.CustomerInvoiceNumber), Convert.ToString(c.SalesQuotationMasterID), Convert.ToString(c.CustomerBranchMasterID), Convert.ToString(c.GeneralUnitsID), Convert.ToString(c.Isinvoiced), Convert.ToString(c.ApprovalStatus), Convert.ToString(c.CancelApprovalStatus), Convert.ToString(c.GSTEInvoiceMasterId), Convert.ToString(c.IsCancelledEInvoice) };
 
                 return Json(new { sEcho = param.sEcho, iTotalRecords = TotalRecords, iTotalDisplayRecords = TotalRecords, aaData = result }, JsonRequestBehavior.AllowGet);
             }

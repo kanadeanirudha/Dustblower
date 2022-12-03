@@ -369,7 +369,7 @@ var SalesInvoiceMasterAndDetails = {
 
         $('#GenerateEInvoiceForSalesInvoice').on("click", function () {
             SalesInvoiceMasterAndDetails.ID = $('input[name=ID]').val();
-            SalesInvoiceMasterAndDetails.InvoiceType = 1;
+            SalesInvoiceMasterAndDetails.InvoiceType = $('#InvoiceType').val();;
             ajaxRequest.makeRequest("/SalesInvoiceMasterAndDetails/GenerateEInvoice", "POST", SalesInvoiceMasterAndDetails, SalesInvoiceMasterAndDetails.Success, "GenerateEInvoiceForSalesInvoice");
         });
         InitAnimatedBorder();

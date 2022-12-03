@@ -204,7 +204,8 @@ namespace AERP.DataProvider
                         item.Isinvoiced = sqlDataReader["Isinvoiced"] is DBNull ? false : Convert.ToBoolean(sqlDataReader["Isinvoiced"]);
                         item.ApprovalStatus = sqlDataReader["ApprovalStatus"] == DBNull.Value ? new byte() : Convert.ToByte(sqlDataReader["ApprovalStatus"]);
                         item.CancelApprovalStatus = sqlDataReader["CancelApprovalStatus"] == DBNull.Value ? new byte() : Convert.ToByte(sqlDataReader["CancelApprovalStatus"]);
-
+                        item.GSTEInvoiceMasterId = sqlDataReader["GSTEInvoiceMasterId"] == DBNull.Value ? 0 : Convert.ToInt32(sqlDataReader["GSTEInvoiceMasterId"]);
+                        item.IsCancelledEInvoice = sqlDataReader["IsCancelledEInvoice"] == DBNull.Value ? false : Convert.ToBoolean(sqlDataReader["IsCancelledEInvoice"]);
                         baseEntityCollection.CollectionResponse.Add(item);
                         baseEntityCollection.TotalRecords = Convert.ToInt32(sqlDataReader["TotalRecords"]);
                     }
@@ -215,7 +216,7 @@ namespace AERP.DataProvider
                     if (_errorCode != (int)ErrorEnum.AllOk)
                     {
                         // Throw error.
-                        throw new Exception("Stored Procedure 'USP_PurchaseOrderMaster_SelectAll' reported the ErrorCode: " + _errorCode);
+                        throw new Exception("Stored Procedure 'USP_ServiceInvoiceMasterAndDetailsMaster_SelectAll' reported the ErrorCode: " + _errorCode);
                     }
                 }
             }
@@ -887,6 +888,7 @@ namespace AERP.DataProvider
                         //  item.ItemID = sqlDataReader["ItemNumber"] == DBNull.Value ? 0 : Convert.ToInt32(sqlDataReader["ItemNumber"]);
 
                         item.SalesOrderMasterID = sqlDataReader["SalesOrderMasterID"] == DBNull.Value ? 0 : Convert.ToInt32(sqlDataReader["SalesOrderMasterID"]);
+                        item.GSTINNumber = sqlDataReader["SellerGSTNumber"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["SellerGSTNumber"]);
                         item.SalesOrderNumber = sqlDataReader["SalesOrderNumber"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["SalesOrderNumber"]);
                         //item.DeliveryNumber = sqlDataReader["DeliveryNumber"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["DeliveryNumber"]);
                         item.CustomerName = sqlDataReader["CustomerName"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["CustomerName"]);
@@ -945,7 +947,7 @@ namespace AERP.DataProvider
                     if (_errorCode != (int)ErrorEnum.AllOk)
                     {
                         // Throw error.
-                        throw new Exception("Stored Procedure 'USP_SalesInvoiceMasterAndDetails_SelectByPurchaseRequisitionMasterID' reported the ErrorCode: " + _errorCode);
+                        throw new Exception("Stored Procedure 'USP_ServiceInvoiceMaster_ViewDetailsByInvoiceID' reported the ErrorCode: " + _errorCode);
                     }
                 }
             }
