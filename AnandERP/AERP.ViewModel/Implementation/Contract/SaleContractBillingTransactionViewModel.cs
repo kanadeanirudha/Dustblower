@@ -600,7 +600,43 @@ namespace AERP.ViewModel
                 SaleContractBillingTransactionDTO.IsCanceled = value;
             }
         }
-        
+
+        public int GSTEInvoiceMasterId
+        {
+            get
+            {
+                return (SaleContractBillingTransactionDTO != null) ? SaleContractBillingTransactionDTO.GSTEInvoiceMasterId : 0;
+            }
+            set
+            {
+                SaleContractBillingTransactionDTO.GSTEInvoiceMasterId = value;
+            }
+        }
+
+        public string GSTINNumber
+        {
+            get
+            {
+                return (SaleContractBillingTransactionDTO != null) ? SaleContractBillingTransactionDTO.GSTINNumber : string.Empty;
+            }
+            set
+            {
+                SaleContractBillingTransactionDTO.GSTINNumber = value;
+            }
+        }
+
+        [Display(Name = "Customer GST Number")]
+        public string CustomerGSTNumber
+        {
+            get
+            {
+                return (SaleContractBillingTransactionDTO != null) ? SaleContractBillingTransactionDTO.CustomerGSTNumber : string.Empty;
+            }
+            set
+            {
+                SaleContractBillingTransactionDTO.CustomerGSTNumber = value;
+            }
+        }
     }
 }
 

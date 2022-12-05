@@ -233,6 +233,9 @@ namespace AERP.Web.UI.Controllers
                 model.LocationName = model.SaleContractBillingTransactionList[0].LocationName;
                 model.CustomerBranchMasterID = model.SaleContractBillingTransactionList[0].CustomerBranchMasterID;
                 model.IsCanceled = model.SaleContractBillingTransactionList[0].IsCanceled;
+                model.GSTEInvoiceMasterId = model.SaleContractBillingTransactionList[0].GSTEInvoiceMasterId;
+                model.GSTINNumber = model.SaleContractBillingTransactionList[0].GSTINNumber;
+                model.CustomerGSTNumber = model.SaleContractBillingTransactionList[0].CustomerGSTNumber;
                 model.CreatedBy = Convert.ToInt32(Session["UserID"]);
             }
 

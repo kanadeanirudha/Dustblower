@@ -398,5 +398,9 @@ namespace AERP.DTO
         public bool IsMachine { get; set; }
 
         public string WaterMark { get; set; }
+
+        public int GSTEInvoiceMasterId { get; set; }
+        public bool IsCancelledEInvoice { get; set; }
+        public string ImageQRCode { get; set; }
     }
 }

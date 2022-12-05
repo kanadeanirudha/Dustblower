@@ -5213,6 +5213,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="GoogleMaps.LocationServices.readme.txt" />
+    <Content Include="InvoiveQR\HO-SI-20-4346.png" />
     <Content Include="Scripts\AERP_Scripts\Account\AccountBalancesheetMaster.js" />
     <Content Include="Scripts\AERP_Scripts\Account\AccountBalancesheetReport.js" />
     <Content Include="Scripts\AERP_Scripts\Account\AccountBalancesheetTypeMaster.js" />

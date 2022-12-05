@@ -441,6 +441,9 @@ namespace AERP.DataProvider
                         item.TaxExemptionRemark = sqlDataReader["TaxExemptionRemark"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["TaxExemptionRemark"]);
                         item.IsCanceled = sqlDataReader["IsCanceled"] is DBNull ? false : Convert.ToBoolean(sqlDataReader["IsCanceled"]);
                         item.CustomerBranchMasterID = sqlDataReader["CustomerBranchMasterID"] is DBNull ? new Int32() : Convert.ToInt32(sqlDataReader["CustomerBranchMasterID"]);
+                        item.GSTINNumber = sqlDataReader["SellerGSTNumber"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["SellerGSTNumber"]);
+                        item.GSTEInvoiceMasterId = sqlDataReader["GSTEInvoiceMasterId"] == DBNull.Value ? 0 : Convert.ToInt32(sqlDataReader["GSTEInvoiceMasterId"]);
+                        item.CustomerGSTNumber = sqlDataReader["CustomerGSTNumber"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["CustomerGSTNumber"]);
 
                         baseEntityCollection.CollectionResponse.Add(item);
                     }

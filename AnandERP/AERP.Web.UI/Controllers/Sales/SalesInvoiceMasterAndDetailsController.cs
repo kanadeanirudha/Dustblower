@@ -443,7 +443,7 @@ namespace AERP.Web.UI.Controllers
                     model.TaxSummaryList = GetTaxSummaryForDisplay(model.IsOther, _model.ID, FromDetailTable);
                 }
 
-                string qrImage = !string.IsNullOrEmpty(model?.SalesinvoiceList[0]?.ImageQRCode) ? string.Format(System.Configuration.ConfigurationManager.AppSettings["GSTQRCodePath"], model?.SalesinvoiceList[0].CustomerInvoiceNumber) : "";
+                string qrImage = !string.IsNullOrEmpty(model?.SalesinvoiceList[0]?.ImageQRCode) ? Server.MapPath(string.Format(ConfigurationManager.AppSettings["GSTQRCodePath"], model?.SalesinvoiceList[0].CustomerInvoiceNumber)) : "";
                 SalesInvoicePDF = SalesInvoicePDF + "<html><body><span style='text-align:right;font-size:8pt'><b>" + _model.NoOfCopies + "</b><br></body></html>";
 
                 if (string.IsNullOrEmpty(qrImage))

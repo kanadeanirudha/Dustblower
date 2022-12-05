@@ -23,12 +23,40 @@
                 <div class="col-sm-12">
                     @if (Model.IsCanceled == false)
                     {
-                        <input class="btn btn-primary btn-sm m-t-10 waves-effect pull-right" value="Cancel Invoice" id="CancelSalesInvoiceRecord" type="button" />
+                        if (Model.GSTEInvoiceMasterId == 0)
+                        {
+                            <input class="btn btn-primary btn-sm waves-effect pull-left" style="margin-right:5%" value="Cancel Invoice" id="CancelSalesInvoiceRecord" type="button" />
+                            if (string.IsNullOrEmpty(Model.GSTINNumber))
+                            {
+                                <span style="color:red">Seller GST Number is not available</span>
+                            }
+                            else if (Model.GSTINNumber.Length != 15)
+                            {
+                                <span style="color:red">Seller GST Number(@Model.GSTINNumber) is not valid</span>
+                            }
+                            else if (string.IsNullOrEmpty(Model.CustomerGSTNumber))
+                            {
+                                <span style="color:red">Customer GST Number is not available</span>
+                            }
+                            else if (Model.CustomerGSTNumber.Length != 15)
+                            {
+                                <span style="color:red">Customer GST Number(@Model.CustomerGSTNumber) is not valid</span>
+                            }
+                            else
+                            {
+                                <input class="btn btn-primary btn-sm waves-effect" value="Generate E-Invoice" id="GenerateEInvoiceForSalesInvoice" type="button" />
+                            }
+                        }
                     }
                     else
                     {
-                        <input class="btn btn-primary btn-sm m-t-10 waves-effect pull-right" value="Canceled" id="" type="button" />
+                        <input class="btn btn-primary btn-sm m-t-10 waves-effect pull-left" value="Canceled" id="" type="button" />
                     }
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group fg-line">
+                        <br />
+                    </div>
                 </div>
                 <div class="col-sm-12">
                     <div class="col-sm-6">
@@ -115,7 +143,7 @@
                                             {
                                                 OriginalTaxAmount = Math.Round((OriginalTaxableAmount * item.TaxRate) / 100);
                                             }
-                                            OriginalNetAmount = OriginalTaxableAmount+OriginalTaxAmount;
+                                            OriginalNetAmount = OriginalTaxableAmount + OriginalTaxAmount;
 
 
                                             decimal DiffQuantity = Math.Abs(item.FixedQuantity - item.OriginalQuantity);
@@ -147,12 +175,12 @@
                                             <td style="vertical-align:middle;">@item.ItemDescription</td>
                                             <td style="vertical-align:middle;">@item.HSNCode</td>
                                             @*@if (item.BillingType == 2 && (item.Quantity != item.OriginalQuantity))
-                                            {
-                                                <td style="vertical-align:middle;">1</td>
-                                            }
-                                            else
-                                            {*@
-                                                <td style="vertical-align:middle;">@item.Quantity</td>
+                                    {
+                                        <td style="vertical-align:middle;">1</td>
+                                    }
+                                    else
+                                    {*@
+                                            <td style="vertical-align:middle;">@item.Quantity</td>
                                             @*}*@
                                             <td style="vertical-align:middle;">@item.UOMCode</td>
                                             <td style="vertical-align:middle;">@item.Rate</td>
@@ -329,10 +357,10 @@
                         { Html.RenderAction("GetTaxSummaryForDisplay", "GeneralTaxGroupMaster", new { IsOtherState = Model.SaleContractBillingTransactionList[0].IsOtherState, FromMasterID = Model.SalesInvoiceMasterID, FromDetailTable = "SaleContractInvoiceDetails" }); }
                     }
                     @*<div class="col-sm-2" style="float:right;">
-                            <div class="form-group fg-line">
-                                <button type="button" class="btn btn-primary m-t-20" id="CreateSaleContractBillingTransaction">@Resources.ButtonAction_Submit</button>
-                            </div>
-                        </div>*@
+                <div class="form-group fg-line">
+                    <button type="button" class="btn btn-primary m-t-20" id="CreateSaleContractBillingTransaction">@Resources.ButtonAction_Submit</button>
+                </div>
+            </div>*@
                 </div>
             </form>
         </div>

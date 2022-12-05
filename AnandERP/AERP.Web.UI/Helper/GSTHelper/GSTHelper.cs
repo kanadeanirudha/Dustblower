@@ -9,6 +9,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Net;
+using System.Web;
 
 namespace AERP.Web.UI.Helper
 {
@@ -77,7 +78,7 @@ namespace AERP.Web.UI.Helper
                     byte[] qrImg = Convert.FromBase64String(gstInvoiceResponse.DataResponse.QrCodeImage.ToString());
                     TypeConverter tc = TypeDescriptor.GetConverter(typeof(Bitmap));
                     Bitmap bitmap1 = (Bitmap)tc.ConvertFrom(qrImg);
-                    bitmap1.Save(string.Format(System.Configuration.ConfigurationManager.AppSettings["GSTQRCodePath"], gstInvoiceRequestModel.DocDtls.No));
+                    bitmap1.Save(HttpContext.Current.Server.MapPath(string.Format(System.Configuration.ConfigurationManager.AppSettings["GSTQRCodePath"], gstInvoiceRequestModel.DocDtls.No)));
                 }
                 else
                 {
