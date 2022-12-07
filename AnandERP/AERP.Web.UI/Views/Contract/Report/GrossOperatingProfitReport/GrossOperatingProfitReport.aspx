@@ -49,10 +49,11 @@
                     rdc.Value = GrossOperatingProfitReport;                //DTO object
                     rvGrossOperatingProfitReport.LocalReport.DataSources.Add(rdc);
 
-                    ReportParameter[] param = new ReportParameter[3];
+                    ReportParameter[] param = new ReportParameter[4];
                     param[0] = new ReportParameter("CustomerMasterName", GrossOperatingProfitReport.Count > 0 ? (GrossOperatingProfitReport[0].CustomerMasterName != null ?GrossOperatingProfitReport[0].CustomerMasterName:"All Customers"): string.Empty, false);
                     param[1] = new ReportParameter("BranchMasterName", GrossOperatingProfitReport.Count > 0 ? (GrossOperatingProfitReport[0].CustomerBranchMasterName!=null ?GrossOperatingProfitReport[0].CustomerBranchMasterName:"All Branches"): string.Empty, false);
                     param[2] = new ReportParameter("CentreName", GrossOperatingProfitReport.Count > 0 ? GrossOperatingProfitReport[0].CentreName: string.Empty, false);
+                    param[3] = new ReportParameter("AccountSessionName", GrossOperatingProfitReport.Count > 0 ? GrossOperatingProfitReport[0].AccountSessionName: string.Empty, false);
                     
                     rvGrossOperatingProfitReport.LocalReport.SetParameters(param);
 

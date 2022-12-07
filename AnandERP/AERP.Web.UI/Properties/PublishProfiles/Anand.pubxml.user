@@ -6,8 +6,8 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>D:\Anirudha\Client Project\RAR\Dustblower\PublishCode\2022-11-34</_PublishTargetUrl>
-    <History>False|2022-11-25T16:19:34.4937294Z;</History>
+    <_PublishTargetUrl>D:\Anirudha\Client Project\RAR\PublishCode\2022-12-07</_PublishTargetUrl>
+    <History>True|2022-12-07T09:40:53.4719154Z;False|2022-11-25T21:49:34.4937294+05:30;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="AllAccountDrillDownReport2DataSet.xsc">
@@ -44,10 +44,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/25/2022 21:48:48</publishTime>
     </File>
     <File Include="bin/AERP.Business.dll">
-      <publishTime>11/25/2022 22:01:43</publishTime>
+      <publishTime>12/07/2022 15:09:01</publishTime>
     </File>
     <File Include="bin/AERP.Business.pdb">
-      <publishTime>11/25/2022 22:01:43</publishTime>
+      <publishTime>12/07/2022 15:09:01</publishTime>
     </File>
     <File Include="bin/AERP.Common.dll">
       <publishTime>11/25/2022 21:48:49</publishTime>
@@ -56,16 +56,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/25/2022 21:48:49</publishTime>
     </File>
     <File Include="bin/AERP.DataProvider.dll">
-      <publishTime>11/25/2022 22:01:41</publishTime>
+      <publishTime>12/07/2022 15:08:58</publishTime>
     </File>
     <File Include="bin/AERP.DataProvider.pdb">
-      <publishTime>11/25/2022 22:01:41</publishTime>
+      <publishTime>12/07/2022 15:08:58</publishTime>
     </File>
     <File Include="bin/AERP.DTO.dll">
-      <publishTime>11/25/2022 22:01:38</publishTime>
+      <publishTime>12/07/2022 15:08:53</publishTime>
     </File>
     <File Include="bin/AERP.DTO.pdb">
-      <publishTime>11/25/2022 22:01:38</publishTime>
+      <publishTime>12/07/2022 15:08:53</publishTime>
     </File>
     <File Include="bin/AERP.ExceptionManager.dll">
       <publishTime>11/25/2022 21:48:48</publishTime>
@@ -74,16 +74,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/25/2022 21:48:48</publishTime>
     </File>
     <File Include="bin/AERP.ViewModel.dll">
-      <publishTime>11/25/2022 22:01:43</publishTime>
+      <publishTime>12/07/2022 15:09:01</publishTime>
     </File>
     <File Include="bin/AERP.ViewModel.pdb">
-      <publishTime>11/25/2022 22:01:43</publishTime>
+      <publishTime>12/07/2022 15:09:01</publishTime>
     </File>
     <File Include="bin/AERP.Web.UI.dll">
-      <publishTime>11/25/2022 22:01:55</publishTime>
+      <publishTime>12/07/2022 15:34:24</publishTime>
     </File>
     <File Include="bin/AERP.Web.UI.pdb">
-      <publishTime>11/25/2022 22:01:55</publishTime>
+      <publishTime>12/07/2022 15:34:24</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>09/10/2013 16:29:20</publishTime>
@@ -95,16 +95,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/29/2017 16:29:00</publishTime>
     </File>
     <File Include="bin/App_Code.compiled">
-      <publishTime>11/25/2022 22:02:15</publishTime>
+      <publishTime>12/07/2022 15:34:46</publishTime>
     </File>
     <File Include="bin/App_Code.dll">
-      <publishTime>11/25/2022 22:02:15</publishTime>
+      <publishTime>12/07/2022 15:34:45</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>11/25/2022 22:02:16</publishTime>
+      <publishTime>12/07/2022 15:34:47</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>11/25/2022 22:02:16</publishTime>
+      <publishTime>12/07/2022 15:34:47</publishTime>
     </File>
     <File Include="bin/de/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 18:56:06</publishTime>
@@ -202,6 +202,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/Microsoft.AspNet.TelemetryCorrelation.dll">
       <publishTime>06/28/2017 15:05:26</publishTime>
     </File>
+    <File Include="bin/Microsoft.Bcl.AsyncInterfaces.dll">
+      <publishTime>10/20/2020 00:10:36</publishTime>
+    </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>08/15/2017 13:12:32</publishTime>
     </File>
@@ -261,6 +264,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="bin/pt/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 18:55:24</publishTime>
+    </File>
+    <File Include="bin/RestSharp.dll">
+      <publishTime>11/19/2022 21:42:34</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>07/19/2017 14:40:20</publishTime>
@@ -409,14 +415,38 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/ru/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 18:55:46</publishTime>
     </File>
+    <File Include="bin/System.Buffers.dll">
+      <publishTime>02/19/2020 10:05:18</publishTime>
+    </File>
     <File Include="bin/System.Device.Portable.dll">
       <publishTime>06/17/2014 16:56:00</publishTime>
     </File>
     <File Include="bin/System.Diagnostics.DiagnosticSource.dll">
       <publishTime>05/15/2018 13:29:40</publishTime>
     </File>
+    <File Include="bin/System.Memory.dll">
+      <publishTime>02/19/2020 10:05:18</publishTime>
+    </File>
     <File Include="bin/System.Net.Http.WebRequest.dll">
       <publishTime>05/31/2012 13:59:20</publishTime>
+    </File>
+    <File Include="bin/System.Numerics.Vectors.dll">
+      <publishTime>05/15/2018 13:29:44</publishTime>
+    </File>
+    <File Include="bin/System.Runtime.CompilerServices.Unsafe.dll">
+      <publishTime>10/19/2020 18:46:30</publishTime>
+    </File>
+    <File Include="bin/System.Text.Encodings.Web.dll">
+      <publishTime>10/20/2020 00:10:34</publishTime>
+    </File>
+    <File Include="bin/System.Text.Json.dll">
+      <publishTime>12/12/2020 08:12:36</publishTime>
+    </File>
+    <File Include="bin/System.Threading.Tasks.Extensions.dll">
+      <publishTime>02/19/2020 10:05:18</publishTime>
+    </File>
+    <File Include="bin/System.ValueTuple.dll">
+      <publishTime>05/15/2018 13:29:52</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>01/28/2015 04:04:30</publishTime>
@@ -17032,6 +17062,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="InventoryStockRegisterMonthWiseReportDataSet.xss">
       <publishTime>06/14/2020 20:42:29</publishTime>
     </File>
+    <File Include="InvoiveQR/HO-SI-20-4346.png">
+      <publishTime>12/06/2022 18:22:18</publishTime>
+    </File>
     <File Include="ItemHistoryReportDataSet.xsc">
       <publishTime>09/21/2018 13:29:40</publishTime>
     </File>
@@ -17051,10 +17084,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/01/2018 17:34:36</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>11/25/2022 20:50:18</publishTime>
+      <publishTime>11/25/2022 22:38:09</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>11/25/2022 22:02:07</publishTime>
+      <publishTime>12/07/2022 15:34:39</publishTime>
     </File>
     <File Include="PurchaseRegisterDrillDownReport1DataSet.xsc">
       <publishTime>02/18/2020 10:07:46</publishTime>
@@ -17270,7 +17303,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/16/2020 21:24:48</publishTime>
     </File>
     <File Include="Scripts/AERP_Scripts/Contract/SaleContractBillingTransaction.js">
-      <publishTime>12/31/2019 10:03:04</publishTime>
+      <publishTime>12/05/2022 19:11:36</publishTime>
     </File>
     <File Include="Scripts/AERP_Scripts/Contract/SaleContractEmployeeAdvances.js">
       <publishTime>02/17/2018 13:22:56</publishTime>
@@ -17579,7 +17612,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/02/2017 12:29:20</publishTime>
     </File>
     <File Include="Scripts/AERP_Scripts/Sales/SalesInvoiceMasterAndDetails.js">
-      <publishTime>12/06/2020 18:42:40</publishTime>
+      <publishTime>12/05/2022 19:00:09</publishTime>
     </File>
     <File Include="Scripts/AERP_Scripts/Sales/SalesOrderDeliveryMasterAndDetails.js">
       <publishTime>12/06/2020 18:43:14</publishTime>
@@ -18299,7 +18332,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/25/2018 13:39:02</publishTime>
     </File>
     <File Include="Views/Contract/Report/GSTReports/Index.cshtml">
-      <publishTime>08/25/2018 13:31:11</publishTime>
+      <publishTime>12/07/2022 15:30:36</publishTime>
     </File>
     <File Include="Views/Contract/Report/GSTReports/vssver.scc">
       <publishTime>11/16/2019 12:56:14</publishTime>
@@ -18497,10 +18530,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/31/2019 10:06:34</publishTime>
     </File>
     <File Include="Views/Contract/SaleContractBillingTransaction/List.cshtml">
-      <publishTime>12/31/2019 10:07:44</publishTime>
+      <publishTime>12/07/2022 14:30:23</publishTime>
     </File>
     <File Include="Views/Contract/SaleContractBillingTransaction/ViewInvoiceDetails.cshtml">
-      <publishTime>08/31/2018 20:23:16</publishTime>
+      <publishTime>12/05/2022 19:30:37</publishTime>
     </File>
     <File Include="Views/Contract/SaleContractEmployeeAdvances/Create.cshtml">
       <publishTime>02/17/2018 13:12:30</publishTime>
@@ -20204,16 +20237,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/06/2020 18:26:13</publishTime>
     </File>
     <File Include="Views/Sales/SalesInvoiceMasterAndDetails/List.cshtml">
-      <publishTime>09/06/2020 19:49:40</publishTime>
+      <publishTime>12/03/2022 17:43:41</publishTime>
     </File>
     <File Include="Views/Sales/SalesInvoiceMasterAndDetails/SalesInvoiceApproval.cshtml">
       <publishTime>09/05/2020 15:16:57</publishTime>
     </File>
     <File Include="Views/Sales/SalesInvoiceMasterAndDetails/ServiceInvoiceList.cshtml">
-      <publishTime>09/06/2020 19:49:27</publishTime>
+      <publishTime>12/03/2022 19:10:04</publishTime>
     </File>
     <File Include="Views/Sales/SalesInvoiceMasterAndDetails/ViewDetails.cshtml">
-      <publishTime>09/05/2020 15:00:24</publishTime>
+      <publishTime>12/05/2022 10:20:31</publishTime>
     </File>
     <File Include="Views/Sales/SalesInvoiceMasterAndDetails/vssver.scc">
       <publishTime>11/16/2019 12:50:24</publishTime>
@@ -20405,7 +20438,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/28/2017 13:20:17</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/25/2022 21:49:21</publishTime>
+      <publishTime>12/07/2022 15:09:20</publishTime>
     </File>
   </ItemGroup>
 </Project>

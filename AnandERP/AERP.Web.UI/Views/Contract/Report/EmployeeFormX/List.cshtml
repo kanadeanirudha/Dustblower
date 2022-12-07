@@ -1,0 +1,67 @@
+﻿@model AERP.ViewModel.EmployeeFormXViewModel
+<style>
+    .breaker {
+        border: 1px solid #eeeeee;
+    }
+</style>
+<div class="bootgrid-header container-fluid" id="data-table-command-header">
+    @using (Html.BeginForm("DownloadExcelFile", "EmployeeFormX", FormMethod.Post))
+    {
+        <input type="hidden" name="GridHtml" id="GridHtml" />
+        <div class="col-sm-2 pull-right" style="" id="DownloadEmpXFile">
+            <button type="submit" value="Export" name="submit" id="btnSubmit" class="btn-primary btn">Export</button>
+        </div>
+    }
+    <div class="row" id="EmployeeFormXExcel">
+        <div class="">
+
+            @foreach (var item in Model.EmployeeFormXDetailListForparticulars)
+            {
+                <br><br>
+                <table class="" style="border: 1px solid;margin:10px;width:50%;">
+                    <tbody>
+                        <tr class="" style="border-bottom:1px solid;">
+                            <td width="50%" style="text-align:center">Form X Rule 57 (Central)</td>
+                            <td width="50%" style="text-align:center">Form XV Rule 59 (a)(b) (Mah.)</td>
+                        </tr>
+                        <tr style="text-align:center;border-bottom:1px solid;">
+                            <td colspan="2" style=""><b>EMPLOYEMENT CARD</b></td>
+                        </tr>
+                        <tr style="border-bottom:1px solid;">
+                            <td colspan="2">Name and Address of Contractor - <b>@item.CentreName @item.CentreAddress</b></td>
+                        </tr>
+                        <tr style="border-bottom:1px solid;">
+                            <td colspan="2">Nature and location of work - <b>@item.Designation @item.CustomerName @item.Customeraddress</b></td>
+                        </tr>
+                        <tr style="border-bottom:1px solid;">
+                            <td colspan="2">Name and address of establishment in/ under which contract is carried on - <b>@item.CentreName</b></td>
+                        </tr>
+                        <tr style="border-bottom:1px solid;">
+                            <td colspan="2">Name, Fathers Name &address of Principal Employer - <b>@item.CustomerName @item.Customeraddress</b></td>
+                        </tr>
+                        <tr style="border-bottom:1px solid;">
+                            <td colspan="2">
+                                <p>1) Name of the workman - <b>@item.EmployeeName</b></p>
+                                <p>Sex & Identification - <b>@item.GenderCode</b></p>
+                                <p>2) Sr. No. in Register of workman employed - <b>@item.EmployeeCode</b></p>
+                                <p>3) Nature of employement/designation - <b>@item.Designation</b></p>
+                                <p>4) Wage rate (with particulars of unit in case of piece work) <b>@item.NetSalaryAmount</b></p>
+                                <p>5) Wage period - <b>@item.WagePeriod</b></p>
+                                <p>6) Tenure of employement - <b>@item.TenureOfEmp</b></p>
+                                <p>7) Date of commincement - _______ Termination - _______</p>
+                                <p>8) Signature of contractor - </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#btnSubmit').on("click", function () {
+        $("#GridHtml").val($("#EmployeeFormXExcel").html())
+    });
+</script>

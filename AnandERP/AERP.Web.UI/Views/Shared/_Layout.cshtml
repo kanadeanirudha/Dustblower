@@ -52,6 +52,7 @@
     <script src="@Url.Content("~/Scripts/AERP_Scripts/Application/makeAjaxRequest.js")" type="text/javascript"></script>
 
     <script src="@Url.Content("~/Scripts/AERP_Scripts/Application/AERPValidation.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/AERP_Scripts/General_Script/CommonFunctions.js")" type="text/javascript"></script>
     <link href="@Url.Content("~/Content/css/custom.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Theme/vendors/bower_components/sweetalert/dist/sweetalert.css")" rel="stylesheet" type="text/css" />
 </head>
@@ -188,7 +189,7 @@
     <script>
         $(function () {
 
-            getNotificationCount('');
+            commonFunctions.getNotificationCount('');
 
             //var notifications = $.connection.notificationHub;
 
@@ -203,31 +204,6 @@
             //    alert(e);
             //});
         });
-
-        function getNotificationCount(event) {
-            $('#NotiCountHeaderDiv').removeAttr('class');
-            $.ajax({
-                url:'/Home/GetNotificationCount',
-                contentType:'application/html; charset:utf-8',
-                type:'GET',
-                dataType:'JSON'
-            }).success(function (result) {
-                //if (result[0] && result[0].NotificationCount != 0) {
-                if (result && result != 0) {
-                    //$("#NotiCount").html(result[0].NotificationCount);
-                    $("#NotiCount").html(result);
-                    $("#NotiCountHeader").show();
-                    //$("#NotiCountHeader").html(result[0].NotificationCount);
-                    $("#NotiCountHeader").html(result);
-                    $("#NotiCountHeaderDiv").addClass('animated tada');
-                } else {
-                    $('#NotiCount').html(0);
-                    $('#NotiCountHeader').hide();
-                }
-            }).error(function () {
-
-            })
-        }
 
     </script>
     <script type="text/javascript">

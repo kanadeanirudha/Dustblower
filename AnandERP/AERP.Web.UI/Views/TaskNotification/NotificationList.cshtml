@@ -82,6 +82,14 @@
                             {
                                 @Html.Partial("CancelSalesInvoicePendingRequest")
                             }
+                            else if (item1.TaskCode == "CSR")
+                            {
+                                @Html.Partial("CustomerSaleRatePendingRequest")
+                            }
+                            else if (item1.TaskCode == "CSD")
+                            {
+                                @Html.Partial("CustomerSaleRateDeletePendingRequest")
+                            }
                         </div>
                             @*}*@
                     }

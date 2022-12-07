@@ -6289,6 +6289,9 @@
     <Content Include="PurchaseRegisterDrillDownReport3DataSet.xss">
       <DependentUpon>PurchaseRegisterDrillDownReport3DataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="Report\Contract\EmployeeESICForm6Report.rdlc" />
+    <Content Include="Report\Contract\EmployeeESICSummaryReport.rdlc" />
+    <Content Include="Report\Contract\EmployeePFSummaryReport.rdlc" />
     <None Include="SaleContractSalaryWageSheetReportDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>SaleContractSalaryWageSheetReportDataSet.Designer.cs</LastGenOutput>
@@ -6452,12 +6455,15 @@
     <Content Include="Views\Contract\Report\ContractSalaryBonusReport\ContractSalaryBonusATMReport.aspx" />
     <Content Include="Views\Contract\Report\ContractSalaryBonusReport\ContractSalaryBonusReport.aspx" />
     <Content Include="Views\Contract\Report\ContractWisePFESICChecklistReport\ContractWisePFESICChecklistReport.aspx" />
+    <Content Include="Views\Contract\Report\EmployeeESICForm6Report\EmployeeESICForm6Report.aspx" />
     <Content Include="Views\Contract\Report\EmployeeESICReportForm7\EmployeeESICReportForm7.aspx" />
+    <Content Include="Views\Contract\Report\EmployeeESICSummaryReport\EmployeeESICSummaryReport.aspx" />
     <Content Include="Views\Contract\Report\EmployeeFormIIWagesSheetReport\EmployeeFormIIWagesSheetReport.aspx" />
     <Content Include="Views\Contract\Report\EmployeeFormX\EmployeeFormX.aspx" />
     <Content Include="Views\Contract\Report\EmployeePFReportForm10\EmployeePFReportFORM10.aspx" />
     <Content Include="Views\Contract\Report\EmployeePFReportFORM6A\EmployeePFReportFORM6A.aspx" />
     <Content Include="Views\Contract\Report\EmployeePFReportForm9\EmployeePFReportForm9.aspx" />
+    <Content Include="Views\Contract\Report\EmployeePFSummaryReport\EmployeePFSummaryReport.aspx" />
     <Content Include="Views\Contract\Report\EmployeeReportForm5Monthly\EmployeeReportForm5Monthly.aspx" />
     <Content Include="Views\Contract\Report\GrossOperatingProfitReport\GrossOperatingProfitReport.aspx" />
     <Content Include="Views\Contract\Report\GSTReports\GSTReports.aspx" />
@@ -7280,6 +7286,15 @@
     <Content Include="Views\Sales\SalesInvoiceMasterAndDetails\SalesInvoiceApproval.cshtml" />
     <Content Include="Views\Sales\SalesInvoiceMasterAndDetails\CancelSalesInvoiceApproval.cshtml" />
     <Content Include="Views\Contract\SaleContractSalaryTransaction\GenerateBulkSalaryFS.cshtml" />
+    <Content Include="Views\Contract\Report\EmployeeESICForm6Report\Index.cshtml" />
+    <Content Include="Views\Contract\Report\EmployeeESICSummaryReport\Index.cshtml" />
+    <Content Include="Views\Contract\Report\EmployeePFSummaryReport\Index.cshtml" />
+    <Content Include="Views\Contract\Report\EmployeeFormX\List.cshtml" />
+    <Content Include="Views\TaskNotification\CustomerSaleRateDeletePendingRequest.cshtml" />
+    <Content Include="Views\TaskNotification\CustomerSaleRatePendingRequest.cshtml" />
+    <Content Include="Views\Inventory\GeneralItemMaster\CustomerSaleRateApproval.cshtml" />
+    <Content Include="Views\Inventory\GeneralItemMaster\CustomerSaleRateDeleteApproval.cshtml" />
+    <Content Include="Views\Inventory\GeneralItemMaster\SaleUomCodeCustomerWiseData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

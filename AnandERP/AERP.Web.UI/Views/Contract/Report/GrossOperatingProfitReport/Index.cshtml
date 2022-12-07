@@ -16,7 +16,7 @@
         <div class="card" style="margin-bottom: 0px;">
             <div class="card-body card-padding">
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <div class="form-group fg-line">
                             @Html.HiddenFor(m => m.CentreName)
                             @Html.LabelFor(model => model.CentreCode, new { })
@@ -33,14 +33,24 @@
                             @Html.TextBoxFor(model => model.CustomerMasterName, new { @class = "form-control input-sm" })
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <div class="select form-group fg-line">
                             @Html.HiddenFor(m => m.CustomerBranchMasterID)
                             @Html.LabelFor(model => model.CustomerBranchMasterName, new { })
                             @Html.TextBoxFor(model => model.CustomerBranchMasterName, new { @class = "form-control input-sm" })
                         </div>
                     </div>
-                    <div class="col-sm-2" style="margin-top:33px;">
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="fg-line select form-group">
+                            @Html.HiddenFor(m => m.AccountSessionName)
+                            @Html.LabelFor(model => model.AccountSessionID, new { })
+                            @Html.DropDownListFor(m => m.AccountSessionID, Model.AccountSessionMasterListItems, "---Select Session---", new { @class = "form-control", data_toggle = "tooltip", data_placement = "top", data_original_title = "Account Session*" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.AccountSessionID)
+                    </div>
+                    <div class="col-sm-2" style="margin-top:33px">
                         <div class="fg-line">
                             <button type="submit" name="submit" id="btnGrossOperatingProfitReportSubmit" class="btn-primary btn">Show</button>
                         </div>
@@ -66,6 +76,7 @@
         $("#btnGrossOperatingProfitReportSubmit").click(function () {
             $("#IsPosted").val(true);
             $("#CentreName").val($("#CentreCode :selected").text());
+            $("#AccountSessionName").val($("#AccountSessionID :selected").text());
         })
 
         mapCustomerMasterName = [];

@@ -14,14 +14,14 @@
             @*</div>
                 <div class="card-body card-padding">*@
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group fg-line">
                         @Html.LabelFor(model => model.CentreCode, new { })
                         @Html.DropDownListFor(m => m.CentreCode, Model.ListGetAdminRoleApplicableCentreItems, "------Select Centre-------", new { @class = "form-control" })
                     </div>
                     @Html.ValidationMessageFor(model => model.CentreCode)
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group fg-line">
                         <label>@Html.LabelFor(model => model.MonthName, new { })</label>
                         @Html.DropDownList("MonthName", ViewData["MonthName"] as List<SelectListItem>, new { @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "MonthList*" })
@@ -29,12 +29,19 @@
                     @Html.ValidationMessageFor(model => model.MonthName)
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group fg-line">
                         <label>@Html.LabelFor(model => model.MonthYear, new { })</label>
                         @Html.DropDownList("MonthYear", ViewData["MonthYear"] as List<SelectListItem>, new { @class = "form-control input-sm", data_val = "true", data_toggle = "tooltip", data_placement = "top", data_original_title = "YearList*" })
                     </div>
                     @Html.ValidationMessageFor(model => model.MonthYear)
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  fg-line">
+                        <label>@Html.LabelFor(model => model.ESICZoneID, new { style = "" })</label>
+                        @Html.DropDownListFor(m => m.ESICZoneID, (SelectList)ViewBag.ESICZoneMaster, new { @class = "form-control", style = "", })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.ESICZoneID)
                 </div>
                 <div class="col-sm-2" style="margin-top:25px;">
                     <div class="fg-line">
