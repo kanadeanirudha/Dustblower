@@ -126,3 +126,28 @@ CREATE TABLE [dbo].[GSTEInvoiceDetails](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
+
+ALTER TABLE InventoryUoMMaster
+ADD GSTUnitCode varchar(20), GSTUnitDescription varchar(50) ;
+
+GO
+update InventoryUoMMaster set GSTUnitCode ='OTH' , GSTUnitDescription ='OTHERS' where UomCode='EA'
+update InventoryUoMMaster set GSTUnitCode ='LTR' , GSTUnitDescription ='LITRES' where UomCode='LTR'
+update InventoryUoMMaster set GSTUnitCode ='BTL' , GSTUnitDescription ='BOTTLES' where UomCode='BOTTLES'
+update InventoryUoMMaster set GSTUnitCode ='PCS' , GSTUnitDescription ='PIECES' where UomCode='PCS'
+update InventoryUoMMaster set GSTUnitCode ='PAC' , GSTUnitDescription ='PACKS' where UomCode='PKT'
+update InventoryUoMMaster set GSTUnitCode ='KGS' , GSTUnitDescription ='KILOGRAMS' where UomCode='KGS'
+update InventoryUoMMaster set GSTUnitCode ='PRS' , GSTUnitDescription ='PAIRS' where UomCode='PAIR'
+update InventoryUoMMaster set GSTUnitCode ='CAN' , GSTUnitDescription ='CANS' where UomCode='CAN'
+update InventoryUoMMaster set GSTUnitCode ='OTH' , GSTUnitDescription ='OTHERS' where UomCode='Pstgs'
+update InventoryUoMMaster set GSTUnitCode ='OTH' , GSTUnitDescription ='OTHERS' where UomCode='Month'
+update InventoryUoMMaster set GSTUnitCode ='OTH' , GSTUnitDescription ='OTHERS' where UomCode='Person'
+update InventoryUoMMaster set GSTUnitCode ='OTH' , GSTUnitDescription ='OTHERS' where UomCode='Days'
+update InventoryUoMMaster set GSTUnitCode ='MTR' , GSTUnitDescription ='METERS' where UomCode='Mtr'
+update InventoryUoMMaster set GSTUnitCode ='SET' , GSTUnitDescription ='SETS' where UomCode='Set'
+update InventoryUoMMaster set GSTUnitCode ='NOS' , GSTUnitDescription ='NUMBERS' where UomCode='Nos'
+update InventoryUoMMaster set GSTUnitCode ='SQF' , GSTUnitDescription ='SQUARE FEET' where UomCode='Sq.ft.'
+update InventoryUoMMaster set GSTUnitCode ='BDL' , GSTUnitDescription ='BUNDLES' where UomCode='Bundle'
+update InventoryUoMMaster set GSTUnitCode ='ROL' , GSTUnitDescription ='ROLLS' where UomCode='Roll'
+
+Go

@@ -637,6 +637,30 @@ namespace AERP.ViewModel
                 SaleContractBillingTransactionDTO.CustomerGSTNumber = value;
             }
         }
+
+        public bool IsCancelledEInvoice
+        {
+            get
+            {
+                return (SaleContractBillingTransactionDTO != null) ? SaleContractBillingTransactionDTO.IsCancelledEInvoice : false;
+            }
+            set
+            {
+                SaleContractBillingTransactionDTO.IsCancelledEInvoice = value;
+            }
+        }
+
+        public string ImageQRCode
+        {
+            get
+            {
+                return (SaleContractBillingTransactionDTO != null) ? SaleContractBillingTransactionDTO.ImageQRCode : string.Empty;
+            }
+            set
+            {
+                SaleContractBillingTransactionDTO.ImageQRCode = value;
+            }
+        }
     }
 }
 

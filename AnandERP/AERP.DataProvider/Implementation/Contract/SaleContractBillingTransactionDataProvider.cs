@@ -103,6 +103,8 @@ namespace AERP.DataProvider
                         item.IsBillGenerated = sqlDataReader["IsBillGenerated"] is DBNull ? false : Convert.ToBoolean(sqlDataReader["IsBillGenerated"]);
                         item.IsTempBillGenerated = sqlDataReader["IsTempBillGenerated"] is DBNull ? false : Convert.ToBoolean(sqlDataReader["IsTempBillGenerated"]);
                         item.CustomerInvoiceNumber = sqlDataReader["CustomerInvoiceNumber"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CustomerInvoiceNumber"]);
+                        item.GSTEInvoiceMasterId = sqlDataReader["GSTEInvoiceMasterId"] == DBNull.Value ? 0 : Convert.ToInt32(sqlDataReader["GSTEInvoiceMasterId"]);
+                        item.IsCancelledEInvoice = sqlDataReader["IsCancelledEInvoice"] == DBNull.Value ? false : Convert.ToBoolean(sqlDataReader["IsCancelledEInvoice"]);
 
                         baseEntityCollection.CollectionResponse.Add(item);
                         baseEntityCollection.TotalRecords = Convert.ToInt32(sqlDataReader["TotalRecords"]);
@@ -609,7 +611,10 @@ namespace AERP.DataProvider
                         item.IsCanceled = sqlDataReader["IsCanceled"] is DBNull ? false : Convert.ToBoolean(sqlDataReader["IsCanceled"]);
 
                         item.WaterMark = sqlDataReader["WaterMark"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["WaterMark"]);
-
+                        if (searchRequest.ActionType == "Create")
+                        {
+                            item.ImageQRCode = sqlDataReader["QrCodeImage"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["QrCodeImage"]);
+                        }
                         baseEntityCollection.CollectionResponse.Add(item);
                     }
 

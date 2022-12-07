@@ -47,6 +47,11 @@ var SaleContractBillingTransaction = {
             SaleContractBillingTransaction.AjaxCallSaleContractBillingTransaction();
         });
 
+        $('#GenerateEInvoiceForSalesInvoice').on("click", function () {
+            var salesInvoiceMasterID = $("#SalesInvoiceMasterID").val();
+            ajaxRequest.makeRequest("/SaleContractBillingTransaction/GenerateEInvoice", "POST", { salesInvoiceMasterID: salesInvoiceMasterID }, SaleContractBillingTransaction.Success, "GenerateEInvoiceForSalesInvoice");
+        });
+
         $("#btnShowList").unbind('click').click(function () {
             var CustomerMasterID = $("#CustomerMasterID").val();
             var CustomerMasterName = $("#CustomerMasterName").val();
@@ -181,13 +186,13 @@ var SaleContractBillingTransaction = {
         var ParameterXml = "<rows>";
         var currentdate = new Date();
         var datetime =
-                         currentdate.getUTCFullYear() + "-"
-                        + (currentdate.getUTCMonth() + 1) + "-"
-                        + currentdate.getUTCDate() + " "
-                        + currentdate.getUTCHours() + ":"
-                        + currentdate.getUTCMinutes() + ":"
-                        + currentdate.getUTCSeconds() + "."
-                        + currentdate.getUTCMilliseconds();
+            currentdate.getUTCFullYear() + "-"
+            + (currentdate.getUTCMonth() + 1) + "-"
+            + currentdate.getUTCDate() + " "
+            + currentdate.getUTCHours() + ":"
+            + currentdate.getUTCMinutes() + ":"
+            + currentdate.getUTCSeconds() + "."
+            + currentdate.getUTCMilliseconds();
         //alert(datetime)
 
 
@@ -223,13 +228,13 @@ var SaleContractBillingTransaction = {
         var ParameterXml = "<rows>";
         var currentdate = new Date();
         var datetime =
-                         currentdate.getUTCFullYear() + "-"
-                        + (currentdate.getUTCMonth() + 1) + "-"
-                        + currentdate.getUTCDate() + " "
-                        + currentdate.getUTCHours() + ":"
-                        + currentdate.getUTCMinutes() + ":"
-                        + currentdate.getUTCSeconds() + "."
-                        + currentdate.getUTCMilliseconds();
+            currentdate.getUTCFullYear() + "-"
+            + (currentdate.getUTCMonth() + 1) + "-"
+            + currentdate.getUTCDate() + " "
+            + currentdate.getUTCHours() + ":"
+            + currentdate.getUTCMinutes() + ":"
+            + currentdate.getUTCSeconds() + "."
+            + currentdate.getUTCMilliseconds();
         //alert(datetime)
 
 

@@ -29,7 +29,6 @@ namespace AERP.Web.UI.Controllers
         IGeneralUnitsBA _GeneralUnitsBA = null;
         IPurchaseRequisitionMasterBA _PurchaseRequisitionMasterBA = null;
         IGeneralTaxGroupMasterBA _GeneralTaxGroupMasterBA = null;
-        IOrganisationCentrewiseGSTCredentialBA _OrganisationCentrewiseGSTCredentialBA = null;
         private readonly ILogger _logException;
         ActionModeEnum actionModeEnum;
         string _actionMode = string.Empty;
@@ -50,7 +49,6 @@ namespace AERP.Web.UI.Controllers
             _GeneralUnitsBA = new GeneralUnitsBA();
             _GeneralTaxGroupMasterBA = new GeneralTaxGroupMasterBA();
             _PurchaseRequisitionMasterBA = new PurchaseRequisitionMasterBA();
-            _OrganisationCentrewiseGSTCredentialBA = new OrganisationCentrewiseGSTCredentialBA();
         }
 
         // Controller Methods
@@ -926,90 +924,9 @@ namespace AERP.Web.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult GenerateEInvoice(SalesInvoiceMasterAndDetailsViewModel _model)
+        public ActionResult GenerateEInvoice(int salesInvoiceMasterID)
         {
-            SalesInvoiceMasterAndDetailsViewModel model = new SalesInvoiceMasterAndDetailsViewModel();
-            string errorMessage = string.Empty;
-            try
-            {
-                GSTInvoiceRequestModel gstInvoiceRequestModel = new GSTInvoiceRequestModel();
-                gstInvoiceRequestModel = GetRecordForSalesEInvoice(_model.ID);
-                errorMessage = gstInvoiceRequestModel.ErrorMessage;
-
-                if (string.IsNullOrEmpty(errorMessage))
-                {
-                    OrganisationCentrewiseGSTCredential GSTCredential = new OrganisationCentrewiseGSTCredential()
-                    {
-                        ConnectionString = _connectioString,
-                        CentreCode = gstInvoiceRequestModel.CentreCode,
-                        IsLiveMode = Convert.ToBoolean(ConfigurationManager.AppSettings["IsGSTLiveMode"].ToString())
-                    };
-                    GSTCredential = _OrganisationCentrewiseGSTCredentialBA.GetOrganisationCentrewiseGSTCredentialByCentreCode(GSTCredential);
-
-                    if (string.IsNullOrEmpty(GSTCredential.ErrorMessage))
-                    {
-                        GSTAuthTokenResponse gstAuthTokenResponse = new GSTAuthTokenResponse();
-                        if (string.IsNullOrEmpty(GSTCredential.AuthToken))
-                        {
-                            gstAuthTokenResponse = GSTHelper.GenerateGSTAuthToken(GSTCredential);
-                            if (gstAuthTokenResponse.AuthTokenStatus)
-                            {
-                                GSTCredential.ConnectionString = _connectioString;
-                                GSTCredential.AuthToken = gstAuthTokenResponse.Data.AuthToken;
-                                GSTCredential.TokenExpiry = gstAuthTokenResponse.Data.TokenExpiry;
-                                IBaseEntityResponse<OrganisationCentrewiseGSTCredential> response = _OrganisationCentrewiseGSTCredentialBA.UpdateOrganisationCentrewiseGSTCredential(GSTCredential);
-                                if (response?.Message?.Count > 0)
-                                {
-                                    errorMessage = response.Message[0].ErrorMessage;
-                                }
-                            }
-                            else
-                            {
-                                errorMessage = gstAuthTokenResponse.ErrorMessage;
-                            }
-                        }
-
-                        if (!string.IsNullOrEmpty(GSTCredential.AuthToken) && string.IsNullOrEmpty(errorMessage))
-                        {
-                            GSTInvoiceResponse gstInvoiceResponse = GSTHelper.GenerateEInvoice(gstInvoiceRequestModel, GSTCredential);
-                            if (!string.IsNullOrEmpty(gstInvoiceResponse.ErrorMessage))
-                            {
-                                errorMessage = gstInvoiceResponse.ErrorMessage;
-                            }
-                            else
-                            {
-                                //Save Invoice Data into database
-                                GSTInvoiceResponseModel GSTInvoiceResponseModel = new GSTInvoiceResponseModel()
-                                {
-                                    ConnectionString = _connectioString,
-                                    SalesInvoiceMasterID = _model.ID,
-                                    AcknowledgementNo = gstInvoiceResponse.DataResponse.AckNo,
-                                    AcknowledgementDate = gstInvoiceResponse.DataResponse.AckDt,
-                                    Irn = gstInvoiceResponse.DataResponse.Irn,
-                                    QrCodeImage = Convert.ToString(gstInvoiceResponse.DataResponse.QrCodeImage),
-                                    IsCancelledEInvoice = false,
-                                    GSTEInvoiceDetails = gstInvoiceResponse.Data
-                                };
-
-                                IBaseEntityResponse<GSTInvoiceResponseModel> response = _SalesInvoiceMasterAndDetailsBA.InsertSalesEInvoiceResponse(GSTInvoiceResponseModel);
-                                if (response?.Message?.Count > 0)
-                                {
-                                    errorMessage = response.Message[0].ErrorMessage;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        errorMessage = GSTCredential.ErrorMessage;
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                errorMessage = "Opps! Some thing went wrong.";
-            }
+            string errorMessage = GenerateEInvoice(salesInvoiceMasterID, _connectioString);
             errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage);
             return Json(errorMessage, JsonRequestBehavior.AllowGet);
         }
@@ -1172,15 +1089,7 @@ namespace AERP.Web.UI.Controllers
             return listSalesInvoiceMasterAndDetails;
         }
 
-        [NonAction]
-        protected GSTInvoiceRequestModel GetRecordForSalesEInvoice(int id)
-        {
-            SalesInvoiceMasterAndDetailsSearchRequest searchRequest = new SalesInvoiceMasterAndDetailsSearchRequest();
-            searchRequest.ConnectionString = Convert.ToString(ConfigurationManager.ConnectionStrings["Main.ConnectionString"]);
-            searchRequest.ID = id;
-            GSTInvoiceRequestModel gstInvoiceRequestModel = _SalesInvoiceMasterAndDetailsBA.GetRecordForSalesEInvoice(searchRequest);
-            return gstInvoiceRequestModel;
-        }
+
         #endregion
 
         // AjaxHandler Method

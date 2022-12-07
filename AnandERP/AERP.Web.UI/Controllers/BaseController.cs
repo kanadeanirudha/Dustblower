@@ -1,31 +1,27 @@
-﻿using AERP.DTO;
-using AERP.Common;
-using AERP.Base.DTO;
+﻿using AERP.Base.DTO;
 using AERP.Business.BusinessAction;
-using System.Threading;
+using AERP.Common;
+using AERP.DTO;
 using AERP.ViewModel;
-using System.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using AERP.Web.UI;
+using AERP.Web.UI.Helper;
 using AERP.Web.UI.HtmlHelperExtensions;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Net;
-using System.IO;
-using System.Net.Mail;
-using DocumentFormat.OpenXml;
+
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
-using System.Net.Security;
 
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Device.Location;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using GoogleMaps.LocationServices;
-using System.Device.Location;
+using System.Threading;
+using System.Web;
+using System.Web.Mvc;
 using System.Xml;
 
 namespace AERP.Web.UI.Controllers
@@ -63,6 +59,8 @@ namespace AERP.Web.UI.Controllers
         IAdminRoleMenuDetailsBA _adminRoleMenuDetailsBA = null;
         IBankMasterBA _BankMasterBA = null;
         IEmpEmployeeMasterBA _EmpEmployeeMasterBA = null;
+        IOrganisationCentrewiseGSTCredentialBA _OrganisationCentrewiseGSTCredentialBA = null;
+        ISalesInvoiceMasterAndDetailsBA _SalesInvoiceMasterAndDetailsBA = null;
         public BaseController()
         {
             _adminRoleApplicableDetailsBA = new AdminRoleApplicableDetailsBA();
@@ -94,6 +92,8 @@ namespace AERP.Web.UI.Controllers
             _adminRoleMenuDetailsBA = new AdminRoleMenuDetailsBA();
             _BankMasterBA = new BankMasterBA();
             _EmpEmployeeMasterBA = new EmpEmployeeMasterBA();
+            _OrganisationCentrewiseGSTCredentialBA = new OrganisationCentrewiseGSTCredentialBA();
+            _SalesInvoiceMasterAndDetailsBA = new SalesInvoiceMasterAndDetailsBA();
         }
 
         public String RedirectController
@@ -1715,6 +1715,101 @@ namespace AERP.Web.UI.Controllers
             var CurrentLocation = new GeoCoordinate(latlongs["CurrentLatitude"], latlongs["CurrentLongitude"]);
 
             return DestinationLocation.GetDistanceTo(CurrentLocation) / 1000;
+        }
+
+        public string GenerateEInvoice(int salesInvoiceMasterID , string _connectioString)
+        {
+            string errorMessage = string.Empty;
+            try
+            {
+                GSTInvoiceRequestModel gstInvoiceRequestModel = new GSTInvoiceRequestModel();
+                gstInvoiceRequestModel = GetRecordForSalesEInvoice(salesInvoiceMasterID, _connectioString);
+                errorMessage = gstInvoiceRequestModel.ErrorMessage;
+
+                if (string.IsNullOrEmpty(errorMessage))
+                {
+                    OrganisationCentrewiseGSTCredential GSTCredential = new OrganisationCentrewiseGSTCredential()
+                    {
+                        ConnectionString = _connectioString,
+                        CentreCode = gstInvoiceRequestModel.CentreCode,
+                        IsLiveMode = Convert.ToBoolean(ConfigurationManager.AppSettings["IsGSTLiveMode"].ToString())
+                    };
+                    GSTCredential = _OrganisationCentrewiseGSTCredentialBA.GetOrganisationCentrewiseGSTCredentialByCentreCode(GSTCredential);
+
+                    if (string.IsNullOrEmpty(GSTCredential.ErrorMessage))
+                    {
+                        GSTAuthTokenResponse gstAuthTokenResponse = new GSTAuthTokenResponse();
+                        if (string.IsNullOrEmpty(GSTCredential.AuthToken))
+                        {
+                            gstAuthTokenResponse = GSTHelper.GenerateGSTAuthToken(GSTCredential);
+                            if (gstAuthTokenResponse.AuthTokenStatus)
+                            {
+                                GSTCredential.ConnectionString = _connectioString;
+                                GSTCredential.AuthToken = gstAuthTokenResponse.Data.AuthToken;
+                                GSTCredential.TokenExpiry = gstAuthTokenResponse.Data.TokenExpiry;
+                                IBaseEntityResponse<OrganisationCentrewiseGSTCredential> response = _OrganisationCentrewiseGSTCredentialBA.UpdateOrganisationCentrewiseGSTCredential(GSTCredential);
+                                if (response?.Message?.Count > 0)
+                                {
+                                    errorMessage = response.Message[0].ErrorMessage;
+                                }
+                            }
+                            else
+                            {
+                                errorMessage = gstAuthTokenResponse.ErrorMessage;
+                            }
+                        }
+
+                        if (!string.IsNullOrEmpty(GSTCredential.AuthToken) && string.IsNullOrEmpty(errorMessage))
+                        {
+                            GSTInvoiceResponse gstInvoiceResponse = GSTHelper.GenerateEInvoice(gstInvoiceRequestModel, GSTCredential);
+                            if (!string.IsNullOrEmpty(gstInvoiceResponse.ErrorMessage))
+                            {
+                                errorMessage = gstInvoiceResponse.ErrorMessage;
+                            }
+                            else
+                            {
+                                //Save Invoice Data into database
+                                GSTInvoiceResponseModel GSTInvoiceResponseModel = new GSTInvoiceResponseModel()
+                                {
+                                    ConnectionString = _connectioString,
+                                    SalesInvoiceMasterID = salesInvoiceMasterID,
+                                    AcknowledgementNo = gstInvoiceResponse.DataResponse.AckNo,
+                                    AcknowledgementDate = gstInvoiceResponse.DataResponse.AckDt,
+                                    Irn = gstInvoiceResponse.DataResponse.Irn,
+                                    QrCodeImage = Convert.ToString(gstInvoiceResponse?.DataResponse?.QrCodeImage),
+                                    IsCancelledEInvoice = false,
+                                    GSTEInvoiceDetails = gstInvoiceResponse.Data
+                                };
+
+                                IBaseEntityResponse<GSTInvoiceResponseModel> response = _SalesInvoiceMasterAndDetailsBA.InsertSalesEInvoiceResponse(GSTInvoiceResponseModel);
+                                if (response?.Message?.Count > 0)
+                                {
+                                    errorMessage = response.Message[0].ErrorMessage;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        errorMessage = GSTCredential.ErrorMessage;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = "Opps! Some thing went wrong.";
+            }
+            return errorMessage;
+        }
+
+        private GSTInvoiceRequestModel GetRecordForSalesEInvoice(int id, string _connectioString)
+        {
+            SalesInvoiceMasterAndDetailsSearchRequest searchRequest = new SalesInvoiceMasterAndDetailsSearchRequest();
+            searchRequest.ConnectionString = Convert.ToString(ConfigurationManager.ConnectionStrings["Main.ConnectionString"]);
+            searchRequest.ID = id;
+            GSTInvoiceRequestModel gstInvoiceRequestModel = _SalesInvoiceMasterAndDetailsBA.GetRecordForSalesEInvoice(searchRequest);
+            return gstInvoiceRequestModel;
         }
     }
 }

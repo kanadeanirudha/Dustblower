@@ -2221,14 +2221,14 @@ namespace AERP.DataProvider
                             double lineItemTotalAmount = sqlDataReader["LineItemTotalAmount"] is DBNull ? 0 : Convert.ToDouble(sqlDataReader["LineItemTotalAmount"]);
                             if (lineItemTaxAmount == 0)
                             {
-                                item.Discount = Convert.ToInt32(item.TotAmt);
+                                item.Discount = item.TotAmt;
                                 item.AssAmt = item.TotAmt - item.Discount;
                                 item.TotItemVal = 0;
                                 totalDiscountAmount += item.Discount;
                             }
                             else
                             {
-                                item.AssAmt = Convert.ToInt32(item.TotAmt);
+                                item.AssAmt = item.TotAmt;
                                 item.TotItemVal = lineItemTotalAmount;
                                 if (Convert.ToBoolean(sqlDataReader["IsOtherState"]))
                                 {
@@ -2245,13 +2245,13 @@ namespace AERP.DataProvider
                                         if (string.Equals(lineItemTaxrate.Split('~')[0], "CGST", StringComparison.InvariantCultureIgnoreCase))
                                         {
                                             taxRate = Convert.ToDouble(lineItemTaxrate.Split('~')[1]);
-                                            item.CgstAmt = Convert.ToInt32(item.TotAmt * (taxRate / 100));
+                                            item.CgstAmt = Math.Round(item.TotAmt * (taxRate / 100), 2);
                                             cgstTotal += item.CgstAmt;
                                         }
                                         else if (string.Equals(lineItemTaxrate.Split('~')[0], "SGST", StringComparison.InvariantCultureIgnoreCase))
                                         {
                                             taxRate = Convert.ToDouble(lineItemTaxrate.Split('~')[1]);
-                                            item.SgstAmt = Convert.ToInt32(item.TotAmt * (taxRate / 100));
+                                            item.SgstAmt = Math.Round(item.TotAmt * (taxRate / 100), 2);
                                             sgstTotal += item.SgstAmt;
                                         }
 
@@ -2268,10 +2268,10 @@ namespace AERP.DataProvider
                         {
                             AssVal = assTotalValue,
                             IgstVal = IsOtherState ? totalTaxAmount : 0,
-                            CgstVal = IsOtherState ? 0 : Convert.ToInt32(cgstTotal),
-                            SgstVal = IsOtherState ? 0 : Convert.ToInt32(sgstTotal),
+                            CgstVal = IsOtherState ? 0 : Math.Round(cgstTotal,2),
+                            SgstVal = IsOtherState ? 0 : Math.Round(sgstTotal,2),
                             Discount = 0,
-                            TotInvVal = Convert.ToInt32(Math.Round(totalInvoiceAmount)),
+                            TotInvVal = Math.Round(totalInvoiceAmount, 2),
                             TotInvValFc = totalInvoiceAmount,
                             RndOffAmt = Math.Round(Math.Abs(Math.Round(totalInvoiceAmount) - totalInvoiceAmount), 2)
                         };

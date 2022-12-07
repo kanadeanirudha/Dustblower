@@ -1,27 +1,23 @@
 ﻿using AERP.Base.DTO;
-using AERP.DTO;
 using AERP.Business.BusinessAction;
+using AERP.DTO;
 using AERP.ExceptionManager;
 using AERP.ViewModel;
+
+using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Web.Mvc;
-using AERP.Common;
-using AERP.DataProvider;
-using System.IO;
-using System.Web.Hosting;
 using System.Data;
-using System.Text;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+using System.Globalization;
 using System.IO;
-using iTextSharp.text.html.simpleparser;
+using System.Linq;
 //using iTextSharp.text.pdf.parser;
 using System.Web;
-using iTextSharp.text.html;
-using System.Globalization;
+using System.Web.Mvc;
 
 namespace AERP.Web.UI.Controllers
 {
@@ -847,13 +843,22 @@ namespace AERP.Web.UI.Controllers
                 }
                 else
                 {
+                    model.ImageQRCode = model.SaleContractBillingTransactionList[0].ImageQRCode;
                     FromDetailTable = "SaleContractInvoiceDetails";
                 }
                 model.TaxSummaryList = GetTaxSummaryForDisplay(model.IsOtherState, model.SalesInvoiceMasterID, FromDetailTable);
+                string qrImage = !string.IsNullOrEmpty(model?.SaleContractBillingTransactionList[0]?.ImageQRCode) ? Server.MapPath(string.Format(ConfigurationManager.AppSettings["GSTQRCodePath"], model?.SaleContractBillingTransactionList[0].CustomerInvoiceNumber)) : "";
+                if (string.IsNullOrEmpty(qrImage))
+                {
+                    SaleContractInvoicePDF = SaleContractInvoicePDF + "<table width='650'><tr><td style='text-align:left;'><img src='" + Path.Combine(Server.MapPath("~") + "Content\\UploadedFiles\\Inventory\\Logo\\" + model.SaleContractBillingTransactionList[0].LogoPath) + "' height='70' width='70'><br><br><span style='font-size:7pt;text-align:left;'>" + model.SaleContractBillingTransactionList[0].PrintingLineBelowLogo + "<span></td>";
+                }
+                else
+                {
+                    SaleContractInvoicePDF = SaleContractInvoicePDF + "<table width='350'><tr><td style='text-align:left;'><img src='" + Path.Combine(Server.MapPath("~") + "Content\\UploadedFiles\\Inventory\\Logo\\" + model.SaleContractBillingTransactionList[0].LogoPath) + "' height='70' width='70'><br><br><span style='font-size:7pt;text-align:left;'>" + model.SaleContractBillingTransactionList[0].PrintingLineBelowLogo + "<span></td>";
+                    SaleContractInvoicePDF = SaleContractInvoicePDF + "<td width='300'><img src='" + qrImage + "' height='150px' width='150px'></td>";
+                }
 
-                SaleContractInvoicePDF = SaleContractInvoicePDF + "<table width='650'><tr><td style='text-align:left;'><img src='" + Path.Combine(Server.MapPath("~") + "Content\\UploadedFiles\\Inventory\\Logo\\" + model.SaleContractBillingTransactionList[0].LogoPath) + "' height='70' width='70'><br><br><span style='font-size:7pt;text-align:left;'>" + model.SaleContractBillingTransactionList[0].PrintingLineBelowLogo + "<span></td>";
-
-                SaleContractInvoicePDF = SaleContractInvoicePDF + " <td><table width='300' bgcolor='#fff;' color='black' style='font-size:7pt;'><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:10pt;text-align:left;font-family:'Century Gothic'><b>" + model.SaleContractBillingTransactionList[0].CentreName + "</b></td></tr></hr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:9pt;text-align:left;'><b><u>" + model.SaleContractBillingTransactionList[0].CentreSpecialization + "</u></b></td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>" + model.SaleContractBillingTransactionList[0].CentreAddress1 + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>" + model.SaleContractBillingTransactionList[0].CentreAddress2 + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>Ph:" + model.SaleContractBillingTransactionList[0].PhoneNumberOffice + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>Cell :" + model.SaleContractBillingTransactionList[0].CellPhone + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>E-mail :" + model.SaleContractBillingTransactionList[0].EmailID + "</td>< tr><td style = 'border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;' >Website :" + model.SaleContractBillingTransactionList[0].Website + " </td ></tr></tr>";
+                SaleContractInvoicePDF = SaleContractInvoicePDF + " <td><table width='300' bgcolor='#fff;' color='black' style='font-size:7pt;padding-left:100px'><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:10pt;text-align:left;font-family:'Century Gothic'><b>" + model.SaleContractBillingTransactionList[0].CentreName + "</b></td></tr></hr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:9pt;text-align:left;'><b><u>" + model.SaleContractBillingTransactionList[0].CentreSpecialization + "</u></b></td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>" + model.SaleContractBillingTransactionList[0].CentreAddress1 + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>" + model.SaleContractBillingTransactionList[0].CentreAddress2 + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>Ph:" + model.SaleContractBillingTransactionList[0].PhoneNumberOffice + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>Cell :" + model.SaleContractBillingTransactionList[0].CellPhone + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>E-mail :" + model.SaleContractBillingTransactionList[0].EmailID + "</td>< tr><td style = 'border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;' >Website :" + model.SaleContractBillingTransactionList[0].Website + " </td ></tr></tr>";
 
                 DateTime DateTimeOfSupply = Convert.ToDateTime(model.SaleContractBillingTransactionList[0].DateTimeOfSupply);
 
@@ -1130,7 +1135,7 @@ namespace AERP.Web.UI.Controllers
                 //    oPdfWriter.PageEvent = writerEvent;
                 oPhrase = WaterMark;
             }
-            
+
 
             // 3: we create a worker parse the document
             HTMLWorker htmlWorker = new HTMLWorker(doc);
@@ -1528,6 +1533,14 @@ namespace AERP.Web.UI.Controllers
             return bPDF;
         }
 
+        [HttpPost]
+        public ActionResult GenerateEInvoice(int salesInvoiceMasterID)
+        {
+            string errorMessage = GenerateEInvoice(salesInvoiceMasterID, _connectioString);
+            errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage);
+            return Json(errorMessage, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
         #region Methods
@@ -1763,7 +1776,7 @@ namespace AERP.Web.UI.Controllers
             filteredSaleContractBillingTransaction = GetSaleContractBillingTransaction(out TotalRecords, CustomerMasterID, CustomerBranchMasterID);
 
             var records = filteredSaleContractBillingTransaction.Skip(0).Take(param.iDisplayLength);
-            var result = from c in records select new[] { Convert.ToString(c.ID), Convert.ToString(c.IsBillGenerated), Convert.ToString(c.SaleContractMasterID), Convert.ToString(c.ContractNumber), Convert.ToString(c.SaleContractBillingSpanID), Convert.ToString(c.SaleContractBillingSpanName), Convert.ToString(c.TotalBillAmount), Convert.ToString(c.RoundOffAmount), Convert.ToString(c.BillingType), Convert.ToString(c.CustomerInvoiceNumber), Convert.ToString(c.IsTempBillGenerated) };
+            var result = from c in records select new[] { Convert.ToString(c.ID), Convert.ToString(c.IsBillGenerated), Convert.ToString(c.SaleContractMasterID), Convert.ToString(c.ContractNumber), Convert.ToString(c.SaleContractBillingSpanID), Convert.ToString(c.SaleContractBillingSpanName), Convert.ToString(c.TotalBillAmount), Convert.ToString(c.RoundOffAmount), Convert.ToString(c.BillingType), Convert.ToString(c.CustomerInvoiceNumber), Convert.ToString(c.IsTempBillGenerated), Convert.ToString(c.GSTEInvoiceMasterId), Convert.ToString(c.IsCancelledEInvoice) };
             return Json(new { sEcho = param.sEcho, iTotalRecords = TotalRecords, iTotalDisplayRecords = TotalRecords, aaData = result }, JsonRequestBehavior.AllowGet);
 
         }

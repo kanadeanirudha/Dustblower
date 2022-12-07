@@ -62,7 +62,7 @@ var SalesInvoiceMasterAndDetails = {
             var selectedItem = $(this).val();
             var ItemNumber = $("#ItemNumber").val();
             var GeneralUnitsID = $("#GeneralUnitsID").val();
-            var CustomerMasterID= $("#CustomerMasterID").val(); 
+            var CustomerMasterID = $("#CustomerMasterID").val();
             var CustomerBranchMasterID = $("#CustomerBranchMasterID").val();
 
             if (GeneralUnitsID != "" && ItemNumber != "") {
@@ -156,22 +156,22 @@ var SalesInvoiceMasterAndDetails = {
                 var TaxRateList = $("#TaxRateList").val().replace(', ', ',').split(',')
                 var string =
 
-                "<tr>" +
-                            "<td style=display:none><input id='ItemNumber' type='hidden'  value='" + $('#ItemNumber').val() + "'  style='display:none' />" + $('#ItemNumber').val() + "</td>" +
-                            "<td><input id='ItemDescription' type='text' value='" + $('#ItemDescription').val().replace(/ /g, "~") + "' style='display:none' />" + $('#ItemDescription').val() + "</td>" +
-                             "<td>" + $('#BillingDispalyName').val() + "</td>" +
-                            "<td ><input type='text' value='" + $('#SaleUomCode').val() + "' style='display:none' /> " + $('#SaleUomCode').val() + "</td>" +
-                            "<td >" + $('#DisplayUOMCode').val() + "</td>" +
-                            "<td><input id='InvoiceQuantity' type='text' value='" + $('#InvoiceQuantity').val() + "' style='display:none' />" + $('#InvoiceQuantity').val() + "</td>" +
-                            "<td><input id='Rate' type='text' value='" + $('#Rate').val() + "' style='display:none' />" + $('#Rate').val() + "</td>" +
-                            "<td>" + $('#DisplayRate').val() + "</td>" +
-                            "<td ><input type='text' id='BatchNumber' value='" + $('#BatchNumber').val() + "' style='display:none' /> " + $('#BatchNumber').val() + "</td>" +
-                            "<td ><input type='text' id='ExpiryDate' value='" + $('#ExpiryDate').val() + "' style='display:none' /> " + $('#ExpiryDate').val() + "</td>" +
-                            "<td ><input type='text' value='" + TaxAbleamount + "' style='display:none'  id='TaxAbleAmount'/> " + TaxAbleamount + "</td>" +
-                            "<td ><input type='text' value='" + TaxAmount + "' style='display:none'  id='TaxAmount'/> " + TaxAmount + "</td>" +
-                            "<td ><input type='text' value='" + NetAmount + "' style='display:none'  id='NetAmount'/> " + NetAmount + "</td>" +
-                            "<td> <i class='zmdi zmdi-delete zmdi-hc-fw ENQDetail' style='cursor:pointer'' title = Delete ><input id='GenTaxGroupMasterID' type='hidden'  value='" + $('#GenTaxGroupMasterID').val() + "'  style='display:none' /><input id='BillingDispalyName' type='hidden'  value='" + $('#BillingDispalyName').val().replace(/ /g, "~") + "'  style='display:none' /><input id='DisplayUOMCode' type='hidden'  value='" + $('#DisplayUOMCode').val() + "' style='display:none' /><input id='DisplayRate' type='hidden'  value='" + $('#DisplayRate').val() + "' style='display:none' /></td>" +
-                            "<td style=display:none>";
+                    "<tr>" +
+                    "<td style=display:none><input id='ItemNumber' type='hidden'  value='" + $('#ItemNumber').val() + "'  style='display:none' />" + $('#ItemNumber').val() + "</td>" +
+                    "<td><input id='ItemDescription' type='text' value='" + $('#ItemDescription').val().replace(/ /g, "~") + "' style='display:none' />" + $('#ItemDescription').val() + "</td>" +
+                    "<td>" + $('#BillingDispalyName').val() + "</td>" +
+                    "<td ><input type='text' value='" + $('#SaleUomCode').val() + "' style='display:none' /> " + $('#SaleUomCode').val() + "</td>" +
+                    "<td >" + $('#DisplayUOMCode').val() + "</td>" +
+                    "<td><input id='InvoiceQuantity' type='text' value='" + $('#InvoiceQuantity').val() + "' style='display:none' />" + $('#InvoiceQuantity').val() + "</td>" +
+                    "<td><input id='Rate' type='text' value='" + $('#Rate').val() + "' style='display:none' />" + $('#Rate').val() + "</td>" +
+                    "<td>" + $('#DisplayRate').val() + "</td>" +
+                    "<td ><input type='text' id='BatchNumber' value='" + $('#BatchNumber').val() + "' style='display:none' /> " + $('#BatchNumber').val() + "</td>" +
+                    "<td ><input type='text' id='ExpiryDate' value='" + $('#ExpiryDate').val() + "' style='display:none' /> " + $('#ExpiryDate').val() + "</td>" +
+                    "<td ><input type='text' value='" + TaxAbleamount + "' style='display:none'  id='TaxAbleAmount'/> " + TaxAbleamount + "</td>" +
+                    "<td ><input type='text' value='" + TaxAmount + "' style='display:none'  id='TaxAmount'/> " + TaxAmount + "</td>" +
+                    "<td ><input type='text' value='" + NetAmount + "' style='display:none'  id='NetAmount'/> " + NetAmount + "</td>" +
+                    "<td> <i class='zmdi zmdi-delete zmdi-hc-fw ENQDetail' style='cursor:pointer'' title = Delete ><input id='GenTaxGroupMasterID' type='hidden'  value='" + $('#GenTaxGroupMasterID').val() + "'  style='display:none' /><input id='BillingDispalyName' type='hidden'  value='" + $('#BillingDispalyName').val().replace(/ /g, "~") + "'  style='display:none' /><input id='DisplayUOMCode' type='hidden'  value='" + $('#DisplayUOMCode').val() + "' style='display:none' /><input id='DisplayRate' type='hidden'  value='" + $('#DisplayRate').val() + "' style='display:none' /></td>" +
+                    "<td style=display:none>";
 
                 for (i = 0; i < TaxRateList.length; i++) {
 
@@ -279,23 +279,23 @@ var SalesInvoiceMasterAndDetails = {
                 var TaxRateList = $("#TaxRateList").val().replace(', ', ',').split(',')
                 var string =
 
-                "<tr>" +
-                            "<td style=display:none><input id='ItemNumber' type='hidden' class='ItemNumber'  value='" + $('#ItemNumber').val() + "'  style='display:none' />" + $('#ItemNumber').val() + "</td>" +
-                            "<td><input id='ItemDescription' type='text' value='" + $('#ItemDescription').val().replace(/ /g, "~") + "' style='display:none' />" + $('#ItemDescription').val() + "</td>" +
-                             "<td>" + $('#BillingDispalyName').val() + "</td>" +
-                             "<td><input id='InvoiceQuantity' type='text' value='" + $('#InvoiceQuantity').val() + "' style='display:none' />" + $('#InvoiceQuantity').val() + "</td>" +
-                            "<td ><input type='text' value='" + $('#SaleUomCode').val() + "' style='display:none' /> " + $('#SaleUomCode').val() + "</td>" +
-                            "<td >" + $('#DisplayUOMCode').val() + "</td>" +
-                            "<td>" + $('#InvoiceQuantity').val() + "</td>" +
-                            "<td><input id='Rate' type='text' value='" + $('#Rate').val() + "' style='display:none' />" + $('#Rate').val() + "</td>" +
-                            "<td>" + $('#DisplayRate').val() + "</td>" +
-                            "<td ></td>" +
-                            "<td ><input type='text' value='" + $("#TaxRate").val() + "' style='display:none'  id='TaxRate'/> " + $("#TaxRate").val() + "</td>" +
-                            "<td ><input type='text' value='" + TaxAbleamount + "' style='display:none'  id='TaxAbleAmount'/> " + TaxAbleamount + "</td>" +
+                    "<tr>" +
+                    "<td style=display:none><input id='ItemNumber' type='hidden' class='ItemNumber'  value='" + $('#ItemNumber').val() + "'  style='display:none' />" + $('#ItemNumber').val() + "</td>" +
+                    "<td><input id='ItemDescription' type='text' value='" + $('#ItemDescription').val().replace(/ /g, "~") + "' style='display:none' />" + $('#ItemDescription').val() + "</td>" +
+                    "<td>" + $('#BillingDispalyName').val() + "</td>" +
+                    "<td><input id='InvoiceQuantity' type='text' value='" + $('#InvoiceQuantity').val() + "' style='display:none' />" + $('#InvoiceQuantity').val() + "</td>" +
+                    "<td ><input type='text' value='" + $('#SaleUomCode').val() + "' style='display:none' /> " + $('#SaleUomCode').val() + "</td>" +
+                    "<td >" + $('#DisplayUOMCode').val() + "</td>" +
+                    "<td>" + $('#InvoiceQuantity').val() + "</td>" +
+                    "<td><input id='Rate' type='text' value='" + $('#Rate').val() + "' style='display:none' />" + $('#Rate').val() + "</td>" +
+                    "<td>" + $('#DisplayRate').val() + "</td>" +
+                    "<td ></td>" +
+                    "<td ><input type='text' value='" + $("#TaxRate").val() + "' style='display:none'  id='TaxRate'/> " + $("#TaxRate").val() + "</td>" +
+                    "<td ><input type='text' value='" + TaxAbleamount + "' style='display:none'  id='TaxAbleAmount'/> " + TaxAbleamount + "</td>" +
 
-                            "<td style='display:none;'><input type='text' value='" + TaxAmount + "' style='display:none'  id='TaxAmount'/> " + TaxAmount + "</td>" +
-                            "<td> <i class='zmdi zmdi-delete zmdi-hc-fw ENQDetail' style='cursor:pointer'' title = Delete ></i><input id='GenTaxGroupMasterID' type='hidden'  value='" + $('#GenTaxGroupMasterID').val() + "'  style='display:none' /><input id='BillingDispalyName' type='hidden'  value='" + $('#BillingDispalyName').val().replace(/ /g, "~") + "'  style='display:none' /><input id='DisplayUOMCode' type='hidden'  value='" + $('#DisplayUOMCode').val() + "' style='display:none' /><input id='DisplayRate' type='hidden'  value='" + $('#DisplayRate').val() + "' style='display:none' /></td>" +
-                            "<td style=display:none>";
+                    "<td style='display:none;'><input type='text' value='" + TaxAmount + "' style='display:none'  id='TaxAmount'/> " + TaxAmount + "</td>" +
+                    "<td> <i class='zmdi zmdi-delete zmdi-hc-fw ENQDetail' style='cursor:pointer'' title = Delete ></i><input id='GenTaxGroupMasterID' type='hidden'  value='" + $('#GenTaxGroupMasterID').val() + "'  style='display:none' /><input id='BillingDispalyName' type='hidden'  value='" + $('#BillingDispalyName').val().replace(/ /g, "~") + "'  style='display:none' /><input id='DisplayUOMCode' type='hidden'  value='" + $('#DisplayUOMCode').val() + "' style='display:none' /><input id='DisplayRate' type='hidden'  value='" + $('#DisplayRate').val() + "' style='display:none' /></td>" +
+                    "<td style=display:none>";
 
                 for (i = 0; i < TaxRateList.length; i++) {
 
@@ -368,9 +368,8 @@ var SalesInvoiceMasterAndDetails = {
         });
 
         $('#GenerateEInvoiceForSalesInvoice').on("click", function () {
-            SalesInvoiceMasterAndDetails.ID = $('input[name=ID]').val();
-            SalesInvoiceMasterAndDetails.InvoiceType = $('#InvoiceType').val();;
-            ajaxRequest.makeRequest("/SalesInvoiceMasterAndDetails/GenerateEInvoice", "POST", SalesInvoiceMasterAndDetails, SalesInvoiceMasterAndDetails.Success, "GenerateEInvoiceForSalesInvoice");
+            var salesInvoiceMasterID = $("#ID").val();
+            ajaxRequest.makeRequest("/SalesInvoiceMasterAndDetails/GenerateEInvoice", "POST", { salesInvoiceMasterID: salesInvoiceMasterID }, SalesInvoiceMasterAndDetails.Success, "GenerateEInvoiceForSalesInvoice");
         });
         InitAnimatedBorder();
 
@@ -379,59 +378,59 @@ var SalesInvoiceMasterAndDetails = {
     //LoadList method is used to load List page
     LoadList: function () {
         $.ajax(
-         {
-             cache: false,
-             type: "POST",
-             dataType: "html",
-             url: '/SalesInvoiceMasterAndDetails/List',
-             success: function (data) {
-                 //Rebind Grid Data
-                 $('#ListViewModel').html(data);
-             }
-         });
+            {
+                cache: false,
+                type: "POST",
+                dataType: "html",
+                url: '/SalesInvoiceMasterAndDetails/List',
+                success: function (data) {
+                    //Rebind Grid Data
+                    $('#ListViewModel').html(data);
+                }
+            });
     },
     //LoadList method is used to load List page
     LoadServiceItemList: function () {
         $.ajax(
-         {
-             cache: false,
-             type: "POST",
-             dataType: "html",
-             url: '/SalesInvoiceMasterAndDetails/ServiceInvoiceList',
-             success: function (data) {
-                 //Rebind Grid Data
-                 $('#ListViewModel').html(data);
-             }
-         });
+            {
+                cache: false,
+                type: "POST",
+                dataType: "html",
+                url: '/SalesInvoiceMasterAndDetails/ServiceInvoiceList',
+                success: function (data) {
+                    //Rebind Grid Data
+                    $('#ListViewModel').html(data);
+                }
+            });
     },
     //ReloadList method is used to load List page
     ReloadList: function (message, colorCode, actionMode) {
 
         var PurchaseOrderType = $('#PurchaseOrderType :selected').val();
         $.ajax(
-        {
-            cache: false,
-            type: "POST",
-            dataType: "html",
-            data: { actionMode: actionMode, PurchaseOrderType: PurchaseOrderType },
-            url: '/SalesInvoiceMasterAndDetails/List',
-            success: function (data) {
-                //Rebind Grid Data            
-                $("#ListViewModel").empty().append(data);
-                //twitter type notification
-                notify(message, colorCode);
+            {
+                cache: false,
+                type: "POST",
+                dataType: "html",
+                data: { actionMode: actionMode, PurchaseOrderType: PurchaseOrderType },
+                url: '/SalesInvoiceMasterAndDetails/List',
+                success: function (data) {
+                    //Rebind Grid Data            
+                    $("#ListViewModel").empty().append(data);
+                    //twitter type notification
+                    notify(message, colorCode);
 
 
-                //$.ajax(
-                //{
-                //    cache: false,
-                //    type: "POST",
-                //    dataType: "html",
-                //    data: {ID:PurchaseOrderID},
-                //    url: '/SalesInvoiceMasterAndDetails/Download',
-                //});
-            }
-        });
+                    //$.ajax(
+                    //{
+                    //    cache: false,
+                    //    type: "POST",
+                    //    dataType: "html",
+                    //    data: {ID:PurchaseOrderID},
+                    //    url: '/SalesInvoiceMasterAndDetails/Download',
+                    //});
+                }
+            });
     },
     TotalTaxAmountForDirectInvoice: function () {
 
@@ -535,17 +534,17 @@ var SalesInvoiceMasterAndDetails = {
     LoadListByPurchaseOrderType: function (PurchaseOrderType) {
 
         $.ajax(
-     {
-         cache: false,
-         type: "POST",
-         data: { PurchaseOrderType: PurchaseOrderType },
-         dataType: "html",
-         url: '/SalesInvoiceMasterAndDetails/List',
-         success: function (result) {
-             //Rebind Grid Data                
-             $('#ListViewModel').html(result);
-         }
-     });
+            {
+                cache: false,
+                type: "POST",
+                data: { PurchaseOrderType: PurchaseOrderType },
+                dataType: "html",
+                url: '/SalesInvoiceMasterAndDetails/List',
+                success: function (result) {
+                    //Rebind Grid Data                
+                    $('#ListViewModel').html(result);
+                }
+            });
     },
     //Fire ajax call to insert update and delete record
     AjaxCallSalesInvoiceMasterAndDetails: function () {
@@ -578,7 +577,7 @@ var SalesInvoiceMasterAndDetails = {
 
             }
         }
-        
+
         else if (SalesInvoiceMasterAndDetails.ActionName == "Edit") {
             $("#FormEditSalesInvoiceMasterAndDetails").validate();
             if ($("#FormEditSalesInvoiceMasterAndDetails").valid()) {
@@ -709,13 +708,13 @@ var SalesInvoiceMasterAndDetails = {
         var ParameterXml = "<rows>";
         var currentdate = new Date();
         var datetime =
-                         currentdate.getUTCFullYear() + "-"
-                        + (currentdate.getUTCMonth() + 1) + "-"
-                        + currentdate.getUTCDate() + " "
-                        + currentdate.getUTCHours() + ":"
-                        + currentdate.getUTCMinutes() + ":"
-                        + currentdate.getUTCSeconds() + "."
-                        + currentdate.getUTCMilliseconds();
+            currentdate.getUTCFullYear() + "-"
+            + (currentdate.getUTCMonth() + 1) + "-"
+            + currentdate.getUTCDate() + " "
+            + currentdate.getUTCHours() + ":"
+            + currentdate.getUTCMinutes() + ":"
+            + currentdate.getUTCSeconds() + "."
+            + currentdate.getUTCMilliseconds();
         //alert(datetime)
 
         for (var i = 0; i < TotalRecord; i = i + 6) {
@@ -772,13 +771,13 @@ var SalesInvoiceMasterAndDetails = {
         var ParameterXml = "<rows>";
         var currentdate = new Date();
         var datetime =
-                         currentdate.getUTCFullYear() + "-"
-                        + (currentdate.getUTCMonth() + 1) + "-"
-                        + currentdate.getUTCDate() + " "
-                        + currentdate.getUTCHours() + ":"
-                        + currentdate.getUTCMinutes() + ":"
-                        + currentdate.getUTCSeconds() + "."
-                        + currentdate.getUTCMilliseconds();
+            currentdate.getUTCFullYear() + "-"
+            + (currentdate.getUTCMonth() + 1) + "-"
+            + currentdate.getUTCDate() + " "
+            + currentdate.getUTCHours() + ":"
+            + currentdate.getUTCMinutes() + ":"
+            + currentdate.getUTCSeconds() + "."
+            + currentdate.getUTCMilliseconds();
 
         var CretedBy = '3';
         {
@@ -844,13 +843,13 @@ var SalesInvoiceMasterAndDetails = {
         var ParameterXml = "<rows>";
         var currentdate = new Date();
         var datetime =
-                         currentdate.getUTCFullYear() + "-"
-                        + (currentdate.getUTCMonth() + 1) + "-"
-                        + currentdate.getUTCDate() + " "
-                        + currentdate.getUTCHours() + ":"
-                        + currentdate.getUTCMinutes() + ":"
-                        + currentdate.getUTCSeconds() + "."
-                        + currentdate.getUTCMilliseconds();
+            currentdate.getUTCFullYear() + "-"
+            + (currentdate.getUTCMonth() + 1) + "-"
+            + currentdate.getUTCDate() + " "
+            + currentdate.getUTCHours() + ":"
+            + currentdate.getUTCMinutes() + ":"
+            + currentdate.getUTCSeconds() + "."
+            + currentdate.getUTCMilliseconds();
 
         var CretedBy = '3';
         {

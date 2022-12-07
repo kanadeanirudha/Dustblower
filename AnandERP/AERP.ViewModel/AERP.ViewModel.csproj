@@ -211,6 +211,7 @@
     <Compile Include="Implementation\Organisation\OrganisationMasterViewModel.cs" />
     <Compile Include="Implementation\Organisation\OrganisationStudyCentreMasterViewModel.cs" />
     <Compile Include="Implementation\Organisation\OrganisationStudyCentrePrintingFormatViewModelViewModel.cs" />
+    <Compile Include="Implementation\ParameterModel.cs" />
     <Compile Include="Implementation\Payroll\EmployeeBulkAttendenceViewModel.cs" />
     <Compile Include="Implementation\Payroll\EmployeeSalarySpanViewModel.cs" />
     <Compile Include="Implementation\Payroll\EmployeeSalaryRulesViewModel.cs" />
