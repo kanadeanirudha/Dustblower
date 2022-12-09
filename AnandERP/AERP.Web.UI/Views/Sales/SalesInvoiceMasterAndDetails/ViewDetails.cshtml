@@ -81,12 +81,18 @@
                                             {
                                                 <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="Generate E-Invoice" id="GenerateEInvoiceForSalesInvoice" type="button" />
                                             }
+
+                                        }
+                                        else if (Model.IsPossibleToCancelledEInvoice)
+                                        {
+                                            <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="Cancel E-Invoice" id="CancelEInvoiceForSalesInvoice" type="button" />
                                         }
                                     }
                                     else
                                     {
                                         <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="Cancelled" id="" type="button" />
                                     }
+
                                 }
                             }
                         </div>

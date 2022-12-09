@@ -965,5 +965,29 @@ namespace AERP.ViewModel
                 SalesInvoiceMasterAndDetailsDTO.IsCancelledEInvoice = value;
             }
         }
+
+        public bool IsPossibleToCancelledEInvoice
+        {
+            get
+            {
+                return (SalesInvoiceMasterAndDetailsDTO != null) ? SalesInvoiceMasterAndDetailsDTO.IsPossibleToCancelledEInvoice : new bool();
+            }
+            set
+            {
+                SalesInvoiceMasterAndDetailsDTO.IsPossibleToCancelledEInvoice = value;
+            }
+        }
+
+        public string Irn
+        {
+            get
+            {
+                return (SalesInvoiceMasterAndDetailsDTO != null) ? SalesInvoiceMasterAndDetailsDTO.Irn : string.Empty;
+            }
+            set
+            {
+                SalesInvoiceMasterAndDetailsDTO.Irn = value;
+            }
+        }
     }
 }

@@ -227,6 +227,9 @@ namespace AERP.Web.UI.Controllers
             model.CancelApprovalStatus = model.SalesinvoiceList[0].CancelApprovalStatus;
             model.GSTEInvoiceMasterId = model.SalesinvoiceList[0].GSTEInvoiceMasterId;
             model.IsCancelledEInvoice = model.SalesinvoiceList[0].IsCancelledEInvoice;
+            model.IsPossibleToCancelledEInvoice = model.SalesinvoiceList[0].IsPossibleToCancelledEInvoice;
+            model.Irn = model.SalesinvoiceList[0].Irn;
+
             return PartialView("/Views/Sales/SalesInvoiceMasterAndDetails/ViewDetails.cshtml", model);
         }
 
@@ -269,6 +272,8 @@ namespace AERP.Web.UI.Controllers
             model.GSTEInvoiceMasterId = model.SalesinvoiceList[0].GSTEInvoiceMasterId;
             model.IsCancelledEInvoice = model.SalesinvoiceList[0].IsCancelledEInvoice;
             model.ID = SalesInvoiceMasterID;
+            model.IsPossibleToCancelledEInvoice = model.SalesinvoiceList[0].IsPossibleToCancelledEInvoice;
+            model.Irn = model.SalesinvoiceList[0].Irn;
             return PartialView("/Views/Sales/SalesInvoiceMasterAndDetails/ViewDetails.cshtml", model);
         }
 

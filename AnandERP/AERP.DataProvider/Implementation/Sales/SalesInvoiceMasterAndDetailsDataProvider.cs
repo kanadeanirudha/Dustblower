@@ -934,10 +934,10 @@ namespace AERP.DataProvider
                         item.CancelApprovalStatus = sqlDataReader["CancelApprovalStatus"] == DBNull.Value ? new byte() : Convert.ToByte(sqlDataReader["CancelApprovalStatus"]);
                         item.GSTEInvoiceMasterId = sqlDataReader["GSTEInvoiceMasterId"] == DBNull.Value ? 0 : Convert.ToInt32(sqlDataReader["GSTEInvoiceMasterId"]);
                         item.IsCancelledEInvoice = sqlDataReader["IsCancelledEInvoice"] == DBNull.Value ? false : Convert.ToBoolean(sqlDataReader["IsCancelledEInvoice"]);
+                        item.IsPossibleToCancelledEInvoice = sqlDataReader["IsPossibleToCancelledEInvoice"] == DBNull.Value ? false : Convert.ToBoolean(sqlDataReader["IsPossibleToCancelledEInvoice"]);
+                        item.Irn = sqlDataReader["Irn"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["Irn"]);
                         TotalTaxAmount = TotalTaxAmount + item.TaxAmount;
                         item.TotalTaxAmount = TotalTaxAmount;
-
-
                         baseEntityCollection.CollectionResponse.Add(item);
                     }
                     if (cmdToExecute.Parameters["@iErrorCode"].Value != null)
@@ -2333,6 +2333,7 @@ namespace AERP.DataProvider
                     cmdToExecute.Parameters.Add(new SqlParameter("@sQrCodeImage", SqlDbType.VarChar, int.MaxValue, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.QrCodeImage));
                     cmdToExecute.Parameters.Add(new SqlParameter("@bIsCancelledEInvoice", SqlDbType.Bit, 0, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, Convert.ToByte(item.IsCancelledEInvoice)));
                     cmdToExecute.Parameters.Add(new SqlParameter("@sGSTEInvoiceDetails", SqlDbType.VarChar, int.MaxValue, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.GSTEInvoiceDetails));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@iCreatedBy", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, item.CreatedBy));
                     cmdToExecute.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
 
                     if (_mainConnectionIsCreatedLocal)

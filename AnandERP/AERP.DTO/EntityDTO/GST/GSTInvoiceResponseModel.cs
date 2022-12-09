@@ -15,6 +15,7 @@ namespace AERP.DTO
         public string CancelledEInvoiceReason { get; set; }
         public string CancelledEInvoiceDescription { get; set; }
         public string GSTEInvoiceDetails { get; set; }
+        public int CreatedBy { get; set; }
     }
 }
 

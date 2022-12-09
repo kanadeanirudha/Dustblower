@@ -325,7 +325,7 @@ namespace AERP.Web.UI.Controllers
                         mode = string.Empty;
                         break;
                 }
-               
+
             }
             else if (actionMode == ActionModeEnum.EInvoice)
             {
@@ -1717,7 +1717,7 @@ namespace AERP.Web.UI.Controllers
             return DestinationLocation.GetDistanceTo(CurrentLocation) / 1000;
         }
 
-        public string GenerateEInvoice(int salesInvoiceMasterID , string _connectioString)
+        public string GenerateEInvoice(int salesInvoiceMasterID, string _connectioString)
         {
             string errorMessage = string.Empty;
             try
@@ -1778,7 +1778,8 @@ namespace AERP.Web.UI.Controllers
                                     Irn = gstInvoiceResponse.DataResponse.Irn,
                                     QrCodeImage = Convert.ToString(gstInvoiceResponse?.DataResponse?.QrCodeImage),
                                     IsCancelledEInvoice = false,
-                                    GSTEInvoiceDetails = gstInvoiceResponse.Data
+                                    GSTEInvoiceDetails = gstInvoiceResponse.Data,
+                                    CreatedBy = Convert.ToInt32(Session["UserID"])
                                 };
 
                                 IBaseEntityResponse<GSTInvoiceResponseModel> response = _SalesInvoiceMasterAndDetailsBA.InsertSalesEInvoiceResponse(GSTInvoiceResponseModel);

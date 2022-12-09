@@ -99,7 +99,9 @@ CREATE TABLE [dbo].[GSTEInvoiceMaster](
 	[IsCancelledEInvoice] [bit] NOT NULL,
 	[CancelledEInvoiceDate] [varchar](200) NULL,
 	[CancelledEInvoiceReason] [varchar](200) NULL,
-	[CancelledEInvoiceDescription] [varchar](200) NULL
+	[CancelledEInvoiceDescription] [varchar](200) NULL,
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 GO
@@ -151,3 +153,34 @@ update InventoryUoMMaster set GSTUnitCode ='BDL' , GSTUnitDescription ='BUNDLES'
 update InventoryUoMMaster set GSTUnitCode ='ROL' , GSTUnitDescription ='ROLLS' where UomCode='Roll'
 
 Go
+
+USE [Ver1]
+GO
+
+INSERT INTO [dbo].[GeneralSystemSettingMaster]
+           ([ID]
+           ,[FieldName]
+           ,[FieldValue]
+           ,[FieldDefaultValue]
+           ,[IsDeleted]
+           ,[CreatedBy]
+           ,[CreatedDate]
+           ,[ModifiedBy]
+           ,[ModifiedDate]
+           ,[DeletedBy]
+           ,[DeletedDate])
+     VALUES
+           (6
+           ,'GSTEInvoiceCancellationPeriodInMinute'
+           ,'1440'
+           ,'1440'
+           ,0
+           ,1
+           ,GETDATE()
+           ,1
+           ,GETDATE()
+           ,null
+           ,null)
+GO
+
+
