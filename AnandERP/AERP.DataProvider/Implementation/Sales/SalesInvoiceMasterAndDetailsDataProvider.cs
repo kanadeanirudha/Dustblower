@@ -2268,8 +2268,8 @@ namespace AERP.DataProvider
                         {
                             AssVal = assTotalValue,
                             IgstVal = IsOtherState ? totalTaxAmount : 0,
-                            CgstVal = IsOtherState ? 0 : Math.Round(cgstTotal,2),
-                            SgstVal = IsOtherState ? 0 : Math.Round(sgstTotal,2),
+                            CgstVal = IsOtherState ? 0 : Math.Round(cgstTotal, 2),
+                            SgstVal = IsOtherState ? 0 : Math.Round(sgstTotal, 2),
                             Discount = 0,
                             TotInvVal = Math.Round(totalInvoiceAmount, 2),
                             TotInvValFc = totalInvoiceAmount,
@@ -2303,7 +2303,7 @@ namespace AERP.DataProvider
             return gstInvoiceRequestModel;
         }
 
-        public IBaseEntityResponse<GSTInvoiceResponseModel> InsertSalesEInvoiceResponse(GSTInvoiceResponseModel item)
+        public IBaseEntityResponse<GSTInvoiceResponseModel> InsertUpdateSalesEInvoiceResponse(GSTInvoiceResponseModel item)
         {
             IBaseEntityResponse<GSTInvoiceResponseModel> response = new BaseEntityResponse<GSTInvoiceResponseModel>();
             SqlCommand cmdToExecute = new SqlCommand();
@@ -2323,7 +2323,7 @@ namespace AERP.DataProvider
                 {
                     _mainConnection.ConnectionString = item.ConnectionString;
                     cmdToExecute.Connection = _mainConnection;
-                    cmdToExecute.CommandText = "dbo.USP_GSTEInvoiceResponse_Insert";
+                    cmdToExecute.CommandText = "dbo.USP_GSTEInvoiceResponse_Insert_Update";
                     cmdToExecute.CommandType = CommandType.StoredProcedure;
                     cmdToExecute.CommandTimeout = 0;
                     cmdToExecute.Parameters.Add(new SqlParameter("@iSalesInvoiceMasterID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.SalesInvoiceMasterID));
@@ -2333,6 +2333,9 @@ namespace AERP.DataProvider
                     cmdToExecute.Parameters.Add(new SqlParameter("@sQrCodeImage", SqlDbType.VarChar, int.MaxValue, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.QrCodeImage));
                     cmdToExecute.Parameters.Add(new SqlParameter("@bIsCancelledEInvoice", SqlDbType.Bit, 0, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, Convert.ToByte(item.IsCancelledEInvoice)));
                     cmdToExecute.Parameters.Add(new SqlParameter("@sGSTEInvoiceDetails", SqlDbType.VarChar, int.MaxValue, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.GSTEInvoiceDetails));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@sCancelledEInvoiceReason", SqlDbType.VarChar, 200, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.CancelledEInvoiceReason));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@CancelledEInvoiceDescription", SqlDbType.VarChar, 200, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.CancelledEInvoiceDescription));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@sCancelledEInvoiceDate", SqlDbType.VarChar, 200, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.CancelledEInvoiceDate));
                     cmdToExecute.Parameters.Add(new SqlParameter("@iCreatedBy", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, item.CreatedBy));
                     cmdToExecute.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
 

@@ -1,5 +1,4 @@
-﻿using AERP.Business.BusinessAction;
-using AERP.DTO;
+﻿using AERP.DTO;
 
 using Newtonsoft.Json;
 
@@ -111,6 +110,62 @@ namespace AERP.Web.UI.Helper
             }
             return gstInvoiceResponse;
         }
+
+        public static GSTInvoiceCancelledResponse CancelledEInvoice(GSTInvoiceCancelledRequestModel gstInvoiceCancelledRequestModel, OrganisationCentrewiseGSTCredential GSTCredential)
+        {
+            GSTInvoiceCancelledResponse gstInvoiceResponse = new GSTInvoiceCancelledResponse();
+            try
+            {
+                string requestBody = JsonConvert.SerializeObject(gstInvoiceCancelledRequestModel);
+                RestClient client = new RestClient();
+                RestRequest request = new RestRequest($"{GSTCredential.Urls}/eicore/dec/v1.03/Cancel", Method.Post);
+                request.AddHeader("Gstin", GSTCredential.GSTIN);
+                request.AddHeader("user_name", GSTCredential.EInvoiceUserName);
+                request.AddHeader("AuthToken", GSTCredential.AuthToken);
+                request.AddHeader("aspid", GSTCredential.AspId);
+                request.AddHeader("password", GSTCredential.AspUserPassword);
+                request.AddHeader("Content-Type", "application/json; charset=utf-8");
+                request.RequestFormat = DataFormat.Json;
+                request.AddBody(requestBody);     //Request Payload in object format
+                RestResponse response = client.Execute(request);
+
+                gstInvoiceResponse = JsonConvert.DeserializeObject<GSTInvoiceCancelledResponse>(response.Content);
+                if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK && gstInvoiceResponse.Status == "1")
+                {
+                    return gstInvoiceResponse;
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(gstInvoiceResponse?.error?.message))
+                    {
+                        gstInvoiceResponse.ErrorMessage = gstInvoiceResponse?.error?.error_cd + ":" + gstInvoiceResponse?.error?.message;
+                    }
+                    else
+                    {
+                        if (gstInvoiceResponse?.ErrorDetails?.Count > 0)
+                        {
+                            foreach (var error in gstInvoiceResponse.ErrorDetails)
+                            {
+                                if (string.IsNullOrEmpty(gstInvoiceResponse.ErrorMessage))
+                                {
+                                    gstInvoiceResponse.ErrorMessage = $"Error Message:({error.ErrorCode}){error.ErrorMessage}";
+                                }
+                                else
+                                {
+                                    gstInvoiceResponse.ErrorMessage = $"{gstInvoiceResponse.ErrorMessage} and ({error.ErrorCode}){error.ErrorMessage}";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return gstInvoiceResponse;
+        }
+
         #endregion
 
     }

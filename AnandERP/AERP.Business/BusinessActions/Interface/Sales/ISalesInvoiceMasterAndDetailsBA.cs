@@ -27,7 +27,7 @@ namespace AERP.Business.BusinessAction
         IBaseEntityResponse<SalesInvoiceMasterAndDetails> InsertCancelSalesInvoiceApproval(SalesInvoiceMasterAndDetails item);
         IBaseEntityCollectionResponse<SalesInvoiceMasterAndDetails> GetSalesInvoiceForApproval(SalesInvoiceMasterAndDetailsSearchRequest searchRequest);
         GSTInvoiceRequestModel GetRecordForSalesEInvoice(SalesInvoiceMasterAndDetailsSearchRequest searchRequest);
-        IBaseEntityResponse<GSTInvoiceResponseModel> InsertSalesEInvoiceResponse(GSTInvoiceResponseModel item);
+        IBaseEntityResponse<GSTInvoiceResponseModel> InsertUpdateSalesEInvoiceResponse(GSTInvoiceResponseModel item);
 
     }
 }

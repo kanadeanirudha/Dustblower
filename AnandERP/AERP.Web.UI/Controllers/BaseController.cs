@@ -1782,7 +1782,93 @@ namespace AERP.Web.UI.Controllers
                                     CreatedBy = Convert.ToInt32(Session["UserID"])
                                 };
 
-                                IBaseEntityResponse<GSTInvoiceResponseModel> response = _SalesInvoiceMasterAndDetailsBA.InsertSalesEInvoiceResponse(GSTInvoiceResponseModel);
+                                IBaseEntityResponse<GSTInvoiceResponseModel> response = _SalesInvoiceMasterAndDetailsBA.InsertUpdateSalesEInvoiceResponse(GSTInvoiceResponseModel);
+                                if (response?.Message?.Count > 0)
+                                {
+                                    errorMessage = response.Message[0].ErrorMessage;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        errorMessage = GSTCredential.ErrorMessage;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = "Opps! Some thing went wrong.";
+            }
+            return errorMessage;
+        }
+
+        public string CancelledEInvoice(GSTInvoiceResponseModel gstInvoiceResponseModel, string centreCode)
+        {
+            string errorMessage = string.Empty;
+            try
+            {
+                if (string.IsNullOrEmpty(errorMessage))
+                {
+                    OrganisationCentrewiseGSTCredential GSTCredential = new OrganisationCentrewiseGSTCredential()
+                    {
+                        ConnectionString = gstInvoiceResponseModel.ConnectionString,
+                        CentreCode = centreCode,
+                        IsLiveMode = Convert.ToBoolean(ConfigurationManager.AppSettings["IsGSTLiveMode"].ToString())
+                    };
+                    GSTCredential = _OrganisationCentrewiseGSTCredentialBA.GetOrganisationCentrewiseGSTCredentialByCentreCode(GSTCredential);
+
+                    if (string.IsNullOrEmpty(GSTCredential.ErrorMessage))
+                    {
+                        GSTAuthTokenResponse gstAuthTokenResponse = new GSTAuthTokenResponse();
+                        if (string.IsNullOrEmpty(GSTCredential.AuthToken))
+                        {
+                            gstAuthTokenResponse = GSTHelper.GenerateGSTAuthToken(GSTCredential);
+                            if (gstAuthTokenResponse.AuthTokenStatus)
+                            {
+                                GSTCredential.ConnectionString = gstInvoiceResponseModel.ConnectionString;
+                                GSTCredential.AuthToken = gstAuthTokenResponse.Data.AuthToken;
+                                GSTCredential.TokenExpiry = gstAuthTokenResponse.Data.TokenExpiry;
+                                IBaseEntityResponse<OrganisationCentrewiseGSTCredential> response = _OrganisationCentrewiseGSTCredentialBA.UpdateOrganisationCentrewiseGSTCredential(GSTCredential);
+                                if (response?.Message?.Count > 0)
+                                {
+                                    errorMessage = response.Message[0].ErrorMessage;
+                                }
+                            }
+                            else
+                            {
+                                errorMessage = gstAuthTokenResponse.ErrorMessage;
+                            }
+                        }
+
+                        if (!string.IsNullOrEmpty(GSTCredential.AuthToken) && string.IsNullOrEmpty(errorMessage))
+                        {
+                            GSTInvoiceCancelledRequestModel gstInvoiceCancelledRequestModel = new GSTInvoiceCancelledRequestModel()
+                            {
+                                Irn = gstInvoiceResponseModel.Irn,
+                                CnlRsn= gstInvoiceResponseModel.CancelledEInvoiceReason,
+                                CnlRem= gstInvoiceResponseModel.CancelledEInvoiceDescription
+                            };
+
+                            GSTInvoiceCancelledResponse gstInvoiceCancelledResponse = GSTHelper.CancelledEInvoice(gstInvoiceCancelledRequestModel, GSTCredential);
+                            if (!string.IsNullOrEmpty(gstInvoiceCancelledResponse.ErrorMessage))
+                            {
+                                errorMessage = gstInvoiceCancelledResponse.ErrorMessage;
+                            }
+                            else
+                            {
+                                //Save Invoice Data into database
+                                GSTInvoiceResponseModel GSTInvoiceResponseModel = new GSTInvoiceResponseModel()
+                                {
+                                    ConnectionString = gstInvoiceResponseModel.ConnectionString,
+                                    SalesInvoiceMasterID = gstInvoiceResponseModel.SalesInvoiceMasterID,
+                                    Irn = gstInvoiceResponseModel.Irn,
+                                    IsCancelledEInvoice = true,
+                                    CreatedBy = Convert.ToInt32(Session["UserID"])
+                                };
+
+                                IBaseEntityResponse<GSTInvoiceResponseModel> response = _SalesInvoiceMasterAndDetailsBA.InsertUpdateSalesEInvoiceResponse(GSTInvoiceResponseModel);
                                 if (response?.Message?.Count > 0)
                                 {
                                     errorMessage = response.Message[0].ErrorMessage;

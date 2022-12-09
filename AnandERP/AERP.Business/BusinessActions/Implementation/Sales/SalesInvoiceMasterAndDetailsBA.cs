@@ -638,7 +638,7 @@ namespace AERP.Business.BusinessAction
             return gstInvoiceRequestModel;
         }
 
-        public IBaseEntityResponse<GSTInvoiceResponseModel> InsertSalesEInvoiceResponse(GSTInvoiceResponseModel item)
+        public IBaseEntityResponse<GSTInvoiceResponseModel> InsertUpdateSalesEInvoiceResponse(GSTInvoiceResponseModel item)
         {
             IBaseEntityResponse<GSTInvoiceResponseModel> entityResponse = new BaseEntityResponse<GSTInvoiceResponseModel>();
             try
@@ -646,7 +646,7 @@ namespace AERP.Business.BusinessAction
 
                 if (_SalesInvoiceMasterAndDetailsDataProvider != null)
                 {
-                    entityResponse = _SalesInvoiceMasterAndDetailsDataProvider.InsertSalesEInvoiceResponse(item);
+                    entityResponse = _SalesInvoiceMasterAndDetailsDataProvider.InsertUpdateSalesEInvoiceResponse(item);
                 }
                 else
                 {
