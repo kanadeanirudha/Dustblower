@@ -404,7 +404,6 @@ namespace AERP.Web.UI.Controllers
 
         public ActionResult GetSalePriceByUOMCode(string ItemNumber, string UOM, int GeneralUnitsID)
         {
-
             var UOMCodeDesc = GetSalePriceByUOMCodeList(ItemNumber, UOM, GeneralUnitsID);
             var result = (from s in UOMCodeDesc
                           select new

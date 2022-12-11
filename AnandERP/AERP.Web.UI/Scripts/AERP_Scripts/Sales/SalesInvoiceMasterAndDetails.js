@@ -371,6 +371,16 @@ var SalesInvoiceMasterAndDetails = {
             var salesInvoiceMasterID = $("#ID").val();
             ajaxRequest.makeRequest("/SalesInvoiceMasterAndDetails/GenerateEInvoice", "POST", { salesInvoiceMasterID: salesInvoiceMasterID }, SalesInvoiceMasterAndDetails.Success, "GenerateEInvoiceForSalesInvoice");
         });
+
+        $('#CancelEInvoiceForSalesInvoice').on("click", function () {
+            var centreCode = $("#centreCode").val();
+            var salesInvoiceMasterID = $("#centreCode").val();
+            var irn = $("#Irn").val();
+            var cancelledEInvoiceReason = $("#cancelledEInvoiceReason :selected").val();
+            var cancelledEInvoiceDescription = $("#cancelledEInvoiceDescription").val();
+            ajaxRequest.makeRequest("/SalesInvoiceMasterAndDetails/CancelEInvoice", "POST", { centreCode: centreCode, salesInvoiceMasterID: salesInvoiceMasterID, irn: irn, cancelledEInvoiceReason: cancelledEInvoiceReason, cancelledEInvoiceDescription: cancelledEInvoiceDescription }, SalesInvoiceMasterAndDetails.Success, "CancelEInvoiceForSalesInvoice");
+        });
+
         InitAnimatedBorder();
 
         CloseAlert();

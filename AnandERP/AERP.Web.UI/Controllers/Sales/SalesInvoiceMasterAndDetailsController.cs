@@ -229,7 +229,7 @@ namespace AERP.Web.UI.Controllers
             model.IsCancelledEInvoice = model.SalesinvoiceList[0].IsCancelledEInvoice;
             model.IsPossibleToCancelledEInvoice = model.SalesinvoiceList[0].IsPossibleToCancelledEInvoice;
             model.Irn = model.SalesinvoiceList[0].Irn;
-
+            model.CentreCode = model.SalesinvoiceList[0].CentreCode;
             return PartialView("/Views/Sales/SalesInvoiceMasterAndDetails/ViewDetails.cshtml", model);
         }
 
@@ -274,6 +274,7 @@ namespace AERP.Web.UI.Controllers
             model.ID = SalesInvoiceMasterID;
             model.IsPossibleToCancelledEInvoice = model.SalesinvoiceList[0].IsPossibleToCancelledEInvoice;
             model.Irn = model.SalesinvoiceList[0].Irn;
+            model.CentreCode = model.SalesinvoiceList[0].CentreCode;
             return PartialView("/Views/Sales/SalesInvoiceMasterAndDetails/ViewDetails.cshtml", model);
         }
 
@@ -932,6 +933,23 @@ namespace AERP.Web.UI.Controllers
         public ActionResult GenerateEInvoice(int salesInvoiceMasterID)
         {
             string errorMessage = GenerateEInvoice(salesInvoiceMasterID, _connectioString);
+            errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage);
+            return Json(errorMessage, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult CancelEInvoice(string centreCode, int salesInvoiceMasterID, string irn, string cancelledEInvoiceReason, string cancelledEInvoiceDescription)
+        {
+            GSTInvoiceResponseModel gstInvoiceResponseModel = new GSTInvoiceResponseModel()
+            {
+                ConnectionString = _connectioString,
+                SalesInvoiceMasterID = salesInvoiceMasterID,
+                Irn = irn,
+                CancelledEInvoiceReason = cancelledEInvoiceReason,
+                CancelledEInvoiceDescription = cancelledEInvoiceDescription
+
+            };
+            string errorMessage = CancelledEInvoice(gstInvoiceResponseModel, centreCode);
             errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage);
             return Json(errorMessage, JsonRequestBehavior.AllowGet);
         }

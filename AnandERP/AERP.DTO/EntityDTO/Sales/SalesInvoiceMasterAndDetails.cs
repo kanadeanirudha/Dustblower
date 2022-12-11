@@ -346,10 +346,8 @@ namespace AERP.DTO
         { get; set; }
         public string CentreSpecialization
         { get; set; }
-        public bool IsServiceItem
-        { get; set; }
-        public string BillingDispalyName
-        { get; set; }
+        public bool IsServiceItem { get; set; }
+        public string BillingDispalyName { get; set; }
         public byte InvoiceType
         { get; set; }
         public string PurchaseOrderNumberClient { get; set; }
@@ -377,15 +375,14 @@ namespace AERP.DTO
         public bool IsLastRecord { get; set; }
         public byte ApprovedStatus { get; set; }
         public byte Status { get; set; }
-        public string MonthName
-        {
-            get; set;
-        }
+        public string MonthName { get; set; }
         public string MonthYear { get; set; }
         public int GSTEInvoiceMasterId { get; set; }
         public bool IsCancelledEInvoice { get; set; }
         public string ImageQRCode { get; set; }
         public bool IsPossibleToCancelledEInvoice { get; set; }
         public string Irn { get; set; }
+        public string CentreCode { get; set; }
+
     }
 }

@@ -941,6 +941,17 @@ namespace AERP.ViewModel
                 SalesInvoiceMasterAndDetailsDTO.CustomerGSTNumber = value;
             }
         }
+        public string CentreCode
+        {
+            get
+            {
+                return (SalesInvoiceMasterAndDetailsDTO != null) ? SalesInvoiceMasterAndDetailsDTO.CentreCode : string.Empty;
+            }
+            set
+            {
+                SalesInvoiceMasterAndDetailsDTO.CentreCode = value;
+            }
+        }
 
         public int GSTEInvoiceMasterId
         {
