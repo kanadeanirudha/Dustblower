@@ -936,6 +936,7 @@ namespace AERP.DataProvider
                         item.IsCancelledEInvoice = sqlDataReader["IsCancelledEInvoice"] == DBNull.Value ? false : Convert.ToBoolean(sqlDataReader["IsCancelledEInvoice"]);
                         item.IsPossibleToCancelledEInvoice = sqlDataReader["IsPossibleToCancelledEInvoice"] == DBNull.Value ? false : Convert.ToBoolean(sqlDataReader["IsPossibleToCancelledEInvoice"]);
                         item.Irn = sqlDataReader["Irn"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["Irn"]);
+                        item.CentreCode = sqlDataReader["CentreCode"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["CentreCode"]);
                         TotalTaxAmount = TotalTaxAmount + item.TaxAmount;
                         item.TotalTaxAmount = TotalTaxAmount;
                         baseEntityCollection.CollectionResponse.Add(item);

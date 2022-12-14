@@ -1762,7 +1762,11 @@ namespace AERP.Web.UI.Controllers
                         if (!string.IsNullOrEmpty(GSTCredential.AuthToken) && string.IsNullOrEmpty(errorMessage))
                         {
                             GSTInvoiceResponse gstInvoiceResponse = GSTHelper.GenerateEInvoice(gstInvoiceRequestModel, GSTCredential);
-                            if (!string.IsNullOrEmpty(gstInvoiceResponse.ErrorMessage))
+                            if (gstInvoiceResponse == null)
+                            {
+                                errorMessage = "Some thing went wrong. Please try again.";
+                            }
+                            else if (!string.IsNullOrEmpty(gstInvoiceResponse.ErrorMessage))
                             {
                                 errorMessage = gstInvoiceResponse.ErrorMessage;
                             }
@@ -1847,12 +1851,16 @@ namespace AERP.Web.UI.Controllers
                             GSTInvoiceCancelledRequestModel gstInvoiceCancelledRequestModel = new GSTInvoiceCancelledRequestModel()
                             {
                                 Irn = gstInvoiceResponseModel.Irn,
-                                CnlRsn= gstInvoiceResponseModel.CancelledEInvoiceReason,
-                                CnlRem= gstInvoiceResponseModel.CancelledEInvoiceDescription
+                                CnlRsn = gstInvoiceResponseModel.CancelledEInvoiceReason,
+                                CnlRem = gstInvoiceResponseModel.CancelledEInvoiceDescription
                             };
 
                             GSTInvoiceCancelledResponse gstInvoiceCancelledResponse = GSTHelper.CancelledEInvoice(gstInvoiceCancelledRequestModel, GSTCredential);
-                            if (!string.IsNullOrEmpty(gstInvoiceCancelledResponse.ErrorMessage))
+                            if (gstInvoiceCancelledResponse == null)
+                            {
+                                errorMessage = "Some thing went wrong. Please try again.";
+                            }
+                            else if (!string.IsNullOrEmpty(gstInvoiceCancelledResponse?.ErrorMessage))
                             {
                                 errorMessage = gstInvoiceCancelledResponse.ErrorMessage;
                             }
@@ -1865,6 +1873,9 @@ namespace AERP.Web.UI.Controllers
                                     SalesInvoiceMasterID = gstInvoiceResponseModel.SalesInvoiceMasterID,
                                     Irn = gstInvoiceResponseModel.Irn,
                                     IsCancelledEInvoice = true,
+                                    CancelledEInvoiceDate = gstInvoiceResponseModel.CancelledEInvoiceDate,
+                                    CancelledEInvoiceReason = gstInvoiceResponseModel.CancelledEInvoiceReason,
+                                    CancelledEInvoiceDescription = gstInvoiceResponseModel.CancelledEInvoiceDescription,
                                     CreatedBy = Convert.ToInt32(Session["UserID"])
                                 };
 

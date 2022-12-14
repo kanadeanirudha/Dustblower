@@ -940,16 +940,30 @@ namespace AERP.Web.UI.Controllers
         [HttpPost]
         public ActionResult CancelEInvoice(string centreCode, int salesInvoiceMasterID, string irn, string cancelledEInvoiceReason, string cancelledEInvoiceDescription)
         {
-            GSTInvoiceResponseModel gstInvoiceResponseModel = new GSTInvoiceResponseModel()
+            string errorMessage = string.Empty;
+            if (string.IsNullOrEmpty(cancelledEInvoiceDescription))
             {
-                ConnectionString = _connectioString,
-                SalesInvoiceMasterID = salesInvoiceMasterID,
-                Irn = irn,
-                CancelledEInvoiceReason = cancelledEInvoiceReason,
-                CancelledEInvoiceDescription = cancelledEInvoiceDescription
-
-            };
-            string errorMessage = CancelledEInvoice(gstInvoiceResponseModel, centreCode);
+                errorMessage = "Please enter Cancelled EInvoice Description.";
+            }
+            else if (string.IsNullOrEmpty(cancelledEInvoiceReason)) {
+                errorMessage = "Please select Cancelled EInvoice Reason.";
+            }
+            else if (string.IsNullOrEmpty(centreCode) || string.IsNullOrEmpty(irn))
+            {
+                errorMessage = "Centre code or Irn number may be empty.";
+            }
+            else
+            {
+                GSTInvoiceResponseModel gstInvoiceResponseModel = new GSTInvoiceResponseModel()
+                {
+                    ConnectionString = _connectioString,
+                    SalesInvoiceMasterID = salesInvoiceMasterID,
+                    Irn = irn,
+                    CancelledEInvoiceReason = cancelledEInvoiceReason,
+                    CancelledEInvoiceDescription = cancelledEInvoiceDescription
+                };
+                errorMessage = CancelledEInvoice(gstInvoiceResponseModel, centreCode);
+            }
             errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage);
             return Json(errorMessage, JsonRequestBehavior.AllowGet);
         }

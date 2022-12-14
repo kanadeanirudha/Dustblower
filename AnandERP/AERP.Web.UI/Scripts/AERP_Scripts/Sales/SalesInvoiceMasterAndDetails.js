@@ -373,8 +373,8 @@ var SalesInvoiceMasterAndDetails = {
         });
 
         $('#CancelEInvoiceForSalesInvoice').on("click", function () {
-            var centreCode = $("#centreCode").val();
-            var salesInvoiceMasterID = $("#centreCode").val();
+            var centreCode = $("#CentreCode").val();
+            var salesInvoiceMasterID = $("#ID").val();
             var irn = $("#Irn").val();
             var cancelledEInvoiceReason = $("#cancelledEInvoiceReason :selected").val();
             var cancelledEInvoiceDescription = $("#cancelledEInvoiceDescription").val();

@@ -118,7 +118,7 @@ namespace AERP.Web.UI.Helper
             {
                 string requestBody = JsonConvert.SerializeObject(gstInvoiceCancelledRequestModel);
                 RestClient client = new RestClient();
-                RestRequest request = new RestRequest($"{GSTCredential.Urls}/eicore/dec/v1.03/Cancel", Method.Post);
+                RestRequest request = new RestRequest($"{GSTCredential.Urls}/eicore/dec/v1.03/Invoice/Cancel", Method.Post);
                 request.AddHeader("Gstin", GSTCredential.GSTIN);
                 request.AddHeader("user_name", GSTCredential.EInvoiceUserName);
                 request.AddHeader("AuthToken", GSTCredential.AuthToken);
