@@ -402,5 +402,8 @@ namespace AERP.DTO
         public int GSTEInvoiceMasterId { get; set; }
         public bool IsCancelledEInvoice { get; set; }
         public string ImageQRCode { get; set; }
+        public bool IsPossibleToCancelledEInvoice { get; set; }
+        public string Irn { get; set; }
+        public string CentreCode { get; set; }
     }
 }

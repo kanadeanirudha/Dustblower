@@ -933,7 +933,7 @@ namespace AERP.Web.UI.Controllers
         public ActionResult GenerateEInvoice(int salesInvoiceMasterID)
         {
             string errorMessage = GenerateEInvoice(salesInvoiceMasterID, _connectioString);
-            errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage);
+            errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage?.Replace(",",""));
             return Json(errorMessage, JsonRequestBehavior.AllowGet);
         }
 
@@ -964,7 +964,7 @@ namespace AERP.Web.UI.Controllers
                 };
                 errorMessage = CancelledEInvoice(gstInvoiceResponseModel, centreCode);
             }
-            errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage);
+            errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage?.Replace(",", ""));
             return Json(errorMessage, JsonRequestBehavior.AllowGet);
         }
         #endregion

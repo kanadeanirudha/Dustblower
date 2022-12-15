@@ -83,7 +83,7 @@
                                             }
 
                                         }
-                                        else if (Model.IsPossibleToCancelledEInvoice)
+                                        else if (Model.IsPossibleToCancelledEInvoice && !Model.IsCancelledEInvoice)
                                         {
                                             @Html.HiddenFor(m => m.CentreCode)
                                             @Html.HiddenFor(m => m.Irn)

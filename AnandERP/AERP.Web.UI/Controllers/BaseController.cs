@@ -1871,11 +1871,12 @@ namespace AERP.Web.UI.Controllers
                                 {
                                     ConnectionString = gstInvoiceResponseModel.ConnectionString,
                                     SalesInvoiceMasterID = gstInvoiceResponseModel.SalesInvoiceMasterID,
-                                    Irn = gstInvoiceResponseModel.Irn,
+                                    Irn = gstInvoiceCancelledResponse.CancelledDataResponse.Irn,
                                     IsCancelledEInvoice = true,
-                                    CancelledEInvoiceDate = gstInvoiceResponseModel.CancelledEInvoiceDate,
+                                    CancelledEInvoiceDate = gstInvoiceCancelledResponse.CancelledDataResponse.CancelDate,
                                     CancelledEInvoiceReason = gstInvoiceResponseModel.CancelledEInvoiceReason,
                                     CancelledEInvoiceDescription = gstInvoiceResponseModel.CancelledEInvoiceDescription,
+                                    GSTEInvoiceDetails= gstInvoiceCancelledResponse.Data,
                                     CreatedBy = Convert.ToInt32(Session["UserID"])
                                 };
 

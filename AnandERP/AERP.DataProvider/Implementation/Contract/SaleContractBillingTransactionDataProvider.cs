@@ -447,6 +447,10 @@ namespace AERP.DataProvider
                         item.GSTEInvoiceMasterId = sqlDataReader["GSTEInvoiceMasterId"] == DBNull.Value ? 0 : Convert.ToInt32(sqlDataReader["GSTEInvoiceMasterId"]);
                         item.CustomerGSTNumber = sqlDataReader["CustomerGSTNumber"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["CustomerGSTNumber"]);
 
+                        item.IsCancelledEInvoice = sqlDataReader["IsCancelledEInvoice"] == DBNull.Value ? false : Convert.ToBoolean(sqlDataReader["IsCancelledEInvoice"]);
+                        item.IsPossibleToCancelledEInvoice = sqlDataReader["IsPossibleToCancelledEInvoice"] == DBNull.Value ? false : Convert.ToBoolean(sqlDataReader["IsPossibleToCancelledEInvoice"]);
+                        item.Irn = sqlDataReader["Irn"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["Irn"]);
+                        item.CentreCode = sqlDataReader["CentreCode"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["CentreCode"]);
                         baseEntityCollection.CollectionResponse.Add(item);
                     }
 

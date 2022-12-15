@@ -232,6 +232,11 @@ namespace AERP.Web.UI.Controllers
                 model.GSTEInvoiceMasterId = model.SaleContractBillingTransactionList[0].GSTEInvoiceMasterId;
                 model.GSTINNumber = model.SaleContractBillingTransactionList[0].GSTINNumber;
                 model.CustomerGSTNumber = model.SaleContractBillingTransactionList[0].CustomerGSTNumber;
+                model.GSTEInvoiceMasterId = model.SaleContractBillingTransactionList[0].GSTEInvoiceMasterId;
+                model.IsCancelledEInvoice = model.SaleContractBillingTransactionList[0].IsCancelledEInvoice;
+                model.IsPossibleToCancelledEInvoice = model.SaleContractBillingTransactionList[0].IsPossibleToCancelledEInvoice;
+                model.Irn = model.SaleContractBillingTransactionList[0].Irn;
+                model.CentreCode = model.SaleContractBillingTransactionList[0].CentreCode;
                 model.CreatedBy = Convert.ToInt32(Session["UserID"]);
             }
 
@@ -1537,7 +1542,40 @@ namespace AERP.Web.UI.Controllers
         public ActionResult GenerateEInvoice(int salesInvoiceMasterID)
         {
             string errorMessage = GenerateEInvoice(salesInvoiceMasterID, _connectioString);
-            errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage);
+            errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage?.Replace(",", ""));
+            return Json(errorMessage, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public ActionResult CancelEInvoice(string centreCode, int salesInvoiceMasterID, string irn, string cancelledEInvoiceReason, string cancelledEInvoiceDescription)
+        {
+            string errorMessage = string.Empty;
+            if (string.IsNullOrEmpty(cancelledEInvoiceDescription))
+            {
+                errorMessage = "Please enter Cancelled EInvoice Description.";
+            }
+            else if (string.IsNullOrEmpty(cancelledEInvoiceReason))
+            {
+                errorMessage = "Please select Cancelled EInvoice Reason.";
+            }
+            else if (string.IsNullOrEmpty(centreCode) || string.IsNullOrEmpty(irn))
+            {
+                errorMessage = "Centre code or Irn number may be empty.";
+            }
+            else
+            {
+                GSTInvoiceResponseModel gstInvoiceResponseModel = new GSTInvoiceResponseModel()
+                {
+                    ConnectionString = _connectioString,
+                    SalesInvoiceMasterID = salesInvoiceMasterID,
+                    Irn = irn,
+                    CancelledEInvoiceReason = cancelledEInvoiceReason,
+                    CancelledEInvoiceDescription = cancelledEInvoiceDescription
+                };
+                errorMessage = CancelledEInvoice(gstInvoiceResponseModel, centreCode);
+            }
+            errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage?.Replace(",", ""));
             return Json(errorMessage, JsonRequestBehavior.AllowGet);
         }
 

@@ -7,13 +7,16 @@ namespace AERP.Web.UI.Helper
     {
         public string Status { get; set; }
         public string Data { get; set; }
+        public CancelledDataResponse CancelledDataResponse { get; set; }
         public List<ErrorDetail> ErrorDetails { get; set; }
         public object InfoDtls { get; set; }
         public string status_cd { get; set; }
         public Error error { get; set; }
         public string ErrorMessage { get; set; }
+    }
+    public class CancelledDataResponse
+    {
         public string Irn { get; set; }
         public string CancelDate { get; set; }
     }
-
 }

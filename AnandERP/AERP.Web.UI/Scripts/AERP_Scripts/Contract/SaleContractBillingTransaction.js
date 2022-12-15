@@ -52,6 +52,15 @@ var SaleContractBillingTransaction = {
             ajaxRequest.makeRequest("/SaleContractBillingTransaction/GenerateEInvoice", "POST", { salesInvoiceMasterID: salesInvoiceMasterID }, SaleContractBillingTransaction.Success, "GenerateEInvoiceForSalesInvoice");
         });
 
+        $('#CancelEInvoiceForSalesInvoice').on("click", function () {
+            var centreCode = $("#CentreCode").val();
+            var salesInvoiceMasterID = $("#SalesInvoiceMasterID").val();
+            var irn = $("#Irn").val();
+            var cancelledEInvoiceReason = $("#cancelledEInvoiceReason :selected").val();
+            var cancelledEInvoiceDescription = $("#cancelledEInvoiceDescription").val();
+            ajaxRequest.makeRequest("/SaleContractBillingTransaction/CancelEInvoice", "POST", { centreCode: centreCode, salesInvoiceMasterID: salesInvoiceMasterID, irn: irn, cancelledEInvoiceReason: cancelledEInvoiceReason, cancelledEInvoiceDescription: cancelledEInvoiceDescription }, SaleContractBillingTransaction.Success, "CancelEInvoiceForSalesInvoice");
+        });
+
         $("#btnShowList").unbind('click').click(function () {
             var CustomerMasterID = $("#CustomerMasterID").val();
             var CustomerMasterName = $("#CustomerMasterName").val();

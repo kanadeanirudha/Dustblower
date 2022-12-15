@@ -48,6 +48,43 @@
                                 <input class="btn btn-primary btn-sm waves-effect" value="Generate E-Invoice" id="GenerateEInvoiceForSalesInvoice" type="button" />
                             }
                         }
+                        else if (Model.IsPossibleToCancelledEInvoice && !Model.IsCancelledEInvoice)
+                        {
+                            @Html.HiddenFor(m => m.CentreCode)
+                            @Html.HiddenFor(m => m.Irn)
+                            @Html.HiddenFor(m => m.CustomerMasterID)
+                            <div class="col-sm-3">
+                                <div class="form-group fg-line">
+                                    <label>Cancle Reason </label>
+                                    <select id="cancelledEInvoiceReason" class="form-control">
+                                        <option value="1">Duplicate</option>
+                                        <option value="2">Data entry mistake</option>
+                                        <option value="3">Order Cancelled</option>
+                                        <option value="4">Others</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group fg-line">
+                                    <label>Cancle Reason Discription <span style="color:red">*</span></label>
+                                    <input type="text" maxlength="100" id="cancelledEInvoiceDescription" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="Cancel E-Invoice" id="CancelEInvoiceForSalesInvoice" type="button" />
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group fg-line">
+                                    <br />
+                                </div>
+                            </div>
+                        }
+                        else if (Model.GSTEInvoiceMasterId > 0 && Model.IsCancelledEInvoice)
+                        {
+                            <input class="btn btn-primary btn-sm m-t-10 waves-effect" value="Cancel Invoice" id="CancelSalesInvoiceRecord" type="button" />
+                            <span style="color:red">IRN is already generated and is cancelled for this Document number. The duplicate IRN cannot be generated for the same number.</span>
+                        }
                     }
                     else
                     {

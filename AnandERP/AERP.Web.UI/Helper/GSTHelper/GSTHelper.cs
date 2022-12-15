@@ -113,7 +113,7 @@ namespace AERP.Web.UI.Helper
 
         public static GSTInvoiceCancelledResponse CancelledEInvoice(GSTInvoiceCancelledRequestModel gstInvoiceCancelledRequestModel, OrganisationCentrewiseGSTCredential GSTCredential)
         {
-            GSTInvoiceCancelledResponse gstInvoiceResponse = new GSTInvoiceCancelledResponse();
+            GSTInvoiceCancelledResponse gstInvoiceCancelledResponse = new GSTInvoiceCancelledResponse();
             try
             {
                 string requestBody = JsonConvert.SerializeObject(gstInvoiceCancelledRequestModel);
@@ -129,30 +129,32 @@ namespace AERP.Web.UI.Helper
                 request.AddBody(requestBody);     //Request Payload in object format
                 RestResponse response = client.Execute(request);
 
-                gstInvoiceResponse = JsonConvert.DeserializeObject<GSTInvoiceCancelledResponse>(response.Content);
-                if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK && gstInvoiceResponse.Status == "1")
+                gstInvoiceCancelledResponse = JsonConvert.DeserializeObject<GSTInvoiceCancelledResponse>(response.Content);
+                if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK && gstInvoiceCancelledResponse.Status == "1")
                 {
-                    return gstInvoiceResponse;
+                    string data = gstInvoiceCancelledResponse.Data.ToString();
+                    gstInvoiceCancelledResponse.CancelledDataResponse = JsonConvert.DeserializeObject<CancelledDataResponse>(data);
+                    return gstInvoiceCancelledResponse;
                 }
                 else
                 {
-                    if (!string.IsNullOrEmpty(gstInvoiceResponse?.error?.message))
+                    if (!string.IsNullOrEmpty(gstInvoiceCancelledResponse?.error?.message))
                     {
-                        gstInvoiceResponse.ErrorMessage = gstInvoiceResponse?.error?.error_cd + ":" + gstInvoiceResponse?.error?.message;
+                        gstInvoiceCancelledResponse.ErrorMessage = gstInvoiceCancelledResponse?.error?.error_cd + ":" + gstInvoiceCancelledResponse?.error?.message;
                     }
                     else
                     {
-                        if (gstInvoiceResponse?.ErrorDetails?.Count > 0)
+                        if (gstInvoiceCancelledResponse?.ErrorDetails?.Count > 0)
                         {
-                            foreach (var error in gstInvoiceResponse.ErrorDetails)
+                            foreach (var error in gstInvoiceCancelledResponse.ErrorDetails)
                             {
-                                if (string.IsNullOrEmpty(gstInvoiceResponse.ErrorMessage))
+                                if (string.IsNullOrEmpty(gstInvoiceCancelledResponse.ErrorMessage))
                                 {
-                                    gstInvoiceResponse.ErrorMessage = $"Error Message:({error.ErrorCode}){error.ErrorMessage}";
+                                    gstInvoiceCancelledResponse.ErrorMessage = $"Error Message:({error.ErrorCode}){error.ErrorMessage}";
                                 }
                                 else
                                 {
-                                    gstInvoiceResponse.ErrorMessage = $"{gstInvoiceResponse.ErrorMessage} and ({error.ErrorCode}){error.ErrorMessage}";
+                                    gstInvoiceCancelledResponse.ErrorMessage = $"{gstInvoiceCancelledResponse.ErrorMessage} and ({error.ErrorCode}){error.ErrorMessage}";
                                 }
                             }
                         }
@@ -163,7 +165,7 @@ namespace AERP.Web.UI.Helper
             {
 
             }
-            return gstInvoiceResponse;
+            return gstInvoiceCancelledResponse;
         }
 
         #endregion
