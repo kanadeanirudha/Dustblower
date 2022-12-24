@@ -177,6 +177,8 @@
     <Compile Include="EntityDTO\GeneralMaster\GeneralUnitType.cs" />
     <Compile Include="EntityDTO\GeneralMaster\GeneralWeekDays.cs" />
     <Compile Include="EntityDTO\GST\GSTInvoiceCancelledRequestModel.cs" />
+    <Compile Include="EntityDTO\GST\GSTEWayBillCancelledRequestModel.cs" />
+    <Compile Include="EntityDTO\GST\GSTEWayBillRequestModel.cs" />
     <Compile Include="EntityDTO\GST\GSTInvoiceResponseModel.cs" />
     <Compile Include="EntityDTO\GST\GSTInvoiceRequestModel.cs" />
     <Compile Include="EntityDTO\Inventory\AddCentreOpeningBalanceForInventory.cs" />

@@ -383,6 +383,7 @@ namespace AERP.DTO
         public bool IsPossibleToCancelledEInvoice { get; set; }
         public string Irn { get; set; }
         public string CentreCode { get; set; }
-
+        public string EwayBillNumber { get; set; }
+        public bool IsPossibleToCancelledEWayBill { get; set; }
     }
 }

@@ -1808,7 +1808,7 @@ namespace AERP.Web.UI.Controllers
             return errorMessage;
         }
 
-        public string CancelledEInvoice(GSTInvoiceResponseModel gstInvoiceResponseModel, string centreCode)
+        public string CancelledEInvoice(GSTInvoiceResponseModel gstInvoiceResponseModel)
         {
             string errorMessage = string.Empty;
             try
@@ -1818,7 +1818,7 @@ namespace AERP.Web.UI.Controllers
                     OrganisationCentrewiseGSTCredential GSTCredential = new OrganisationCentrewiseGSTCredential()
                     {
                         ConnectionString = gstInvoiceResponseModel.ConnectionString,
-                        CentreCode = centreCode,
+                        CentreCode = gstInvoiceResponseModel.CentreCode,
                         IsLiveMode = Convert.ToBoolean(ConfigurationManager.AppSettings["IsGSTLiveMode"].ToString())
                     };
                     GSTCredential = _OrganisationCentrewiseGSTCredentialBA.GetOrganisationCentrewiseGSTCredentialByCentreCode(GSTCredential);
@@ -1876,7 +1876,7 @@ namespace AERP.Web.UI.Controllers
                                     CancelledEInvoiceDate = gstInvoiceCancelledResponse.CancelledDataResponse.CancelDate,
                                     CancelledEInvoiceReason = gstInvoiceResponseModel.CancelledEInvoiceReason,
                                     CancelledEInvoiceDescription = gstInvoiceResponseModel.CancelledEInvoiceDescription,
-                                    GSTEInvoiceDetails= gstInvoiceCancelledResponse.Data,
+                                    GSTEInvoiceDetails = gstInvoiceCancelledResponse.Data,
                                     CreatedBy = Convert.ToInt32(Session["UserID"])
                                 };
 
@@ -1902,6 +1902,178 @@ namespace AERP.Web.UI.Controllers
             return errorMessage;
         }
 
+        public string GenerateEWayBill(GSTEWayBillRequestModel gstEWayBillRequestModel)
+        {
+            string errorMessage = string.Empty;
+            try
+            {
+                if (string.IsNullOrEmpty(errorMessage))
+                {
+                    OrganisationCentrewiseGSTCredential GSTCredential = new OrganisationCentrewiseGSTCredential()
+                    {
+                        ConnectionString = gstEWayBillRequestModel.ConnectionString,
+                        CentreCode = gstEWayBillRequestModel.CentreCode,
+                        IsLiveMode = Convert.ToBoolean(ConfigurationManager.AppSettings["IsGSTLiveMode"].ToString())
+                    };
+                    GSTCredential = _OrganisationCentrewiseGSTCredentialBA.GetOrganisationCentrewiseGSTCredentialByCentreCode(GSTCredential);
+
+                    if (string.IsNullOrEmpty(GSTCredential.ErrorMessage))
+                    {
+                        GSTAuthTokenResponse gstAuthTokenResponse = new GSTAuthTokenResponse();
+                        if (string.IsNullOrEmpty(GSTCredential.AuthToken))
+                        {
+                            gstAuthTokenResponse = GSTHelper.GenerateGSTAuthToken(GSTCredential);
+                            if (gstAuthTokenResponse.AuthTokenStatus)
+                            {
+                                GSTCredential.ConnectionString = gstEWayBillRequestModel.ConnectionString;
+                                GSTCredential.AuthToken = gstAuthTokenResponse.Data.AuthToken;
+                                GSTCredential.TokenExpiry = gstAuthTokenResponse.Data.TokenExpiry;
+                                IBaseEntityResponse<OrganisationCentrewiseGSTCredential> response = _OrganisationCentrewiseGSTCredentialBA.UpdateOrganisationCentrewiseGSTCredential(GSTCredential);
+                                if (response?.Message?.Count > 0)
+                                {
+                                    errorMessage = response.Message[0].ErrorMessage;
+                                }
+                            }
+                            else
+                            {
+                                errorMessage = gstAuthTokenResponse.ErrorMessage;
+                            }
+                        }
+
+                        if (!string.IsNullOrEmpty(GSTCredential.AuthToken) && string.IsNullOrEmpty(errorMessage))
+                        {
+                            GSTEWayBillResponse gstEWayBillResponse = GSTHelper.GenerateEWayBill(gstEWayBillRequestModel, GSTCredential);
+                            if (gstEWayBillResponse == null)
+                            {
+                                errorMessage = "Some thing went wrong. Please try again.";
+                            }
+                            else if (!string.IsNullOrEmpty(gstEWayBillResponse?.ErrorMessage))
+                            {
+                                errorMessage = gstEWayBillResponse.ErrorMessage;
+                            }
+                            else
+                            {
+                                //Save Eway Bill Data into database
+                                GSTInvoiceResponseModel GSTInvoiceResponseModel = new GSTInvoiceResponseModel()
+                                {
+                                    ConnectionString = gstEWayBillRequestModel.ConnectionString,
+                                    SalesInvoiceMasterID = gstEWayBillRequestModel.SalesInvoiceMasterID,
+                                    Irn = gstEWayBillRequestModel.Irn,
+                                    IsEwayBill = true,
+                                    EwbNo = gstEWayBillResponse.DataResponse.EwbNo,
+                                    EwbDt = gstEWayBillResponse.DataResponse.EwbDt,
+                                    EwbValidTill = gstEWayBillResponse.DataResponse.EwbValidTill,
+                                    GSTEInvoiceDetails = gstEWayBillResponse.Data,
+                                    CreatedBy = Convert.ToInt32(Session["UserID"])
+                                };
+
+                                IBaseEntityResponse<GSTInvoiceResponseModel> response = _SalesInvoiceMasterAndDetailsBA.InsertUpdateSalesEInvoiceResponse(GSTInvoiceResponseModel);
+                                if (response?.Message?.Count > 0)
+                                {
+                                    errorMessage = response.Message[0].ErrorMessage;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        errorMessage = GSTCredential.ErrorMessage;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = "Opps! Some thing went wrong.";
+            }
+            return errorMessage;
+        }
+
+        public string CancelledEWayBill(GSTEWayBillCancelledRequestModel gstEWayBillCancelledRequestModel)
+        {
+            string errorMessage = string.Empty;
+            try
+            {
+                if (string.IsNullOrEmpty(errorMessage))
+                {
+                    OrganisationCentrewiseGSTCredential GSTCredential = new OrganisationCentrewiseGSTCredential()
+                    {
+                        ConnectionString = gstEWayBillCancelledRequestModel.ConnectionString,
+                        CentreCode = gstEWayBillCancelledRequestModel.CentreCode,
+                        IsLiveMode = Convert.ToBoolean(ConfigurationManager.AppSettings["IsGSTLiveMode"].ToString())
+                    };
+                    GSTCredential = _OrganisationCentrewiseGSTCredentialBA.GetOrganisationCentrewiseGSTCredentialByCentreCode(GSTCredential);
+
+                    if (string.IsNullOrEmpty(GSTCredential.ErrorMessage))
+                    {
+                        GSTAuthTokenResponse gstAuthTokenResponse = new GSTAuthTokenResponse();
+                        if (string.IsNullOrEmpty(GSTCredential.AuthToken))
+                        {
+                            gstAuthTokenResponse = GSTHelper.GenerateGSTAuthToken(GSTCredential);
+                            if (gstAuthTokenResponse.AuthTokenStatus)
+                            {
+                                GSTCredential.ConnectionString = gstEWayBillCancelledRequestModel.ConnectionString;
+                                GSTCredential.AuthToken = gstAuthTokenResponse.Data.AuthToken;
+                                GSTCredential.TokenExpiry = gstAuthTokenResponse.Data.TokenExpiry;
+                                IBaseEntityResponse<OrganisationCentrewiseGSTCredential> response = _OrganisationCentrewiseGSTCredentialBA.UpdateOrganisationCentrewiseGSTCredential(GSTCredential);
+                                if (response?.Message?.Count > 0)
+                                {
+                                    errorMessage = response.Message[0].ErrorMessage;
+                                }
+                            }
+                            else
+                            {
+                                errorMessage = gstAuthTokenResponse.ErrorMessage;
+                            }
+                        }
+
+                        if (!string.IsNullOrEmpty(GSTCredential.AuthToken) && string.IsNullOrEmpty(errorMessage))
+                        {
+                            GSTEWayBillCancelledResponse gstEWayBillCancelledResponse = GSTHelper.CancelledEWayBill(gstEWayBillCancelledRequestModel, GSTCredential);
+                            if (gstEWayBillCancelledResponse == null)
+                            {
+                                errorMessage = "Some thing went wrong. Please try again.";
+                            }
+                            else if (!string.IsNullOrEmpty(gstEWayBillCancelledResponse?.ErrorMessage))
+                            {
+                                errorMessage = gstEWayBillCancelledResponse.ErrorMessage;
+                            }
+                            else
+                            {
+                                //Save Invoice Data into database
+                                GSTInvoiceResponseModel GSTInvoiceResponseModel = new GSTInvoiceResponseModel()
+                                {
+                                    ConnectionString = gstEWayBillCancelledRequestModel.ConnectionString,
+                                    SalesInvoiceMasterID = gstEWayBillCancelledRequestModel.SalesInvoiceMasterID,
+                                    IsEwayBill = true,
+                                    EwbNo = 0,
+                                    EwbDt = null,
+                                    EwbValidTill = null,
+                                    GSTEInvoiceDetails = gstEWayBillCancelledResponse.Data,
+                                    CreatedBy = Convert.ToInt32(Session["UserID"])
+                                };
+
+                                IBaseEntityResponse<GSTInvoiceResponseModel> response = _SalesInvoiceMasterAndDetailsBA.InsertUpdateSalesEInvoiceResponse(GSTInvoiceResponseModel);
+                                if (response?.Message?.Count > 0)
+                                {
+                                    errorMessage = response.Message[0].ErrorMessage;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        errorMessage = GSTCredential.ErrorMessage;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = "Opps! Some thing went wrong.";
+            }
+            return errorMessage;
+        }
         private GSTInvoiceRequestModel GetRecordForSalesEInvoice(int id, string _connectioString)
         {
             SalesInvoiceMasterAndDetailsSearchRequest searchRequest = new SalesInvoiceMasterAndDetailsSearchRequest();

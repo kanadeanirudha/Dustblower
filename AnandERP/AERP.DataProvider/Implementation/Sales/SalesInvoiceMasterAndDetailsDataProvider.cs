@@ -936,6 +936,11 @@ namespace AERP.DataProvider
                         item.IsCancelledEInvoice = sqlDataReader["IsCancelledEInvoice"] == DBNull.Value ? false : Convert.ToBoolean(sqlDataReader["IsCancelledEInvoice"]);
                         item.IsPossibleToCancelledEInvoice = sqlDataReader["IsPossibleToCancelledEInvoice"] == DBNull.Value ? false : Convert.ToBoolean(sqlDataReader["IsPossibleToCancelledEInvoice"]);
                         item.Irn = sqlDataReader["Irn"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["Irn"]);
+                        if (searchRequest.InvoiceType == 1)
+                        {
+                            item.EwayBillNumber = sqlDataReader["EwayBillNumber"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["EwayBillNumber"]);
+                            item.IsPossibleToCancelledEWayBill = sqlDataReader["IsPossibleToCancelledEWayBill"] == DBNull.Value ? false : Convert.ToBoolean(sqlDataReader["IsPossibleToCancelledEWayBill"]);
+                        }
                         item.CentreCode = sqlDataReader["CentreCode"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["CentreCode"]);
                         TotalTaxAmount = TotalTaxAmount + item.TaxAmount;
                         item.TotalTaxAmount = TotalTaxAmount;
@@ -2324,22 +2329,38 @@ namespace AERP.DataProvider
                 {
                     _mainConnection.ConnectionString = item.ConnectionString;
                     cmdToExecute.Connection = _mainConnection;
-                    cmdToExecute.CommandText = "dbo.USP_GSTEInvoiceResponse_Insert_Update";
+                    if (item.IsEwayBill)
+                    {
+                        cmdToExecute.CommandText = "dbo.USP_GSTEWayBillResponse_Insert_Update";
+                    }
+                    else
+                    {
+                        cmdToExecute.CommandText = "dbo.USP_GSTEInvoiceResponse_Insert_Update";
+                    }
                     cmdToExecute.CommandType = CommandType.StoredProcedure;
                     cmdToExecute.CommandTimeout = 0;
                     cmdToExecute.Parameters.Add(new SqlParameter("@iSalesInvoiceMasterID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.SalesInvoiceMasterID));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@sAcknowledgementNo", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.AcknowledgementNo));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@sAcknowledgementDate", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.AcknowledgementDate));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@sIrn", SqlDbType.VarChar, 200, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.Irn));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@sQrCodeImage", SqlDbType.VarChar, int.MaxValue, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.QrCodeImage));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@bIsCancelledEInvoice", SqlDbType.Bit, 0, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, Convert.ToByte(item.IsCancelledEInvoice)));
                     cmdToExecute.Parameters.Add(new SqlParameter("@sGSTEInvoiceDetails", SqlDbType.VarChar, int.MaxValue, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.GSTEInvoiceDetails));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@sCancelledEInvoiceReason", SqlDbType.VarChar, 200, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.CancelledEInvoiceReason));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@CancelledEInvoiceDescription", SqlDbType.VarChar, 200, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.CancelledEInvoiceDescription));
-                    cmdToExecute.Parameters.Add(new SqlParameter("@sCancelledEInvoiceDate", SqlDbType.VarChar, 200, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.CancelledEInvoiceDate));
                     cmdToExecute.Parameters.Add(new SqlParameter("@iCreatedBy", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, item.CreatedBy));
                     cmdToExecute.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
 
+                    if (item.IsEwayBill)
+                    {
+                        cmdToExecute.Parameters.Add(new SqlParameter("@sEwbNo", SqlDbType.VarChar, 200, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, item.EwbNo == 0 ? null : item.EwbNo.ToString()));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@sEwbDt", SqlDbType.VarChar, 200, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, item.EwbDt));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@sEwbValidTill", SqlDbType.VarChar, 200, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, item.EwbValidTill));
+                    }
+                    else
+                    {
+                        cmdToExecute.Parameters.Add(new SqlParameter("@sIrn", SqlDbType.VarChar, 200, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.Irn));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@sAcknowledgementNo", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.AcknowledgementNo));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@sAcknowledgementDate", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.AcknowledgementDate));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@sQrCodeImage", SqlDbType.VarChar, int.MaxValue, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.QrCodeImage));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@bIsCancelledEInvoice", SqlDbType.Bit, 0, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, Convert.ToByte(item.IsCancelledEInvoice)));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@sCancelledEInvoiceReason", SqlDbType.VarChar, 200, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.CancelledEInvoiceReason));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@CancelledEInvoiceDescription", SqlDbType.VarChar, 200, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.CancelledEInvoiceDescription));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@sCancelledEInvoiceDate", SqlDbType.VarChar, 200, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.CancelledEInvoiceDate));
+                    }
                     if (_mainConnectionIsCreatedLocal)
                     {
                         // Open connection.

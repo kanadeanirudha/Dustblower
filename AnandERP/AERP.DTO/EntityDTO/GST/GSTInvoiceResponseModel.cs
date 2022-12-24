@@ -6,6 +6,7 @@ namespace AERP.DTO
     {
         public int GSTEInvoiceMasterID { get; set; }
         public int SalesInvoiceMasterID { get; set; }
+        public string CentreCode { get; set; }
         public string AcknowledgementNo { get; set; }
         public string AcknowledgementDate { get; set; }
         public string Irn { get; set; }
@@ -15,6 +16,10 @@ namespace AERP.DTO
         public string CancelledEInvoiceReason { get; set; }
         public string CancelledEInvoiceDescription { get; set; }
         public string GSTEInvoiceDetails { get; set; }
+        public long EwbNo { get; set; }
+        public string EwbDt { get; set; }
+        public string EwbValidTill { get; set; }
+        public bool IsEwayBill { get; set; }
         public int CreatedBy { get; set; }
     }
 }

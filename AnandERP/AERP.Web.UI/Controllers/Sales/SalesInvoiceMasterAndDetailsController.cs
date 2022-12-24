@@ -229,6 +229,8 @@ namespace AERP.Web.UI.Controllers
             model.IsCancelledEInvoice = model.SalesinvoiceList[0].IsCancelledEInvoice;
             model.IsPossibleToCancelledEInvoice = model.SalesinvoiceList[0].IsPossibleToCancelledEInvoice;
             model.Irn = model.SalesinvoiceList[0].Irn;
+            model.EwayBillNumber = model.SalesinvoiceList[0].EwayBillNumber;
+            model.IsPossibleToCancelledEWayBill = model.SalesinvoiceList[0].IsPossibleToCancelledEWayBill;
             model.CentreCode = model.SalesinvoiceList[0].CentreCode;
             return PartialView("/Views/Sales/SalesInvoiceMasterAndDetails/ViewDetails.cshtml", model);
         }
@@ -933,7 +935,7 @@ namespace AERP.Web.UI.Controllers
         public ActionResult GenerateEInvoice(int salesInvoiceMasterID)
         {
             string errorMessage = GenerateEInvoice(salesInvoiceMasterID, _connectioString);
-            errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage?.Replace(",",""));
+            errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage?.Replace(",", ""));
             return Json(errorMessage, JsonRequestBehavior.AllowGet);
         }
 
@@ -945,7 +947,8 @@ namespace AERP.Web.UI.Controllers
             {
                 errorMessage = "Please enter Cancelled EInvoice Description.";
             }
-            else if (string.IsNullOrEmpty(cancelledEInvoiceReason)) {
+            else if (string.IsNullOrEmpty(cancelledEInvoiceReason))
+            {
                 errorMessage = "Please select Cancelled EInvoice Reason.";
             }
             else if (string.IsNullOrEmpty(centreCode) || string.IsNullOrEmpty(irn))
@@ -958,15 +961,69 @@ namespace AERP.Web.UI.Controllers
                 {
                     ConnectionString = _connectioString,
                     SalesInvoiceMasterID = salesInvoiceMasterID,
+                    CentreCode= centreCode,
                     Irn = irn,
                     CancelledEInvoiceReason = cancelledEInvoiceReason,
                     CancelledEInvoiceDescription = cancelledEInvoiceDescription
                 };
-                errorMessage = CancelledEInvoice(gstInvoiceResponseModel, centreCode);
+                errorMessage = CancelledEInvoice(gstInvoiceResponseModel);
             }
             errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage?.Replace(",", ""));
             return Json(errorMessage, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult GenerateEWayBill(string centreCode, int salesInvoiceMasterID, string irn, string gstINNumber, string transMode, string transportName, string transportDocumentNumber, string transportDate, string vehicleNo)
+        {
+            string errorMessage = string.Empty;
+            if (string.IsNullOrEmpty(centreCode) || string.IsNullOrEmpty(irn))
+            {
+                errorMessage = "Centre code or Irn number may be empty.";
+            }
+            else
+            {
+                GSTEWayBillRequestModel gstEWayBillRequestModel = new GSTEWayBillRequestModel()
+                {
+                    ConnectionString = _connectioString,
+                    SalesInvoiceMasterID = salesInvoiceMasterID,
+                    CentreCode = centreCode,
+                    Irn = irn,
+                    TransId = gstINNumber,
+                    TransMode = transMode,
+                    TransName = transportName,
+                    TransDocNo = transportDocumentNumber,
+                    TransDocDt = transportDate,
+                    VehNo = vehicleNo
+                };
+                errorMessage = GenerateEWayBill(gstEWayBillRequestModel);
+            }
+            errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage?.Replace(",", ""));
+            return Json(errorMessage, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult CancelEEwayBill(string centreCode, int salesInvoiceMasterID, string ewayBillNumber)
+        {
+            string errorMessage = string.Empty;
+            if (string.IsNullOrEmpty(centreCode) || string.IsNullOrEmpty(ewayBillNumber))
+            {
+                errorMessage = "Centre code or EWay Bill number may be empty.";
+            }
+            else
+            {
+                GSTEWayBillCancelledRequestModel gstEWayBillCancelledRequestModel = new GSTEWayBillCancelledRequestModel()
+                {
+                    ConnectionString = _connectioString,
+                    SalesInvoiceMasterID = salesInvoiceMasterID,
+                    ewbNo = ewayBillNumber,
+                    CentreCode= centreCode
+                };
+                errorMessage = CancelledEWayBill(gstEWayBillCancelledRequestModel);
+            }
+            errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage?.Replace(",", ""));
+            return Json(errorMessage, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
 

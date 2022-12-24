@@ -100,6 +100,9 @@ CREATE TABLE [dbo].[GSTEInvoiceMaster](
 	[CancelledEInvoiceDate] [varchar](200) NULL,
 	[CancelledEInvoiceReason] [varchar](200) NULL,
 	[CancelledEInvoiceDescription] [varchar](200) NULL,
+	[EwbNo] [varchar](200) NULL,
+	[EwbDt] [varchar](200) NULL,
+	[EwbValidTill] [varchar](200) NULL,
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]

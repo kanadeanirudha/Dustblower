@@ -1000,5 +1000,28 @@ namespace AERP.ViewModel
                 SalesInvoiceMasterAndDetailsDTO.Irn = value;
             }
         }
+
+        public string EwayBillNumber
+        {
+            get
+            {
+                return (SalesInvoiceMasterAndDetailsDTO != null) ? SalesInvoiceMasterAndDetailsDTO.EwayBillNumber : string.Empty;
+            }
+            set
+            {
+                SalesInvoiceMasterAndDetailsDTO.EwayBillNumber = value;
+            }
+        }
+        public bool IsPossibleToCancelledEWayBill
+        {
+            get
+            {
+                return (SalesInvoiceMasterAndDetailsDTO != null) ? SalesInvoiceMasterAndDetailsDTO.IsPossibleToCancelledEWayBill : new bool();
+            }
+            set
+            {
+                SalesInvoiceMasterAndDetailsDTO.IsPossibleToCancelledEWayBill = value;
+            }
+        }
     }
 }

@@ -381,6 +381,64 @@ var SalesInvoiceMasterAndDetails = {
             ajaxRequest.makeRequest("/SalesInvoiceMasterAndDetails/CancelEInvoice", "POST", { centreCode: centreCode, salesInvoiceMasterID: salesInvoiceMasterID, irn: irn, cancelledEInvoiceReason: cancelledEInvoiceReason, cancelledEInvoiceDescription: cancelledEInvoiceDescription }, SalesInvoiceMasterAndDetails.Success, "CancelEInvoiceForSalesInvoice");
         });
 
+        $('#GenerateEWayBillForSalesInvoice').on("click", function () {
+            $("#transportNameValidationId").html("");
+            $("#transportDocumentNumberValidationId").html("");
+            $("#transportDateValidationId").html("");
+            $("#vehicleNoValidationId").html("");
+            var centreCode = $("#CentreCode").val();
+            var salesInvoiceMasterID = $("#ID").val();
+            var irn = $("#Irn").val();
+            var gstINNumber = $("#GSTINNumber").val();
+            var transMode = $("#transMode :selected").val();
+            var transportName = $("#transportName").val().trim();
+            var transportDocumentNumber = $("#transportDocumentNumber").val().trim();
+            var transportDate = $("#transportDate").val();
+            var vehicleNo = $("#vehicleNo").val().trim();
+            if (transportName == "" || transportName.length < 3) {
+                $("#transportNameValidationId").html("Please enter transport name");
+                return false;
+            }
+            else if (transportDocumentNumber == "") {
+                $("#transportDocumentNumberValidationId").html("Please enter document number");
+                return false;
+            }
+            else if (transportDate == "") {
+                $("#transportDateValidationId").html("Please enter date");
+                return false;
+            }
+            else if (vehicleNo == "" || vehicleNo.length < 4) {
+                $("#vehicleNoValidationId").html("Please enter valid vehicle no");
+                return false;
+            }
+            ajaxRequest.makeRequest("/SalesInvoiceMasterAndDetails/GenerateEWayBill", "POST", {
+                centreCode: centreCode,
+                salesInvoiceMasterID: salesInvoiceMasterID,
+                irn: irn,
+                gstINNumber: gstINNumber,
+                transMode: transMode,
+                transportName: transportName,
+                transportDocumentNumber: transportDocumentNumber,
+                transportDate: transportDate,
+                vehicleNo: vehicleNo
+            }, SalesInvoiceMasterAndDetails.Success, "GenerateEWayBillForSalesInvoice");
+        });
+
+        $('#CancelSalesEWayBillRecord').on("click", function () {
+            var centreCode = $("#CentreCode").val();
+            var salesInvoiceMasterID = $("#ID").val();
+            var ewayBillNumber = $("#EwayBillNumber").val();
+            ajaxRequest.makeRequest("/SalesInvoiceMasterAndDetails/CancelEEwayBill", "POST", { centreCode: centreCode, salesInvoiceMasterID: salesInvoiceMasterID, ewayBillNumber: ewayBillNumber }, SalesInvoiceMasterAndDetails.Success, "CancelSalesEWayBillRecord");
+        });
+
+        $('#vehicleNo').on("keydown", function (e) {
+            AERPValidation.AllowAlphaNumericOnly(e);
+            AERPValidation.NotAllowSpaces(e);
+        })
+
+        $('#vehicleNo').bind("cut copy paste", function (e) {
+            e.preventDefault();
+        });
         InitAnimatedBorder();
 
         CloseAlert();

@@ -7,6 +7,7 @@ using RestSharp;
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Net;
 using System.Web;
 
@@ -170,5 +171,187 @@ namespace AERP.Web.UI.Helper
 
         #endregion
 
+        #region E-Way Bill
+        public static GSTEWayBillResponse GenerateEWayBill(GSTEWayBillRequestModel gstEWayBillRequestModel, OrganisationCentrewiseGSTCredential GSTCredential)
+        {
+            GSTEWayBillResponse gstEWayBillResponse = new GSTEWayBillResponse();
+            try
+            {
+                string requestBody = JsonConvert.SerializeObject(gstEWayBillRequestModel);
+                RestClient client = new RestClient();
+                RestRequest request = new RestRequest($"{GSTCredential.Urls}/eiewb/dec/v1.03/ewaybill", Method.Post);
+                request.AddHeader("Gstin", GSTCredential.GSTIN);
+                request.AddHeader("user_name", GSTCredential.EInvoiceUserName);
+                request.AddHeader("AuthToken", GSTCredential.AuthToken);
+                request.AddHeader("aspid", GSTCredential.AspId);
+                request.AddHeader("password", GSTCredential.AspUserPassword);
+                request.AddHeader("Content-Type", "application/json; charset=utf-8");
+                request.RequestFormat = DataFormat.Json;
+                request.AddBody(requestBody);     //Request Payload in object format
+                RestResponse response = client.Execute(request);
+
+                gstEWayBillResponse = JsonConvert.DeserializeObject<GSTEWayBillResponse>(response.Content);
+                if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK && gstEWayBillResponse.Status == "1")
+                {
+                    string data = gstEWayBillResponse.Data.ToString();
+                    gstEWayBillResponse.DataResponse = JsonConvert.DeserializeObject<EWayBillDataResponse>(data);
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(gstEWayBillResponse?.error?.message))
+                    {
+                        gstEWayBillResponse.ErrorMessage = gstEWayBillResponse?.error?.error_cd + ":" + gstEWayBillResponse?.error?.message;
+                    }
+                    else
+                    {
+                        if (gstEWayBillResponse?.ErrorDetails?.Count > 0)
+                        {
+                            foreach (var error in gstEWayBillResponse.ErrorDetails)
+                            {
+                                if (string.IsNullOrEmpty(gstEWayBillResponse.ErrorMessage))
+                                {
+                                    gstEWayBillResponse.ErrorMessage = $"Error Message:({error.ErrorCode}){error.ErrorMessage}";
+                                }
+                                else
+                                {
+                                    gstEWayBillResponse.ErrorMessage = $"{gstEWayBillResponse.ErrorMessage} and ({error.ErrorCode}){error.ErrorMessage}";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return gstEWayBillResponse;
+        }
+
+        public static void PrintEWayBill(OrganisationCentrewiseGSTCredential GSTCredential, string ewbNo)
+        {
+            GSTEWayBillResponse gstEWayBillResponse = new GSTEWayBillResponse();
+            try
+            {
+                RestClient client = new RestClient();
+                RestRequest request = new RestRequest($"{GSTCredential.Urls}/ewaybillapi/dec/v1.03/ewayapi?action=GetEwayBill&ewbNo={ewbNo}", Method.Get);
+                request.Timeout = -1;
+                request.AddHeader("Gstin", GSTCredential.GSTIN);
+                request.AddHeader("user_name", GSTCredential.EInvoiceUserName);
+                request.AddHeader("AuthToken", GSTCredential.AuthToken);
+                request.AddHeader("aspid", GSTCredential.AspId);
+                request.AddHeader("password", GSTCredential.AspUserPassword);
+                RestResponse response = client.Execute(request);
+                gstEWayBillResponse = JsonConvert.DeserializeObject<GSTEWayBillResponse>(response.Content);
+                if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK && gstEWayBillResponse.Status == "1")
+                {
+                    RestClient clientPost = new RestClient();
+                    RestRequest requestPost = new RestRequest($"{GSTCredential.Urls}/aspapi/v1.0/printewb", Method.Post);
+                    requestPost.AddHeader("aspid", GSTCredential.AspId);
+                    requestPost.AddHeader("password", GSTCredential.AspUserPassword);
+                    requestPost.AddHeader("Gstin", GSTCredential.GSTIN);
+                    requestPost.AddHeader("Content-Type", "text/plain");
+                    var body = response.Content;
+                    request.AddParameter("text/plain", body, ParameterType.RequestBody);
+                    byte[] responsePost = client.DownloadData(request);
+                    try
+                    {
+                        //This methods checks and creates directory if does not exists
+                        string pdfFolderPath = @"MyeWaybillDoc\"; //Providing Path
+                        string pdfPath = pdfFolderPath + ewbNo + ".pdf";
+                        //Writing the responce in Byte
+                        //File.WriteAllBytes(pdfPath, response);
+                        //if (displayPdf == true)
+                        //    Process.Start(pdfPath); //Code to display .pdf file
+                    }
+                    catch (Exception ex)
+                    { 
+                    
+                    }
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(gstEWayBillResponse?.error?.message))
+                    {
+                        gstEWayBillResponse.ErrorMessage = gstEWayBillResponse?.error?.error_cd + ":" + gstEWayBillResponse?.error?.message;
+                    }
+                    else
+                    {
+                        if (gstEWayBillResponse?.ErrorDetails?.Count > 0)
+                        {
+                            foreach (var error in gstEWayBillResponse.ErrorDetails)
+                            {
+                                if (string.IsNullOrEmpty(gstEWayBillResponse.ErrorMessage))
+                                {
+                                    gstEWayBillResponse.ErrorMessage = $"Error Message:({error.ErrorCode}){error.ErrorMessage}";
+                                }
+                                else
+                                {
+                                    gstEWayBillResponse.ErrorMessage = $"{gstEWayBillResponse.ErrorMessage} and ({error.ErrorCode}){error.ErrorMessage}";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        public static GSTEWayBillCancelledResponse CancelledEWayBill(GSTEWayBillCancelledRequestModel gstEWayBillCancelledRequestModel, OrganisationCentrewiseGSTCredential GSTCredential)
+        {
+            GSTEWayBillCancelledResponse gstEWayBillCancelledResponse = new GSTEWayBillCancelledResponse();
+            try
+            {
+                string requestBody = JsonConvert.SerializeObject(gstEWayBillCancelledRequestModel);
+                RestClient client = new RestClient();
+                RestRequest request = new RestRequest($"{GSTCredential.Urls}/ewaybillapi/dec/v1.03/ewayapi?action=CANEWB&gstin={GSTCredential.GSTIN}&username={GSTCredential.EInvoiceUserName}&authtoken={GSTCredential.AuthToken}", Method.Post);
+                request.AddHeader("aspid", GSTCredential.AspId);
+                request.AddHeader("password", GSTCredential.AspUserPassword);
+                request.AddHeader("Content-Type", "application/json; charset=utf-8");
+                request.RequestFormat = DataFormat.Json;
+                request.AddBody(requestBody);     //Request Payload in object format
+                RestResponse response = client.Execute(request);
+                
+                if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK)
+                {
+                    gstEWayBillCancelledResponse.Data = response.Content;
+                    return gstEWayBillCancelledResponse;
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(gstEWayBillCancelledResponse?.error?.message))
+                    {
+                        gstEWayBillCancelledResponse.ErrorMessage = gstEWayBillCancelledResponse?.error?.error_cd + ":" + gstEWayBillCancelledResponse?.error?.message;
+                    }
+                    else
+                    {
+                        if (gstEWayBillCancelledResponse?.ErrorDetails?.Count > 0)
+                        {
+                            foreach (var error in gstEWayBillCancelledResponse.ErrorDetails)
+                            {
+                                if (string.IsNullOrEmpty(gstEWayBillCancelledResponse.ErrorMessage))
+                                {
+                                    gstEWayBillCancelledResponse.ErrorMessage = $"Error Message:({error.ErrorCode}){error.ErrorMessage}";
+                                }
+                                else
+                                {
+                                    gstEWayBillCancelledResponse.ErrorMessage = $"{gstEWayBillCancelledResponse.ErrorMessage} and ({error.ErrorCode}){error.ErrorMessage}";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                gstEWayBillCancelledResponse = null;
+            }
+            return gstEWayBillCancelledResponse;
+        }
+
+        #endregion
     }
 }

@@ -1570,10 +1570,11 @@ namespace AERP.Web.UI.Controllers
                     ConnectionString = _connectioString,
                     SalesInvoiceMasterID = salesInvoiceMasterID,
                     Irn = irn,
+                    CentreCode= centreCode,
                     CancelledEInvoiceReason = cancelledEInvoiceReason,
                     CancelledEInvoiceDescription = cancelledEInvoiceDescription
                 };
-                errorMessage = CancelledEInvoice(gstInvoiceResponseModel, centreCode);
+                errorMessage = CancelledEInvoice(gstInvoiceResponseModel);
             }
             errorMessage = CheckError(string.IsNullOrEmpty(errorMessage) ? (Int32)ErrorEnum.AllOk : (Int32)ErrorEnum.EInvoiceError, ActionModeEnum.EInvoice, errorMessage?.Replace(",", ""));
             return Json(errorMessage, JsonRequestBehavior.AllowGet);
