@@ -52,12 +52,12 @@ namespace AERP.Web.UI.Controllers
             }
         }
 
-        public ActionResult List(string ContractNumber, string SaleContractBillingSpanID)
+        public ActionResult List(string SaleContractMasterID, string SaleContractBillingSpanID)
         {
             try
             {
                 EmployeeFormXViewModel model = new EmployeeFormXViewModel();
-                model.EmployeeFormXDetailListForparticulars = GetEmployeeFormXListForParticularsMonthWise(ContractNumber, SaleContractBillingSpanID);
+                model.EmployeeFormXDetailListForparticulars = GetEmployeeFormXListForParticularsMonthWise(SaleContractMasterID, SaleContractBillingSpanID);
                 return PartialView("/Views/Contract/Report/EmployeeFormX/List.cshtml", model);
             }
             catch (Exception ex)
@@ -81,14 +81,14 @@ namespace AERP.Web.UI.Controllers
         #region ------------CONTROLLER NON ACTION METHODS------------
 
 
-        public List<EmployeeFormX> GetEmployeeFormXList(string ContractNumber, string SaleContractBillingSpanID)
+        public List<EmployeeFormX> GetEmployeeFormXList(string SaleContractMasterID, string SaleContractBillingSpanID)
         {
             try
             {
                 List<EmployeeFormX> listEmployeeFormX = new List<EmployeeFormX>();
                 EmployeeFormXSearchRequest searchRequest = new EmployeeFormXSearchRequest();
                 searchRequest.ConnectionString = Convert.ToString(ConfigurationManager.ConnectionStrings["Main.ConnectionString"]);
-                searchRequest.ContractNumber = Convert.ToInt64(ContractNumber);
+                searchRequest.ContractNumber = Convert.ToInt64(SaleContractMasterID);
                 searchRequest.SaleContractBillingSpanID =Convert.ToInt64(SaleContractBillingSpanID);
                 IBaseEntityCollectionResponse<EmployeeFormX> baseEntityCollectionResponse = _EmployeeFormXBA.GetEmployeeFormXDataList(searchRequest);
                 if (baseEntityCollectionResponse != null)
@@ -106,14 +106,14 @@ namespace AERP.Web.UI.Controllers
                 throw;
             }
         }
-        public List<EmployeeFormX> GetEmployeeFormXListForParticularsMonthWise(string ContractNumber, string SaleContractBillingSpanID)
+        public List<EmployeeFormX> GetEmployeeFormXListForParticularsMonthWise(string SaleContractMasterID, string SaleContractBillingSpanID)
         {
             try
             {
                 List<EmployeeFormX> listEmployeeFormX = new List<EmployeeFormX>();
                 EmployeeFormXSearchRequest searchRequest = new EmployeeFormXSearchRequest();
                 searchRequest.ConnectionString = Convert.ToString(ConfigurationManager.ConnectionStrings["Main.ConnectionString"]);
-                searchRequest.ContractNumber = Convert.ToInt64(ContractNumber);
+                searchRequest.ContractNumber = Convert.ToInt64(SaleContractMasterID);
                 searchRequest.SaleContractBillingSpanID =Convert.ToInt64(SaleContractBillingSpanID);
                 IBaseEntityCollectionResponse<EmployeeFormX> baseEntityCollectionResponse = _EmployeeFormXBA.GetEmployeeFormXDataList(searchRequest);
                 if (baseEntityCollectionResponse != null)
