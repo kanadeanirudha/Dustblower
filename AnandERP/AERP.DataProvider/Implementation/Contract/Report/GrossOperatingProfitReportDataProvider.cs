@@ -61,13 +61,14 @@ namespace AERP.DataProvider
                     _mainConnection.ConnectionString = searchRequest.ConnectionString;
 
                     cmdToExecute.Connection = _mainConnection;
-                    cmdToExecute.CommandText = "dbo.USP_GrossOperatingProfitReport1";
+                    cmdToExecute.CommandText = "dbo.USP_GrossOperatingProfitReport2";
                     cmdToExecute.CommandType = CommandType.StoredProcedure;
                     cmdToExecute.CommandTimeout = 0;
                     cmdToExecute.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
                     cmdToExecute.Parameters.Add(new SqlParameter("@iCustomerMasterID", SqlDbType.Int, 0, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.CustomerMasterID));
                     cmdToExecute.Parameters.Add(new SqlParameter("@iCustomerBranchMasterID", SqlDbType.Int, 0, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.CustomerBranchMasterID));
                     cmdToExecute.Parameters.Add(new SqlParameter("@nsCentreCode", SqlDbType.NVarChar, 35, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.CentreCode));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@SessionMasterID", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.AccountSessionID));
 
                     if (_mainConnectionIsCreatedLocal)
                     {
@@ -125,6 +126,7 @@ namespace AERP.DataProvider
                         item.CustomerBranchMasterID = searchRequest.CustomerBranchMasterID;
                         item.CentreCode = searchRequest.CentreCode;
                         item.CentreName = searchRequest.CentreName;
+                        item.AccountSessionName = searchRequest.AccountSessionName;
 
                         baseEntityCollection.CollectionResponse.Add(item);
                     }

@@ -274,6 +274,17 @@ namespace AERP.ViewModel
                 GrossOperatingProfitReportDTO.CustomerBranchMasterID = value;
             }
         }
+        [Display(Name = "Session")]
+        public int AccountSessionID { get; set; }
+        public string AccountSessionName { get; set; }
+        public List<AccountSessionMaster> ListAccountSessionMaster { get; set; }
+        public IEnumerable<SelectListItem> AccountSessionMasterListItems
+        {
+            get
+            {
+                return new SelectList(ListAccountSessionMaster, "ID", "SessionName");
+            }
+        }
     }
 }
 

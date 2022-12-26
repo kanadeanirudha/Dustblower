@@ -26,6 +26,8 @@ namespace AERP.Web.UI.Controllers
         protected static string _CustomerBranchMasterName = string.Empty;
         protected static Int32 _CustomerMasterID = 0;
         protected static Int32 _CustomerBranchMasterID = 0;
+        protected static int _AccountSessionID = 0;
+        protected static string _AccountSessionName = string.Empty;
 
         #endregion
 
@@ -44,7 +46,7 @@ namespace AERP.Web.UI.Controllers
             if (IsApplied == true)
             {
                 GrossOperatingProfitReportViewModel model = new GrossOperatingProfitReportViewModel();
-
+                model.ListAccountSessionMaster = GetAllAccountSession();
                 _CustomerMasterID = model.CustomerMasterID;
                 _CustomerMasterName = model.CustomerMasterName;
                 _CustomerBranchMasterID = model.CustomerBranchMasterID;
@@ -82,6 +84,7 @@ namespace AERP.Web.UI.Controllers
         [HttpPost]
         public ActionResult Index(GrossOperatingProfitReportViewModel model)
         {
+            model.ListAccountSessionMaster = GetAllAccountSession();
             int AdminRoleMasterID = 0;
             if (Session["RoleID"] == null)
             {
@@ -111,6 +114,8 @@ namespace AERP.Web.UI.Controllers
                 _CustomerBranchMasterName = model.CustomerBranchMasterName;
                 _centreCode = model.CentreCode;
                 _centreName = model.CentreName;
+                _AccountSessionID = model.AccountSessionID;
+                _AccountSessionName = model.AccountSessionName;
                 model.IsPosted = false;
             }
             else
@@ -121,6 +126,8 @@ namespace AERP.Web.UI.Controllers
                 model.CustomerBranchMasterName = _CustomerBranchMasterName;
                 model.CentreCode = _centreCode;
                 model.CentreName = _centreName;
+                model.AccountSessionID = _AccountSessionID;
+                model.AccountSessionName = _AccountSessionName;
             }
             
             return View("/Views/Contract/Report/GrossOperatingProfitReport/Index.cshtml", model);
@@ -129,26 +136,6 @@ namespace AERP.Web.UI.Controllers
         #endregion
 
         #region ------------CONTROLLER NON ACTION METHODS------------
-
-        //protected List<SaleContractAttendance> GetSpanListBySaleContractMaster(Int64 CustomerMasterID)
-        //{
-
-        //    SaleContractAttendanceSearchRequest searchRequest = new SaleContractAttendanceSearchRequest();
-        //    searchRequest.ConnectionString = Convert.ToString(ConfigurationManager.ConnectionStrings["Main.ConnectionString"]);
-        //    searchRequest.CustomerMasterID = Convert.ToInt64(CustomerMasterID);
-
-        //    List<SaleContractAttendance> listSaleContractAttendance = new List<SaleContractAttendance>();
-        //    IBaseEntityCollectionResponse<SaleContractAttendance> baseEntityCollectionResponse = _SaleContractAttendanceBA.GetSpanListBySaleContractMaster(searchRequest);
-        //    if (baseEntityCollectionResponse != null)
-        //    {
-        //        if (baseEntityCollectionResponse.CollectionResponse != null && baseEntityCollectionResponse.CollectionResponse.Count > 0)
-        //        {
-        //            listSaleContractAttendance = baseEntityCollectionResponse.CollectionResponse.ToList();
-
-        //        }
-        //    }
-        //    return listSaleContractAttendance;
-        //}
 
         public List<GrossOperatingProfitReport> GetGrossOperatingProfitReportList()
         {
@@ -166,6 +153,8 @@ namespace AERP.Web.UI.Controllers
                     searchRequest.CustomerBranchMasterName = _CustomerBranchMasterName;
                     searchRequest.CentreCode = _centreCode;
                     searchRequest.CentreName = _centreName;
+                    searchRequest.AccountSessionID = _AccountSessionID;
+                    searchRequest.AccountSessionName = _AccountSessionName;
                     IBaseEntityCollectionResponse<GrossOperatingProfitReport> baseEntityCollectionResponse = _GrossOperatingProfitReportBA.GetGrossOperatingProfitReportDataList(searchRequest);
                     if (baseEntityCollectionResponse != null)
                     {

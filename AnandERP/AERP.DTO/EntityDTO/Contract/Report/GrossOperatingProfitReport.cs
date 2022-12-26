@@ -105,5 +105,6 @@ namespace AERP.DTO
         public decimal NetProfit { get; set; }
         public decimal Profit { get; set; }
         public string Granularity { get; set; }
+        public string AccountSessionName { get; set; }
     }
 }

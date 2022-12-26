@@ -22,6 +22,8 @@ namespace AERP.DTO
         public string CustomerMasterName { get; set; }
         public int CustomerBranchMasterID { get; set; }
         public string CustomerBranchMasterName { get; set; }
+        public int AccountSessionID { get; set; }
+        public string AccountSessionName { get; set; }
         public string SearchWord
         {
             get;
