@@ -139,5 +139,6 @@ namespace AERP.DTO
         public Int32 TotalEmployeeCount { get; set; }
         public Int32 TotalEmployeeCountNotAged { get; set; }
         public string PFAmountInWords { get; set; }
+        public int ESICZoneID { get; set; }
     }
 }

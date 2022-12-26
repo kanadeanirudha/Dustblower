@@ -20,6 +20,7 @@ namespace AERP.Web.UI.Controllers
         #region ------------CONTROLLER CLASS VARIABLE------------
         private string _connectioString = Convert.ToString(ConfigurationManager.ConnectionStrings["Main.ConnectionString"]);
         IPFChallanRemittanceBA _PFChallanRemittanceBA = null;
+        IESICZoneMasterBA _ESICZoneMasterBA = null;
         private readonly ILogger _logException;
         protected static string _centreCode = string.Empty;
         protected static string _centreName = string.Empty;
@@ -27,13 +28,13 @@ namespace AERP.Web.UI.Controllers
         protected static string _Year = string.Empty;
         protected static int _SaleContractEmployeeMasterID = 0;
         protected static int _AccountSessionID = 0;
-
         #endregion
 
         #region ------------CONTROLLER CLASS CONSTRUCTOR------------
         public PFChallanRemittanceController()
         {
             _PFChallanRemittanceBA = new PFChallanRemittanceBA();
+            _ESICZoneMasterBA = new ESICZoneMasterBA();
         }
         #endregion
 
@@ -86,6 +87,16 @@ namespace AERP.Web.UI.Controllers
                     a.CentreName = item.CentreName;
                     model.ListGetAdminRoleApplicableCentre.Add(a);
                 }
+
+                List<ESICZoneMaster> ESICZoneMasterList = GetListESICZoneMaster();
+                List<SelectListItem> ESICZoneMaster = new List<SelectListItem>();
+                //ESICZoneMaster.Add(new SelectListItem { Text = "All", Value = "0" });
+                foreach (ESICZoneMaster item in ESICZoneMasterList)
+                {
+                    ESICZoneMaster.Add(new SelectListItem { Text = item.ZoneName, Value = item.ID.ToString() });
+                }
+                ViewBag.ESICZoneMaster = new SelectList(ESICZoneMaster, "Value", "Text");
+
                 return View("/Views/Contract/Report/PFChallanRemittance/Index.cshtml", model);
             }
             else
@@ -94,7 +105,7 @@ namespace AERP.Web.UI.Controllers
             }
         }
 
-        public ActionResult List(string MonthName, string MonthYear,string CentreCode)
+        public ActionResult List(string MonthName, string MonthYear, string CentreCode)
         {
             try
             {
@@ -114,14 +125,14 @@ namespace AERP.Web.UI.Controllers
                     model.ChallanRemmittanceDate = model.PFChallanRemittanceDetailListForparticulars[0].ChallanRemmittanceDate;
                     model.ID = model.PFChallanRemittanceDetailListForparticulars[0].ID;
 
-                     TotalAcc01 = model.PFChallanRemittanceDetailListForparticulars[0].Acc01 + model.PFChallanRemittanceDetailListForparticulars[0].WorkersShare;
+                    TotalAcc01 = model.PFChallanRemittanceDetailListForparticulars[0].Acc01 + model.PFChallanRemittanceDetailListForparticulars[0].WorkersShare;
                     TotalPF = TotalAcc01 + model.PFChallanRemittanceDetailListForparticulars[0].Acc02 + model.PFChallanRemittanceDetailListForparticulars[0].Acc21 + model.PFChallanRemittanceDetailListForparticulars[0].Acc10 + model.PFChallanRemittanceDetailListForparticulars[0].Acc22;
 
                 }
 
                 string Amountt = Convert.ToString(Math.Round(TotalPF));
                 model.PFAmountInWords = ConvertToWords(Amountt);
-                
+
                 List<SelectListItem> li = new List<SelectListItem>();
                 li.Add(new SelectListItem { Text = "--Select--", Value = "0" });
                 li.Add(new SelectListItem { Text = "Online Mode", Value = "1" });
@@ -136,7 +147,7 @@ namespace AERP.Web.UI.Controllers
             }
 
         }
-        public ActionResult DownloadTxtFile(string MonthName, string MonthYear,string CentreCode)
+        public ActionResult DownloadTxtFile(string MonthName, string MonthYear, string CentreCode, string ESICZoneID)
         {
             MemoryStream memoryStream = new MemoryStream();
 
@@ -145,19 +156,19 @@ namespace AERP.Web.UI.Controllers
             PFChallanRemittanceViewModel model = new PFChallanRemittanceViewModel();
 
 
-            model.PFChallanRemittanceList = GetPFChallanRemittanceList(MonthName, MonthYear, CentreCode);
+            model.PFChallanRemittanceList = GetPFChallanRemittanceList(MonthName, MonthYear, CentreCode, ESICZoneID);
             int row = model.PFChallanRemittanceList.Count;
 
             for (int i = 0; i < model.PFChallanRemittanceList.Count; i++)
             {
-                  if (i == row - 1)
-                { 
+                if (i == row - 1)
+                {
                     tw.Write(model.PFChallanRemittanceList[i].UploadString.Trim());
                 }
                 else
-                { 
+                {
                     tw.WriteLine(model.PFChallanRemittanceList[i].UploadString);
-                   
+
                 }
 
 
@@ -222,7 +233,7 @@ namespace AERP.Web.UI.Controllers
         #region ------------CONTROLLER NON ACTION METHODS------------
 
 
-        public List<PFChallanRemittance> GetPFChallanRemittanceList(string Month, string Year,string CentreCode)
+        public List<PFChallanRemittance> GetPFChallanRemittanceList(string Month, string Year, string CentreCode, string ESICZoneID)
         {
             try
             {
@@ -232,6 +243,7 @@ namespace AERP.Web.UI.Controllers
                 searchRequest.MonthName = Month;
                 searchRequest.MonthYear = Year;
                 searchRequest.CentreCode = CentreCode;
+                searchRequest.ESICZoneID = Convert.ToInt16(ESICZoneID);
                 IBaseEntityCollectionResponse<PFChallanRemittance> baseEntityCollectionResponse = _PFChallanRemittanceBA.GetPFChallanRemittanceDataList(searchRequest);
                 if (baseEntityCollectionResponse != null)
                 {
@@ -248,7 +260,7 @@ namespace AERP.Web.UI.Controllers
                 throw;
             }
         }
-        public List<PFChallanRemittance> GetPFChallanRemittanceListForParticularsMonthWise(string Month, string Year,string CentreCode)
+        public List<PFChallanRemittance> GetPFChallanRemittanceListForParticularsMonthWise(string Month, string Year, string CentreCode)
         {
             try
             {
@@ -275,7 +287,21 @@ namespace AERP.Web.UI.Controllers
             }
         }
 
-
+        protected List<ESICZoneMaster> GetListESICZoneMaster()
+        {
+            ESICZoneMasterSearchRequest searchRequest = new ESICZoneMasterSearchRequest();
+            searchRequest.ConnectionString = Convert.ToString(ConfigurationManager.ConnectionStrings["Main.ConnectionString"]);
+            List<ESICZoneMaster> listESICZoneMaster = new List<ESICZoneMaster>();
+            IBaseEntityCollectionResponse<ESICZoneMaster> baseEntityCollectionResponse = _ESICZoneMasterBA.GetDropDownListforESICZoneMaster(searchRequest);
+            if (baseEntityCollectionResponse != null)
+            {
+                if (baseEntityCollectionResponse.CollectionResponse != null && baseEntityCollectionResponse.CollectionResponse.Count > 0)
+                {
+                    listESICZoneMaster = baseEntityCollectionResponse.CollectionResponse.ToList();
+                }
+            }
+            return listESICZoneMaster;
+        }
         #endregion
 
 

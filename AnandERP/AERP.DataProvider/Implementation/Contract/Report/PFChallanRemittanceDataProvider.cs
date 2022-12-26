@@ -61,12 +61,13 @@ namespace AERP.DataProvider
                     _mainConnection.ConnectionString = searchRequest.ConnectionString;
 
                     cmdToExecute.Connection = _mainConnection;
-                    cmdToExecute.CommandText = "dbo.USP_PFChallanRemittance1";
+                    cmdToExecute.CommandText = "dbo.USP_PFChallanRemittance2";
                     cmdToExecute.CommandType = CommandType.StoredProcedure;
                     cmdToExecute.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
                     cmdToExecute.Parameters.Add(new SqlParameter("@tiMonth", SqlDbType.TinyInt, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.MonthName));
                     cmdToExecute.Parameters.Add(new SqlParameter("@nsYear", SqlDbType.NVarChar, 35, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.MonthYear));
                     cmdToExecute.Parameters.Add(new SqlParameter("@nsCentreCode", SqlDbType.NVarChar, 35, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.CentreCode));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@siPFICZoneID", SqlDbType.SmallInt, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.ESICZoneID));
                     if (_mainConnectionIsCreatedLocal)
                     {
                         // Open connection.

@@ -84,5 +84,11 @@ namespace AERP.DTO
             get;
             set;
         }
+        public short ESICZoneID
+        {
+            get;
+            set;
+        }
+        
     }
 }

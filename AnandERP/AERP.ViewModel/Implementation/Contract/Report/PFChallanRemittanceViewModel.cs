@@ -336,7 +336,18 @@ namespace AERP.ViewModel
             }
         }
 
-        
+        [Display(Name = "ESIC Zone")]
+        public int ESICZoneID
+        {
+            get
+            {
+                return (PFChallanRemittance != null && PFChallanRemittance.ESICZoneID > 0) ? PFChallanRemittance.ESICZoneID : new int();
+            }
+            set
+            {
+                PFChallanRemittance.ESICZoneID = value;
+            }
+        }
     }
 }
 
