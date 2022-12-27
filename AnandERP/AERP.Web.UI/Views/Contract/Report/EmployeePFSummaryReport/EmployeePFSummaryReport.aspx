@@ -24,7 +24,7 @@
             if (!IsPostBack)
             {
                 rvEmployeePFSummaryReport.ProcessingMode = ProcessingMode.Local;
-                List<AERP.DTO.EmployeePFSummaryReport> EmployeePFSummaryReport = null;
+                List<AERP.DTO.EmployeePFSummery> EmployeePFSummaryReport = null;
 
                 if (Request.RequestType == "POST")
                 {

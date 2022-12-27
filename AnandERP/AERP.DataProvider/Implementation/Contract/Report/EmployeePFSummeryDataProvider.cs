@@ -1,6 +1,7 @@
 ﻿using AERP.Base.DTO;
 using AERP.DTO;
 using AERP.ExceptionManager;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -61,11 +62,12 @@ namespace AERP.DataProvider
                     _mainConnection.ConnectionString = searchRequest.ConnectionString;
 
                     cmdToExecute.Connection = _mainConnection;
-                    cmdToExecute.CommandText = "dbo.USP_EmployeesProvidentFundsForm6A";
+                    cmdToExecute.CommandText = "dbo.USP_PFSummaryYearly";
                     cmdToExecute.CommandType = CommandType.StoredProcedure;
                     cmdToExecute.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
-                    //cmdToExecute.Parameters.Add(new SqlParameter("@dtFromDate", SqlDbType.NVarChar, 35, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.FromDate));
-                    //cmdToExecute.Parameters.Add(new SqlParameter("@dtUptoDate", SqlDbType.NVarChar, 35, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.UptoDate));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@dtFromDate", SqlDbType.NVarChar, 35, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.FromDate));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@dtUptoDate", SqlDbType.NVarChar, 35, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.UptoDate));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@nsCentreCode", SqlDbType.NVarChar, 35, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.CentreCode));
 
                     if (_mainConnectionIsCreatedLocal)
                     {
@@ -86,20 +88,23 @@ namespace AERP.DataProvider
                     while (sqlDataReader.Read())
                     {
                         EmployeePFSummery item = new EmployeePFSummery();
-
-
-                        item.TotalAmountOfWages = sqlDataReader["TotalAmountOfWages"] is DBNull ? new decimal() : Convert.ToDecimal(sqlDataReader["TotalAmountOfWages"]);
-                        item.TotalWorkersShareEPF = sqlDataReader["TotalWorkersShareEPF"] is DBNull ? new decimal() : Convert.ToDecimal(sqlDataReader["TotalWorkersShareEPF"]);
-                        item.TotalEmployersShareEPF = sqlDataReader["TotalEmployersShareEPF"] is DBNull ? new decimal() : Convert.ToDecimal(sqlDataReader["TotalEmployersShareEPF"]);
-                        item.TotalEmployersShareEPS = sqlDataReader["TotalEmployersShareEPS"] is DBNull ? new decimal() : Convert.ToDecimal(sqlDataReader["TotalEmployersShareEPS"]);
-                        item.EmployeeName = sqlDataReader["EmployeeName"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["EmployeeName"]);
-                        item.EmployeeFathersFullName = sqlDataReader["EmployeeFathersFullName"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["EmployeeFathersFullName"]);
-                        item.PFAccountNmber = sqlDataReader["PFAccountNmber"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["PFAccountNmber"]);
+                        item.EmployeeCnt = sqlDataReader["EmployeeCnt"] is DBNull ? new int() : Convert.ToInt32(sqlDataReader["EmployeeCnt"]);
+                        item.EmployeeNotAgeCnt = sqlDataReader["EmployeeNotAgeCnt"] is DBNull ? new int() : Convert.ToInt32(sqlDataReader["EmployeeNotAgeCnt"]);
+                        item.TotalWagesAmount = sqlDataReader["TotalWagesAmount"] is DBNull ? new decimal() : Convert.ToDecimal(sqlDataReader["TotalWagesAmount"]);
+                        item.TotalNotAgedWagesAmount = sqlDataReader["TotalNotAgedWagesAmount"] is DBNull ? new decimal() : Convert.ToDecimal(sqlDataReader["TotalNotAgedWagesAmount"]);
+                        item.WorkersShare = sqlDataReader["WorkersShare"] is DBNull ? new decimal() : Convert.ToDecimal(sqlDataReader["WorkersShare"]);
+                        item.Acc01 = sqlDataReader["Acc01"] is DBNull ? new decimal() : Convert.ToDecimal(sqlDataReader["Acc01"]);
+                        item.Acc02 = sqlDataReader["Acc02"] is DBNull ? new decimal() : Convert.ToDecimal(sqlDataReader["Acc02"]);
+                        item.Acc10 = sqlDataReader["Acc10"] is DBNull ? new decimal() : Convert.ToDecimal(sqlDataReader["Acc10"]);
+                        item.Acc21 = sqlDataReader["Acc21"] is DBNull ? new decimal() : Convert.ToDecimal(sqlDataReader["Acc21"]);
+                        item.Acc22 = sqlDataReader["Acc22"] is DBNull ? new decimal() : Convert.ToDecimal(sqlDataReader["Acc22"]);
                         item.CentreName = sqlDataReader["CentreName"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CentreName"]);
-                        item.CentreAdress = sqlDataReader["CentreAdress"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CentreAdress"]);
-                        item.RateOfContribution = sqlDataReader["RateOfContribution"] is DBNull ? new decimal() : Convert.ToDecimal(sqlDataReader["RateOfContribution"]);
-                        //item.FromDate = searchRequest.FromDate;
-                        //item.UptoDate = searchRequest.UptoDate;
+                        item.CentreAddress = sqlDataReader["CentreAddress"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CentreAddress"]);
+                        item.SalaryMonth = sqlDataReader["SalaryMonth"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["SalaryMonth"]);
+                        item.SalaryYear = sqlDataReader["SalaryYear"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["SalaryYear"]);
+
+                        item.FromDate = searchRequest.FromDate;
+                        item.UptoDate = searchRequest.UptoDate;
                         baseEntityCollection.CollectionResponse.Add(item);
                     }
 

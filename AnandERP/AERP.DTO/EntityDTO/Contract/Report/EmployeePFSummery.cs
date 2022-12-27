@@ -1,19 +1,13 @@
 ﻿using AERP.Base.DTO;
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AERP.DTO
 {
     public class EmployeePFSummery : BaseDTO
     {
-        public Int64 ID
-        {
-            get;
-            set;
-        }
+        public int EmployeeCnt { get; set; }
+        public int EmployeeNotAgeCnt { get; set; }
         public string FromDate
         {
             get; set;
@@ -26,92 +20,49 @@ namespace AERP.DTO
         {
             get; set;
         }
-        public string EmployeeName
+        public string SalaryMonth
         {
             get; set;
         }
-        public string EmployeeFathersFullName
+        public string SalaryYear
         {
             get; set;
         }
-        public string PFAccountNmber
+        public decimal TotalWagesAmount
         {
             get; set;
         }
-        public string MonthYear
+        public decimal TotalNotAgedWagesAmount
         {
             get; set;
         }
-        public decimal TotalAmountOfWages
+        public decimal WorkersShare
         {
             get; set;
         }
-
-        public decimal TotalWorkersShareEPF
+        public string CentreAddress
         {
             get; set;
         }
-
-        public decimal TotalEmployersShareEPF
+        public decimal Acc01
         {
             get; set;
         }
-
-        public decimal TotalEmployersShareEPS
+        public decimal Acc02
         {
             get; set;
         }
-
-        public string CentreAdress
+        public decimal Acc10
         {
             get; set;
         }
-        public decimal RateOfContribution { get; set; }
-        public bool IsDeleted
+        public decimal Acc21
         {
-            get;
-            set;
+            get; set;
         }
-
-        public int CreatedBy
+        public decimal Acc22
         {
-            get;
-            set;
+            get; set;
         }
-
-        public DateTime CreatedDate
-        {
-            get;
-            set;
-        }
-
-        public int ModifiedBy
-        {
-            get;
-            set;
-        }
-
-        public DateTime? ModifiedDate
-        {
-            get;
-            set;
-        }
-
-        public int DeletedBy
-        {
-            get;
-            set;
-        }
-
-        public DateTime? DeletedDate
-        {
-            get;
-            set;
-        }
-        public string errorMessage { get; set; }
-
-        public int SaleContractEmployeeMasterID { get; set; }
-        public string SaleContractEmployeeMasterName { get; set; }
-        public int AccountSessionID { get; set; }
     }
 }
