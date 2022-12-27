@@ -422,6 +422,7 @@
     <Compile Include="Controllers\Contract\Report\ContractListTillDateReportController.cs" />
     <Compile Include="Controllers\Contract\Report\ContractWisePFESICChecklistReportController.cs" />
     <Compile Include="Controllers\Contract\Report\ContractSalaryAndInvoiceStatusReportController.cs" />
+    <Compile Include="Controllers\Contract\Report\EmployeeESICSummaryReportController.cs" />
     <Compile Include="Controllers\Contract\Report\EmployeeESICForm6ReportController.cs" />
     <Compile Include="Controllers\Contract\Report\SalesInvoiceMasterCancelledReportController.cs" />
     <Compile Include="Controllers\Contract\Report\MachineTransactionReportController.cs" />

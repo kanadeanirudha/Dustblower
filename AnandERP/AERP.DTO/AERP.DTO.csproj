@@ -88,6 +88,7 @@
     <Compile Include="EntityDTO\Contract\Report\ContractListTillDateReport.cs" />
     <Compile Include="EntityDTO\Contract\Report\ContractWisePFESICChecklistReport.cs" />
     <Compile Include="EntityDTO\Contract\Report\ContractSalaryAndInvoiceStatusReport.cs" />
+    <Compile Include="EntityDTO\Contract\Report\EmployeeESICSummaryReport.cs" />
     <Compile Include="EntityDTO\Contract\Report\EmployeeESICForm6Report.cs" />
     <Compile Include="EntityDTO\Contract\Report\SalesInvoiceMasterCancelledReport.cs" />
     <Compile Include="EntityDTO\Contract\Report\MachineTransactionReport.cs" />
@@ -303,6 +304,7 @@
     <Compile Include="SearchRequestDTO\Contract\Report\ContractListTillDateReportSearchRequest.cs" />
     <Compile Include="SearchRequestDTO\Contract\Report\ContractWisePFESICChecklistReportSearchRequest.cs" />
     <Compile Include="SearchRequestDTO\Contract\Report\ContractSalaryAndInvoiceStatusReportSearchRequest.cs" />
+    <Compile Include="SearchRequestDTO\Contract\Report\EmployeeESICSummaryReportSearchRequest.cs" />
     <Compile Include="SearchRequestDTO\Contract\Report\EmployeeESICForm6ReportSearchRequest.cs" />
     <Compile Include="SearchRequestDTO\Contract\Report\SalesInvoiceMasterCancelledReportSearchRequest.cs" />
     <Compile Include="SearchRequestDTO\Contract\Report\MachineTransactionReportSearchRequest.cs" />

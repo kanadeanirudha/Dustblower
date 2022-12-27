@@ -87,6 +87,7 @@
     <Compile Include="BusinessActions\Implementation\Contract\Report\ContractListTillDateReportBA.cs" />
     <Compile Include="BusinessActions\Implementation\Contract\Report\ContractWisePFESICChecklistReportBA.cs" />
     <Compile Include="BusinessActions\Implementation\Contract\Report\ContractSalaryAndInvoiceStatusReportBA.cs" />
+    <Compile Include="BusinessActions\Implementation\Contract\Report\EmployeeESICSummaryReportBA.cs" />
     <Compile Include="BusinessActions\Implementation\Contract\Report\EmployeeESICForm6ReportBA.cs" />
     <Compile Include="BusinessActions\Implementation\Contract\Report\SalesInvoiceMasterCancelledReportBA.cs" />
     <Compile Include="BusinessActions\Implementation\Contract\Report\MachineTransactionReportBA.cs" />
@@ -310,6 +311,7 @@
     <Compile Include="BusinessActions\Interface\Contract\Report\IContractListTillDateReportBA.cs" />
     <Compile Include="BusinessActions\Interface\Contract\Report\IContractWisePFESICChecklistReportBA.cs" />
     <Compile Include="BusinessActions\Interface\Contract\Report\IContractSalaryAndInvoiceStatusReportBA.cs" />
+    <Compile Include="BusinessActions\Interface\Contract\Report\IEmployeeESICSummaryReportBA.cs" />
     <Compile Include="BusinessActions\Interface\Contract\Report\IEmployeeESICForm6ReportBA.cs" />
     <Compile Include="BusinessActions\Interface\Contract\Report\ISalesInvoiceMasterCancelledReportBA.cs" />
     <Compile Include="BusinessActions\Interface\Contract\Report\IMachineTransactionReportBA.cs" />

@@ -1,23 +1,26 @@
 ﻿using AERP.Base.DTO;
-using AERP.Business.BusinessAction;
 using AERP.DTO;
 using AERP.ExceptionManager;
 using AERP.ViewModel;
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
+using AERP.Common;
+using AERP.DataProvider;
+using AERP.Business.BusinessAction;
+using System.Globalization;
 namespace AERP.Web.UI.Controllers
 {
-    public class EmployeeESICForm6ReportController : BaseController
+    public class EmployeeESICSummaryReportController : BaseController
     {
         #region ------------CONTROLLER CLASS VARIABLE------------
-        IEmployeeESICForm6ReportBA _EmployeeESICForm6ReportBA = null;
+        IEmployeeESICSummaryReportBA _EmployeeESICSummaryReportBA = null;
         IESICZoneMasterBA _ESICZoneMasterBA = null;
         private readonly ILogger _logException;
         protected static string _centreCode = string.Empty;
+        protected static string _centreName = string.Empty;
         protected static string _ESICZone = string.Empty;
         protected static string _FromDate = string.Empty;
         protected static string _UptoDate = string.Empty;
@@ -26,9 +29,9 @@ namespace AERP.Web.UI.Controllers
         #endregion
 
         #region ------------CONTROLLER CLASS CONSTRUCTOR------------
-        public EmployeeESICForm6ReportController()
+        public EmployeeESICSummaryReportController()
         {
-            _EmployeeESICForm6ReportBA = new EmployeeESICForm6ReportBA();
+            _EmployeeESICSummaryReportBA = new EmployeeESICSummaryReportBA();
             _ESICZoneMasterBA = new ESICZoneMasterBA();
         }
         #endregion
@@ -39,7 +42,7 @@ namespace AERP.Web.UI.Controllers
             bool IsApplied = CheckMenuApplicableOrNot(ControllerContext.RouteData.Values["Controller"].ToString());
             if (IsApplied == true)
             {
-                EmployeeESICForm6ReportViewModel model = new EmployeeESICForm6ReportViewModel();
+                EmployeeESICSummaryReportViewModel model = new EmployeeESICSummaryReportViewModel();
                 
                 List<ESICZoneMaster> ESICZoneMasterList = GetListESICZoneMaster();
                 List<SelectListItem> ESICZoneMaster = new List<SelectListItem>();
@@ -70,7 +73,7 @@ namespace AERP.Web.UI.Controllers
                     model.ListGetAdminRoleApplicableCentre.Add(a);
                 }
 
-                return View("/Views/Contract/Report/EmployeeESICForm6Report/Index.cshtml", model);
+                return View("/Views/Contract/Report/EmployeeESICSummaryReport/Index.cshtml", model);
             }
             else
             {
@@ -79,7 +82,7 @@ namespace AERP.Web.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(EmployeeESICForm6ReportViewModel model)
+        public ActionResult Index(EmployeeESICSummaryReportViewModel model)
         {
 
             List<ESICZoneMaster> ESICZoneMasterList = GetListESICZoneMaster();
@@ -118,6 +121,7 @@ namespace AERP.Web.UI.Controllers
                 _ESICZoneID = model.ESICZoneID;
                 _centreCode = model.CentreCode;
                 _ESICZone = model.ESICZone;
+                _centreName = model.CentreName;
                 model.IsPosted = false;
 
             }
@@ -127,9 +131,10 @@ namespace AERP.Web.UI.Controllers
                 model.UptoDate = _UptoDate;
                 model.ESICZoneID = _ESICZoneID;
                 model.CentreCode = _centreCode;
+                model.CentreName = _centreName;
                 model.ESICZone = _ESICZone;
             }
-            return View("/Views/Contract/Report/EmployeeESICForm6Report/Index.cshtml", model);
+            return View("/Views/Contract/Report/EmployeeESICSummaryReport/Index.cshtml", model);
         }
 
         #endregion
@@ -152,12 +157,12 @@ namespace AERP.Web.UI.Controllers
             return listESICZoneMaster;
         }
 
-        public List<EmployeeESICForm6Report> GetEmployeeESICForm6ReportList()
+        public List<EmployeeESICSummaryReport> GetEmployeeESICSummaryReportList()
         {
             try
             {
-                List<EmployeeESICForm6Report> listEmployeeESICForm6Report = new List<EmployeeESICForm6Report>();
-                EmployeeESICForm6ReportSearchRequest searchRequest = new EmployeeESICForm6ReportSearchRequest();
+                List<EmployeeESICSummaryReport> listEmployeeESICSummaryReport = new List<EmployeeESICSummaryReport>();
+                EmployeeESICSummaryReportSearchRequest searchRequest = new EmployeeESICSummaryReportSearchRequest();
                 searchRequest.ConnectionString = Convert.ToString(ConfigurationManager.ConnectionStrings["Main.ConnectionString"]);
                 searchRequest.CentreCode = _centreCode;
                 if (_FromDate != string.Empty && _centreCode != string.Empty)
@@ -166,17 +171,18 @@ namespace AERP.Web.UI.Controllers
                     searchRequest.UptoDate = Convert.ToString(_UptoDate);
                     searchRequest.ESICZoneID = _ESICZoneID;
                     searchRequest.CentreCode = _centreCode;
+                    searchRequest.CentreName = _centreName;
                     searchRequest.ESICZone = _ESICZone;
-                    IBaseEntityCollectionResponse<EmployeeESICForm6Report> baseEntityCollectionResponse = _EmployeeESICForm6ReportBA.GetEmployeeESICForm6ReportDataList(searchRequest);
+                    IBaseEntityCollectionResponse<EmployeeESICSummaryReport> baseEntityCollectionResponse = _EmployeeESICSummaryReportBA.GetEmployeeESICSummaryReportDataList(searchRequest);
                     if (baseEntityCollectionResponse != null)
                     {
                         if (baseEntityCollectionResponse.CollectionResponse != null && baseEntityCollectionResponse.CollectionResponse.Count > 0)
                         {
-                            listEmployeeESICForm6Report = baseEntityCollectionResponse.CollectionResponse.ToList();
+                            listEmployeeESICSummaryReport = baseEntityCollectionResponse.CollectionResponse.ToList();
                         }
                     }
                 }
-                return listEmployeeESICForm6Report;
+                return listEmployeeESICSummaryReport;
             }
             catch (Exception ex)
             {
