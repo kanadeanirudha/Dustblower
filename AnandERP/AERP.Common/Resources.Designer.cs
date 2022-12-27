@@ -1978,6 +1978,15 @@ namespace AERP.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auditor Report.
+        /// </summary>
+        public static string ParentMenu_AuditorReport {
+            get {
+                return ResourceManager.GetString("ParentMenu_AuditorReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category Details.
         /// </summary>
         public static string ParentMenu_CategoryDetails {
@@ -3175,11 +3184,29 @@ namespace AERP.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ESIC Form 6.
+        /// </summary>
+        public static string SubMenu_EmployeeESICForm6Report {
+            get {
+                return ResourceManager.GetString("SubMenu_EmployeeESICForm6Report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ESIC Report Form 7.
         /// </summary>
         public static string SubMenu_EmployeeESICReportForm7 {
             get {
                 return ResourceManager.GetString("SubMenu_EmployeeESICReportForm7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ESIC Summary.
+        /// </summary>
+        public static string SubMenu_EmployeeESICSummaryReport {
+            get {
+                return ResourceManager.GetString("SubMenu_EmployeeESICSummaryReport", resourceCulture);
             }
         }
         
@@ -3225,6 +3252,15 @@ namespace AERP.Common {
         public static string SubMenu_EmployeePFReportForm9 {
             get {
                 return ResourceManager.GetString("SubMenu_EmployeePFReportForm9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PF Summary.
+        /// </summary>
+        public static string SubMenu_EmployeePFSummaryReport {
+            get {
+                return ResourceManager.GetString("SubMenu_EmployeePFSummaryReport", resourceCulture);
             }
         }
         

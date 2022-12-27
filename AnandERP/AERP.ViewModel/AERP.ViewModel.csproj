@@ -91,6 +91,7 @@
     <Compile Include="Implementation\Contract\Report\ContractListTillDateReportViewModel.cs" />
     <Compile Include="Implementation\Contract\Report\ContractWisePFESICChecklistReportViewModel.cs" />
     <Compile Include="Implementation\Contract\Report\ContractSalaryAndInvoiceStatusReportViewModel.cs" />
+    <Compile Include="Implementation\Contract\Report\EmployeeESICForm6ReportViewModel.cs" />
     <Compile Include="Implementation\Contract\Report\SalesInvoiceMasterCancelledReportViewModel.cs" />
     <Compile Include="Implementation\Contract\Report\MachineTransactionReportViewModel.cs" />
     <Compile Include="Implementation\Contract\Report\ContractSalaryBonusReportViewModel.cs" />

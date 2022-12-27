@@ -1758,4 +1758,16 @@
   <data name="SubMenu_GeneralTaskReportingDetails" xml:space="preserve">
     <value>Task Reporting Details</value>
   </data>
+  <data name="ParentMenu_AuditorReport" xml:space="preserve">
+    <value>Auditor Report</value>
+  </data>
+  <data name="SubMenu_EmployeeESICForm6Report" xml:space="preserve">
+    <value>ESIC Form 6</value>
+  </data>
+  <data name="SubMenu_EmployeeESICSummaryReport" xml:space="preserve">
+    <value>ESIC Summary</value>
+  </data>
+  <data name="SubMenu_EmployeePFSummaryReport" xml:space="preserve">
+    <value>PF Summary</value>
+  </data>
 </root>

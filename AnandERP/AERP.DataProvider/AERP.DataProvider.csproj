@@ -91,6 +91,7 @@
     <Compile Include="Implementation\Contract\Report\ContractListTillDateReportDataProvider.cs" />
     <Compile Include="Implementation\Contract\Report\ContractWisePFESICChecklistReportDataProvider.cs" />
     <Compile Include="Implementation\Contract\Report\ContractSalaryAndInvoiceStatusReportDataProvider.cs" />
+    <Compile Include="Implementation\Contract\Report\EmployeeESICForm6ReportDataProvider.cs" />
     <Compile Include="Implementation\Contract\Report\SalesInvoiceMasterCancelledReportDataProvider.cs" />
     <Compile Include="Implementation\Contract\Report\MachineTransactionReportDataProvider.cs" />
     <Compile Include="Implementation\Contract\Report\ContractSalaryBonusReportDataProvider.cs" />
@@ -313,6 +314,7 @@
     <Compile Include="Interface\Contract\Report\IContractListTillDateReportDataProvider.cs" />
     <Compile Include="Interface\Contract\Report\IContractWisePFESICChecklistReportDataProvider.cs" />
     <Compile Include="Interface\Contract\Report\IContractSalaryAndInvoiceStatusReportDataProvider.cs" />
+    <Compile Include="Interface\Contract\Report\IEmployeeESICForm6ReportDataProvider.cs" />
     <Compile Include="Interface\Contract\Report\ISalesInvoiceMasterCancelledReportDataProvider.cs" />
     <Compile Include="Interface\Contract\Report\IMachineTransactionReportDataProvider.cs" />
     <Compile Include="Interface\Contract\Report\IContractSalaryBonusReportDataProvider.cs" />
