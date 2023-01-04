@@ -89,7 +89,10 @@ namespace AERP.DataProvider
                     {
                         cmdToExecute.CommandText = "dbo.USP_TaskNotificationDetailsForCI_SelectByPersonID";
                     }
-
+                    else if (searchRequest.TaskCode == "CSR" || searchRequest.TaskCode == "CSD")
+                    {
+                        cmdToExecute.CommandText = "dbo.USP_TaskNotificationDetailsForCSR_SelectByPersonID";
+                    }
                     cmdToExecute.CommandType = CommandType.StoredProcedure;
                     cmdToExecute.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
                     cmdToExecute.Parameters.Add(new SqlParameter("@iPersonID", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.PersonID));
@@ -267,6 +270,17 @@ namespace AERP.DataProvider
                             {
                                 item.CompanyName = Convert.ToString(sqlDataReader["CompanyName"]);
                             }
+                        }
+                        if (searchRequest.TaskCode == "CSR" || searchRequest.TaskCode == "CSD")
+                        {
+                            if (!DBNull.Value.Equals(sqlDataReader["CustomerName"]))
+                                item.CustomerName = Convert.ToString(sqlDataReader["CustomerName"]);
+                            if (!DBNull.Value.Equals(sqlDataReader["ItemName"]))
+                                item.ItemName = Convert.ToString(sqlDataReader["ItemName"]);
+                            if (!DBNull.Value.Equals(sqlDataReader["Location"]))
+                                item.Location = Convert.ToString(sqlDataReader["Location"]);
+                            if (!DBNull.Value.Equals(sqlDataReader["SalePrice"]))
+                                item.SalePrice = Convert.ToString(sqlDataReader["SalePrice"]);
                         }
                         baseEntityCollection.CollectionResponse.Add(item);
                         baseEntityCollection.TotalRecords = Convert.ToInt32(sqlDataReader["TotalRecords"]);

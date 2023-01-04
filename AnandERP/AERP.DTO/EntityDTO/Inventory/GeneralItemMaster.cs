@@ -1091,5 +1091,26 @@ namespace AERP.DTO
         public Int32 LastMtrRead { get; set; }
         public string ModelNo { get; set; }
         public string lifeInCopies { get; set; }
+        public int InventoryItemCodeUnitLevelCustomerSpecificInfoID { get; set; }
+        public Decimal SalePrice { get; set; }
+        public int CustomerMasterId { get; set; }
+        public string CustomerName { get; set; }
+        public int CustomerBranchMasterId { get; set; }
+        public string CustomerBranchName { get; set; }
+        public byte ApprovalStatus { get; set; }
+        public byte CustomerType { get; set; }
+        public int TaskNotificationDetailsID { get; set; }
+
+        public int TaskNotificationMasterID { get; set; }
+
+        public int GeneralTaskReportingDetailsID { get; set; }
+
+        public int PersonID { get; set; }
+
+        public int StageSequenceNumber { get; set; }
+
+        public bool IsLastRecord { get; set; }
+        public byte ApprovedStatus { get; set; }
+        public int Status { get; set; }
     }
 }

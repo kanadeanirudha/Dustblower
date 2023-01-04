@@ -1,30 +1,26 @@
 ﻿using AERP.Base.DTO;
-using AERP.DTO;
 using AERP.Business.BusinessAction;
+using AERP.DTO;
 using AERP.ExceptionManager;
 using AERP.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web.Mvc;
-using AERP.Common;
-using AERP.DataProvider;
-using System.IO;
-using System.Web;
-//using System.Drawing;
-//using System.Drawing.Drawing2D;
-//using System.Drawing.Imaging;
-//using System.Net;
-using System.Data;
-using System.Web.Hosting;
+
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
-using System.Text.RegularExpressions;
-using System.Collections;
 using DocumentFormat.OpenXml.Validation;
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Helpers;
+using System.Web.Mvc;
 
 namespace AERP.Web.UI.Controllers
 {
@@ -433,7 +429,7 @@ namespace AERP.Web.UI.Controllers
                 li_SerialAndBatchManagedBy.Add(new SelectListItem { Text = "None", Value = "3" });
                 li_SerialAndBatchManagedBy.Add(new SelectListItem { Text = "Serial", Value = "1" });
                 li_SerialAndBatchManagedBy.Add(new SelectListItem { Text = "Batch", Value = "2" });
-                
+
                 ViewData["SerialAndBatchManagedBy"] = li_SerialAndBatchManagedBy;
             }
 
@@ -2909,6 +2905,150 @@ namespace AERP.Web.UI.Controllers
                 )
             ); // return
         }
+
+        [HttpGet]
+        public ActionResult CustomerSaleRateApproval(int PersonID, string TNDID, string TNMID, string GTRDID1, string TaskCode, string StageSequenceNumber, string IsLast)
+        {
+            GeneralItemMasterViewModel model = new GeneralItemMasterViewModel();
+            try
+            {
+                model.PersonID = Convert.ToInt32(PersonID);
+                model.TaskNotificationDetailsID = Convert.ToInt32(TNDID);
+                model.TaskNotificationMasterID = Convert.ToInt32(TNMID);
+                model.GeneralTaskReportingDetailsID = Convert.ToInt32(GTRDID1);
+                model.TaskCode = TaskCode;
+                model.StageSequenceNumber = Convert.ToInt32(StageSequenceNumber);
+                model.IsLastRecord = Convert.ToBoolean(IsLast);
+                model.GeneralItemMasterListForSaleData = GetCustomerSaleRateRecord(PersonID, Convert.ToInt32(TNMID), model.GeneralTaskReportingDetailsID);
+                model.InventoryItemCodeUnitLevelCustomerSpecificInfoID = model.GeneralItemMasterListForSaleData.Count > 0 ? model.GeneralItemMasterListForSaleData[0].InventoryItemCodeUnitLevelCustomerSpecificInfoID : 0;
+                model.CustomerName = model.GeneralItemMasterListForSaleData.Count > 0 ? model.GeneralItemMasterListForSaleData[0].CustomerName : (string)null;
+                model.CustomerBranchName = model.GeneralItemMasterListForSaleData.Count > 0 ? model.GeneralItemMasterListForSaleData[0].CustomerBranchName : (string)null;
+                model.UnitName = model.GeneralItemMasterListForSaleData.Count > 0 ? model.GeneralItemMasterListForSaleData[0].UnitName : (string)null;
+                model.CentreCode = model.GeneralItemMasterListForSaleData.Count > 0 ? model.GeneralItemMasterListForSaleData[0].CentreCode : (string)null;
+                model.ItemDescription = model.GeneralItemMasterListForSaleData.Count > 0 ? model.GeneralItemMasterListForSaleData[0].ItemDescription : (string)null;
+                model.UomCode = model.GeneralItemMasterListForSaleData.Count > 0 ? model.GeneralItemMasterListForSaleData[0].UomCode : (string)null;
+                model.SalePrice = model.GeneralItemMasterListForSaleData.Count > 0 ? model.GeneralItemMasterListForSaleData[0].SalePrice : 0M;
+                return (ActionResult)PartialView("/Views/Inventory/GeneralItemMaster/CustomerSaleRateApproval.cshtml", (object)model);
+            }
+            catch (Exception ex)
+            {
+                _logException.Error((object)ex.Message);
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CustomerSaleRateApproval(GeneralItemMasterViewModel model)
+        {
+            try
+            {
+                if (model != null && model.GeneralItemMasterDTO != null)
+                {
+                    model.GeneralItemMasterDTO.ConnectionString = _connectioString;
+                    model.GeneralItemMasterDTO.ConnectionString = _connectioString;
+                    model.GeneralItemMasterDTO.PersonID = model.PersonID;
+                    model.GeneralItemMasterDTO.InventoryItemCodeUnitLevelCustomerSpecificInfoID = model.InventoryItemCodeUnitLevelCustomerSpecificInfoID;
+                    model.GeneralItemMasterDTO.IsLastRecord = Convert.ToBoolean(model.IsLastRecord);
+                    model.GeneralItemMasterDTO.TaskNotificationMasterID = model.TaskNotificationMasterID;
+                    model.GeneralItemMasterDTO.TaskNotificationDetailsID = model.TaskNotificationDetailsID;
+                    model.GeneralItemMasterDTO.GeneralTaskReportingDetailsID = model.GeneralTaskReportingDetailsID;
+                    model.GeneralItemMasterDTO.StageSequenceNumber = model.StageSequenceNumber;
+                    model.GeneralItemMasterDTO.ApprovedStatus = model.ApprovedStatus;
+                    model.GeneralItemMasterDTO.CreatedBy = Convert.ToInt32(Session["UserID"]);
+                    IBaseEntityResponse<GeneralItemMaster> baseEntityResponse = _GeneralItemMasterBA.InsertCustomerSaleRateApproval(model.GeneralItemMasterDTO);
+                    model.GeneralItemMasterDTO.errorMessage = CheckError(baseEntityResponse.Entity != null ? baseEntityResponse.Entity.ErrorCode : 20, ActionModeEnum.Insert);
+                }
+                return (ActionResult)Json((object)model.GeneralItemMasterDTO.errorMessage, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                _logException.Error((object)ex.Message);
+                throw;
+            }
+        }
+
+        [HttpGet]
+        public ActionResult CustomerSaleRateDeleteApproval(
+          int PersonID,
+          string TNDID,
+          string TNMID,
+          string GTRDID1,
+          string TaskCode,
+          string StageSequenceNumber,
+          string IsLast)
+        {
+            GeneralItemMasterViewModel model = new GeneralItemMasterViewModel();
+            try
+            {
+                model.PersonID = Convert.ToInt32(PersonID);
+                model.TaskNotificationDetailsID = Convert.ToInt32(TNDID);
+                model.TaskNotificationMasterID = Convert.ToInt32(TNMID);
+                model.GeneralTaskReportingDetailsID = Convert.ToInt32(GTRDID1);
+                model.TaskCode = TaskCode;
+                model.StageSequenceNumber = Convert.ToInt32(StageSequenceNumber);
+                model.IsLastRecord = Convert.ToBoolean(IsLast);
+                model.GeneralItemMasterListForSaleData = GetCustomerSaleRateRecord(PersonID, Convert.ToInt32(TNMID), model.GeneralTaskReportingDetailsID);
+                model.InventoryItemCodeUnitLevelCustomerSpecificInfoID = model.GeneralItemMasterListForSaleData.Count > 0 ? model.GeneralItemMasterListForSaleData[0].InventoryItemCodeUnitLevelCustomerSpecificInfoID : 0;
+                model.CustomerName = model.GeneralItemMasterListForSaleData.Count > 0 ? model.GeneralItemMasterListForSaleData[0].CustomerName : (string)null;
+                model.CustomerBranchName = model.GeneralItemMasterListForSaleData.Count > 0 ? model.GeneralItemMasterListForSaleData[0].CustomerBranchName : (string)null;
+                model.UnitName = model.GeneralItemMasterListForSaleData.Count > 0 ? model.GeneralItemMasterListForSaleData[0].UnitName : (string)null;
+                model.CentreCode = model.GeneralItemMasterListForSaleData.Count > 0 ? model.GeneralItemMasterListForSaleData[0].CentreCode : (string)null;
+                model.ItemDescription = model.GeneralItemMasterListForSaleData.Count > 0 ? model.GeneralItemMasterListForSaleData[0].ItemDescription : (string)null;
+                model.UomCode = model.GeneralItemMasterListForSaleData.Count > 0 ? model.GeneralItemMasterListForSaleData[0].UomCode : (string)null;
+                model.SalePrice = model.GeneralItemMasterListForSaleData.Count > 0 ? model.GeneralItemMasterListForSaleData[0].SalePrice : 0M;
+                return (ActionResult)PartialView("/Views/Inventory/GeneralItemMaster/CustomerSaleRateDeleteApproval.cshtml", (object)model);
+            }
+            catch (Exception ex)
+            {
+                _logException.Error((object)ex.Message);
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CustomerSaleRateDeleteApproval(GeneralItemMasterViewModel model)
+        {
+            try
+            {
+                if (model != null && model.GeneralItemMasterDTO != null)
+                {
+                    model.GeneralItemMasterDTO.ConnectionString = _connectioString;
+                    model.GeneralItemMasterDTO.ConnectionString = _connectioString;
+                    model.GeneralItemMasterDTO.PersonID = model.PersonID;
+                    model.GeneralItemMasterDTO.InventoryItemCodeUnitLevelCustomerSpecificInfoID = model.InventoryItemCodeUnitLevelCustomerSpecificInfoID;
+                    model.GeneralItemMasterDTO.IsLastRecord = Convert.ToBoolean(model.IsLastRecord);
+                    model.GeneralItemMasterDTO.TaskNotificationMasterID = model.TaskNotificationMasterID;
+                    model.GeneralItemMasterDTO.TaskNotificationDetailsID = model.TaskNotificationDetailsID;
+                    model.GeneralItemMasterDTO.GeneralTaskReportingDetailsID = model.GeneralTaskReportingDetailsID;
+                    model.GeneralItemMasterDTO.StageSequenceNumber = model.StageSequenceNumber;
+                    model.GeneralItemMasterDTO.ApprovedStatus = model.ApprovedStatus;
+                    model.GeneralItemMasterDTO.CreatedBy = Convert.ToInt32(Session["UserID"]);
+                    IBaseEntityResponse<GeneralItemMaster> baseEntityResponse = _GeneralItemMasterBA.InsertCustomerSaleRateDeleteApproval(model.GeneralItemMasterDTO);
+                    model.GeneralItemMasterDTO.errorMessage = CheckError(baseEntityResponse.Entity != null ? baseEntityResponse.Entity.ErrorCode : 20, ActionModeEnum.Insert);
+                }
+                return (ActionResult)Json((object)model.GeneralItemMasterDTO.errorMessage, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                _logException.Error((object)ex.Message);
+                throw;
+            }
+        }
+
+        [NonAction]
+        protected System.Collections.Generic.List<GeneralItemMaster> GetCustomerSaleRateRecord(int personId,int taskNotificationMasterID,int GeneralTaskReportingDetailsID)
+        {
+            GeneralItemMasterSearchRequest searchRequest = new GeneralItemMasterSearchRequest();
+            searchRequest.ConnectionString = Convert.ToString((object)ConfigurationManager.ConnectionStrings["Main.ConnectionString"]);
+            searchRequest.PersonID = personId;
+            searchRequest.TaskNotificationMasterID = taskNotificationMasterID;
+            searchRequest.GeneralTaskReportingDetailsID = GeneralTaskReportingDetailsID;
+            System.Collections.Generic.List<GeneralItemMaster> customerSaleRateRecord = new System.Collections.Generic.List<GeneralItemMaster>();
+            IBaseEntityCollectionResponse<GeneralItemMaster> saleRateApproval = _GeneralItemMasterBA.GetCustomerSaleRateApproval(searchRequest);
+            if (saleRateApproval != null && saleRateApproval.CollectionResponse != null && saleRateApproval.CollectionResponse.Count > 0)
+                customerSaleRateRecord = saleRateApproval.CollectionResponse.ToList<GeneralItemMaster>();
+            return customerSaleRateRecord;
+        }
         #endregion
         //Image Upload
         #region Image Upload Methods
@@ -3092,6 +3232,103 @@ namespace AERP.Web.UI.Controllers
             }
         }
 
+        public ActionResult CreateGeneralItemCustomerSalesData(string TaskCode, string ItemNumber, string GeneralUnitsID, string SelectedCentreCodeForSaleTab)
+        {
+            GeneralItemMasterViewModel model = new GeneralItemMasterViewModel();
+            model.TaskCode = TaskCode;
+            model.GeneralItemMasterDTO.ConnectionString = _connectioString;
+            model.GeneralItemMasterDTO.ItemNumber = Convert.ToInt32(!string.IsNullOrEmpty(ItemNumber) ? ItemNumber : null);
+            model.GeneralItemMasterDTO.GeneralUnitsID = Convert.ToInt16(!string.IsNullOrEmpty(GeneralUnitsID) ? GeneralUnitsID : null);
+            model.GeneralItemMasterListForSaleData = GetGeneralItemMasterListForSaleDetails(ItemNumber, model.CentreListXML);
+            if (model.GeneralItemMasterDTO.ItemNumber > 0 && model.GeneralItemMasterListForSaleData.Count > 0 && model.GeneralItemMasterListForSaleData != null)
+            {
+                model.ItemNumber = model.GeneralItemMasterListForSaleData[0].ItemNumber;
+                model.GeneralUnitsID = model.GeneralItemMasterListForSaleData[0].GeneralUnitsID;
+            }
+            List<SelectListItem> LocationList = new List<SelectListItem>();
+            foreach (GeneralItemMaster generalItemMaster in model.GeneralItemMasterListForSaleData)
+                LocationList.Add(new SelectListItem()
+                {
+                    Text = generalItemMaster.UnitName,
+                    Value = Convert.ToString(generalItemMaster.GeneralUnitsID)
+                });
+            ViewBag.LocationList = new SelectList(LocationList, "Value", "Text");
+            //      // ISSUE: reference to a compiler-generated field
+            //      if (GeneralItemMasterController.\u003C\u003Eo__43.\u003C\u003Ep__0 == null)
+            //{
+            //          // ISSUE: reference to a compiler-generated field
+            //          GeneralItemMasterController.\u003C\u003Eo__43.\u003C\u003Ep__0 = CallSite<Func<CallSite, object, SelectList, object>>.Create(Binder.SetMember(CSharpBinderFlags.None, "LocationList", typeof(GeneralItemMasterController), (IEnumerable<CSharpArgumentInfo>)new CSharpArgumentInfo[2]
+            //          {
+            //    CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None,  null),
+            //    CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.UseCompileTimeType,  null)
+            //          }));
+            //      }
+            // ISSUE: reference to a compiler-generated field
+            // ISSUE: reference to a compiler-generated field
+            //object obj1 = GeneralItemMasterController.\u003C\u003Eo__43.\u003C\u003Ep__0.Target((CallSite)GeneralItemMasterController.\u003C\u003Eo__43.\u003C\u003Ep__0, ViewBag, new SelectList((IEnumerable)source1.Distinct<SelectListItem>(), "Value", "Text"));
+            List<SelectListItem> UOMList = new List<SelectListItem>();
+            foreach (GeneralItemMaster generalItemMaster in model.GeneralItemMasterListForSaleData)
+                UOMList.Add(new SelectListItem()
+                {
+                    Text = generalItemMaster.UomCode,
+                    Value = Convert.ToString(generalItemMaster.UomCode)
+                });
+            ViewBag.UOMList = new SelectList(UOMList, "Value", "Text");
+            //      // ISSUE: reference to a compiler-generated field
+            //      if (GeneralItemMasterController.\u003C\u003Eo__43.\u003C\u003Ep__1 == null)
+            //{
+            //          // ISSUE: reference to a compiler-generated field
+            //          GeneralItemMasterController.\u003C\u003Eo__43.\u003C\u003Ep__1 = CallSite<Func<CallSite, object, SelectList, object>>.Create(Binder.SetMember(CSharpBinderFlags.None, "UOMList", typeof(GeneralItemMasterController), (IEnumerable<CSharpArgumentInfo>)new CSharpArgumentInfo[2]
+            //          {
+            //    CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None,  null),
+            //    CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.UseCompileTimeType,  null)
+            //          }));
+            //      }
+            // ISSUE: reference to a compiler-generated field
+            // ISSUE: reference to a compiler-generated field
+            //object obj2 = GeneralItemMasterController.\u003C\u003Eo__43.\u003C\u003Ep__1.Target((CallSite)GeneralItemMasterController.\u003C\u003Eo__43.\u003C\u003Ep__1, ViewBag, new SelectList((IEnumerable)source2.Distinct<SelectListItem>(), "Value", "Text"));
+            model.GeneralItemMasterListForSaleData = null;
+            model.GeneralItemMasterListForSaleData = GetGeneralItemMasterListForCustomerSaleDetails(ItemNumber);
+            return (ActionResult)PartialView("/Views/Inventory/GeneralItemMaster/SaleUomCodeCustomerWiseData.cshtml", (object)model);
+        }
+        protected List<GeneralItemMaster> GetGeneralItemMasterListForCustomerSaleDetails(string ItemNumber)
+        {
+            GeneralItemMasterSearchRequest searchRequest = new GeneralItemMasterSearchRequest();
+            searchRequest.ConnectionString = Convert.ToString((object)ConfigurationManager.ConnectionStrings["Main.ConnectionString"]);
+            searchRequest.ItemNumber = Convert.ToInt32(!string.IsNullOrEmpty(ItemNumber) ? ItemNumber : null);
+            List<GeneralItemMaster> customerSaleDetails = new List<GeneralItemMaster>();
+            IBaseEntityCollectionResponse<GeneralItemMaster> dataByItemNumber = _GeneralItemMasterBA.GetGeneralItemCustomerSalesDataByItemNumber(searchRequest);
+            if (dataByItemNumber != null && dataByItemNumber.CollectionResponse != null && dataByItemNumber.CollectionResponse.Count > 0)
+                customerSaleDetails = dataByItemNumber.CollectionResponse.ToList<GeneralItemMaster>();
+            return customerSaleDetails;
+        }
+
+        [HttpPost]
+        public ActionResult CreateGeneralItemCustomerSalesData(GeneralItemMasterViewModel model)
+        {
+            try
+            {
+                if (model == null || model.GeneralItemMasterDTO == null)
+                    return (ActionResult)Json((object)"Please review your form");
+                model.GeneralItemMasterDTO.ConnectionString = _connectioString;
+                model.GeneralItemMasterDTO.InventoryItemCodeUnitLevelCustomerSpecificInfoID = model.InventoryItemCodeUnitLevelCustomerSpecificInfoID;
+                model.GeneralItemMasterDTO.GeneralUnitsID = model.GeneralUnitsID;
+                model.GeneralItemMasterDTO.ItemNumber = model.ItemNumber;
+                model.GeneralItemMasterDTO.UomCode = model.UomCode;
+                model.GeneralItemMasterDTO.CustomerMasterId = model.CustomerMasterId;
+                model.GeneralItemMasterDTO.CustomerBranchMasterId = model.CustomerBranchMasterId;
+                model.GeneralItemMasterDTO.SalePrice = model.SalePrice;
+                model.GeneralItemMasterDTO.CreatedBy = Convert.ToInt32(Session["UserID"]);
+                IBaseEntityResponse<GeneralItemMaster> baseEntityResponse = _GeneralItemMasterBA.InsertGeneralItemCustomerSalesData(model.GeneralItemMasterDTO);
+                model.GeneralItemMasterDTO.errorMessage = CheckError(baseEntityResponse.Entity != null ? baseEntityResponse.Entity.ErrorCode : 20, ActionModeEnum.Insert);
+                return (ActionResult)Json((object)model.GeneralItemMasterDTO.errorMessage, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                _logException.Error((object)ex.Message);
+                throw;
+            }
+        }
 
 
         #endregion
@@ -3183,9 +3420,9 @@ namespace AERP.Web.UI.Controllers
                               BOM = r.BOM,
                               Restaurant = r.Restaurant,
                               IsMultipleVendor = r.IsMultipleVendor,
-                              IsServiceItem=r.IsServiceItem,
+                              IsServiceItem = r.IsServiceItem,
                               IsEComItem = r.IsEComItem,
-                              HSNCode=r.HSNCode,
+                              HSNCode = r.HSNCode,
                               ItemCode = r.ItemCode,
                               IsConsumable = r.IsConsumable,
                               IsMachine = r.IsMachine,
@@ -3237,7 +3474,7 @@ namespace AERP.Web.UI.Controllers
             GeneralItemMasterSearchRequest searchRequest = new GeneralItemMasterSearchRequest();
             searchRequest.ConnectionString = Convert.ToString(ConfigurationManager.ConnectionStrings["Main.ConnectionString"]);
             searchRequest.SearchWord = term;
-           
+
             List<GeneralItemMaster> listFeeSubType = new List<GeneralItemMaster>();
             IBaseEntityCollectionResponse<GeneralItemMaster> baseEntityCollectionResponse = _GeneralItemMasterBA.GetCCRMPartNoSearchList(searchRequest);
             if (baseEntityCollectionResponse != null)
@@ -3251,7 +3488,7 @@ namespace AERP.Web.UI.Controllers
                           select new
                           {
                               ID = r.ID,
-                            
+
                               ItemDescription = r.ItemDescription,
                               ItemNumber = r.ItemNumber,
                               ItemCategoryCode = r.ItemCategoryCode,
@@ -3259,7 +3496,7 @@ namespace AERP.Web.UI.Controllers
                               //LastCallDate=r.LastCallDate,
                               //LastQuantity=r.LastQuantity,
                               //LastMtrRead=r.LastMtrRead,
-                             
+
                           }).ToList();
             return Json(result, JsonRequestBehavior.AllowGet);
         }

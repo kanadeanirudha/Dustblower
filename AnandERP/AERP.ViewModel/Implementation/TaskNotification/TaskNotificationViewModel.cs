@@ -589,5 +589,29 @@ namespace AERP.ViewModel
                 TaskNotificationDTO.NotificationCount = value;
             }
         }
+
+        public string CustomerName
+        {
+            get => TaskNotificationDTO == null ? string.Empty : TaskNotificationDTO.CustomerName;
+            set => TaskNotificationDTO.CustomerName = value;
+        }
+
+        public string ItemName
+        {
+            get => TaskNotificationDTO == null ? string.Empty : TaskNotificationDTO.ItemName;
+            set => TaskNotificationDTO.ItemName = value;
+        }
+
+        public string Location
+        {
+            get => TaskNotificationDTO == null ? string.Empty : TaskNotificationDTO.Location;
+            set => TaskNotificationDTO.Location = value;
+        }
+
+        public string SalePrice
+        {
+            get => TaskNotificationDTO == null ? string.Empty : TaskNotificationDTO.SalePrice;
+            set => TaskNotificationDTO.SalePrice = value;
+        }
     }
 }

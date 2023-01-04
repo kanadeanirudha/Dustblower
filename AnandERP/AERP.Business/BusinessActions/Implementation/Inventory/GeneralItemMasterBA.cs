@@ -1275,6 +1275,155 @@ namespace AERP.Business.BusinessAction
             }
             return GeneralItemMasterCollection;
         }
+        public IBaseEntityCollectionResponse<GeneralItemMaster> GetGeneralItemCustomerSalesDataByItemNumber(GeneralItemMasterSearchRequest searchRequest)
+        {
+            IBaseEntityCollectionResponse<GeneralItemMaster> dataByItemNumber = (IBaseEntityCollectionResponse<GeneralItemMaster>)new BaseEntityCollectionResponse<GeneralItemMaster>();
+            try
+            {
+                if (_GeneralItemMasterDataProvider != null)
+                {
+                    dataByItemNumber = _GeneralItemMasterDataProvider.GetGeneralItemCustomerSalesDataByItemNumber(searchRequest);
+                }
+                else
+                {
+                    dataByItemNumber.Message.Add((IMessageDTO)new MessageDTO()
+                    {
+                        ErrorMessage = Resources.Null_Object_Exception,
+                        MessageType = MessageTypeEnum.Error
+                    });
+                    dataByItemNumber.CollectionResponse = (IList<GeneralItemMaster>)null;
+                }
+            }
+            catch (Exception ex)
+            {
+                dataByItemNumber.Message.Add((IMessageDTO)new MessageDTO()
+                {
+                    ErrorMessage = ex.Message,
+                    MessageType = MessageTypeEnum.Error
+                });
+                dataByItemNumber.CollectionResponse = (IList<GeneralItemMaster>)null;
+                if (_logException != null)
+                    _logException.Error((object)ex.Message);
+            }
+            return dataByItemNumber;
+        }
+        public IBaseEntityResponse<GeneralItemMaster> InsertGeneralItemCustomerSalesData(GeneralItemMaster item)
+        {
+            IBaseEntityResponse<GeneralItemMaster> baseEntityResponse = (IBaseEntityResponse<GeneralItemMaster>)new BaseEntityResponse<GeneralItemMaster>();
+            try
+            {
+                baseEntityResponse = _GeneralItemMasterDataProvider.InsertGeneralItemCustomerSalesData(item);
+            }
+            catch (Exception ex)
+            {
+                baseEntityResponse.Message.Add((IMessageDTO)new MessageDTO()
+                {
+                    ErrorMessage = ex.Message,
+                    MessageType = MessageTypeEnum.Error
+                });
+                baseEntityResponse.Entity = (GeneralItemMaster)null;
+                if (_logException != null)
+                    _logException.Error((object)ex.Message);
+            }
+            return baseEntityResponse;
+        }
+        public IBaseEntityResponse<GeneralItemMaster> InsertCustomerSaleRateApproval(GeneralItemMaster item)
+        {
+            IBaseEntityResponse<GeneralItemMaster> baseEntityResponse = (IBaseEntityResponse<GeneralItemMaster>)new BaseEntityResponse<GeneralItemMaster>();
+            try
+            {
+                if (_GeneralItemMasterDataProvider != null)
+                {
+                    baseEntityResponse = _GeneralItemMasterDataProvider.InsertCustomerSaleRateApproval(item);
+                }
+                else
+                {
+                    baseEntityResponse.Message.Add((IMessageDTO)new MessageDTO()
+                    {
+                        ErrorMessage = Resources.Null_Object_Exception,
+                        MessageType = MessageTypeEnum.Error
+                    });
+                    baseEntityResponse.Entity = (GeneralItemMaster)null;
+                }
+            }
+            catch (Exception ex)
+            {
+                baseEntityResponse.Message.Add((IMessageDTO)new MessageDTO()
+                {
+                    ErrorMessage = ex.Message,
+                    MessageType = MessageTypeEnum.Error
+                });
+                baseEntityResponse.Entity = (GeneralItemMaster)null;
+                if (_logException != null)
+                    _logException.Error((object)ex.Message);
+            }
+            return baseEntityResponse;
+        }
 
+        public IBaseEntityResponse<GeneralItemMaster> InsertCustomerSaleRateDeleteApproval(GeneralItemMaster item)
+        {
+            IBaseEntityResponse<GeneralItemMaster> baseEntityResponse = (IBaseEntityResponse<GeneralItemMaster>)new BaseEntityResponse<GeneralItemMaster>();
+            try
+            {
+                if (_GeneralItemMasterDataProvider != null)
+                {
+                    baseEntityResponse = _GeneralItemMasterDataProvider.InsertCustomerSaleRateDeleteApproval(item);
+                }
+                else
+                {
+                    baseEntityResponse.Message.Add((IMessageDTO)new MessageDTO()
+                    {
+                        ErrorMessage = Resources.Null_Object_Exception,
+                        MessageType = MessageTypeEnum.Error
+                    });
+                    baseEntityResponse.Entity = (GeneralItemMaster)null;
+                }
+            }
+            catch (Exception ex)
+            {
+                baseEntityResponse.Message.Add((IMessageDTO)new MessageDTO()
+                {
+                    ErrorMessage = ex.Message,
+                    MessageType = MessageTypeEnum.Error
+                });
+                baseEntityResponse.Entity = (GeneralItemMaster)null;
+                if (_logException != null)
+                    _logException.Error((object)ex.Message);
+            }
+            return baseEntityResponse;
+        }
+
+        public IBaseEntityCollectionResponse<GeneralItemMaster> GetCustomerSaleRateApproval(GeneralItemMasterSearchRequest searchRequest)
+        {
+            IBaseEntityCollectionResponse<GeneralItemMaster> saleRateApproval = (IBaseEntityCollectionResponse<GeneralItemMaster>)new BaseEntityCollectionResponse<GeneralItemMaster>();
+            try
+            {
+                if (_GeneralItemMasterDataProvider != null)
+                {
+                    saleRateApproval = _GeneralItemMasterDataProvider.GetCustomerSaleRateApproval(searchRequest);
+                }
+                else
+                {
+                    saleRateApproval.Message.Add((IMessageDTO)new MessageDTO()
+                    {
+                        ErrorMessage = Resources.Null_Object_Exception,
+                        MessageType = MessageTypeEnum.Error
+                    });
+                    saleRateApproval.CollectionResponse = (IList<GeneralItemMaster>)null;
+                }
+            }
+            catch (Exception ex)
+            {
+                saleRateApproval.Message.Add((IMessageDTO)new MessageDTO()
+                {
+                    ErrorMessage = ex.Message,
+                    MessageType = MessageTypeEnum.Error
+                });
+                saleRateApproval.CollectionResponse = (IList<GeneralItemMaster>)null;
+                if (_logException != null)
+                    _logException.Error((object)ex.Message);
+            }
+            return saleRateApproval;
+        }
     }
 }

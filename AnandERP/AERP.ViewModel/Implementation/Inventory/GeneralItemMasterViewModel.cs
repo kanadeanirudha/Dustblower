@@ -1800,7 +1800,47 @@ namespace AERP.ViewModel
                 GeneralItemMasterDTO.InventoryItemCodeUnitLevelSpecificInfoID = value;
             }
         }
-            //dimension tab
+        public string CustomerName
+        {
+            get => GeneralItemMasterDTO == null ? string.Empty : GeneralItemMasterDTO.CustomerName;
+            set => GeneralItemMasterDTO.CustomerName = value;
+        }
+
+        public int CustomerMasterId
+        {
+            get => GeneralItemMasterDTO == null ? 0 : GeneralItemMasterDTO.CustomerMasterId;
+            set => GeneralItemMasterDTO.CustomerMasterId = value;
+        }
+
+        public string CustomerBranchName
+        {
+            get => GeneralItemMasterDTO == null ? string.Empty : GeneralItemMasterDTO.CustomerBranchName;
+            set => GeneralItemMasterDTO.CustomerBranchName = value;
+        }
+
+        public int CustomerBranchMasterId
+        {
+            get => GeneralItemMasterDTO == null ? 0 : GeneralItemMasterDTO.CustomerBranchMasterId;
+            set => GeneralItemMasterDTO.CustomerBranchMasterId = value;
+        }
+
+        public Decimal SalePrice
+        {
+            get => GeneralItemMasterDTO == null ? 0M : GeneralItemMasterDTO.SalePrice;
+            set => GeneralItemMasterDTO.SalePrice = value;
+        }
+
+        public byte CustomerType
+        {
+            get => GeneralItemMasterDTO == null ? (byte)0 : GeneralItemMasterDTO.CustomerType;
+            set => GeneralItemMasterDTO.CustomerType = value;
+        }
+        public int InventoryItemCodeUnitLevelCustomerSpecificInfoID
+        {
+            get => GeneralItemMasterDTO == null ? 0 : GeneralItemMasterDTO.InventoryItemCodeUnitLevelCustomerSpecificInfoID;
+            set => GeneralItemMasterDTO.InventoryItemCodeUnitLevelCustomerSpecificInfoID = value;
+        }
+        //dimension tab
 
         public decimal Length
         {
@@ -2342,6 +2382,45 @@ namespace AERP.ViewModel
             {
                 GeneralItemMasterDTO.Entity = value;
             }
+        }
+        public int TaskNotificationDetailsID
+        {
+            get => GeneralItemMasterDTO == null || GeneralItemMasterDTO.TaskNotificationDetailsID <= 0 ? 0 : GeneralItemMasterDTO.TaskNotificationDetailsID;
+            set => GeneralItemMasterDTO.TaskNotificationDetailsID = value;
+        }
+
+        public int TaskNotificationMasterID
+        {
+            get => GeneralItemMasterDTO == null || GeneralItemMasterDTO.TaskNotificationMasterID <= 0 ? 0 : GeneralItemMasterDTO.TaskNotificationMasterID;
+            set => GeneralItemMasterDTO.TaskNotificationMasterID = value;
+        }
+
+        public int GeneralTaskReportingDetailsID
+        {
+            get => GeneralItemMasterDTO == null || GeneralItemMasterDTO.GeneralTaskReportingDetailsID <= 0 ? 0 : GeneralItemMasterDTO.GeneralTaskReportingDetailsID;
+            set => GeneralItemMasterDTO.GeneralTaskReportingDetailsID = value;
+        }
+        public int PersonID
+        {
+            get => GeneralItemMasterDTO == null || GeneralItemMasterDTO.PersonID <= 0 ? 0 : GeneralItemMasterDTO.PersonID;
+            set => GeneralItemMasterDTO.PersonID = value;
+        }
+
+        public int StageSequenceNumber
+        {
+            get => GeneralItemMasterDTO == null || GeneralItemMasterDTO.StageSequenceNumber <= 0 ? 0 : GeneralItemMasterDTO.StageSequenceNumber;
+            set => GeneralItemMasterDTO.StageSequenceNumber = value;
+        }
+
+        public bool IsLastRecord
+        {
+            get => GeneralItemMasterDTO != null && GeneralItemMasterDTO.IsLastRecord;
+            set => GeneralItemMasterDTO.IsLastRecord = value;
+        }
+        public byte ApprovedStatus
+        {
+            get => this.GeneralItemMasterDTO == null ? (byte)0 : this.GeneralItemMasterDTO.ApprovedStatus;
+            set => this.GeneralItemMasterDTO.ApprovedStatus = value;
         }
     }
 }

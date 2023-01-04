@@ -64,5 +64,10 @@ namespace AERP.DataProvider
         IBaseEntityCollectionResponse<GeneralItemMaster> GetGeneralServiceItemList(GeneralItemMasterSearchRequest searchRequest);
         IBaseEntityCollectionResponse<GeneralItemMaster> GetGeneralItemMasterForSaleUOMBySearchWord(GeneralItemMasterSearchRequest searchRequest);
         IBaseEntityCollectionResponse<GeneralItemMaster> GetVendorWiseItemSearchListWithCompoundTax(GeneralItemMasterSearchRequest searchRequest);
+        IBaseEntityCollectionResponse<GeneralItemMaster> GetGeneralItemCustomerSalesDataByItemNumber(GeneralItemMasterSearchRequest searchRequest);
+        IBaseEntityResponse<GeneralItemMaster> InsertGeneralItemCustomerSalesData(GeneralItemMaster item);
+        IBaseEntityResponse<GeneralItemMaster> InsertCustomerSaleRateApproval(GeneralItemMaster item);
+        IBaseEntityResponse<GeneralItemMaster> InsertCustomerSaleRateDeleteApproval(GeneralItemMaster item);
+        IBaseEntityCollectionResponse<GeneralItemMaster> GetCustomerSaleRateApproval(GeneralItemMasterSearchRequest searchRequest);
     }
 }

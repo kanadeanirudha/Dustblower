@@ -104,6 +104,9 @@ namespace AERP.DTO
             get;
             set;
         }
+        public int PersonID { get; set; }
+        public int TaskNotificationMasterID { get; set; }
+        public int GeneralTaskReportingDetailsID { get; set; }
     }
 }
 

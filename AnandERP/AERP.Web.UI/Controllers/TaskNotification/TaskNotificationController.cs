@@ -17,7 +17,7 @@ using AERP.Web.UI.Models;
 
 namespace AERP.Web.UI.Controllers
 {
-    
+
     public class TaskNotificationController : BaseController
     {
         ITaskNotificationBA _TaskNotificationBA = null;
@@ -105,7 +105,7 @@ namespace AERP.Web.UI.Controllers
                     return View();
                 }
 
-               
+
             }
             else
             {
@@ -151,7 +151,7 @@ namespace AERP.Web.UI.Controllers
                     }
                     // ViewData["ModuleRowCount"] = _TaskNotificationViewModel.ModuleList.Count()/4;
                 }
-                
+
                 return PartialView("NotificationList", _TaskNotificationViewModel);
             }
             catch (Exception ex)
@@ -174,7 +174,7 @@ namespace AERP.Web.UI.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-      
+
 
         public ActionResult List(string actionMode, string TaskCode)
         {
@@ -249,7 +249,7 @@ namespace AERP.Web.UI.Controllers
             }
         }
 
-      
+
 
         public ActionResult PendingRequest(string TaskCode)
         {
@@ -267,7 +267,7 @@ namespace AERP.Web.UI.Controllers
                 throw;
             }
         }
-        
+
         public ActionResult PurchaseRequirementPendingRequest(string TaskCode)
         {
             try
@@ -418,6 +418,37 @@ namespace AERP.Web.UI.Controllers
             }
         }
 
+        public ActionResult CustomerSaleRatePendingRequest(string TaskCode)
+        {
+            try
+            {
+                return (ActionResult)PartialView("/Views/TaskNotification/CustomerSaleRatePendingRequest.cshtml", (object)new TaskNotificationViewModel()
+                {
+                    TaskCode = TaskCode
+                });
+            }
+            catch (Exception ex)
+            {
+                _logException.Error((object)ex.Message);
+                throw;
+            }
+        }
+
+        public ActionResult CustomerSaleRateDeletePendingRequest(string TaskCode)
+        {
+            try
+            {
+                return (ActionResult)PartialView("/Views/TaskNotification/CustomerSaleRateDeletePendingRequest.cshtml", (object)new TaskNotificationViewModel()
+                {
+                    TaskCode = TaskCode
+                });
+            }
+            catch (Exception ex)
+            {
+                _logException.Error((object)ex.Message);
+                throw;
+            }
+        }
         #endregion
 
         #region ---------------------Methods-ddd----------------------
@@ -435,7 +466,7 @@ namespace AERP.Web.UI.Controllers
                     ModuleList = baseEntityCollectionResponse.CollectionResponse.ToList();
                 }
             }
-          
+
             return ModuleList;
         }
 
@@ -920,11 +951,62 @@ namespace AERP.Web.UI.Controllers
             }
             return listTaskCode;
         }
+
+        public IEnumerable<TaskNotificationViewModel> GetPendingCSRRequest(out int TotalRecords, string TaskCode, int PersonID)
+        {
+            TaskNotificationSearchRequest searchRequest = new TaskNotificationSearchRequest();
+            searchRequest.ConnectionString = Convert.ToString((object)ConfigurationManager.ConnectionStrings["Main.ConnectionString"]);
+            _actionMode = Convert.ToString(TempData["ActionMode"]);
+            if (Enum.TryParse<ActionModeEnum>(_actionMode, out actionModeEnum))
+            {
+                if (actionModeEnum == ActionModeEnum.Insert)
+                {
+                    searchRequest.SortBy = "CustomerName";
+                    searchRequest.StartRow = 0;
+                    searchRequest.EndRow = 10;
+                    searchRequest.SearchBy = string.Empty;
+                    searchRequest.SortDirection = "Desc";
+                    searchRequest.PersonID = PersonID;
+                    searchRequest.TaskCode = TaskCode;
+                }
+                if (actionModeEnum == ActionModeEnum.Update)
+                {
+                    searchRequest.SortBy = "CustomerName";
+                    searchRequest.StartRow = 0;
+                    searchRequest.EndRow = 10;
+                    searchRequest.PersonID = PersonID;
+                    searchRequest.TaskCode = TaskCode;
+                }
+            }
+            else
+            {
+                searchRequest.SortBy = _sortBy;
+                searchRequest.StartRow = _startRow;
+                searchRequest.EndRow = _startRow + _rowLength;
+                searchRequest.SearchBy = _searchBy;
+                searchRequest.SortDirection = _sortDirection;
+                searchRequest.PersonID = PersonID;
+                searchRequest.TaskCode = TaskCode;
+            }
+            System.Collections.Generic.List<TaskNotificationViewModel> pendingCsrRequest = new System.Collections.Generic.List<TaskNotificationViewModel>();
+            System.Collections.Generic.List<TaskNotification> taskNotificationList = new System.Collections.Generic.List<TaskNotification>();
+            IBaseEntityCollectionResponse<TaskNotification> searchForTaskApproval = _TaskNotificationBA.GetBySearchForTaskApproval(searchRequest);
+            if (searchForTaskApproval != null && searchForTaskApproval.CollectionResponse != null && searchForTaskApproval.CollectionResponse.Count > 0)
+            {
+                foreach (TaskNotification taskNotification in searchForTaskApproval.CollectionResponse.ToList<TaskNotification>())
+                    pendingCsrRequest.Add(new TaskNotificationViewModel()
+                    {
+                        TaskNotificationDTO = taskNotification
+                    });
+            }
+            TotalRecords = searchForTaskApproval.TotalRecords;
+            return (IEnumerable<TaskNotificationViewModel>)pendingCsrRequest;
+        }
         #endregion
 
 
         #region ----------------------AjaxHandler---------------------
-    
+
         public ActionResult AjaxHandlerMyDataTablePurchaseOrderRequest(JQueryDataTableParamModel param, string TaskCode)
         {
             int TotalRecords;
@@ -1220,7 +1302,7 @@ namespace AERP.Web.UI.Controllers
                         _searchBy = "ContractNumber Like '%" + param.sSearch + "%' or SaleContractBillingSpan Like '%" + param.sSearch + "%'";        //this "if" block is added for search functionality
                     }
                     break;
-                
+
             }
             _sortDirection = sortDirection;
             _rowLength = param.iDisplayLength;
@@ -1431,8 +1513,178 @@ namespace AERP.Web.UI.Controllers
             return Json(new { sEcho = param.sEcho, iTotalRecords = TotalRecords, iTotalDisplayRecords = TotalRecords, aaData = result }, JsonRequestBehavior.AllowGet);
 
         }
+
+        public ActionResult AjaxHandlerMyDataTableCustomerSaleRateRequest(JQueryDataTableParamModel param, string TaskCode)
+        {
+            int int32_1 = Convert.ToInt32(Request["iSortCol_0"]);
+            string str = Convert.ToString(Request["sSortDir_0"]);
+            switch (Convert.ToInt32(int32_1))
+            {
+                case 0:
+                    _sortBy = "CustomerName";
+                    if (string.IsNullOrEmpty(param.sSearch))
+                    {
+                        _searchBy = string.Empty;
+                        break;
+                    }
+                    _searchBy = "CustomerName Like '%" + param.sSearch + "%' or ItemName Like '%" + param.sSearch + "%' or Location Like '%" + param.sSearch + "%' or SalePrice Like '%" + param.sSearch + "%'";
+                    break;
+                case 1:
+                    _sortBy = "ItemName";
+                    if (string.IsNullOrEmpty(param.sSearch))
+                    {
+                        _searchBy = string.Empty;
+                        break;
+                    }
+                    _searchBy = "CustomerName Like '%" + param.sSearch + "%' or ItemName Like '%" + param.sSearch + "%' or Location Like '%" + param.sSearch + "%' or SalePrice Like '%" + param.sSearch + "%";
+                    break;
+                case 2:
+                    _sortBy = "Location";
+                    if (string.IsNullOrEmpty(param.sSearch))
+                    {
+                        _searchBy = string.Empty;
+                        break;
+                    }
+                    _searchBy = "CustomerName Like '%" + param.sSearch + "%' or ItemName Like '%" + param.sSearch + "%' or Location Like '%" + param.sSearch + "%' or SalePrice Like '%" + param.sSearch + "%";
+                    break;
+                case 3:
+                    _sortBy = "SalePrice";
+                    if (string.IsNullOrEmpty(param.sSearch))
+                    {
+                        _searchBy = string.Empty;
+                        break;
+                    }
+                    _searchBy = "CustomerName Like '%" + param.sSearch + "%' or ItemName Like '%" + param.sSearch + "%' or Location Like '%" + param.sSearch + "%' or SalePrice Like '%" + param.sSearch + "%";
+                    break;
+            }
+            _sortDirection = str;
+            _rowLength = param.iDisplayLength;
+            _startRow = param.iDisplayStart;
+            int TotalRecords;
+            IEnumerable<TaskNotificationViewModel> source;
+            if (!string.IsNullOrEmpty(Convert.ToString(TaskCode)))
+            {
+                int int32_2 = Convert.ToInt32(Session["PersonID"]);
+                source = GetPendingCSRRequest(out TotalRecords, TaskCode, int32_2);
+            }
+            else
+            {
+                source = (IEnumerable<TaskNotificationViewModel>)new System.Collections.Generic.List<TaskNotificationViewModel>();
+                TotalRecords = 0;
+            }
+            IEnumerable<string[]> strArrays = source.Skip<TaskNotificationViewModel>(0).Take<TaskNotificationViewModel>(param.iDisplayLength).Select<TaskNotificationViewModel, string[]>((Func<TaskNotificationViewModel, string[]>)(c => new string[15]
+           {
+        Convert.ToString(c.TaskDescription),
+        Convert.ToString(c.ApprovalStatus),
+        Convert.ToString(c.MenuCodeLink),
+        Convert.ToString(c.TaskNotificationDetailsID),
+        Convert.ToString(c.TaskNotificationMasterID),
+        Convert.ToString(c.GeneralTaskReportingDetailsID),
+        Convert.ToString(c.StageSequenceNumber),
+        Convert.ToString(c.IsLastRecordFlag),
+        Convert.ToString(c.ApplicationDate),
+        Convert.ToString(c.IsEngaged),
+        Convert.ToString(c.EngagedByUserID) == Convert.ToString(Session["UserID"]) ? Convert.ToString(true) : Convert.ToString(false),
+        Convert.ToString(c.CustomerName),
+        Convert.ToString(c.ItemName),
+        Convert.ToString(c.Location),
+        Convert.ToString(c.SalePrice)
+           }));
+            return (ActionResult)Json((object)new
+            {
+                sEcho = param.sEcho,
+                iTotalRecords = TotalRecords,
+                iTotalDisplayRecords = TotalRecords,
+                aaData = strArrays
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult AjaxHandlerMyDataTableCustomerSaleRateDeleteRequest(JQueryDataTableParamModel param, string TaskCode)
+        {
+            int int32_1 = Convert.ToInt32(Request["iSortCol_0"]);
+            string str = Convert.ToString(Request["sSortDir_0"]);
+            switch (Convert.ToInt32(int32_1))
+            {
+                case 0:
+                    _sortBy = "CustomerName";
+                    if (string.IsNullOrEmpty(param.sSearch))
+                    {
+                        _searchBy = string.Empty;
+                        break;
+                    }
+                    _searchBy = "CustomerName Like '%" + param.sSearch + "%' or ItemName Like '%" + param.sSearch + "%' or Location Like '%" + param.sSearch + "%' or SalePrice Like '%" + param.sSearch + "%'";
+                    break;
+                case 1:
+                    _sortBy = "ItemName";
+                    if (string.IsNullOrEmpty(param.sSearch))
+                    {
+                        _searchBy = string.Empty;
+                        break;
+                    }
+                    _searchBy = "CustomerName Like '%" + param.sSearch + "%' or ItemName Like '%" + param.sSearch + "%' or Location Like '%" + param.sSearch + "%' or SalePrice Like '%" + param.sSearch + "%";
+                    break;
+                case 2:
+                    _sortBy = "Location";
+                    if (string.IsNullOrEmpty(param.sSearch))
+                    {
+                        _searchBy = string.Empty;
+                        break;
+                    }
+                    _searchBy = "CustomerName Like '%" + param.sSearch + "%' or ItemName Like '%" + param.sSearch + "%' or Location Like '%" + param.sSearch + "%' or SalePrice Like '%" + param.sSearch + "%";
+                    break;
+                case 3:
+                    _sortBy = "SalePrice";
+                    if (string.IsNullOrEmpty(param.sSearch))
+                    {
+                        _searchBy = string.Empty;
+                        break;
+                    }
+                    _searchBy = "CustomerName Like '%" + param.sSearch + "%' or ItemName Like '%" + param.sSearch + "%' or Location Like '%" + param.sSearch + "%' or SalePrice Like '%" + param.sSearch + "%";
+                    break;
+            }
+            _sortDirection = str;
+            _rowLength = param.iDisplayLength;
+            _startRow = param.iDisplayStart;
+            int TotalRecords;
+            IEnumerable<TaskNotificationViewModel> source;
+            if (!string.IsNullOrEmpty(Convert.ToString(TaskCode)))
+            {
+                int int32_2 = Convert.ToInt32(Session["PersonID"]);
+                source = GetPendingCSRRequest(out TotalRecords, TaskCode, int32_2);
+            }
+            else
+            {
+                source = (IEnumerable<TaskNotificationViewModel>)new System.Collections.Generic.List<TaskNotificationViewModel>();
+                TotalRecords = 0;
+            }
+            IEnumerable<string[]> strArrays = source.Skip<TaskNotificationViewModel>(0).Take<TaskNotificationViewModel>(param.iDisplayLength).Select<TaskNotificationViewModel, string[]>((Func<TaskNotificationViewModel, string[]>)(c => new string[15]
+           {
+        Convert.ToString(c.TaskDescription),
+        Convert.ToString(c.ApprovalStatus),
+        Convert.ToString(c.MenuCodeLink),
+        Convert.ToString(c.TaskNotificationDetailsID),
+        Convert.ToString(c.TaskNotificationMasterID),
+        Convert.ToString(c.GeneralTaskReportingDetailsID),
+        Convert.ToString(c.StageSequenceNumber),
+        Convert.ToString(c.IsLastRecordFlag),
+        Convert.ToString(c.ApplicationDate),
+        Convert.ToString(c.IsEngaged),
+        Convert.ToString(c.EngagedByUserID) == Convert.ToString(Session["UserID"]) ? Convert.ToString(true) : Convert.ToString(false),
+        Convert.ToString(c.CustomerName),
+        Convert.ToString(c.ItemName),
+        Convert.ToString(c.Location),
+        Convert.ToString(c.SalePrice)
+           }));
+            return (ActionResult)Json((object)new
+            {
+                sEcho = param.sEcho,
+                iTotalRecords = TotalRecords,
+                iTotalDisplayRecords = TotalRecords,
+                aaData = strArrays
+            }, JsonRequestBehavior.AllowGet);
+        }
         #endregion
     }
 
-   
+
 }

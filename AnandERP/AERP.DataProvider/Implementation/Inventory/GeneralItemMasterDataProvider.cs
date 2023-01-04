@@ -1,6 +1,7 @@
 ﻿using AERP.Base.DTO;
 using AERP.DTO;
 using AERP.ExceptionManager;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -191,7 +192,7 @@ namespace AERP.DataProvider
                         {
                             item.IsPurchaseItem = Convert.ToBoolean(sqlDataReader["IsPurchaseItem"]);
                         }
-                         if (DBNull.Value.Equals(sqlDataReader["IsFixedAssetItem"]) == false)
+                        if (DBNull.Value.Equals(sqlDataReader["IsFixedAssetItem"]) == false)
                         {
                             item.IsFixedAssetItem = Convert.ToBoolean(sqlDataReader["IsFixedAssetItem"]);
                         }
@@ -689,7 +690,7 @@ namespace AERP.DataProvider
                     }
                     if (item.CentreCode != null)
                     {
-                        cmdToExecute.Parameters.Add(new SqlParameter("@nsCentreCode", SqlDbType.NVarChar,35, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, item.CentreCode));
+                        cmdToExecute.Parameters.Add(new SqlParameter("@nsCentreCode", SqlDbType.NVarChar, 35, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, item.CentreCode));
                     }
                     else
                     {
@@ -797,7 +798,7 @@ namespace AERP.DataProvider
                         cmdToExecute.Parameters.Add(new SqlParameter("@nsRecipeMenuImage", SqlDbType.NVarChar, 100, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, DBNull.Value));
                     }
                     if (item.DisplayName != null)
-                     {
+                    {
                         cmdToExecute.Parameters.Add(new SqlParameter("@nsEComDisplayName", SqlDbType.NVarChar, 100, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, item.DisplayName));
                     }
                     else
@@ -1235,7 +1236,7 @@ namespace AERP.DataProvider
                         _item.LeadTime = sqlDataReader["LeadTime"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["LeadTime"]);
                         _item.HSCode = sqlDataReader["HSCode"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["HSCode"]);
                         _item.ShelfLife = sqlDataReader["ShelfExpiryLife"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["ShelfExpiryLife"]);
-                        _item.LastPurchasePrice = Math.Round(sqlDataReader["Price"] is DBNull ? 0 : Convert.ToDouble(sqlDataReader["Price"]),2);
+                        _item.LastPurchasePrice = Math.Round(sqlDataReader["Price"] is DBNull ? 0 : Convert.ToDouble(sqlDataReader["Price"]), 2);
                         _item.CurrencyCode = sqlDataReader["CurrencyCode"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CurrencyCode"]);
 
                         _item.ManufacturerName = sqlDataReader["ManufacturerName"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["ManufacturerName"]);
@@ -1249,7 +1250,7 @@ namespace AERP.DataProvider
                     {
                         _errorCode = (SqlInt32)cmdToExecute.Parameters["@iErrorCode"].Value;
                     }
-                   
+
 
 
                     if (_errorCode != (int)ErrorEnum.AllOk)
@@ -1332,7 +1333,7 @@ namespace AERP.DataProvider
                         item.GeneralUnitsID = sqlDataReader["GeneralUnitsID"] is DBNull ? new Int16() : Convert.ToInt16(sqlDataReader["GeneralUnitsID"]);
                         item.ItemNumber = sqlDataReader["ItemNumber"] is DBNull ? new Int16() : Convert.ToInt16(sqlDataReader["ItemNumber"]);
                         item.BarCode = sqlDataReader["BarCode"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["BarCode"]);
-                        item.LastPurchasePrice = Math.Round(sqlDataReader["Price"] is DBNull ? new double() : Convert.ToDouble(sqlDataReader["Price"]),2);
+                        item.LastPurchasePrice = Math.Round(sqlDataReader["Price"] is DBNull ? new double() : Convert.ToDouble(sqlDataReader["Price"]), 2);
                         if (DBNull.Value.Equals(sqlDataReader["IsBaseUom"]) == false)
                         {
                             item.IsBaseUom = Convert.ToBoolean(sqlDataReader["IsBaseUom"]);
@@ -1675,7 +1676,7 @@ namespace AERP.DataProvider
                         item.BarCode = Convert.ToString(sqlDataReader["BarCode"]);
                         item.UomCode = Convert.ToString(sqlDataReader["UomCode"]);
                         item.PurchaseUoMCode = Convert.ToString(sqlDataReader["PurchaseUoMCode"]);
-                        item.LastPurchasePrice =Math.Round(Convert.ToDouble(sqlDataReader["LastPurchasePrice"]),2);
+                        item.LastPurchasePrice = Math.Round(Convert.ToDouble(sqlDataReader["LastPurchasePrice"]), 2);
                         item.GenTaxGroupMasterID = Convert.ToInt16(sqlDataReader["GenTaxGroupMasterID"]);
                         item.ItemNumber = Convert.ToInt16(sqlDataReader["ItemNumber"]);
                         item.ItemDescription = Convert.ToString(sqlDataReader["ItemDescription"]);
@@ -1773,7 +1774,7 @@ namespace AERP.DataProvider
                         item.GeneralItemMasterID = sqlDataReader["GeneralItemMasterID"] is DBNull ? 0 : Convert.ToInt32(sqlDataReader["GeneralItemMasterID"]);
                         item.ItemNumber = sqlDataReader["ItemNumber"] is DBNull ? 0 : Convert.ToInt32(sqlDataReader["ItemNumber"]);
                         item.BarCode = sqlDataReader["BarCode"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["BarCode"]);
-                        item.LastPurchasePrice =Math.Round(Convert.ToDouble(sqlDataReader["Price"]),2);
+                        item.LastPurchasePrice = Math.Round(Convert.ToDouble(sqlDataReader["Price"]), 2);
                         if (DBNull.Value.Equals(sqlDataReader["IsBaseUom"]) == false)
                         {
                             item.IsBaseUom = Convert.ToBoolean(sqlDataReader["IsBaseUom"]);
@@ -2413,7 +2414,7 @@ namespace AERP.DataProvider
                         }
                         _item.GRProccessingTime = sqlDataReader["GRProccessingTime"] is DBNull ? new double() : Convert.ToDouble(sqlDataReader["GRProccessingTime"]);
                         _item.GRPUomCode = sqlDataReader["GRPUomCode"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["GRPUomCode"]);
-                       
+
                         response.Entity = _item;
                     }
                     if (cmdToExecute.Parameters["@iErrorCode"].Value != null)
@@ -2908,7 +2909,7 @@ namespace AERP.DataProvider
                 item.ErrorMessage = "sql error";
                 response.Entity = item;
                 //_logException.Error(ex.Message);
-                
+
             }
             catch (Exception ex)
             {
@@ -2955,9 +2956,9 @@ namespace AERP.DataProvider
                     _mainConnection.ConnectionString = item.ConnectionString;
                     cmdToExecute.Connection = _mainConnection;
                     cmdToExecute.CommandText = "dbo.USP_ItemMaster_GetDataValidationListsForExcel";
-                    cmdToExecute.CommandType = CommandType.StoredProcedure;                   
+                    cmdToExecute.CommandType = CommandType.StoredProcedure;
 
-                    cmdToExecute.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "",DataRowVersion.Proposed, _errorCode));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
                     if (_mainConnectionIsCreatedLocal)
                     {
                         // Open connection. 
@@ -3139,7 +3140,7 @@ namespace AERP.DataProvider
                     cmdToExecute.CommandType = CommandType.StoredProcedure;
                     cmdToExecute.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
                     cmdToExecute.Parameters.Add(new SqlParameter("@iItemNumber", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, searchRequest.ItemNumber));
-                    
+
                     if (_mainConnectionIsCreatedLocal)
                     {
                         // Open connection.
@@ -3164,7 +3165,7 @@ namespace AERP.DataProvider
                         item.ItemNumber = sqlDataReader["ItemNumber"] is DBNull ? new Int16() : Convert.ToInt16(sqlDataReader["ItemNumber"]);
                         item.AttributeName = sqlDataReader["AttributeName"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["AttributeName"]);
                         item.InventoryAttributeMasterID = sqlDataReader["InventoryAttributeMasterID"] is DBNull ? new Int32() : Convert.ToInt32(sqlDataReader["InventoryAttributeMasterID"]);
-                       
+
                         baseEntityCollection.CollectionResponse.Add(item);
                     }
                     if (cmdToExecute.Parameters["@iErrorCode"].Value != null)
@@ -3316,7 +3317,7 @@ namespace AERP.DataProvider
                     {
                         cmdToExecute.Parameters.Add(new SqlParameter("@nsCentreCode", SqlDbType.NVarChar, 35, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, DBNull.Value));
                     }
-                   
+
                     if (_mainConnectionIsCreatedLocal)
                     {
                         // Open connection.
@@ -3334,7 +3335,7 @@ namespace AERP.DataProvider
                     while (sqlDataReader.Read())
                     {
                         GeneralItemMaster item = new GeneralItemMaster();
-                        
+
                         item.GeneralItemMasterID = sqlDataReader["GeneralItemMasterID"] is DBNull ? 0 : Convert.ToInt32(sqlDataReader["GeneralItemMasterID"]);
                         item.ItemNumber = sqlDataReader["ItemNumber"] is DBNull ? new short() : Convert.ToInt16(sqlDataReader["ItemNumber"]);
                         item.ItemDescription = sqlDataReader["ItemDescription"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["ItemDescription"]);
@@ -3344,7 +3345,7 @@ namespace AERP.DataProvider
                         item.OrderUomCode = sqlDataReader["OrderUomCode"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["OrderUomCode"]);
                         item.GeneralItemCodeID = sqlDataReader["GeneralItemCodeID"] is DBNull ? new Int32() : Convert.ToInt32(sqlDataReader["GeneralItemCodeID"]);
                         item.BaseUOMQuantity = sqlDataReader["BaseUOMQuantity"] is DBNull ? new decimal() : Convert.ToDecimal(sqlDataReader["BaseUOMQuantity"]);
-                     
+
                         baseEntityCollection.CollectionResponse.Add(item);
                     }
                     if (cmdToExecute.Parameters["@iErrorCode"].Value != null)
@@ -3426,7 +3427,7 @@ namespace AERP.DataProvider
                     {
                         GeneralItemMaster item = new GeneralItemMaster();
 
-                        
+
                         item.BarCode = sqlDataReader["BarCode"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["BarCode"]);
                         item.UomCode = sqlDataReader["UomCode"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["UomCode"]);
                         item.PurchaseUoMCode = sqlDataReader["PurchaseUoMCode"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["PurchaseUoMCode"]);
@@ -3479,7 +3480,7 @@ namespace AERP.DataProvider
             }
             return baseEntityCollection;
         }
-        
+
         public IBaseEntityResponse<GeneralItemMaster> InsertGeneralItemSupplierDataForVendorDetails(GeneralItemMaster item)
         {
             IBaseEntityResponse<GeneralItemMaster> response = new BaseEntityResponse<GeneralItemMaster>();
@@ -3633,11 +3634,11 @@ namespace AERP.DataProvider
                     while (sqlDataReader.Read())
                     {
                         GeneralItemMaster item = new GeneralItemMaster();
-                        
+
                         item.VendorNumber = sqlDataReader["VendorNumber"] is DBNull ? new short() : Convert.ToInt16(sqlDataReader["VendorNumber"]);
-                        item.GeneralVendorID = sqlDataReader["GeneralVendorID"] is DBNull ? new int (): Convert.ToInt32(sqlDataReader["GeneralVendorID"]);
+                        item.GeneralVendorID = sqlDataReader["GeneralVendorID"] is DBNull ? new int() : Convert.ToInt32(sqlDataReader["GeneralVendorID"]);
                         item.VendorName = sqlDataReader["Vender"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["Vender"]);
-                        
+
                         baseEntityCollection.CollectionResponse.Add(item);
                     }
                     if (cmdToExecute.Parameters["@iErrorCode"].Value != null)
@@ -3815,7 +3816,7 @@ namespace AERP.DataProvider
                     {
                         GeneralItemMaster _item = new GeneralItemMaster();
                         ////_item.ID = Convert.ToInt16(sqlDataReader["ID"]);
-                       
+
                         _item.ItemCategoryDescription = sqlDataReader["ItemCategoryDescription"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["ItemCategoryDescription"]);
                         _item.GroupDescription = sqlDataReader["GroupDescription"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["GroupDescription"]);
                         _item.MerchantiseDepartmentName = sqlDataReader["MerchantiseDepartmentName"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["MerchantiseDepartmentName"]);
@@ -4006,8 +4007,8 @@ namespace AERP.DataProvider
                     {
                         GeneralItemMaster item = new GeneralItemMaster();
 
-                        item.ItemNumber= sqlDataReader["ItemNumber"] is DBNull ? new int() : Convert.ToInt32(sqlDataReader["ItemNumber"]);
-                        item.ItemDescription= sqlDataReader["ItemDescription"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["ItemDescription"]);
+                        item.ItemNumber = sqlDataReader["ItemNumber"] is DBNull ? new int() : Convert.ToInt32(sqlDataReader["ItemNumber"]);
+                        item.ItemDescription = sqlDataReader["ItemDescription"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["ItemDescription"]);
 
                         baseEntityCollection.CollectionResponse.Add(item);
                     }
@@ -4245,10 +4246,10 @@ namespace AERP.DataProvider
                     cmdToExecute.CommandTimeout = 0;
                     cmdToExecute.CommandText = "dbo.USP_CCRMPartNo_SearchList";
                     cmdToExecute.CommandType = CommandType.StoredProcedure;
-                  
+
                     cmdToExecute.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
                     cmdToExecute.Parameters.Add(new SqlParameter("@nsSearchWord", SqlDbType.VarChar, 50, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, searchRequest.SearchWord));
-                    
+
                     if (_mainConnectionIsCreatedLocal)
                     {
                         // Open connection.
@@ -4267,7 +4268,7 @@ namespace AERP.DataProvider
                     {
                         GeneralItemMaster item = new GeneralItemMaster();
                         item.ID = sqlDataReader["ID"] is DBNull ? 0 : Convert.ToInt32(sqlDataReader["ID"]);
-                       
+
                         item.ItemCategoryCode = sqlDataReader["ItemCategoryCode"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["ItemCategoryCode"]);
                         item.ItemNumber = sqlDataReader["ItemNumber"] is DBNull ? new short() : Convert.ToInt16(sqlDataReader["ItemNumber"]);
                         item.ItemDescription = sqlDataReader["ItemDescription"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["ItemDescription"]);
@@ -4275,7 +4276,7 @@ namespace AERP.DataProvider
                         item.lifeInCopies = sqlDataReader["lifeInCopies"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["lifeInCopies"]);
                         //item.LastQuantity = sqlDataReader["LastQuantity"] is DBNull ? 0 : Convert.ToInt32(sqlDataReader["LastQuantity"]);
                         //item.LastMtrRead = sqlDataReader["LastMtrRead"] is DBNull ? 0 : Convert.ToInt32(sqlDataReader["LastMtrRead"]);
-                      
+
                         baseEntityCollection.CollectionResponse.Add(item);
                     }
                     if (cmdToExecute.Parameters["@iErrorCode"].Value != null)
@@ -4310,6 +4311,360 @@ namespace AERP.DataProvider
             return baseEntityCollection;
         }
 
+        public IBaseEntityCollectionResponse<GeneralItemMaster> GetGeneralItemCustomerSalesDataByItemNumber(GeneralItemMasterSearchRequest searchRequest)
+        {
+            IBaseEntityCollectionResponse<GeneralItemMaster> baseEntityCollection = (IBaseEntityCollectionResponse<GeneralItemMaster>)new BaseEntityCollectionResponse<GeneralItemMaster>();
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                if (string.IsNullOrEmpty(searchRequest.ConnectionString))
+                {
+                    baseEntityCollection.Message.Add(new MessageDTO()
+                    {
+                        ErrorMessage = "Connection string is empty.",
+                        MessageType = MessageTypeEnum.Error
+                    });
+                }
+                else
+                {
+                    _mainConnection.ConnectionString = searchRequest.ConnectionString;
+                    sqlCommand.Connection = _mainConnection;
+                    sqlCommand.CommandText = "dbo.USP_GeneralItemMaster_GetGeneralItemCustomerSalesDataByItemNumber";
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iItemNumber", SqlDbType.Int, 4, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, searchRequest.ItemNumber));
+                    if (_mainConnectionIsCreatedLocal)
+                        _mainConnection.Open();
+                    else if (_mainConnectionProvider.IsTransactionPending)
+                        sqlCommand.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    baseEntityCollection.CollectionResponse = new List<GeneralItemMaster>();
+                    while (sqlDataReader.Read())
+                    {
+                        GeneralItemMaster item = new GeneralItemMaster();
+                        item.InventoryItemCodeUnitLevelCustomerSpecificInfoID = sqlDataReader["InventoryItemCodeUnitLevelCustomerSpecificInfoID"] is DBNull ? 0 : Convert.ToInt32(sqlDataReader["InventoryItemCodeUnitLevelCustomerSpecificInfoID"]);
+                        item.GeneralItemCodeID = sqlDataReader["GeneralItemCodeId"] is DBNull ? 0 : Convert.ToInt32(sqlDataReader["GeneralItemCodeId"]);
+                        item.GeneralUnitsID = sqlDataReader["GeneralUnitsID"] is DBNull ? (short)0 : Convert.ToInt16(sqlDataReader["GeneralUnitsID"]); ;
+                        item.ItemNumber = sqlDataReader["ItemNumber"] is DBNull ? 0 : (int)Convert.ToInt16(sqlDataReader["ItemNumber"]);
+                        item.SalePrice = Math.Round(sqlDataReader["SalePrice"] is DBNull ? 0M : Convert.ToDecimal(sqlDataReader["SalePrice"]), 2);
+                        item.UomCode = sqlDataReader["UomCode"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["UomCode"]);
+                        item.UnitName = sqlDataReader["UnitName"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["UnitName"]);
+                        item.CentreCode = sqlDataReader["CentreName"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CentreName"]);
+                        item.CustomerMasterId = sqlDataReader["CustomerMasterId"] is DBNull ? 0 : Convert.ToInt32(sqlDataReader["CustomerMasterId"]);
+                        item.CustomerName = sqlDataReader["CustomerName"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CustomerName"]);
+                        item.CustomerBranchMasterId = sqlDataReader["CustomerBranchMasterId"] is DBNull ? 0 : Convert.ToInt32(sqlDataReader["CustomerBranchMasterId"]);
+                        item.CustomerBranchName = sqlDataReader["CustomerBranchName"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CustomerBranchName"]);
+                        item.ApprovalStatus = sqlDataReader["ApprovalStatus"] is DBNull ? (byte)0 : Convert.ToByte(sqlDataReader["ApprovalStatus"]);
+                        baseEntityCollection.CollectionResponse.Add(item);
+                    }
+
+                    if (sqlCommand.Parameters["@iErrorCode"].Value != null)
+                        _errorCode = (SqlInt32)sqlCommand.Parameters["@iErrorCode"].Value;
+                    if (_errorCode != (SqlInt32)0)
+                        throw new Exception("Stored Procedure 'USP_GeneralItemMaster_SearchList' reported the ErrorCode: " + _errorCode);
+                }
+            }
+            catch (Exception ex)
+            {
+                baseEntityCollection.Message.Add(new MessageDTO()
+                {
+                    ErrorMessage = ex.InnerException.Message,
+                    MessageType = MessageTypeEnum.Error
+                });
+                // _logException.Error(ex.Message);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                {
+                    // Close connection.
+                    _mainConnection.Close();
+                }
+                sqlCommand.Dispose();
+            }
+            return baseEntityCollection;
+        }
+
+        public IBaseEntityResponse<GeneralItemMaster> InsertGeneralItemCustomerSalesData(GeneralItemMaster item)
+        {
+            IBaseEntityResponse<GeneralItemMaster> baseEntityResponse = (IBaseEntityResponse<GeneralItemMaster>)new BaseEntityResponse<GeneralItemMaster>();
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                if (string.IsNullOrEmpty(item.ConnectionString))
+                {
+                    baseEntityResponse.Message.Add((IMessageDTO)new MessageDTO()
+                    {
+                        ErrorMessage = "Connection string is empty.",
+                        MessageType = MessageTypeEnum.Error
+                    });
+                }
+                else
+                {
+                    _mainConnection.ConnectionString = item.ConnectionString;
+                    sqlCommand.Connection = _mainConnection;
+                    sqlCommand.CommandText = "dbo.USP_GeneralItemMaster_CreateCustomerSalesData";
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.Add(new SqlParameter("@iInventoryItemCodeUnitLevelCustomerSpecificInfoID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.InventoryItemCodeUnitLevelCustomerSpecificInfoID));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iItemNumber", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.ItemNumber));
+                    sqlCommand.Parameters.Add(new SqlParameter("@nsUomCode", SqlDbType.NVarChar, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.UomCode == null ? "" : item.UomCode));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iCustomerMasterId", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.CustomerMasterId));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iCustomerBranchMasterId", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.CustomerBranchMasterId));
+                    sqlCommand.Parameters.Add(new SqlParameter("@mSalePrice", SqlDbType.Money, 0, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.SalePrice));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iGeneralUnitsID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.GeneralUnitsID));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iCreatedBy", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, item.CreatedBy));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
+                    if (_mainConnectionIsCreatedLocal)
+                        _mainConnection.Open();
+                    else if (_mainConnectionProvider.IsTransactionPending)
+                        sqlCommand.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    _rowsAffected = sqlCommand.ExecuteNonQuery();
+                    _errorCode = (SqlInt32)sqlCommand.Parameters["@iErrorCode"].Value;
+                    item.ErrorCode = (int)_errorCode;
+                    baseEntityResponse.Entity = item;
+                    if (_errorCode != (SqlInt32)0 && _errorCode != (SqlInt32)11)
+                        throw new Exception("Stored Procedure 'dbo.USP_GeneralItemMaster_Delete' reported the ErrorCode: " + _errorCode);
+                }
+            }
+            catch (SqlException ex)
+            {
+                baseEntityResponse.Message.Add((IMessageDTO)new MessageDTO()
+                {
+                    ErrorMessage = ex.Message,
+                    MessageType = MessageTypeEnum.Error
+                });
+                _logException.Error(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                baseEntityResponse.Message.Add((IMessageDTO)new MessageDTO()
+                {
+                    ErrorMessage = ex.Message,
+                    MessageType = MessageTypeEnum.Error
+                });
+                _logException.Error(ex.Message);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                    _mainConnection.Close();
+                sqlCommand.Dispose();
+            }
+            return baseEntityResponse;
+        }
+        public IBaseEntityResponse<GeneralItemMaster> InsertCustomerSaleRateApproval(GeneralItemMaster item)
+        {
+            IBaseEntityResponse<GeneralItemMaster> baseEntityResponse = (IBaseEntityResponse<GeneralItemMaster>)new BaseEntityResponse<GeneralItemMaster>();
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                if (string.IsNullOrEmpty(item.ConnectionString))
+                {
+                    baseEntityResponse.Message.Add((IMessageDTO)new MessageDTO()
+                    {
+                        ErrorMessage = "Connection string is empty.",
+                        MessageType = MessageTypeEnum.Error
+                    });
+                }
+                else
+                {
+                    _mainConnection.ConnectionString = item.ConnectionString;
+                    sqlCommand.Connection = _mainConnection;
+                    sqlCommand.CommandText = "dbo.USP_CustomerSaleRateApproval_Insert";
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.CommandTimeout = 0;
+                    sqlCommand.Parameters.Add(new SqlParameter("@iEmployeeID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.PersonID));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iInventoryItemCodeUnitLevelCustomerSpecificInfoID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.InventoryItemCodeUnitLevelCustomerSpecificInfoID));
+                    sqlCommand.Parameters.Add(new SqlParameter("@bIsLast", SqlDbType.Bit, 0, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, Convert.ToByte(item.IsLastRecord)));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iTaskNotificationMasterID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.TaskNotificationMasterID));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iTaskNotificationDetailsID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.TaskNotificationDetailsID));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iGeneralTaskReportingDetailsID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.GeneralTaskReportingDetailsID));
+                    sqlCommand.Parameters.Add(new SqlParameter("@bApprovalStatus", SqlDbType.TinyInt, 0, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.ApprovedStatus));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iStageSequenceNumber", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.StageSequenceNumber));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iCreatedBy", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, item.CreatedBy));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iID", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, item.ID));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iStatus", SqlDbType.Int, 10, ParameterDirection.Output, false, 0, 0, "", DataRowVersion.Proposed, item.Status));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
+                    if (_mainConnectionIsCreatedLocal)
+                        _mainConnection.Open();
+                    else if (_mainConnectionProvider.IsTransactionPending)
+                        sqlCommand.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    _rowsAffected = sqlCommand.ExecuteNonQuery();
+                    _errorCode = (SqlInt32)sqlCommand.Parameters["@iErrorCode"].Value;
+                    item.ErrorCode = (int)_errorCode;
+                    baseEntityResponse.Entity = item;
+                    if (_errorCode != (SqlInt32)0 && _errorCode != (SqlInt32)547)
+                        throw new Exception("Stored Procedure 'USP_SaleContractManPowerItem_Delete' reported the ErrorCode: " + _errorCode);
+                }
+            }
+            catch (SqlException ex)
+            {
+                baseEntityResponse.Message.Add((IMessageDTO)new MessageDTO()
+                {
+                    ErrorMessage = ex.Message,
+                    MessageType = MessageTypeEnum.Error
+                });
+                _logException.Error(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                baseEntityResponse.Message.Add((IMessageDTO)new MessageDTO()
+                {
+                    ErrorMessage = ex.Message,
+                    MessageType = MessageTypeEnum.Error
+                });
+                _logException.Error(ex.Message);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                    _mainConnection.Close();
+                sqlCommand.Dispose();
+            }
+            return baseEntityResponse;
+        }
+
+        public IBaseEntityResponse<GeneralItemMaster> InsertCustomerSaleRateDeleteApproval(
+          GeneralItemMaster item)
+        {
+            IBaseEntityResponse<GeneralItemMaster> baseEntityResponse = (IBaseEntityResponse<GeneralItemMaster>)new BaseEntityResponse<GeneralItemMaster>();
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                if (string.IsNullOrEmpty(item.ConnectionString))
+                {
+                    baseEntityResponse.Message.Add((IMessageDTO)new MessageDTO()
+                    {
+                        ErrorMessage = "Connection string is empty.",
+                        MessageType = MessageTypeEnum.Error
+                    });
+                }
+                else
+                {
+                    _mainConnection.ConnectionString = item.ConnectionString;
+                    sqlCommand.Connection = _mainConnection;
+                    sqlCommand.CommandText = "dbo.USP_CustomerSaleRateDeleteApproval_Insert";
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.CommandTimeout = 0;
+                    sqlCommand.Parameters.Add(new SqlParameter("@iEmployeeID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.PersonID));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iInventoryItemCodeUnitLevelCustomerSpecificInfoID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.InventoryItemCodeUnitLevelCustomerSpecificInfoID));
+                    sqlCommand.Parameters.Add(new SqlParameter("@bIsLast", SqlDbType.Bit, 0, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, Convert.ToByte(item.IsLastRecord)));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iTaskNotificationMasterID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.TaskNotificationMasterID));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iTaskNotificationDetailsID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.TaskNotificationDetailsID));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iGeneralTaskReportingDetailsID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.GeneralTaskReportingDetailsID));
+                    sqlCommand.Parameters.Add(new SqlParameter("@bApprovalStatus", SqlDbType.TinyInt, 0, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.ApprovedStatus));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iStageSequenceNumber", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, item.StageSequenceNumber));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iCreatedBy", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, item.CreatedBy));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iID", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, item.ID));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iStatus", SqlDbType.Int, 10, ParameterDirection.Output, false, 0, 0, "", DataRowVersion.Proposed, item.Status));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
+                    if (_mainConnectionIsCreatedLocal)
+                        _mainConnection.Open();
+                    else if (_mainConnectionProvider.IsTransactionPending)
+                        sqlCommand.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    _rowsAffected = sqlCommand.ExecuteNonQuery();
+                    _errorCode = (SqlInt32)sqlCommand.Parameters["@iErrorCode"].Value;
+                    item.ErrorCode = (int)_errorCode;
+                    baseEntityResponse.Entity = item;
+                    if (_errorCode != (SqlInt32)0 && _errorCode != (SqlInt32)547)
+                        throw new Exception("Stored Procedure 'USP_SaleContractManPowerItem_Delete' reported the ErrorCode: " + _errorCode);
+                }
+            }
+            catch (SqlException ex)
+            {
+                baseEntityResponse.Message.Add((IMessageDTO)new MessageDTO()
+                {
+                    ErrorMessage = ex.Message,
+                    MessageType = MessageTypeEnum.Error
+                });
+                _logException.Error(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                baseEntityResponse.Message.Add((IMessageDTO)new MessageDTO()
+                {
+                    ErrorMessage = ex.Message,
+                    MessageType = MessageTypeEnum.Error
+                });
+                _logException.Error(ex.Message);
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                    _mainConnection.Close();
+                sqlCommand.Dispose();
+            }
+            return baseEntityResponse;
+        }
+
+        public IBaseEntityCollectionResponse<GeneralItemMaster> GetCustomerSaleRateApproval(
+          GeneralItemMasterSearchRequest searchRequest)
+        {
+            IBaseEntityCollectionResponse<GeneralItemMaster> collectionResponse;
+            IBaseEntityCollectionResponse<GeneralItemMaster> saleRateApproval = collectionResponse = (IBaseEntityCollectionResponse<GeneralItemMaster>)new BaseEntityCollectionResponse<GeneralItemMaster>();
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                if (string.IsNullOrEmpty(searchRequest.ConnectionString))
+                {
+                    saleRateApproval.Message.Add((IMessageDTO)new MessageDTO()
+                    {
+                        ErrorMessage = "Connection string is empty.",
+                        MessageType = MessageTypeEnum.Error
+                    });
+                }
+                else
+                {
+                    _mainConnection.ConnectionString = searchRequest.ConnectionString;
+                    sqlCommand.Connection = _mainConnection;
+                    sqlCommand.CommandText = "dbo.USP_CustomerSaleRate_GetRequestForApproval";
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.Add(new SqlParameter("@iErrorCode", SqlDbType.Int, 4, ParameterDirection.Output, true, 10, 0, "", DataRowVersion.Proposed, _errorCode));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iPersonID", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.PersonID));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iTaskNotificationMasterID", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.TaskNotificationMasterID));
+                    sqlCommand.Parameters.Add(new SqlParameter("@iGeneralTaskReportingDetailsID", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.GeneralTaskReportingDetailsID));
+                    if (_mainConnectionIsCreatedLocal)
+                        _mainConnection.Open();
+                    else if (_mainConnectionProvider.IsTransactionPending)
+                        sqlCommand.Transaction = _mainConnectionProvider.CurrentTransaction;
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    saleRateApproval.CollectionResponse = (IList<GeneralItemMaster>)new List<GeneralItemMaster>();
+                    while (sqlDataReader.Read())
+                    {
+                        saleRateApproval.CollectionResponse.Add(new GeneralItemMaster()
+                        {
+                            InventoryItemCodeUnitLevelCustomerSpecificInfoID = sqlDataReader["InventoryItemCodeUnitLevelCustomerSpecificInfoID"] is DBNull ? 0 : Convert.ToInt32(sqlDataReader["InventoryItemCodeUnitLevelCustomerSpecificInfoID"]),
+                            ItemDescription = sqlDataReader["ItemDescription"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["ItemDescription"]),
+                            SalePrice = Math.Round(sqlDataReader["SalePrice"] is DBNull ? 0M : Convert.ToDecimal(sqlDataReader["SalePrice"]), 2),
+                            UomCode = sqlDataReader["UomCode"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["UomCode"]),
+                            UnitName = sqlDataReader["UnitName"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["UnitName"]),
+                            CentreCode = sqlDataReader["CentreCode"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CentreCode"]),
+                            CustomerName = sqlDataReader["CustomerName"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CustomerName"]),
+                            CustomerBranchName = sqlDataReader["CustomerBranchName"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CustomerBranchName"])
+                        });
+                    }
+                    if (sqlCommand.Parameters["@iErrorCode"].Value != null)
+                        _errorCode = (SqlInt32)sqlCommand.Parameters["@iErrorCode"].Value;
+                    if (_errorCode != (SqlInt32)0)
+                        throw new Exception("Stored Procedure 'USP_SaleContractManPowerItem_SearchList' reported the ErrorCode: " + _errorCode);
+                }
+            }
+            catch (Exception ex)
+            {
+                saleRateApproval.Message.Add((IMessageDTO)new MessageDTO()
+                {
+                    ErrorMessage = ex.InnerException.Message,
+                    MessageType = MessageTypeEnum.Error
+                });
+            }
+            finally
+            {
+                if (_mainConnectionIsCreatedLocal)
+                    _mainConnection.Close();
+                sqlCommand.Dispose();
+            }
+            return saleRateApproval;
+        }
         #endregion
     }
 }

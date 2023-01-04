@@ -415,5 +415,12 @@ namespace AERP.DTO
         public string CustomerInvoiceNumber { get; set; }
         public Int32 EmployeeID { get; set; }
         public Int32 NotificationCount { get; set; }
+        public string CustomerName { get; set; }
+
+        public string ItemName { get; set; }
+
+        public string Location { get; set; }
+
+        public string SalePrice { get; set; }
     }
 }
