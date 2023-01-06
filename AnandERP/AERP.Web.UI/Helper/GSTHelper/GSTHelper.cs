@@ -20,7 +20,7 @@ namespace AERP.Web.UI.Helper
         {
             GSTAuthTokenResponse gstAuthTokenResponse = new GSTAuthTokenResponse();
             RestClient client = new RestClient();
-            RestRequest request = new RestRequest($"{GSTCredential.Urls}/eivital/dec/v1.04/auth", Method.Get);
+            RestRequest request = new RestRequest($"{GSTCredential.Urls}/eivital/dec/v1.04/auth", Method.GET);
             request.Timeout = -1;
             request.AddHeader("Gstin", GSTCredential.GSTIN);
             request.AddHeader("user_name", GSTCredential.EInvoiceUserName);
@@ -28,7 +28,7 @@ namespace AERP.Web.UI.Helper
             request.AddHeader("aspid", GSTCredential.AspId);
             request.AddHeader("password", GSTCredential.AspUserPassword);
             request.RequestFormat = DataFormat.Json;
-            RestResponse response = client.Execute(request);
+            IRestResponse response = client.Execute(request);
             if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK)
             {
                 gstAuthTokenResponse = JsonConvert.DeserializeObject<GSTAuthTokenResponse>(response.Content);
@@ -57,7 +57,7 @@ namespace AERP.Web.UI.Helper
                 gstInvoiceRequestModel.Version = GSTCredential.Version;
                 string requestBody = JsonConvert.SerializeObject(gstInvoiceRequestModel);
                 RestClient client = new RestClient();
-                RestRequest request = new RestRequest($"{GSTCredential.Urls}/eicore/dec/v1.03/Invoice?QrCodeSize={GSTCredential.QrCodeSize}", Method.Post);
+                RestRequest request = new RestRequest($"{GSTCredential.Urls}/eicore/dec/v1.03/Invoice?QrCodeSize={GSTCredential.QrCodeSize}", Method.POST);
                 request.AddHeader("Gstin", GSTCredential.GSTIN);
                 request.AddHeader("user_name", GSTCredential.EInvoiceUserName);
                 request.AddHeader("AuthToken", GSTCredential.AuthToken);
@@ -66,7 +66,7 @@ namespace AERP.Web.UI.Helper
                 request.AddHeader("Content-Type", "application/json; charset=utf-8");
                 request.RequestFormat = DataFormat.Json;
                 request.AddBody(requestBody);     //Request Payload in object format
-                RestResponse response = client.Execute(request);
+                IRestResponse response = client.Execute(request);
 
                 gstInvoiceResponse = JsonConvert.DeserializeObject<GSTInvoiceResponse>(response.Content);
                 if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK && gstInvoiceResponse.Status == "1")
@@ -119,7 +119,7 @@ namespace AERP.Web.UI.Helper
             {
                 string requestBody = JsonConvert.SerializeObject(gstInvoiceCancelledRequestModel);
                 RestClient client = new RestClient();
-                RestRequest request = new RestRequest($"{GSTCredential.Urls}/eicore/dec/v1.03/Invoice/Cancel", Method.Post);
+                RestRequest request = new RestRequest($"{GSTCredential.Urls}/eicore/dec/v1.03/Invoice/Cancel", Method.POST);
                 request.AddHeader("Gstin", GSTCredential.GSTIN);
                 request.AddHeader("user_name", GSTCredential.EInvoiceUserName);
                 request.AddHeader("AuthToken", GSTCredential.AuthToken);
@@ -128,7 +128,7 @@ namespace AERP.Web.UI.Helper
                 request.AddHeader("Content-Type", "application/json; charset=utf-8");
                 request.RequestFormat = DataFormat.Json;
                 request.AddBody(requestBody);     //Request Payload in object format
-                RestResponse response = client.Execute(request);
+                IRestResponse response = client.Execute(request);
 
                 gstInvoiceCancelledResponse = JsonConvert.DeserializeObject<GSTInvoiceCancelledResponse>(response.Content);
                 if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK && gstInvoiceCancelledResponse.Status == "1")
@@ -179,7 +179,7 @@ namespace AERP.Web.UI.Helper
             {
                 string requestBody = JsonConvert.SerializeObject(gstEWayBillRequestModel);
                 RestClient client = new RestClient();
-                RestRequest request = new RestRequest($"{GSTCredential.Urls}/eiewb/dec/v1.03/ewaybill", Method.Post);
+                RestRequest request = new RestRequest($"{GSTCredential.Urls}/eiewb/dec/v1.03/ewaybill", Method.POST);
                 request.AddHeader("Gstin", GSTCredential.GSTIN);
                 request.AddHeader("user_name", GSTCredential.EInvoiceUserName);
                 request.AddHeader("AuthToken", GSTCredential.AuthToken);
@@ -188,7 +188,7 @@ namespace AERP.Web.UI.Helper
                 request.AddHeader("Content-Type", "application/json; charset=utf-8");
                 request.RequestFormat = DataFormat.Json;
                 request.AddBody(requestBody);     //Request Payload in object format
-                RestResponse response = client.Execute(request);
+                IRestResponse response = client.Execute(request);
 
                 gstEWayBillResponse = JsonConvert.DeserializeObject<GSTEWayBillResponse>(response.Content);
                 if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK && gstEWayBillResponse.Status == "1")
@@ -234,19 +234,19 @@ namespace AERP.Web.UI.Helper
             try
             {
                 RestClient client = new RestClient();
-                RestRequest request = new RestRequest($"{GSTCredential.Urls}/ewaybillapi/dec/v1.03/ewayapi?action=GetEwayBill&ewbNo={ewbNo}", Method.Get);
+                RestRequest request = new RestRequest($"{GSTCredential.Urls}/ewaybillapi/dec/v1.03/ewayapi?action=GetEwayBill&ewbNo={ewbNo}", Method.GET);
                 request.Timeout = -1;
                 request.AddHeader("Gstin", GSTCredential.GSTIN);
                 request.AddHeader("user_name", GSTCredential.EInvoiceUserName);
                 request.AddHeader("AuthToken", GSTCredential.AuthToken);
                 request.AddHeader("aspid", GSTCredential.AspId);
                 request.AddHeader("password", GSTCredential.AspUserPassword);
-                RestResponse response = client.Execute(request);
+                IRestResponse response = client.Execute(request);
                 gstEWayBillResponse = JsonConvert.DeserializeObject<GSTEWayBillResponse>(response.Content);
                 if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK && gstEWayBillResponse.Status == "1")
                 {
                     RestClient clientPost = new RestClient();
-                    RestRequest requestPost = new RestRequest($"{GSTCredential.Urls}/aspapi/v1.0/printewb", Method.Post);
+                    RestRequest requestPost = new RestRequest($"{GSTCredential.Urls}/aspapi/v1.0/printewb", Method.POST);
                     requestPost.AddHeader("aspid", GSTCredential.AspId);
                     requestPost.AddHeader("password", GSTCredential.AspUserPassword);
                     requestPost.AddHeader("Gstin", GSTCredential.GSTIN);
@@ -307,13 +307,13 @@ namespace AERP.Web.UI.Helper
             {
                 string requestBody = JsonConvert.SerializeObject(gstEWayBillCancelledRequestModel);
                 RestClient client = new RestClient();
-                RestRequest request = new RestRequest($"{GSTCredential.Urls}/ewaybillapi/dec/v1.03/ewayapi?action=CANEWB&gstin={GSTCredential.GSTIN}&username={GSTCredential.EInvoiceUserName}&authtoken={GSTCredential.AuthToken}", Method.Post);
+                RestRequest request = new RestRequest($"{GSTCredential.Urls}/ewaybillapi/dec/v1.03/ewayapi?action=CANEWB&gstin={GSTCredential.GSTIN}&username={GSTCredential.EInvoiceUserName}&authtoken={GSTCredential.AuthToken}", Method.POST);
                 request.AddHeader("aspid", GSTCredential.AspId);
                 request.AddHeader("password", GSTCredential.AspUserPassword);
                 request.AddHeader("Content-Type", "application/json; charset=utf-8");
                 request.RequestFormat = DataFormat.Json;
                 request.AddBody(requestBody);     //Request Payload in object format
-                RestResponse response = client.Execute(request);
+                IRestResponse response = client.Execute(request);
                 
                 if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK)
                 {
