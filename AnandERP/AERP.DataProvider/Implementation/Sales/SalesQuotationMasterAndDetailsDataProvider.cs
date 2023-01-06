@@ -833,6 +833,8 @@ namespace AERP.DataProvider
                     cmdToExecute.Parameters.Add(new SqlParameter("@nsUOM", SqlDbType.NVarChar, 20, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, searchRequest.UOM));
                     cmdToExecute.Parameters.Add(new SqlParameter("@iItemNumber", SqlDbType.Int, 4, ParameterDirection.Input, true, 0, 0, "", DataRowVersion.Proposed, searchRequest.ItemNumber));
                     cmdToExecute.Parameters.Add(new SqlParameter("@iGeneralUnitsID", SqlDbType.Int, 4, ParameterDirection.Input, true, 10, 0, "", DataRowVersion.Proposed, searchRequest.GeneralUnitsID));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@iCustomerMasterID", SqlDbType.Int, 4, ParameterDirection.Input, true, (byte)10, (byte)0, "", DataRowVersion.Proposed, searchRequest.CustomerMasterID));
+                    cmdToExecute.Parameters.Add(new SqlParameter("@iCustomerBranchMasterID", SqlDbType.Int, 4, ParameterDirection.Input, true, (byte)10, (byte)0, "", DataRowVersion.Proposed,searchRequest.CustomerBranchMasterID));
                     if (_mainConnectionIsCreatedLocal)
                     {
                         // Open connection.

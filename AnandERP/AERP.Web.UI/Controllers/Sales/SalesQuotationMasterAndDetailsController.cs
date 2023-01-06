@@ -402,9 +402,9 @@ namespace AERP.Web.UI.Controllers
             return listSalesQuotationMasterAndDetailsViewModel;
         }
 
-        public ActionResult GetSalePriceByUOMCode(string ItemNumber, string UOM, int GeneralUnitsID)
+        public ActionResult GetSalePriceByUOMCode(string ItemNumber, string UOM, int GeneralUnitsID, int CustomerMasterID, int CustomerBranchMasterID)
         {
-            var UOMCodeDesc = GetSalePriceByUOMCodeList(ItemNumber, UOM, GeneralUnitsID);
+            var UOMCodeDesc = GetSalePriceByUOMCodeList(ItemNumber, UOM, GeneralUnitsID, CustomerMasterID, CustomerBranchMasterID);
             var result = (from s in UOMCodeDesc
                           select new
                           {
@@ -414,7 +414,7 @@ namespace AERP.Web.UI.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetItemNumberSearchList(string term, string CustomerMasterID, string CustomerBranchMasterID, string GeneralUnitsID,string IsServiceItem)
+        public JsonResult GetItemNumberSearchList(string term, string CustomerMasterID, string CustomerBranchMasterID, string GeneralUnitsID, string IsServiceItem)
         {
             SalesQuotationMasterAndDetailsSearchRequest searchRequest = new SalesQuotationMasterAndDetailsSearchRequest();
             searchRequest.ConnectionString = Convert.ToString(ConfigurationManager.ConnectionStrings["Main.ConnectionString"]);
@@ -442,15 +442,15 @@ namespace AERP.Web.UI.Controllers
                               SerialAndBatchManagedBy = r.SerialAndBatchManagedBy,
                               TaxRateList = r.TaxRateList,
                               TaxList = r.TaxList,
-                              PurchasePrice=r.PurchasePrice,
-                              PurchaseUoMCode=r.PurchaseUoMCode,
-                              ConversionFactor=r.ConversionFactor,
-                              IsTaxExempted=r.IsTaxExempted,
+                              PurchasePrice = r.PurchasePrice,
+                              PurchaseUoMCode = r.PurchaseUoMCode,
+                              ConversionFactor = r.ConversionFactor,
+                              IsTaxExempted = r.IsTaxExempted,
                               TaxGroupName = r.TaxGroupName
                           }).ToList();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        protected List<SalesQuotationMasterAndDetails> GetSalePriceByUOMCodeList(string ItemNumber, string UOM, int GeneralUnitsID)
+        protected List<SalesQuotationMasterAndDetails> GetSalePriceByUOMCodeList(string ItemNumber, string UOM, int GeneralUnitsID, int CustomerMasterID, int CustomerBranchMasterID)
         {
 
             SalesQuotationMasterAndDetailsSearchRequest searchRequest = new SalesQuotationMasterAndDetailsSearchRequest();
@@ -458,6 +458,8 @@ namespace AERP.Web.UI.Controllers
             searchRequest.ItemNumber = Convert.ToInt32(ItemNumber);
             searchRequest.UOM = Convert.ToString(UOM);
             searchRequest.GeneralUnitsID = Convert.ToInt32(GeneralUnitsID);
+            searchRequest.CustomerMasterID = Convert.ToInt32(CustomerMasterID);
+            searchRequest.CustomerBranchMasterID = Convert.ToInt32(CustomerBranchMasterID);
 
             List<SalesQuotationMasterAndDetails> listUoMCodeByForSalesPrice = new List<SalesQuotationMasterAndDetails>();
             IBaseEntityCollectionResponse<SalesQuotationMasterAndDetails> baseEntityCollectionResponse = _SalesQuotationMasterAndDetailsBA.GetUomWiseSalesPrice(searchRequest);

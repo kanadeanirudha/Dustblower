@@ -2,10 +2,6 @@ USE [Ver1]
 GO
 
 /****** Object:  Table [dbo].[OrganisationCentreWiseGSTCredential]    Script Date: 11/29/2022 6:09:57 PM ******/
-DROP TABLE [dbo].[OrganisationCentreWiseGSTCredential]
-GO
-
-/****** Object:  Table [dbo].[OrganisationCentreWiseGSTCredential]    Script Date: 11/29/2022 6:09:57 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -77,11 +73,6 @@ INSERT INTO [dbo].[OrganisationCentreWiseGSTCredential]
 		   )
 GO
 
-
-/****** Object:  Table [dbo].[GSTEInvoiceMaster]    Script Date: 12/1/2022 11:33:15 PM ******/
-DROP TABLE [dbo].[GSTEInvoiceMaster]
-GO
-
 /****** Object:  Table [dbo].[GSTEInvoiceMaster]    Script Date: 12/1/2022 11:33:15 PM ******/
 SET ANSI_NULLS ON
 GO
@@ -107,10 +98,6 @@ CREATE TABLE [dbo].[GSTEInvoiceMaster](
 	[CreatedDate] [datetime] NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-GO
-
-/****** Object:  Table [dbo].[GSTEInvoiceDetails]    Script Date: 12/2/2022 9:17:51 AM ******/
-DROP TABLE [dbo].[GSTEInvoiceDetails]
 GO
 
 /****** Object:  Table [dbo].[GSTEInvoiceDetails]    Script Date: 12/2/2022 9:17:51 AM ******/
