@@ -201,13 +201,13 @@
 
                                         var result5 = "";
                                         if (data[11] == 0) {
-                                            var result5 = '<a class="btn btn-info waves-effect" href="#" title="E-Invoice Not Generated"> <span class="zmdi zmdi-upload" ></span></a>';
+                                             var result5 = '<a class="btn btn-info waves-effect" href="#" title="E-Invoice Not Generated"> <span class="zmdi zmdi-upload" ></span></a>';
                                         }
                                         else if (data[11] != 0 && data[12] == "True") {
                                             var result5 = '<a class="btn btn-danger waves-effect" href="#" title="E-Invoice Cancelled"><span class="zmdi zmdi-upload" ></span></a>';
                                         }
                                         else {
-                                            var result5 = '<a class="btn btn-success waves-effect" href="#"  title="E-Invoice Generated"> <span class="zmdi zmdi-upload"></span></a>';
+                                            var result5 = '<a class="btn btn-success waves-effect" href="/SaleContractBillingTransaction/DownloadEInvoice?SaleContractMasterID=' + data[2] +'&SaleContractBillingSpanID=' + data[4]+'&ActionType=Create"><span class="zmdi zmdi-upload" title="Download E-Invoice"></span></a>';
                                         }
                                         var result = "<p  style=''>" + result1 + " " + result2 + " " + result3 + " " + result5 + "</p>";
                                         return result;

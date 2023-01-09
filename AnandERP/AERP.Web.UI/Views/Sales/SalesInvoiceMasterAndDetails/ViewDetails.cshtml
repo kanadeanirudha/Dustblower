@@ -61,7 +61,11 @@
                                         if (Model.GSTEInvoiceMasterId == 0)
                                         {
                                             <input class="btn btn-primary btn-sm m-t-10 waves-effect" style="margin-right:5%" value="Cancel Invoice" id="CancelSalesInvoiceRecord" type="button" />
-                                            if (string.IsNullOrEmpty(Model.GSTINNumber))
+                                            if (Model.IsTaxExempted)
+                                            {
+                                                <span style="color:red">Tax Exempted. Can Not Create E-Invoice</span>
+                                            }
+                                            else if (string.IsNullOrEmpty(Model.GSTINNumber))
                                             {
                                                 <span style="color:red">Seller GST Number is not available</span>
                                             }

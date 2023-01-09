@@ -936,6 +936,7 @@ namespace AERP.DataProvider
                         item.IsCancelledEInvoice = sqlDataReader["IsCancelledEInvoice"] == DBNull.Value ? false : Convert.ToBoolean(sqlDataReader["IsCancelledEInvoice"]);
                         item.IsPossibleToCancelledEInvoice = sqlDataReader["IsPossibleToCancelledEInvoice"] == DBNull.Value ? false : Convert.ToBoolean(sqlDataReader["IsPossibleToCancelledEInvoice"]);
                         item.Irn = sqlDataReader["Irn"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["Irn"]);
+                        item.IsTaxExempted = sqlDataReader["IsTaxExempted"] is DBNull ? false : Convert.ToBoolean(sqlDataReader["IsTaxExempted"]);
                         if (searchRequest.InvoiceType == 1)
                         {
                             item.EwayBillNumber = sqlDataReader["EwayBillNumber"] == DBNull.Value ? string.Empty : Convert.ToString(sqlDataReader["EwayBillNumber"]);

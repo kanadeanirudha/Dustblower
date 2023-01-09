@@ -232,6 +232,7 @@ namespace AERP.Web.UI.Controllers
             model.EwayBillNumber = model.SalesinvoiceList[0].EwayBillNumber;
             model.IsPossibleToCancelledEWayBill = model.SalesinvoiceList[0].IsPossibleToCancelledEWayBill;
             model.CentreCode = model.SalesinvoiceList[0].CentreCode;
+            model.IsTaxExempted = model.SalesinvoiceList[0].IsTaxExempted;
             return PartialView("/Views/Sales/SalesInvoiceMasterAndDetails/ViewDetails.cshtml", model);
         }
 
@@ -277,6 +278,7 @@ namespace AERP.Web.UI.Controllers
             model.IsPossibleToCancelledEInvoice = model.SalesinvoiceList[0].IsPossibleToCancelledEInvoice;
             model.Irn = model.SalesinvoiceList[0].Irn;
             model.CentreCode = model.SalesinvoiceList[0].CentreCode;
+            model.IsTaxExempted = model.SalesinvoiceList[0].IsTaxExempted;
             return PartialView("/Views/Sales/SalesInvoiceMasterAndDetails/ViewDetails.cshtml", model);
         }
 
@@ -450,19 +452,24 @@ namespace AERP.Web.UI.Controllers
                 }
 
                 string qrImage = !string.IsNullOrEmpty(model?.SalesinvoiceList[0]?.ImageQRCode) ? Server.MapPath(string.Format(ConfigurationManager.AppSettings["GSTQRCodePath"], model?.SalesinvoiceList[0].CustomerInvoiceNumber)) : "";
+                if (string.IsNullOrEmpty(qrImage) && _model.NoOfCopies == "EInvoice")
+                {
+                    _model.NoOfCopies = "Original";
+                }
+
                 SalesInvoicePDF = SalesInvoicePDF + "<html><body><span style='text-align:right;font-size:8pt'><b>" + _model.NoOfCopies + "</b><br></body></html>";
 
-                if (string.IsNullOrEmpty(qrImage))
-                {
-                    SalesInvoicePDF = SalesInvoicePDF + "<table width='650'><tr><td style='text-align:left;'><img src='" + Path.Combine(Server.MapPath("~") + "Content\\UploadedFiles\\Inventory\\Logo\\" + model.SalesinvoiceList[0].LogoPath) + "' height='70' width='70'><br><br><span style='font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].PrintingLineBelowLogo + "</span></td>";
-                }
-                else
+                if (!string.IsNullOrEmpty(qrImage) && _model.NoOfCopies == "EInvoice")
                 {
                     SalesInvoicePDF = SalesInvoicePDF + "<table width='350'><tr><td style='text-align:left;'><img src='" + Path.Combine(Server.MapPath("~") + "Content\\UploadedFiles\\Inventory\\Logo\\" + model.SalesinvoiceList[0].LogoPath) + "' height='70' width='70'><br><br><span style='font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].PrintingLineBelowLogo + "</span></td>";
                     SalesInvoicePDF = SalesInvoicePDF + "<td width='300'><img src='" + qrImage + "' height='150px' width='150px'></td>";
+                    SalesInvoicePDF = SalesInvoicePDF + " <td><table width='300' bgcolor='#fff;' color='black' style='font-size:7pt;padding-left:100px'><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:10pt;text-align:left;font-family:'Century Gothic'><b>" + model.SalesinvoiceList[0].CentreName + "</b></td></tr></hr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:9pt;text-align:left;'><b><u>" + model.SalesinvoiceList[0].CentreSpecialization + "</u></b></td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].CentreAddress1 + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].CentreAddress2 + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>Ph:" + model.SalesinvoiceList[0].PhoneNumberOffice + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>Cell :" + model.SalesinvoiceList[0].CellPhone + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>E-mail :" + model.SalesinvoiceList[0].EmailID + "</td><tr><td style = 'border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;' >Website :" + model.SalesinvoiceList[0].Website + " </td ></tr></tr>";
                 }
-                SalesInvoicePDF = SalesInvoicePDF + " <td ><table width='300'  bgcolor='#fff;' color='black' style='font-size:7pt;padding-left:100px'><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:10pt;text-align:left;font-family:'Century Gothic'><b>" + model.SalesinvoiceList[0].CentreName + "</b></td></tr></hr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:9pt;text-align:left;'><b><u>" + model.SalesinvoiceList[0].CentreSpecialization + "</u></b></td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].CentreAddress1 + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].CentreAddress2 + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>Ph:" + model.SalesinvoiceList[0].PhoneNumberOffice + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>Cell :" + model.SalesinvoiceList[0].CellPhone + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>E-mail :" + model.SalesinvoiceList[0].EmailID + "</td><tr><td style = 'border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;' >Website :" + model.SalesinvoiceList[0].Website + " </td ></tr></tr>";
-
+                else
+                {
+                    SalesInvoicePDF = SalesInvoicePDF + "<table width='650'><tr><td style='text-align:left;'><img src='" + Path.Combine(Server.MapPath("~") + "Content\\UploadedFiles\\Inventory\\Logo\\" + model.SalesinvoiceList[0].LogoPath) + "' height='70' width='70'><br><br><span style='font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].PrintingLineBelowLogo + "<span></td>";
+                    SalesInvoicePDF = SalesInvoicePDF + " <td><table width='300' bgcolor='#fff;' color='black' style='font-size:7pt;'><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:10pt;text-align:left;font-family:'Century Gothic'><b>" + model.SalesinvoiceList[0].CentreName + "</b></td></tr></hr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:9pt;text-align:left;'><b><u>" + model.SalesinvoiceList[0].CentreSpecialization + "</u></b></td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].CentreAddress1 + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>" + model.SalesinvoiceList[0].CentreAddress2 + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>Ph:" + model.SalesinvoiceList[0].PhoneNumberOffice + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>Cell :" + model.SalesinvoiceList[0].CellPhone + "</td></tr><tr><td style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'>E-mail :" + model.SalesinvoiceList[0].EmailID + "</td>< tr><td style = 'border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;' >Website :" + model.SalesinvoiceList[0].Website + " </td ></tr></tr>";
+                }
                 SalesInvoicePDF = SalesInvoicePDF + "</table></td></tr></table>";
 
                 DateTime DateTimeOfSupply = Convert.ToDateTime(model.SalesinvoiceList[0].DateTimeOfSupply);
@@ -961,7 +968,7 @@ namespace AERP.Web.UI.Controllers
                 {
                     ConnectionString = _connectioString,
                     SalesInvoiceMasterID = salesInvoiceMasterID,
-                    CentreCode= centreCode,
+                    CentreCode = centreCode,
                     Irn = irn,
                     CancelledEInvoiceReason = cancelledEInvoiceReason,
                     CancelledEInvoiceDescription = cancelledEInvoiceDescription
@@ -1016,7 +1023,7 @@ namespace AERP.Web.UI.Controllers
                     ConnectionString = _connectioString,
                     SalesInvoiceMasterID = salesInvoiceMasterID,
                     ewbNo = ewayBillNumber,
-                    CentreCode= centreCode
+                    CentreCode = centreCode
                 };
                 errorMessage = CancelledEWayBill(gstEWayBillCancelledRequestModel);
             }

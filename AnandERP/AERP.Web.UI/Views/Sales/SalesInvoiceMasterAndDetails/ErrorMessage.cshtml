@@ -20,7 +20,7 @@
                 </div>
                 <div class="card-body card-padding">
                     <div class="row">
-                        <div class="col-sm-10">
+                        <div class="col-sm-12">
                             <div class="form-group" style="padding-top: 1%;">
                                 @Html.HiddenFor(model => model.ID)
                                 @Html.HiddenFor(model => model.SalesOrderMasterID)
@@ -33,7 +33,7 @@
                                 </label>
 
                                 <label class="radio radio-inline m-r-10">
-                                    @Html.RadioButtonFor(model => model.NoOfCopies, "Duplicate", new { value = "Duplicate" })&nbsp;Duplicate 
+                                    @Html.RadioButtonFor(model => model.NoOfCopies, "Duplicate", new { value = "Duplicate" })&nbsp;Duplicate
                                     <i class="input-helper"></i>
                                 </label>
 
@@ -44,6 +44,10 @@
 
                                 <label class="radio radio-inline m-r-10">
                                     @Html.RadioButtonFor(model => model.NoOfCopies, "Core-Duplicate", new { value = "Core -Duplicate" })&nbsp;Core-Duplicate&nbsp;&nbsp;&nbsp;
+                                    <i class="input-helper"></i>
+                                </label>
+                                <label class="radio radio-inline m-r-10">
+                                    @Html.RadioButtonFor(model => model.NoOfCopies, "EInvoice", new { value = "EInvoice" })&nbsp;E-Invoice&nbsp;&nbsp;&nbsp;
                                     <i class="input-helper"></i>
                                 </label>
                             </div>

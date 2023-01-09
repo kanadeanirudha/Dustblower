@@ -1755,6 +1755,10 @@ namespace AERP.Web.UI.Controllers
                             }
                             else
                             {
+                                if (gstAuthTokenResponse.ErrorMessage == null)
+                                {
+                                    gstAuthTokenResponse.ErrorMessage = "Some thing went wrong. Please try again.";
+                                }
                                 errorMessage = gstAuthTokenResponse.ErrorMessage;
                             }
                         }
