@@ -706,13 +706,13 @@ namespace AERP.Web.UI.Controllers
 
 
                 //--------------------------------------For Employee shift list----------------------------------------//
-                List<EmployeeShiftMaster> employeeShiftMasterList = GetListEmployeeShiftMaster(empEmployeeMastermodel.CentreCode);
+                //List<EmployeeShiftMaster> employeeShiftMasterList = GetListEmployeeShiftMaster(empEmployeeMastermodel.CentreCode);
                 List<SelectListItem> employeeShiftMaster = new List<SelectListItem>();
                 employeeShiftMaster.Add(new SelectListItem { Text = "--Select Shift--", Value = "0" });
-                foreach (EmployeeShiftMaster item in employeeShiftMasterList)
-                {
-                    employeeShiftMaster.Add(new SelectListItem { Text = item.EmployeeShiftDescription, Value = item.EmployeeShiftMasterID.ToString() });
-                }
+                //foreach (EmployeeShiftMaster item in employeeShiftMasterList)
+                //{
+                //    employeeShiftMaster.Add(new SelectListItem { Text = item.EmployeeShiftDescription, Value = item.EmployeeShiftMasterID.ToString() });
+                //}
 
                 ViewBag.employeeShiftMasterList = new SelectList(employeeShiftMaster, "Value", "Text");
 

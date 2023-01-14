@@ -377,10 +377,10 @@ namespace AERP.DataProvider
                         {
                             _item.BankACNumber = sqlDataReader["BankACNumber"].ToString();
                         }
-                        if (DBNull.Value.Equals(sqlDataReader["IFSCCode"]) == false)
-                        {
-                            _item.IFSCCode = sqlDataReader["IFSCCode"].ToString();
-                        }
+                        //if (DBNull.Value.Equals(sqlDataReader["IFSCCode"]) == false)
+                        //{
+                        //    _item.IFSCCode = sqlDataReader["IFSCCode"].ToString();
+                        //}
                         if (DBNull.Value.Equals(sqlDataReader["EmployeeShiftApplicableMasterID"]) == false)
                         {
                             _item.EmployeeShiftApplicableMasterID = Convert.ToInt32(sqlDataReader["EmployeeShiftApplicableMasterID"]);

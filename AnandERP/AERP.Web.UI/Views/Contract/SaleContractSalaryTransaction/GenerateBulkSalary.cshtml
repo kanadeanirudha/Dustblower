@@ -15,87 +15,100 @@
     .table td input {
         width: 100px;
     }
+
     body {
-  margin: 0;
-}
-th, td {
-    text-align: center;
-    background-color: white
-}
-table {
-  position: relative;
-  width: 400px;
-  overflow: hidden;
-}
-thead {
-  position: relative;
-  display: block;
-  width: 400px;
-  overflow: visible;
-}
-thead th {
-  min-width: 120px;
-  height: 40px;
-}
-thead th:nth-child(1) {
-  position: relative;
-  /*display: block;*/
-  height: 40px;
-  /*padding-top: 20px;*/
-}
-tbody {
-  position: relative;
-  display: block;
-  width: 1110px;
-  height: 340px;
-  overflow: scroll;
-}
-tbody td {
-  /*min-width: 10px;*/
-}
-tbody tr td:nth-child(1),tbody tr td:nth-child(2),tbody tr td:nth-child(3) {
-  position: relative;
-  /*display: block;*/
-}
-tfoot {
-  position: relative;
-  display: block;
-  width: 400px;
-  overflow: visible;
-}
-tfoot th {
-  min-width: 120px;
-  height: 40px;
-}
-tfoot th:nth-child(1) {
-  position: relative;
-  display: block;
-  height: 40px;
-  padding-top: 20px;
-}
-thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-child(3) {
-  position: relative;
-  /*display: block;*/
-  height: 40px;
-  /*padding-top: 20px;*/
-}
+        margin: 0;
+    }
+
+    th, td {
+        text-align: center;
+        background-color: white
+    }
+
+    table {
+        position: relative;
+        width: 400px;
+        overflow: hidden;
+    }
+
+    thead {
+        position: relative;
+        display: block;
+        width: 400px;
+        overflow: visible;
+    }
+
+        thead th {
+            min-width: 120px;
+            height: 40px;
+        }
+
+            thead th:nth-child(1) {
+                position: relative;
+                /*display: block;*/
+                height: 40px;
+                /*padding-top: 20px;*/
+            }
+
+    tbody {
+        position: relative;
+        display: block;
+        width: 1110px;
+        height: 340px;
+        overflow: scroll;
+    }
+
+        tbody td {
+            /*min-width: 10px;*/
+        }
+
+        tbody tr td:nth-child(1), tbody tr td:nth-child(2), tbody tr td:nth-child(3) {
+            position: relative;
+            /*display: block;*/
+        }
+
+    tfoot {
+        position: relative;
+        display: block;
+        width: 400px;
+        overflow: visible;
+    }
+
+        tfoot th {
+            min-width: 120px;
+            height: 40px;
+        }
+
+            tfoot th:nth-child(1) {
+                position: relative;
+                display: block;
+                height: 40px;
+                padding-top: 20px;
+            }
+
+            thead th:nth-child(2), tfoot th:nth-child(2), thead th:nth-child(3), tfoot th:nth-child(3) {
+                position: relative;
+                /*display: block;*/
+                height: 40px;
+                /*padding-top: 20px;*/
+            }
 </style>
 <script type="text/javascript">
-    $(document).ready(function() {
-  $('tbody').scroll(function(e) {
-      $('thead').css("left", -$("tbody").scrollLeft());
-      $('tfoot').css("left", -$("tbody").scrollLeft());
-    $('thead th:nth-child(1)').css("left", $("tbody").scrollLeft()-5);
-    $('tbody td:nth-child(1)').css("left", $("tbody").scrollLeft() - 5);
-    $('tfoot th:nth-child(1)').css("left", $("tbody").scrollLeft() - 5);
-    $('thead th:nth-child(2)').css("left", $("tbody").scrollLeft() - 20);
-    $('tbody td:nth-child(2)').css("left", $("tbody").scrollLeft() - 20);
-    $('tfoot th:nth-child(2)').css("left", $("tbody").scrollLeft() - 20);
-    $('thead th:nth-child(3)').css("left", $("tbody").scrollLeft() - 25);
-    $('tbody td:nth-child(3)').css("left", $("tbody").scrollLeft() - 25);
-    $('tfoot th:nth-child(3)').css("left", $("tbody").scrollLeft() - 25);
-  });
-});
+    $(document).ready(function () {
+        $('tbody').scroll(function (e) {
+            $('thead').css("left", -$("tbody").scrollLeft());
+            $('tfoot').css("left", -$("tbody").scrollLeft());
+            $('thead th:nth-child(1)').css("left", $("tbody").scrollLeft() - 5);
+            $('tbody td:nth-child(1)').css("left", $("tbody").scrollLeft() - 5);
+            $('tfoot th:nth-child(1)').css("left", $("tbody").scrollLeft() - 5);
+            $('thead th:nth-child(2)').css("left", $("tbody").scrollLeft() - 20);
+            $('tbody td:nth-child(2)').css("left", $("tbody").scrollLeft() - 20);
+            $('tfoot th:nth-child(2)').css("left", $("tbody").scrollLeft() - 20);
+            $('thead th:nth-child(3)').css("left", $("tbody").scrollLeft() - 25);
+            $('tbody td:nth-child(3)').css("left", $("tbody").scrollLeft() - 25);
+            $('tfoot th:nth-child(3)').css("left", $("tbody").scrollLeft() - 25);
+        });
+    });
 </script>
 <div id="custom-content">
     <div class="block-header" style="margin-bottom: 0px;">
@@ -117,6 +130,7 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
                 @if (Model.SaleContractSalaryTransactionList.Count > 0)
                 {
                     bool PTAdded = false; bool PTAddedInFooter = false;
+                    //string[] EmployeeIDList = new string[] { "14204" };
                     string[] EmployeeIDList = Model.SaleContractSalaryTransactionList[0].SaleContractEmployeeMasterIDList.Replace(", ", ",").Split(new char[] { ',' });
                     int ManPowerItemID = Model.SaleContractSalaryTransactionList[0].SaleContractManPowerItemID;
                     decimal FinalTotalBasic = 0; decimal FinalTotalDays = 0; decimal FinalOTDays = 0; decimal FinalTotalAmount = 0; decimal FinalGrossAmount = 0; decimal FinalTotalEarnings = 0; decimal FinalTotalDeduction = 0; decimal FinalNetPayable = 0; decimal FinalPayableAmount = 0; decimal FinalTotalSalary = 0; decimal FinalEmployerContribution = 0; decimal FinalTotalCTC = 0;
@@ -172,7 +186,7 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
                                             {
                                                 if (checkitem.SaleContractEmployeeMasterID == Convert.ToInt32(EmployeeIDList[0]) && checkitem.SaleContractManPowerItemID == Model.SaleContractSalaryTransactionList[0].SaleContractManPowerItemID && checkitem.RuleType == "Deduction" && checkitem.ContributionType == 1 && checkitem.HeadType == "PF" && checkitem.ComplianceType == 1)
                                                 {
-                                                    if (checkitem.FixedAmount == 0 )/*chng*/
+                                                    if (checkitem.FixedAmount == 0)/*chng*/
                                                     {
 
 
@@ -309,7 +323,7 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
 
                                             if (IsGrossAllowance == false)
                                             {
-                                            <th>@item.HeadName</th>
+                                                <th>@item.HeadName</th>
                                             }
                                         }
                                     }
@@ -340,6 +354,14 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
                                             <th>@item.HeadName</th>
                                         }
                                     }
+                                    @*Food Deduction*@
+                                    @foreach (var item in Model.SaleContractSalaryTransactionList)
+                                    {
+                                        if (item.SaleContractEmployeeMasterID == Convert.ToInt32(EmployeeIDList[0]) && item.SaleContractManPowerItemID == ManPowerItemID && item.RuleType == "Deduction" && item.ContributionType == 1 && item.ComplianceType == 2)
+                                        {
+                                            <th style="">@item.HeadName</th>
+                                        }
+                                    }
                                     <th>Total Deduction</th>
 
                                     <th>Net Payable</th>
@@ -352,14 +374,6 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
                                         }
                                     }
 
-
-                                    @foreach (var item in Model.SaleContractSalaryTransactionList)
-                                    {
-                                        if (item.SaleContractEmployeeMasterID == Convert.ToInt32(EmployeeIDList[0]) && item.SaleContractManPowerItemID == ManPowerItemID && item.RuleType == "Deduction" && item.ContributionType == 1 && item.ComplianceType == 2)
-                                        {
-                                            <th style="">@item.HeadName</th>
-                                        }
-                                    }
                                     <th>Total Salary</th>
                                     @foreach (var item in Model.SaleContractSalaryTransactionList)
                                     {
@@ -419,6 +433,7 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
                                                 <input type="hidden" class="OriginalTotalDays" value="@Model.SaleContractSalaryTransactionList[j].TotalDays" />
                                                 <span>@Model.SaleContractSalaryTransactionList[j].AdjustedTotalDays</span>
                                             </td>
+                                            @*Total Days*@
                                             <td>
                                                 <input type="text" class="form-control AdjustedOvertimeHours" value="@Model.SaleContractSalaryTransactionList[j].OvertimeHours" disabled />
                                             </td>
@@ -919,21 +934,21 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
                                                         GrossSalary = GrossSalary + amount;
                                                         ActualTotalEarnings = ActualTotalEarnings + Actualamount;
                                                         AdjustedTotalEarnings = AdjustedTotalEarnings + Adjustedamount;
-                                                    <td>
-                                                        <input type="hidden" class="TransAmount" value="@amount">
-                                                        <input type="hidden" class="ActualTransAmount" value="@Actualamount">
-                                                        <input type="hidden" class="ActualTransAllowanceID" value="@item.SaleContractManPowerAllowanceID">
-                                                        <input type="hidden" class="ActualTransDeductionID" value="@item.SaleContractManPowerDeductionID">
-                                                        @if (item.IsAllowance == true)
-                                                        {
-                                                            <input type="hidden" class="ActualTransIsAllowance" value="1">
-                                                        }
-                                                        else
-                                                        {
-                                                            <input type="hidden" class="ActualTransIsAllowance" value="0">
-                                                        }
-                                                        <input type="text" class="AdjustedAmount AdjustedAmountAllowanceOT form-control" value="@Adjustedamount" disabled>
-                                                    </td>
+                                                        <td>
+                                                            <input type="hidden" class="TransAmount" value="@amount">
+                                                            <input type="hidden" class="ActualTransAmount" value="@Actualamount">
+                                                            <input type="hidden" class="ActualTransAllowanceID" value="@item.SaleContractManPowerAllowanceID">
+                                                            <input type="hidden" class="ActualTransDeductionID" value="@item.SaleContractManPowerDeductionID">
+                                                            @if (item.IsAllowance == true)
+                                                            {
+                                                                <input type="hidden" class="ActualTransIsAllowance" value="1">
+                                                            }
+                                                            else
+                                                            {
+                                                                <input type="hidden" class="ActualTransIsAllowance" value="0">
+                                                            }
+                                                            <input type="text" class="AdjustedAmount AdjustedAmountAllowanceOT form-control" value="@Adjustedamount" disabled>
+                                                        </td>
                                                     }
                                                 }
                                             }
@@ -1005,7 +1020,7 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
                                                         TotalDeduction = TotalDeduction + amount;
                                                         ActualTotalDeduction = ActualTotalDeduction + Actualamount;
                                                         AdjustedTotalDeduction = AdjustedTotalDeduction + Adjustedamount;
-                                                        
+
                                                         <td>
                                                             <input type="hidden" class="TransAmount" value="@amount">
                                                             <input type="hidden" class="ActualTransAmount" value="@Actualamount">
@@ -1114,7 +1129,7 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
                                                         }
                                                         if (item.HeadType == "ESIC")
                                                         {
-                                                            if (CalculateOnAmount <= item.RangeUpto || item.RangeUpto  == 0)
+                                                            if (CalculateOnAmount <= item.RangeUpto || item.RangeUpto == 0)
                                                             {
                                                                 amount = Math.Ceiling((CalculateOnAmount + CalculateOnOTAmount) * item.Percentage / 100);
                                                                 Actualamount = Math.Ceiling(Math.Ceiling(((CalculateOnAmount / TotalDays) * TotalAttendance) + CalculateOnOTAmount) * item.Percentage / 100);
@@ -1127,11 +1142,12 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
                                                             if (CalculatePfOn < item.RangeUpto || item.RangeUpto == 0)
                                                             {
                                                                 amount = Math.Round(CalculateOnAmount * item.Percentage / 100, MidpointRounding.AwayFromZero);
-                                                                //Actualamount = Math.Round(Math.Round((CalculateOnAmount / TotalDays) * TotalAttendance, MidpointRounding.AwayFromZero) * item.Percentage / 100, MidpointRounding.AwayFromZero);
-                                                                Actualamount = Math.Round(Math.Round((item.RangeUpto / TotalDays) * TotalAttendance, MidpointRounding.AwayFromZero) * item.Percentage / 100, MidpointRounding.AwayFromZero);
-                                                                //Adjustedamount = Math.Round(Math.Round((CalculateOnAmount / TotalDays) * AdjustedTotalAttendance, MidpointRounding.AwayFromZero) * item.Percentage / 100, MidpointRounding.AwayFromZero);
-                                                                Adjustedamount = Math.Round(Math.Round((item.RangeUpto / TotalDays) * AdjustedTotalAttendance, MidpointRounding.AwayFromZero) * item.Percentage / 100, MidpointRounding.AwayFromZero);
-                                                            }else
+                                                                Actualamount = Math.Round(Math.Round((CalculateOnAmount / TotalDays) * TotalAttendance, MidpointRounding.AwayFromZero) * item.Percentage / 100, MidpointRounding.AwayFromZero);
+                                                                //Actualamount = Math.Round(Math.Round((item.RangeUpto / TotalDays) * TotalAttendance, MidpointRounding.AwayFromZero) * item.Percentage / 100, MidpointRounding.AwayFromZero);
+                                                                Adjustedamount = Math.Round(Math.Round((CalculateOnAmount / TotalDays) * AdjustedTotalAttendance, MidpointRounding.AwayFromZero) * item.Percentage / 100, MidpointRounding.AwayFromZero);
+                                                                //Adjustedamount = Math.Round(Math.Round((item.RangeUpto / TotalDays) * AdjustedTotalAttendance, MidpointRounding.AwayFromZero) * item.Percentage / 100, MidpointRounding.AwayFromZero);
+                                                            }
+                                                            else
                                                             {
                                                                 amount = Math.Round(item.RangeUpto * item.Percentage / 100, MidpointRounding.AwayFromZero);
                                                                 Actualamount = Math.Round(item.RangeUpto * item.Percentage / 100, MidpointRounding.AwayFromZero);
@@ -1167,10 +1183,6 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
                                                     </td>
                                                 }
                                             }
-                                            <td>
-                                                <input type="hidden" id="ActualTotalDeduction" class="form-control ActualTotalDeduction" value="@ActualTotalDeduction">
-                                                <input type="text" id="AdjustedTotalDeduction" class="form-control AdjustedTotalDeduction" value="@AdjustedTotalDeduction" disabled>
-                                            </td>
                                             @if (AdjustedTotalEarnings > 0)
                                             {
                                                 NetPayable = GrossSalary - TotalDeduction;
@@ -1179,6 +1191,67 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
                                                 FinalTotalDeduction += AdjustedTotalDeduction;
                                                 FinalNetPayable += AdjustedNetPayable;
                                             }
+                                            @*Food Deduction*@
+                                            @if (FixedAmountAdded == false)
+                                            {
+                                                SalaryWithAdditionalAllowance = NetPayable;
+                                                ActualSalaryWithAdditionalAllowance = ActualNetPayable;
+                                                AdjustedSalaryWithAdditionalAllowance = AdjustedNetPayable;
+                                            }
+
+                                            @foreach (var item in Model.SaleContractSalaryTransactionList)
+                                            {
+                                                if (item.SaleContractEmployeeMasterID == Convert.ToInt32(EmployeeIDList[i]) && item.SaleContractManPowerItemID == ManPowerId && item.RuleType == "Deduction" && item.ContributionType == 1 && item.ComplianceType == 2)
+                                                {
+                                                    j++;
+                                                    isIncremented = 1;
+                                                    decimal amount = 0;
+
+                                                    if (item.FixedAmount > 0)
+                                                    {
+                                                        amount = Math.Round(item.FixedAmount, MidpointRounding.AwayFromZero);
+                                                    }
+
+                                                    item.Amount = amount;
+                                                    decimal Actualamount = amount;
+                                                    decimal Adjustedamount = amount;
+                                                    item.FinalTotalAmount += Actualamount;
+                                                    if (FixedSalaryAmount > 0)
+                                                    {
+                                                        SalaryWithAdditionalAllowance = SalaryWithAdditionalAllowance - amount;
+                                                        ActualSalaryWithAdditionalAllowance = ActualSalaryWithAdditionalAllowance - Actualamount;
+                                                        AdjustedSalaryWithAdditionalAllowance = AdjustedSalaryWithAdditionalAllowance - Adjustedamount;
+                                                    }
+                                                    else
+                                                    {
+                                                        SalaryWithAdditionalAllowance = SalaryWithAdditionalAllowance - amount;
+                                                        ActualSalaryWithAdditionalAllowance = ActualSalaryWithAdditionalAllowance - Actualamount;
+                                                        AdjustedSalaryWithAdditionalAllowance = AdjustedSalaryWithAdditionalAllowance - Adjustedamount;
+                                                    }
+                                                    TotalDeduction = TotalDeduction + amount;
+                                                    ActualTotalDeduction = ActualTotalDeduction + Actualamount;
+                                                    AdjustedTotalDeduction = AdjustedTotalDeduction + Adjustedamount;
+                                                    <td>
+                                                        <input type="hidden" class="TransAmount" value="@amount">
+                                                        <input type="hidden" class="ActualTransAmount" value="@Actualamount">
+                                                        <input type="hidden" class="ActualTransAllowanceID" value="@item.SaleContractManPowerAllowanceID">
+                                                        <input type="hidden" class="ActualTransDeductionID" value="@item.SaleContractManPowerDeductionID">
+                                                        @if (item.IsAllowance == true)
+                                                        {
+                                                            <input type="hidden" class="ActualTransIsAllowance" value="1">
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="hidden" class="ActualTransIsAllowance" value="0">
+                                                        }
+                                                        <input type="text" class="AdjustedAmount AdjustedAmountDeductionEmployeeNonCompliance @item.HeadType@item.ContributionType@item.HeadSubType form-control" value="@Adjustedamount" @(item.SaleContractManPowerAllowanceID == 0 && item.SaleContractManPowerDeductionID == 0 ? "disabled" : "")>
+                                                    </td>
+                                                }
+                                            }
+                                            <td>
+                                                <input type="hidden" id="ActualTotalDeduction" class="form-control ActualTotalDeduction" value="@ActualTotalDeduction">
+                                                <input type="text" id="AdjustedTotalDeduction" class="form-control AdjustedTotalDeduction" value="@AdjustedTotalDeduction" disabled>
+                                            </td>
 
                                             <td>
                                                 <input type="hidden" id="ActualNetPayable" class="form-control ActualNetPayable" value="@ActualNetPayable">
@@ -1237,59 +1310,7 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
 
                                                 }
                                             }
-                                            @if (FixedAmountAdded == false)
-                                            {
-                                                SalaryWithAdditionalAllowance = NetPayable;
-                                                ActualSalaryWithAdditionalAllowance = ActualNetPayable;
-                                                AdjustedSalaryWithAdditionalAllowance = AdjustedNetPayable;
-                                            }
-                                            @foreach (var item in Model.SaleContractSalaryTransactionList)
-                                            {
-                                                if (item.SaleContractEmployeeMasterID == Convert.ToInt32(EmployeeIDList[i]) && item.SaleContractManPowerItemID == ManPowerId && item.RuleType == "Deduction" && item.ContributionType == 1 && item.ComplianceType == 2)
-                                                {
-                                                    j++;
-                                                    isIncremented = 1;
-                                                    decimal amount = 0;
 
-                                                    if (item.FixedAmount > 0)
-                                                    {
-                                                        amount = Math.Round(item.FixedAmount, MidpointRounding.AwayFromZero);
-                                                    }
-
-                                                    item.Amount = amount;
-                                                    decimal Actualamount = amount;
-                                                    decimal Adjustedamount = amount;
-                                                    item.FinalTotalAmount += Actualamount;
-                                                    if (FixedSalaryAmount > 0)
-                                                    {
-                                                        SalaryWithAdditionalAllowance = SalaryWithAdditionalAllowance - amount;
-                                                        ActualSalaryWithAdditionalAllowance = ActualSalaryWithAdditionalAllowance - Actualamount;
-                                                        AdjustedSalaryWithAdditionalAllowance = AdjustedSalaryWithAdditionalAllowance - Adjustedamount;
-                                                    }
-                                                    else
-                                                    {
-                                                        SalaryWithAdditionalAllowance = SalaryWithAdditionalAllowance - amount;
-                                                        ActualSalaryWithAdditionalAllowance = ActualSalaryWithAdditionalAllowance - Actualamount;
-                                                        AdjustedSalaryWithAdditionalAllowance = AdjustedSalaryWithAdditionalAllowance - Adjustedamount;
-                                                    }
-
-                                                    <td>
-                                                        <input type="hidden" class="TransAmount" value="@amount">
-                                                        <input type="hidden" class="ActualTransAmount" value="@Actualamount">
-                                                        <input type="hidden" class="ActualTransAllowanceID" value="@item.SaleContractManPowerAllowanceID">
-                                                        <input type="hidden" class="ActualTransDeductionID" value="@item.SaleContractManPowerDeductionID">
-                                                        @if (item.IsAllowance == true)
-                                                        {
-                                                            <input type="hidden" class="ActualTransIsAllowance" value="1">
-                                                        }
-                                                        else
-                                                        {
-                                                            <input type="hidden" class="ActualTransIsAllowance" value="0">
-                                                        }
-                                                        <input type="text" class="AdjustedAmount AdjustedAmountDeductionEmployeeNonCompliance @item.HeadType@item.ContributionType@item.HeadSubType form-control" value="@Adjustedamount" @(item.SaleContractManPowerAllowanceID == 0 && item.SaleContractManPowerDeductionID == 0 ? "disabled" : "")>
-                                                    </td>
-                                                }
-                                            }
                                             @if (ActualSalaryWithAdditionalAllowance > 0)
                                             {
                                                 FinalTotalSalary += ActualSalaryWithAdditionalAllowance;
@@ -1327,7 +1348,7 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
                                                     else
                                                     {
                                                         var CalculateOnValue = item.CalculateOnString.Replace(", ", ",").Split(',');
-                                                        decimal CalculateOnAmount = 0;decimal CalculateOnOTAmount = 0;
+                                                        decimal CalculateOnAmount = 0; decimal CalculateOnOTAmount = 0;
                                                         if (item.CalculateOnFixedAmount > 0)
                                                         {
                                                             CalculateOnAmount = item.CalculateOnFixedAmount;
@@ -1385,7 +1406,7 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
                                                                 amount = Math.Round(item.RangeUpto * item.Percentage / 100, MidpointRounding.AwayFromZero);
                                                                 Actualamount = Math.Round(item.RangeUpto * item.Percentage / 100, MidpointRounding.AwayFromZero);
                                                                 @*Math.Round(Math.Round((item.RangeUpto ) , MidpointRounding.AwayFromZero) * item.Percentage / 100, MidpointRounding.AwayFromZero);*@
-                                                                Adjustedamount =  Math.Round(item.RangeUpto * item.Percentage / 100, MidpointRounding.AwayFromZero);
+                                                                Adjustedamount = Math.Round(item.RangeUpto * item.Percentage / 100, MidpointRounding.AwayFromZero);
                                                                 @*Math.Round(Math.Round((item.RangeUpto ) , MidpointRounding.AwayFromZero) * item.Percentage / 100, MidpointRounding.AwayFromZero);*@
                                                             }
                                                         }
@@ -1415,6 +1436,7 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
                                                             <input type="hidden" class="ActualTransIsAllowance" value="0">
                                                         }
                                                         <input type="text" class="AdjustedAmount AdjustedAmountDeductionEmployer @item.HeadType@item.ContributionType@item.HeadSubType form-control" value="@Adjustedamount" disabled>
+                                                        @*<input type="text" class="form-control" value="@Adjustedamount" disabled>*@
                                                     </td>
                                                 }
                                             }
@@ -1757,7 +1779,7 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
 
                                             if (IsGrossAllowance == false)
                                             {
-                                            <th class="FinalSubAmount">@FinalTotalAmountDisplay</th>
+                                                <th class="FinalSubAmount">@FinalTotalAmountDisplay</th>
                                             }
                                         }
                                     }
@@ -1814,6 +1836,21 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
                                             <th class="FinalSubAmount">@FinalTotalAmountDisplay</th>
                                         }
                                     }
+                                    @foreach (var item in Model.SaleContractSalaryTransactionList)
+                                    {
+                                        decimal FinalTotalAmountDisplay = 0;
+                                        foreach (var innerItem in Model.SaleContractSalaryTransactionList)
+                                        {
+                                            if (item.RuleType == "Deduction" && item.ContributionType == 1 && item.ComplianceType == 2 && item.RuleType == innerItem.RuleType && item.HeadType == innerItem.HeadType && item.HeadID == innerItem.HeadID)
+                                            {
+                                                FinalTotalAmountDisplay += innerItem.FinalTotalAmount;
+                                            }
+                                        }
+                                        if (item.SaleContractEmployeeMasterID == Convert.ToInt32(EmployeeIDList[0]) && item.SaleContractManPowerItemID == ManPowerItemID && item.RuleType == "Deduction" && item.ContributionType == 1 && item.ComplianceType == 2)
+                                        {
+                                            <th style="" class="FinalSubAmount">@FinalTotalAmountDisplay</th>
+                                        }
+                                    }
                                     <th class="FinalMainAmount">@FinalTotalDeduction</th>
 
                                     <th class="FinalMainAmount">@FinalNetPayable</th>
@@ -1831,22 +1868,6 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
                                         {
                                             <th class="FinalSubAmount">@FinalTotalAmountDisplay</th>
                                             <th class="FinalMainAmount">@FinalPayableAmount</th>
-                                        }
-                                    }
-
-                                    @foreach (var item in Model.SaleContractSalaryTransactionList)
-                                    {
-                                        decimal FinalTotalAmountDisplay = 0;
-                                        foreach (var innerItem in Model.SaleContractSalaryTransactionList)
-                                        {
-                                            if (item.RuleType == "Deduction" && item.ContributionType == 1 && item.ComplianceType == 2 && item.RuleType == innerItem.RuleType && item.HeadType == innerItem.HeadType && item.HeadID == innerItem.HeadID)
-                                            {
-                                                FinalTotalAmountDisplay += innerItem.FinalTotalAmount;
-                                            }
-                                        }
-                                        if (item.SaleContractEmployeeMasterID == Convert.ToInt32(EmployeeIDList[0]) && item.SaleContractManPowerItemID == ManPowerItemID && item.RuleType == "Deduction" && item.ContributionType == 1 && item.ComplianceType == 2)
-                                        {
-                                            <th style="" class="FinalSubAmount">@FinalTotalAmountDisplay</th>
                                         }
                                     }
                                     <th class="FinalMainAmount">@FinalTotalSalary</th>
@@ -2056,7 +2077,7 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
             var PF1 = $(this).closest("tr").find("td input.PF1").val();
             var PF2ACC01 = $(this).closest("tr").find("td input.PF2ACC01").val();
             var PF2ACC10 = $(this).closest("tr").find("td input.PF2ACC10").val();
-
+            debugger;
             if (parseFloat(PF1) != (parseFloat(PF2ACC01) + parseFloat(PF2ACC10))) {
                 var NewPF2ACC01 = 0;
                 if (parseFloat(PF1) > (parseFloat(PF2ACC01) + parseFloat(PF2ACC10))) {
@@ -2172,12 +2193,12 @@ thead th:nth-child(2),tfoot th:nth-child(2),thead th:nth-child(3),tfoot th:nth-c
             var PF1 = $(this).val();
             var PF2ACC01 = $(this).closest("tr").find("td input.PF2ACC01").val();
             var PF2ACC10 = $(this).closest("tr").find("td input.PF2ACC10").val();
-
+            debugger;
             if (parseFloat(PF1) != (parseFloat(PF2ACC01) + parseFloat(PF2ACC10))) {
-                var NewPF2ACC01 = 0;
+                var NewPF2ACC01 = PF2ACC01;
                 if (parseFloat(PF1) > (parseFloat(PF2ACC01) + parseFloat(PF2ACC10))) {
                     NewPF2ACC01 = parseFloat(PF2ACC01) + (parseFloat(PF1) - (parseFloat(PF2ACC01) + parseFloat(PF2ACC10)))
-                } else if (parseFloat(PF1) < (parseFloat(PF2ACC01) + parseFloat(PF2ACC10))) {
+                } else if (parseFloat(PF1) != 0 && (parseFloat(PF1) < (parseFloat(PF2ACC01) + parseFloat(PF2ACC10)))) {
                     NewPF2ACC01 = parseFloat(PF2ACC01) - ((parseFloat(PF2ACC01) + parseFloat(PF2ACC10)) - parseFloat(PF1))
                 }
                 $(this).closest("tr").find("td input.PF2ACC01").val(NewPF2ACC01);

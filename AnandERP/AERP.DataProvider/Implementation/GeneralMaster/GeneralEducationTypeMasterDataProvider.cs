@@ -97,7 +97,7 @@ namespace AERP.DataProvider
                         GeneralEducationTypeMaster item = new GeneralEducationTypeMaster();
                         item.ID = Convert.ToInt32(sqlDataReader["ID"]);
                         item.Description = sqlDataReader["Description"].ToString();
-                        item.EduSequenceNumber =Convert.ToInt32( sqlDataReader["EduSequenceNumber"]);
+                        item.EduSequenceNumber = sqlDataReader["EduSequenceNumber"] is DBNull ? new int() : Convert.ToInt32( sqlDataReader["EduSequenceNumber"]);
                         item.IsUserDefined = Convert.ToBoolean(sqlDataReader["IsUserDefined"].ToString());
                         if (DBNull.Value.Equals(sqlDataReader["CreatedDate"]) == false)
                         {
