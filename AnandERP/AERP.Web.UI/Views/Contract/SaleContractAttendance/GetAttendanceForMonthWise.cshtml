@@ -1,5 +1,7 @@
 ﻿@model AERP.ViewModel.SaleContractAttendanceViewModel
-
+@{
+    int maxAttentence = 31;
+}
 @if (Model.SaleContractAttendanceList.Count > 0)
 {
     if (Model.SaleContractAttendanceList[0].ApprovedStatus == 1)
@@ -45,11 +47,12 @@
                         <th>Total Off Billing Days</th>
                         <th>Attendance</th>
                         <th>Over Time</th>
+                        <th>Previous Attendence</th>
                     </tr>
                 </thead>
                 @if (Model.SaleContractAttendanceList.Count > 0)
                 {
-                    decimal TotalDaysSum = 0; decimal TotalBillingDaysSum = 0; decimal TotalAttendanceSum = 0; decimal OvertimeHoursSum = 0; decimal WeeklyOffDaysSum = 0; decimal WeeklyOffBillingDaysSum = 0; int Count = 1;
+                    decimal TotalDaysSum = 0; decimal TotalBillingDaysSum = 0; decimal TotalAttendanceSum = 0; decimal OvertimeHoursSum = 0; decimal WeeklyOffDaysSum = 0; decimal WeeklyOffBillingDaysSum = 0; decimal previousAttendenceTotal = 0; int Count = 1;
                     <tbody>
 
                         @foreach (var item in Model.SaleContractAttendanceList)
@@ -60,6 +63,9 @@
                             OvertimeHoursSum = OvertimeHoursSum + item.OvertimeHours;
                             WeeklyOffDaysSum = WeeklyOffDaysSum + item.TotalWeeklyOffDays;
                             WeeklyOffBillingDaysSum = WeeklyOffBillingDaysSum + item.TotalWeeklyOffBillingDays;
+                            decimal PreviousAttendence = Convert.ToDecimal(item.PreviousAttendenceDetails.Split('~')[0]);
+                            previousAttendenceTotal = PreviousAttendence + item.TotalAttendance;
+                            string styleMaxAttentence = maxAttentence < previousAttendenceTotal ? "background-color: red; color: white; font-weight: bold; " : "";
                             <tr>
                                 <td>@Count</td>
                                 <td>
@@ -90,7 +96,7 @@
                                     <input type="hidden" class="IsOTDaysOnTotalOff" value="@(item.IsOTDaysOnTotalOff == true ? '1' : '0')" />
                                     <input type="hidden" class="IsOTBillingDaysOnTotalOff" value="@(item.IsOTBillingDaysOnTotalOff == true ? '1' : '0')" />
                                     @if (item.IsSalaryDaysOnWeeklyOff == true || item.IsOTDaysOnTotalOff == true)
-                            {
+                                    {
                                         <input type="text" class="form-control input-sm TotalWeeklyOffDays" value="@item.TotalWeeklyOffDays">
                                     }
                                     else
@@ -100,7 +106,7 @@
                                 </td>
                                 <td>
                                     @if (item.IsBillingDaysOnWeeklyOff == true || item.IsOTBillingDaysOnTotalOff == true)
-                            {
+                                    {
                                         <input type="text" class="form-control input-sm TotalWeeklyOffBillingDays" value="@item.TotalWeeklyOffBillingDays">
                                     }
                                     else
@@ -109,11 +115,14 @@
                                     }
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control input-sm TotalAttendance" value="@item.TotalAttendance">
+                                    <input type="text" data-id="@item.ID" class="form-control input-sm TotalAttendance" value="@item.TotalAttendance">
                                 </td>
                                 <td>
                                     <input type="text" class="form-control input-sm OvertimeHours" value="@item.OvertimeHours">
                                     <input type="hidden" class="form-control input-sm" value="@item.SaleContractManPowerAssignID">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control input-sm" style="@styleMaxAttentence" disabled="disabled" id="PreviousAttendenceDetails_@item.ID" data-PreviousAttendence="@PreviousAttendence" value="@previousAttendenceTotal">
                                 </td>
                             </tr>
                             Count++;
@@ -131,6 +140,7 @@
                             <th><span id="TotalWeeklyOffBillingDaysSum">@WeeklyOffBillingDaysSum</span></th>
                             <th><span id="TotalAttendanceSum">@TotalAttendanceSum</span></th>
                             <th><span id="OvertimeHoursSum">@OvertimeHoursSum</span></th>
+                            <th></th>
                         </tr>
                     </tfoot>
                 }
@@ -149,6 +159,30 @@
         SaleContractAttendance.Initialize();
 
         $(".TotalAttendance").keyup(function () {
+            debugger;
+           
+            var id = $(this).attr('data-id');
+            var attendance = $(this).val().trim() != "" ? $(this).val().trim() : 0;
+            var previousAttendenceTotal = 0;
+            var previousAttendence = $("#PreviousAttendenceDetails_" + id).attr('data-PreviousAttendence');
+            if (previousAttendence != undefined && previousAttendence > 0) {
+                previousAttendenceTotal = (parseFloat(attendance)+ parseFloat(previousAttendence)).toFixed(2);
+            }
+            else {
+                previousAttendenceTotal = attendance;
+            }
+            let css_property =
+            {
+                "background-color":"red",
+                "color": "white",
+                "font-weight": "bold"
+            }
+            $("#PreviousAttendenceDetails_" + id).removeAttr("style");
+            if (31 < previousAttendenceTotal) {
+                $("#PreviousAttendenceDetails_" + id).css(css_property);
+            }
+            
+            $("#PreviousAttendenceDetails_" + id).val(previousAttendenceTotal);
             var TotalAttendanceSum = 0.0;
             $(".TotalAttendance").each(function () {
                 TotalAttendanceSum = (parseFloat(TotalAttendanceSum) + parseFloat($(this).val())).toFixed(2);

@@ -919,6 +919,7 @@ namespace AERP.DataProvider
                         item.IsOverTimeBillingDaysFix = sqlDataReader["IsOverTimeBillingDaysFix"] is DBNull ? false : Convert.ToBoolean(sqlDataReader["IsOverTimeBillingDaysFix"]);
                         item.SalaryForManPowerItemName= sqlDataReader["SalaryForManPowerItemName"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["SalaryForManPowerItemName"]);
                         item.ApprovedStatus = sqlDataReader["ApprovedStatus"] is DBNull ? new byte() : Convert.ToByte(sqlDataReader["ApprovedStatus"]);
+                        item.PreviousAttendenceDetails = sqlDataReader["PreviousAttendenceDetails"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["PreviousAttendenceDetails"]);
 
                         baseEntityCollection.CollectionResponse.Add(item);
                     }
