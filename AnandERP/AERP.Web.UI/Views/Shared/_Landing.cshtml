@@ -4,14 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        @if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"]) != "")
-            {
-            @Resources.ResourceManager.GetString(string.Concat(Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])))
-        }
-        else
-        {
-            @Resources.ProjectEnvoirnment_AIS
-        }
+        @Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])
     </title>
     <link href="../Content/Theme/vendors/bower_components/animate.css/animate.min.css" rel="stylesheet" />
     <link href="../Content/Theme/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet" />

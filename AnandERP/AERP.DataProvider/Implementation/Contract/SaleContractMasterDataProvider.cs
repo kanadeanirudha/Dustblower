@@ -356,7 +356,7 @@ namespace AERP.DataProvider
                     if (_errorCode != (int)ErrorEnum.AllOk && _errorCode != (int)ErrorEnum.DuplicateEntry && _errorCode != 15)
                     {
                         //Throw error.
-                        throw new Exception("Stored Procedure 'USP_SaleContractManPowerItem_Insert' reported the ErrorCode: " +
+                        throw new Exception("Stored Procedure 'USP_SaleContractMaster_Insert' reported the ErrorCode: " +
                                             _errorCode);
                     }
                 }

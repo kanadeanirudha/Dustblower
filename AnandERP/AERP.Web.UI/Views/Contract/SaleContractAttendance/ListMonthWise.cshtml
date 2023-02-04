@@ -1,5 +1,8 @@
 ﻿@model AERP.ViewModel.SaleContractAttendanceViewModel
-<input id="ApprovedStatus" value="@Model.SaleContractAttendanceList[0].ApprovedStatus" style="display:none"/>
+@if (Model.SaleContractAttendanceList.Count > 0)
+{
+    <input id="ApprovedStatus" value="@Model.SaleContractAttendanceList[0].ApprovedStatus" style="display:none" />
+}
 <table id="myDataTable" class="table table-striped table-vmiddle table-responsive attendanceTable">
     <thead>
         <tr>

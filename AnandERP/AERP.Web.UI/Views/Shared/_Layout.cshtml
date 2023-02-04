@@ -5,14 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        @if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"]) != "")
-            {
-            @Resources.ResourceManager.GetString(string.Concat(Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])))
-        }
-        else
-        {
-            @Resources.ProjectEnvoirnment_AIS
-        }
+        @Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])
     </title>
 
 

@@ -10,15 +10,9 @@
         </li>
 
         <li class="logo hidden-xs">
-            @if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"]) != "")
-            {
-                <a href="#"> @Resources.ResourceManager.GetString(string.Concat(Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])))</a>
-            }
-            else
-            {
-                <a href="#">  @Resources.ProjectEnvoirnment_AIS</a>
-            }
-
+            <a href="#">
+                @Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])
+            </a>
         </li>
 
         <li class="pull-right">
@@ -63,8 +57,8 @@
                         <li id="ddlMfdsodule" class="dropdown">
                             @{Html.RenderAction("_BalancesheetList", "_Header", new { ModuleName = @HttpContext.Current.Session["ModuleName"] });}
                         </li>
-                                    }
-                                }
+                    }
+                }
             </ul>
         </li>
     </ul>

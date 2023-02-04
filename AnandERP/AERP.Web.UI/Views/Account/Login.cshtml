@@ -9,29 +9,12 @@
 
 
 <div class="row" align="center">
-    @if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["LandingPage_Image_OR_Name_OR_Both_OR_None"]) != "None")
-    {
-        <div class="alert" style="text-align: center; font-size: x-large; background-color: #FFF; opacity: 0.9; color: #1b74e0; font-weight: BOLD; font-size: 28px;">
-            @if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["LandingPage_Image_OR_Name_OR_Both_OR_None"]) == "Name")
-                {
-                @Resources.ResourceManager.GetString(string.Concat(Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])))
-            }
-            else if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["LandingPage_Image_OR_Name_OR_Both_OR_None"]) == "Image")
-            {
-                <span>
-                    <img src="../Content/images/@Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectLogo"])" width="75px;" />
-                </span>
-            }
-            else if (Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["LandingPage_Image_OR_Name_OR_Both_OR_None"]) == "Both")
-            {
-                <span>
-                    <img src="../Content/images/@Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectLogo"])" />
-                </span>
-                @Resources.ResourceManager.GetString(string.Concat(Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])))
-            }
-
-        </div>
-    }
+    <div class="alert" style="text-align: center; font-size: x-large; background-color: #FFF; opacity: 0.9; color: #1b74e0; font-weight: BOLD; font-size: 28px;">
+        <span>
+            <img src="../Content/images/@Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectLogo"])" width="75px;" />
+        </span>
+        @*@Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["ProjectEnvoirnment"])*@
+    </div>
     <section id="loginForm">
         <div class="bootstrap-admin-login-form">
             @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
