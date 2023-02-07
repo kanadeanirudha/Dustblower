@@ -1,6 +1,6 @@
 ﻿@model AERP.ViewModel.SaleContractAttendanceViewModel
 @{
-    int maxAttentence = 31;
+    int maxAttentance = 31;
 }
 @if (Model.SaleContractAttendanceList.Count > 0)
 {
@@ -52,7 +52,7 @@
                 </thead>
                 @if (Model.SaleContractAttendanceList.Count > 0)
                 {
-                    decimal TotalDaysSum = 0; decimal TotalBillingDaysSum = 0; decimal TotalAttendanceSum = 0; decimal OvertimeHoursSum = 0; decimal WeeklyOffDaysSum = 0; decimal WeeklyOffBillingDaysSum = 0; decimal previousAttendenceTotal = 0; int Count = 1;
+                    decimal TotalDaysSum = 0; decimal TotalBillingDaysSum = 0; decimal TotalAttendanceSum = 0; decimal OvertimeHoursSum = 0; decimal WeeklyOffDaysSum = 0; decimal WeeklyOffBillingDaysSum = 0; decimal previousAttendanceTotal = 0; int Count = 1;
                     <tbody>
 
                         @foreach (var item in Model.SaleContractAttendanceList)
@@ -63,9 +63,9 @@
                             OvertimeHoursSum = OvertimeHoursSum + item.OvertimeHours;
                             WeeklyOffDaysSum = WeeklyOffDaysSum + item.TotalWeeklyOffDays;
                             WeeklyOffBillingDaysSum = WeeklyOffBillingDaysSum + item.TotalWeeklyOffBillingDays;
-                            decimal PreviousAttendence = Convert.ToDecimal(item.PreviousAttendenceDetails.Split('~')[0]);
-                            previousAttendenceTotal = PreviousAttendence + item.TotalAttendance;
-                            string styleMaxAttentence = maxAttentence < previousAttendenceTotal ? "background-color: red; color: white; font-weight: bold; " : "";
+                            decimal PreviousAttendance = Convert.ToDecimal(item.PreviousAttendanceDetails.Split('~')[0]);
+                            previousAttendanceTotal = PreviousAttendance + item.TotalAttendance;
+                            string styleMaxAttentence = maxAttentance < previousAttendanceTotal ? "background-color: red; color: white; font-weight: bold; " : "";
                             <tr>
                                 <td>@Count</td>
                                 <td>
@@ -122,7 +122,7 @@
                                     <input type="hidden" class="form-control input-sm" value="@item.SaleContractManPowerAssignID">
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control input-sm" style="@styleMaxAttentence" disabled="disabled" id="PreviousAttendenceDetails_@item.ID" data-PreviousAttendence="@PreviousAttendence" value="@previousAttendenceTotal">
+                                    <input type="text" class="form-control input-sm" style="@styleMaxAttentence" disabled="disabled" id="PreviousAttendenceDetails_@item.ID" data-PreviousAttendence="@PreviousAttendance" value="@previousAttendanceTotal">
                                 </td>
                             </tr>
                             Count++;

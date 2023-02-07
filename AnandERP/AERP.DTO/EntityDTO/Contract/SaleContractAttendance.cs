@@ -227,6 +227,6 @@ namespace AERP.DTO
         public int Status { get; set; }
         public byte ApprovalStatus { get; set; }
         public string TaskCode { get; set; }
-        public string PreviousAttendenceDetails { get; set; }
+        public string PreviousAttendanceDetails { get; set; }
     }
 }
