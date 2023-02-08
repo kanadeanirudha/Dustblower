@@ -63,8 +63,9 @@
                             OvertimeHoursSum = OvertimeHoursSum + item.OvertimeHours;
                             WeeklyOffDaysSum = WeeklyOffDaysSum + item.TotalWeeklyOffDays;
                             WeeklyOffBillingDaysSum = WeeklyOffBillingDaysSum + item.TotalWeeklyOffBillingDays;
-                            decimal PreviousAttendance = Convert.ToDecimal(item.PreviousAttendanceDetails.Split('~')[0]);
-                            previousAttendanceTotal = PreviousAttendance + item.TotalAttendance;
+                            decimal previousAttendance = Convert.ToDecimal(item.PreviousAttendanceDetails.Split('~')[0]);
+                            string previousAttendanceDetails = previousAttendance > 0 ? item.PreviousAttendanceDetails.Split('~')[1] : "";
+                            previousAttendanceTotal = previousAttendance + item.TotalAttendance;
                             string styleMaxAttentence = maxAttentance < previousAttendanceTotal ? "background-color: red; color: white; font-weight: bold; " : "";
                             <tr>
                                 <td>@Count</td>
@@ -122,7 +123,7 @@
                                     <input type="hidden" class="form-control input-sm" value="@item.SaleContractManPowerAssignID">
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control input-sm" style="@styleMaxAttentence" disabled="disabled" id="PreviousAttendenceDetails_@item.ID" data-PreviousAttendence="@PreviousAttendance" value="@previousAttendanceTotal">
+                                    <input type="text" class="form-control input-sm" style="@styleMaxAttentence" disabled="disabled" id="PreviousAttendenceDetails_@item.ID" data-PreviousAttendence="@previousAttendance" value="@previousAttendanceTotal" title="@previousAttendanceDetails">
                                 </td>
                             </tr>
                             Count++;
@@ -160,20 +161,20 @@
 
         $(".TotalAttendance").keyup(function () {
             debugger;
-           
+
             var id = $(this).attr('data-id');
             var attendance = $(this).val().trim() != "" ? $(this).val().trim() : 0;
             var previousAttendenceTotal = 0;
             var previousAttendence = $("#PreviousAttendenceDetails_" + id).attr('data-PreviousAttendence');
             if (previousAttendence != undefined && previousAttendence > 0) {
-                previousAttendenceTotal = (parseFloat(attendance)+ parseFloat(previousAttendence)).toFixed(2);
+                previousAttendenceTotal = (parseFloat(attendance) + parseFloat(previousAttendence)).toFixed(2);
             }
             else {
                 previousAttendenceTotal = attendance;
             }
             let css_property =
             {
-                "background-color":"red",
+                "background-color": "red",
                 "color": "white",
                 "font-weight": "bold"
             }
@@ -181,7 +182,7 @@
             if (31 < previousAttendenceTotal) {
                 $("#PreviousAttendenceDetails_" + id).css(css_property);
             }
-            
+
             $("#PreviousAttendenceDetails_" + id).val(previousAttendenceTotal);
             var TotalAttendanceSum = 0.0;
             $(".TotalAttendance").each(function () {
