@@ -47,7 +47,7 @@
                         <th>Total Off Billing Days</th>
                         <th>Attendance</th>
                         <th>Over Time</th>
-                        <th>Previous Attendence</th>
+                        <th>Previous Attendance</th>
                     </tr>
                 </thead>
                 @if (Model.SaleContractAttendanceList.Count > 0)
@@ -116,14 +116,14 @@
                                     }
                                 </td>
                                 <td>
-                                    <input type="text" data-id="@item.ID" class="form-control input-sm TotalAttendance" value="@item.TotalAttendance">
+                                    <input type="text" data-id="@item.SaleContractEmployeeMasterID" class="form-control input-sm TotalAttendance" value="@item.TotalAttendance">
                                 </td>
                                 <td>
                                     <input type="text" class="form-control input-sm OvertimeHours" value="@item.OvertimeHours">
                                     <input type="hidden" class="form-control input-sm" value="@item.SaleContractManPowerAssignID">
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control input-sm" style="@styleMaxAttentence" disabled="disabled" id="PreviousAttendenceDetails_@item.ID" data-PreviousAttendence="@previousAttendance" value="@previousAttendanceTotal" title="@previousAttendanceDetails">
+                                    <input type="text" class="form-control input-sm" style="@styleMaxAttentence" disabled="disabled" id="PreviousAttendenceDetails_@item.SaleContractEmployeeMasterID" data-PreviousAttendence="@previousAttendance" value="@previousAttendanceTotal" title="@previousAttendanceDetails">
                                 </td>
                             </tr>
                             Count++;

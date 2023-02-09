@@ -199,7 +199,7 @@ var SaleContractAttendance = {
 
         var ParameterXml = "<rows>";
 
-        for (var i = 0; i < TotalRecord; i = i + 16) {
+        for (var i = 0; i < TotalRecord; i = i + 17) {
 
             ParameterXml = ParameterXml + "<row><ID>" + DataArray[i] + "</ID><SaleContractManPowerItemID>" + DataArray[i + 1] + "</SaleContractManPowerItemID><SaleContractEmployeeMasterID>" + DataArray[i + 2] + "</SaleContractEmployeeMasterID><TotalOverTimeSalaryDays>" + DataArray[i + 3] + "</TotalOverTimeSalaryDays><TotalDays>" + DataArray[i + 4] + "</TotalDays><TotalOverTimeBillingDays>" + DataArray[i + 5] + "</TotalOverTimeBillingDays><TotalBillingDays>" + DataArray[i + 6] + "</TotalBillingDays><IsSalaryDaysOnWeeklyOff>" + DataArray[i + 7] + "</IsSalaryDaysOnWeeklyOff><IsBillingDaysOnWeeklyOff>" + DataArray[i + 8] + "</IsBillingDaysOnWeeklyOff><IsOTDaysOnTotalOff>" + DataArray[i + 9] + "</IsOTDaysOnTotalOff><IsOTBillingDaysOnTotalOff>" + DataArray[i + 10] + "</IsOTBillingDaysOnTotalOff><TotalWeeklyOffDays>" + DataArray[i + 11] + "</TotalWeeklyOffDays><TotalWeeklyOffBillingDays>" + DataArray[i + 12] + "</TotalWeeklyOffBillingDays><TotalAttendance>" + DataArray[i + 13] + "</TotalAttendance><OvertimeHours>" + DataArray[i + 14] + "</OvertimeHours><SaleContractManPowerAssignID>" + DataArray[i + 15] + "</SaleContractManPowerAssignID></row>";
 
