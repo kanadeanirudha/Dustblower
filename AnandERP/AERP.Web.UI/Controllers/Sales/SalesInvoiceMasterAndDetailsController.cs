@@ -476,19 +476,22 @@ namespace AERP.Web.UI.Controllers
 
                 SalesInvoicePDF = SalesInvoicePDF + "<table border= '1' bgcolor='#fff;' color='black' style=' border-collapse:collapse;font-size:7pt;'><b>PurchaseOrder</b><tr><td colspan='2'  bgcolor='#F7F2F2' style='padding:0 5px 5px;font-size:10pt;text-align:center;'><b><u>TAX INVOICE</u><b></td></tr><tr><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '><b>GSTIN Number</b>: " + model.SalesinvoiceList[0].GSTINNumber + "</td><td  bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'><b>Transportation Mode <b>: </td></tr><tr><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '><b>PAN Number</b>: " + model.SalesinvoiceList[0].PanNumber + "</td><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '><b>Vehical Number </b>: </td></tr><tr><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left;'><b>CIN Number</b>: " + model.SalesinvoiceList[0].CINNumber + "</td><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '>Date and Time of Supply: " + CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(DateTimeOfSupply.Month) + " " + DateTimeOfSupply.Year + " </td></tr><tr><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;text-align:left; '><b>Tax is payable on Reverse Charge</b> :(No)</td><td  bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '><b>Place of Supply</b> :" + model.SalesinvoiceList[0].CustomerBranchAddress + " </td> </tr><tr><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;text-align:left; '><b>Invoice Number</b> :" + model.SalesinvoiceList[0].CustomerInvoiceNumber + "</td>";
 
-                SalesInvoicePDF = SalesInvoicePDF + "<td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '></td>";
+                SalesInvoicePDF = SalesInvoicePDF + "<td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '><b>Irn</b> :"+ model.SalesinvoiceList[0]?.Irn + "</td>";
 
 
                 SalesInvoicePDF = SalesInvoicePDF + "</tr><tr><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;text-align:left; '><b>Invoice Date</b> :" + model.SalesinvoiceList[0].TransactionDate + "</td>";
+                SalesInvoicePDF = SalesInvoicePDF + "<td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '><b>Acknowledgement No</b> :" + model.SalesinvoiceList[0]?.AcknowledgementNo + "</td></tr>";
 
                 if (model.SalesinvoiceList[0].DeliveryNumber != "" && model.SalesinvoiceList[0].DeliveryNumber != null)
                 {
-                    SalesInvoicePDF = SalesInvoicePDF + "<td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '><b>Delivery Memo No.</b> :" + model.SalesinvoiceList[0].DeliveryNumber + "</td> </tr></table>";
+                    SalesInvoicePDF = SalesInvoicePDF + "<tr><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '><b>Delivery Memo No.</b> :" + model.SalesinvoiceList[0].DeliveryNumber + "</td> </tr></table>";
                 }
                 else
                 {
-                    SalesInvoicePDF = SalesInvoicePDF + "<td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '></td> </tr></table>";
+                    SalesInvoicePDF = SalesInvoicePDF + "<tr><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '></td>";
                 }
+
+                SalesInvoicePDF = SalesInvoicePDF + "<td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '><b>Acknowledgement Date</b> :" + model.SalesinvoiceList[0]?.AcknowledgementDate + "</td></tr></table>";
 
                 SalesInvoicePDF = SalesInvoicePDF + "<br><table border= '1' bgcolor='#fff;' color='black' style=' border-collapse:collapse;font-size:11pt;'><b>Sales Order</b><tr><td bgcolor='#D3D3D3' color='black' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:11pt;text-align:Center;'><b>Details of Receiver(Billed to)</b></td><td  bgcolor='#D3D3D3' color='black' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:11pt;text-align:Center;'><b>Details of Consignee(Shipped to)</b></td></tr>";
 

@@ -404,6 +404,8 @@ namespace AERP.DTO
         public string ImageQRCode { get; set; }
         public bool IsPossibleToCancelledEInvoice { get; set; }
         public string Irn { get; set; }
+        public string AcknowledgementNo { get; set; }
+        public string AcknowledgementDate { get; set; }
         public string CentreCode { get; set; }
     }
 }

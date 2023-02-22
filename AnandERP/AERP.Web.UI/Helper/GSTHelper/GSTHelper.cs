@@ -16,17 +16,19 @@ namespace AERP.Web.UI.Helper
     public static class GSTHelper
     {
         #region Auth Token
-        public static GSTAuthTokenResponse GenerateGSTAuthToken(OrganisationCentrewiseGSTCredential GSTCredential)
+        public static GSTAuthTokenResponse GenerateGSTAuthToken(OrganisationCentrewiseGSTCredential gstCredential)
         {
             GSTAuthTokenResponse gstAuthTokenResponse = new GSTAuthTokenResponse();
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             RestClient client = new RestClient();
-            RestRequest request = new RestRequest($"{GSTCredential.Urls}/eivital/dec/v1.04/auth", Method.GET);
+            RestRequest request = new RestRequest($"{gstCredential.Urls}/eivital/dec/v1.04/auth", Method.GET);
             request.Timeout = -1;
-            request.AddHeader("Gstin", GSTCredential.GSTIN);
-            request.AddHeader("user_name", GSTCredential.EInvoiceUserName);
-            request.AddHeader("eInvPwd", GSTCredential.EInvoicePassword); //
-            request.AddHeader("aspid", GSTCredential.AspId);
-            request.AddHeader("password", GSTCredential.AspUserPassword);
+            request.AddHeader("Gstin", gstCredential.GSTIN);
+            request.AddHeader("user_name", gstCredential.EInvoiceUserName);
+            request.AddHeader("eInvPwd", gstCredential.EInvoicePassword); //
+            request.AddHeader("aspid", gstCredential.AspId);
+            request.AddHeader("password", gstCredential.AspUserPassword);
             request.RequestFormat = DataFormat.Json;
             IRestResponse response = client.Execute(request);
             if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK)
@@ -56,6 +58,9 @@ namespace AERP.Web.UI.Helper
             {
                 gstInvoiceRequestModel.Version = GSTCredential.Version;
                 string requestBody = JsonConvert.SerializeObject(gstInvoiceRequestModel);
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
                 RestClient client = new RestClient();
                 RestRequest request = new RestRequest($"{GSTCredential.Urls}/eicore/dec/v1.03/Invoice?QrCodeSize={GSTCredential.QrCodeSize}", Method.POST);
                 request.AddHeader("Gstin", GSTCredential.GSTIN);
@@ -118,6 +123,8 @@ namespace AERP.Web.UI.Helper
             try
             {
                 string requestBody = JsonConvert.SerializeObject(gstInvoiceCancelledRequestModel);
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 RestClient client = new RestClient();
                 RestRequest request = new RestRequest($"{GSTCredential.Urls}/eicore/dec/v1.03/Invoice/Cancel", Method.POST);
                 request.AddHeader("Gstin", GSTCredential.GSTIN);
@@ -178,6 +185,8 @@ namespace AERP.Web.UI.Helper
             try
             {
                 string requestBody = JsonConvert.SerializeObject(gstEWayBillRequestModel);
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 RestClient client = new RestClient();
                 RestRequest request = new RestRequest($"{GSTCredential.Urls}/eiewb/dec/v1.03/ewaybill", Method.POST);
                 request.AddHeader("Gstin", GSTCredential.GSTIN);
@@ -233,6 +242,8 @@ namespace AERP.Web.UI.Helper
             GSTEWayBillResponse gstEWayBillResponse = new GSTEWayBillResponse();
             try
             {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 RestClient client = new RestClient();
                 RestRequest request = new RestRequest($"{GSTCredential.Urls}/ewaybillapi/dec/v1.03/ewayapi?action=GetEwayBill&ewbNo={ewbNo}", Method.GET);
                 request.Timeout = -1;
@@ -265,8 +276,8 @@ namespace AERP.Web.UI.Helper
                         //    Process.Start(pdfPath); //Code to display .pdf file
                     }
                     catch (Exception ex)
-                    { 
-                    
+                    {
+
                     }
                 }
                 else
@@ -306,6 +317,8 @@ namespace AERP.Web.UI.Helper
             try
             {
                 string requestBody = JsonConvert.SerializeObject(gstEWayBillCancelledRequestModel);
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 RestClient client = new RestClient();
                 RestRequest request = new RestRequest($"{GSTCredential.Urls}/ewaybillapi/dec/v1.03/ewayapi?action=CANEWB&gstin={GSTCredential.GSTIN}&username={GSTCredential.EInvoiceUserName}&authtoken={GSTCredential.AuthToken}", Method.POST);
                 request.AddHeader("aspid", GSTCredential.AspId);
@@ -314,7 +327,7 @@ namespace AERP.Web.UI.Helper
                 request.RequestFormat = DataFormat.Json;
                 request.AddBody(requestBody);     //Request Payload in object format
                 IRestResponse response = client.Execute(request);
-                
+
                 if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK)
                 {
                     gstEWayBillCancelledResponse.Data = response.Content;

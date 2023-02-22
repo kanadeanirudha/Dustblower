@@ -618,6 +618,9 @@ namespace AERP.DataProvider
                         if (searchRequest.ActionType == "Create")
                         {
                             item.ImageQRCode = sqlDataReader["QrCodeImage"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["QrCodeImage"]);
+                            item.Irn = sqlDataReader["Irn"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["Irn"]);
+                            item.AcknowledgementNo = sqlDataReader["AcknowledgementNo"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["AcknowledgementNo"]);
+                            item.AcknowledgementDate = sqlDataReader["AcknowledgementDate"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["AcknowledgementDate"]);
                         }
                         baseEntityCollection.CollectionResponse.Add(item);
                     }

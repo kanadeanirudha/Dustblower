@@ -1084,6 +1084,9 @@ namespace AERP.DataProvider
                         item.IsServiceItem = sqlDataReader["ServiceItemFlag"] is DBNull ? false : Convert.ToBoolean(sqlDataReader["ServiceItemFlag"]);
                         item.WaterMark = sqlDataReader["WaterMark"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["WaterMark"]);
                         item.ImageQRCode = sqlDataReader["QrCodeImage"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["QrCodeImage"]);
+                        item.Irn = sqlDataReader["Irn"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["Irn"]);
+                        item.AcknowledgementNo = sqlDataReader["AcknowledgementNo"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["AcknowledgementNo"]);
+                        item.AcknowledgementDate = sqlDataReader["AcknowledgementDate"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["AcknowledgementDate"]);
                         baseEntityCollection.CollectionResponse.Add(item);
                     }
                     if (cmdToExecute.Parameters["@iErrorCode"].Value != null)
@@ -1223,9 +1226,11 @@ namespace AERP.DataProvider
                         item.ReasonForExemption = sqlDataReader["ReasonForExemption"] is DBNull ? new byte() : Convert.ToByte(sqlDataReader["ReasonForExemption"]);
                         item.TaxExemptionRemark = sqlDataReader["TaxExemptionRemark"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["TaxExemptionRemark"]);
                         item.IsCanceled = sqlDataReader["IsCanceled"] is DBNull ? false : Convert.ToBoolean(sqlDataReader["IsCanceled"]);
-
+                        item.ImageQRCode = sqlDataReader["QrCodeImage"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["QrCodeImage"]);
                         item.WaterMark = sqlDataReader["WaterMark"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["WaterMark"]);
-
+                        item.Irn = sqlDataReader["Irn"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["Irn"]);
+                        item.AcknowledgementNo = sqlDataReader["AcknowledgementNo"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["AcknowledgementNo"]);
+                        item.AcknowledgementDate = sqlDataReader["AcknowledgementDate"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["AcknowledgementDate"]);
                         baseEntityCollection.CollectionResponse.Add(item);
                     }
                     if (cmdToExecute.Parameters["@iErrorCode"].Value != null)
