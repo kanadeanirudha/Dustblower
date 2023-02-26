@@ -484,7 +484,7 @@ namespace AERP.Web.UI.Controllers
 
                 if (model.SalesinvoiceList[0].DeliveryNumber != "" && model.SalesinvoiceList[0].DeliveryNumber != null)
                 {
-                    SalesInvoicePDF = SalesInvoicePDF + "<tr><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '><b>Delivery Memo No.</b> :" + model.SalesinvoiceList[0].DeliveryNumber + "</td> </tr></table>";
+                    SalesInvoicePDF = SalesInvoicePDF + "<tr><td bgcolor='#F7F2F2' style='border: 1px solid black;border-collapse: collapse; padding: 5px;font-size:7pt;text-align:left; '><b>Delivery Memo No.</b> :" + model.SalesinvoiceList[0].DeliveryNumber + "</td>";
                 }
                 else
                 {
