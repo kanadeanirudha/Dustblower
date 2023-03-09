@@ -26,7 +26,7 @@ namespace AERP.DTO
     {
         public string TaxSch { get; set; } = "GST";
         public string SupTyp { get; set; } = "B2B";
-        public string RegRev { get; set; } = "Y";
+        public string RegRev { get; set; } = "N";
         public string EcmGstin { get; set; }
         public string IgstOnIntra { get; set; } = "N";
     }

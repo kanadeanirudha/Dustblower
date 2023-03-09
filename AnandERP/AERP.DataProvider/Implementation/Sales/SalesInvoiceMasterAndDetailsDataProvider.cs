@@ -2184,6 +2184,11 @@ namespace AERP.DataProvider
                                 totalTaxAmount = Convert.ToDouble(sqlDataReader["TotalTaxAmount"]);
                                 gstInvoiceRequestModel.CentreCode = Convert.ToString(sqlDataReader["CentreCode"]);
                                 gstInvoiceRequestModel.TranDtls = new TranDtls();
+                                if (Convert.ToBoolean(sqlDataReader["IsTaxExempted"]) && Convert.ToString(sqlDataReader["ReasonForExemption"]) == "1")
+                                {
+                                    gstInvoiceRequestModel.TranDtls.SupTyp = "SEZWP";
+                                    gstInvoiceRequestModel.TranDtls.RegRev = "Y";
+                                }
                                 gstInvoiceRequestModel.DocDtls = new DocDtls()
                                 {
                                     No = sqlDataReader["CustomerInvoiceNumber"] is DBNull ? string.Empty : Convert.ToString(sqlDataReader["CustomerInvoiceNumber"]),
@@ -2246,7 +2251,7 @@ namespace AERP.DataProvider
                                 {
                                     string a = sqlDataReader["LineItemTaxRates"].ToString();
                                     item.GstRt = Convert.ToDouble(sqlDataReader["LineItemTaxRates"].ToString().Split('~')[1]);
-                                    item.IgstAmt = lineItemTaxAmount;
+                                    item.IgstAmt = Math.Round(lineItemTaxAmount,2);
                                 }
                                 else
                                 {
@@ -2276,6 +2281,7 @@ namespace AERP.DataProvider
 
                         gstInvoiceRequestModel.ItemList = itemList;
                         totalInvoiceAmount = totalInvoiceAmount - totalDiscountAmount;
+                        totalInvoiceAmount = totalInvoiceAmount < 0 ? 0 : totalInvoiceAmount;
                         gstInvoiceRequestModel.ValDtls = new ValDtls()
                         {
                             AssVal = assTotalValue,
@@ -2284,7 +2290,7 @@ namespace AERP.DataProvider
                             SgstVal = IsOtherState ? 0 : Math.Round(sgstTotal, 2),
                             Discount = 0,
                             TotInvVal = Math.Round(totalInvoiceAmount, 2),
-                            TotInvValFc = totalInvoiceAmount,
+                            TotInvValFc = Math.Round(totalInvoiceAmount, 2),
                             RndOffAmt = Math.Round(Math.Abs(Math.Round(totalInvoiceAmount) - totalInvoiceAmount), 2)
                         };
                     }
